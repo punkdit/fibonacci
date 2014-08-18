@@ -4,8 +4,11 @@
 \author{Simon Burton, Courtney Brell, Steven Flammia}
 %\date{\today}
 
-\documentclass[12pt]{article}
+\documentclass[12pt,a4paper]{article}
 %\documentclass[11pt, twocolumn]{article}
+
+\usepackage[paper=a4paper,dvips,top=1.5cm,left=1.5cm,right=1.5cm,
+    foot=1cm,bottom=1.5cm]{geometry}
 
 %\usepackage{epsf}
 \usepackage{amsmath}
@@ -71,10 +74,15 @@ $\sigma_1, \sigma_2, ... \sigma_{n-1}$ with the following relations:
     $$ \sigma_i \sigma_{i+1} \sigma_i =  \sigma_{i+1} \sigma_i \sigma_{i+1}.$$
 
 
+% ----------------------------------------------------------------------------
+
 \section{Fibonacci Anyons}
 
 
-So we have a representation of the braid group.
+So we have a (linear) representation of the braid group.
+
+
+% ----------------------------------------------------------------------------
 
 \section{Curve Diagrams}
 
@@ -88,7 +96,7 @@ the set of homeomorphisms $f:X\to X$ modulo isotopy
 
 In particular we are interested in the $n$-punctured disc:
 
-    $$ D_n := \mathZ^2 - n.$$
+    $$ D_n := \mathR^2 - Q_n.$$
 
 topologically this is a sphere with $n+1$ holes in it.
 
@@ -99,11 +107,11 @@ Curve diagrams, see \cite{Dehornoy02}.
 
 We verify the braid relations directly.
 
-%
-%\begin{center}
-%%\includegraphics[width=0.5\textwidth]{mypicture.png}
-%\includegraphics{fig00.eps}
-%\end{center}
+
+\begin{center}
+%\includegraphics[width=0.5\textwidth]{mypicture.png}
+\includegraphics{curve-braid.eps}
+\end{center}
 
 
 
