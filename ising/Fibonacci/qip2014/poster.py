@@ -746,7 +746,10 @@ instance that exceeds this bound is considered
 [text.parbox(dw-2*m),])
 
 y -= 18*dr
-c.insert(epsfile.epsfile(x, y, "qip/fibonacci.eps", width=(dw-2*m)))
+try:
+    c.insert(epsfile.epsfile(x, y, "qip/fibonacci.eps", width=(dw-2*m)))
+except IOError, e:
+    print e
 
 
 # -------------------------------------------------------------------
