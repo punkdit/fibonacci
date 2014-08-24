@@ -1,5 +1,6 @@
 
-\title{Error Correction in a Phenomenological Fibonacci Anyon Quantum Code}
+%\title{Error Correction in a Phenomenological Fibonacci Anyon Quantum Code}
+\title{Random Fibonacci Anyons Simulable via Covariant Action of Mapping Class Group}
 
 \author{Simon Burton, Courtney Brell, Steven Flammia}
 %\date{\today}
@@ -63,8 +64,9 @@
 %\def\nin{\not\in}
 
 %\def\heading #1{\noindent\underline{\Large\bf #1}}
-\def\heading #1{\vskip 20pt \noindent\underline{\bf #1}\vskip 5pt}
+\def\heading #1{\vskip 20pt \noindent\underline{\large \bf #1}\vskip 5pt}
 
+\def\important #1{\underline{\bf #1}}
 
 % ----------------------------------------------------------------------------
 %
@@ -94,6 +96,90 @@ trivial total charge.
 
 \heading{Curve Diagrams}
 
+The disc $D = \{ x\in \mathR^2\ s.t.\ |x|\leq 1 \} $,
+has boundary $\partial D = \{ x\in \mathR^2\ s.t.\ |x|=1 \} $.
+
+Given a finite set $ Q_n \subset D-\partial D$,
+we denote $D_n$ as the pair $(D, Q_n).$
+%Topologically, this definition does not depend on
+%anything but the cardinality of $Q_n.$
+
+We define the mapping class group of $D_n$,
+$MCG(D_n),$ as the set of homeomorphisms $D\to D$ that
+restrict to a permutation on $Q_n,$ modulo isotopy that
+fixes $Q_n.$
+Such an equivelance class
+of homeomorphisms will be denoted as $\phi:D_n\to D_n.$
+
+We can think of $D_n$ as the unit disc with $n$ holes,
+and the mapping class group as the set of homeomorphisms on
+this space, modulo isotopy.
+
+The line $L = \{ x\in \mathR\ s.t.\ |x|\leq 1 \} $,
+and a finite set $R_n\subset L$,
+$L_n = (L, R_n).$
+
+We define a curve diagram as an embedding $f : L\to D$ that
+restricts to an injection $R_n\to Q_n,$ modulo
+isotopy.
+This will be denoted as $f : L_n\to D_n.$
+We can generalize this to $f : L_m\to D_n$ with $m\leq n$
+to mean a map $L\to D$ that restricts to an injection $R_m\to Q_n,$
+modulo isotopy.
+
+%\important{Definition:} A curve diagram is...
+
+
+% ----------------------------------------------------------------------------
+
+\heading{Group action}
+
+The mapping class group $MCG(D_n)$ acts on curve diagrams $f : L_n\to D_n$
+via post-composition.
+
+\important{Definition:} by a {\it local action} on a curve
+diagram $f:L_n\to D_n$ we mean an element of $MCG(D_n)$
+that can be represented by a half-twist that acts
+on a small neighbourhood of $f([i, i+1]).$
+We denote such an element by $b(i, f).$
+
+\important{Definition:} by a {\it sequence of local moves} on a curve
+diagram $f:L_n\to D_n$ we mean a
+sequence of curve diagrams $f_k: L_n\to D_n$ and local actions:
+
+        $$ b(i_1, f_1), b(i_2, f_2), ... b(i_N, f_N) $$
+
+such that $f_1=f,$ and
+
+        $$ f_{k+1} = b(i_k, f_k) f_k,\ \  \text{} 1\leq k<N.$$
+
+
+% ----------------------------------------------------------------------------
+
+\heading{Local factorization of $MCG(D_n)$}
+
+\important{Theorem:}
+Given curve diagrams $f:L_n\to D_n$ and $g:L_2\to D_n$
+find $\phi\in MCG(D_n)$ as a product of
+a sequence of local moves such that % DIAGRAM
+$g = \phi f i.$
+
+\important{Proof:}
+
+1) decompose $f$ along (finitely many) intersections
+with $g.$
+
+% DIAGRAM
+
+2) on each component $k$:
+
+% DIAGRAM
+
+let $h_k = g_k + f_k.$
+This is a simple closed curve in $D$...
+
+
+% ----------------------------------------------------------------------------
 
 %Given a topological space $X$ we define the {\it mapping class group} of $X$ as
 %the set of homeomorphisms $f:X\to X$ modulo isotopy
@@ -101,38 +187,43 @@ trivial total charge.
 %    % $$ MCG(X) := \{ f : X \to X \text{s.t.} f \text{is homeomorphism} \} / \sim_{\text{iso}} $$
 %    $$ MCG(X) := \{ f : X \to X \} / \sim_{\text{iso}}.$$
 
-Given a topological manifold $M$ we define the {\it mapping class group} of $M$ as
-the set of homeomorphisms $f:M\to M$ modulo isotopy
+%Given a topological manifold $M$ we define the {\it mapping class group} of $M$ as
+%the set of homeomorphisms $f:M\to M$ modulo isotopy
+%
+%    $$ MCG(M) := \{ f : M \to M \} / \sim_{\text{iso}}.$$
+%
+%If $M$ has boundary $\partial M$ we require the homeomorphisms to
+%be the identity on $\partial M$.
+%
+%In particular we are interested in
+% the $n$-punctured disc.
+%This is a disc $D = \{ x\in \mathR^2 s.t. |x|\leq 1 \} $
+%with $n$ points removed:
+%
+%    $$ D_n := D - Q_n,$$
+%
+%where $Q_n$ is some finite subset of the interior of $D$.
+%
+%%topologically this is a sphere with $n+1$ holes in it.
+%
+%It is a theorem that the group $MCG(D_n)$ is isomorphic to $B_n.$
+%(See \cite{Kassel10}, chapter 1.)
+%
+%We fix $Q_n$ to be the points $\{(0, i/(n+1)) for i=1,...n\}$
+%then we define the line $L = \{(0, x) s.t. |x|\leq 1\}.$
+%Given a representative $f$ of an element of $MCG(D_n)$
+%we define the
+%curve diagram as the
+%image of $L$ under $f$.
+%
+%It is a theorem (see \cite{Dehornoy02}) that such curve diagrams
+%correspond uniquely to elements of the mapping class group, and
+%hence to the braid group $B_n$.
 
-    $$ MCG(M) := \{ f : M \to M \} / \sim_{\text{iso}}.$$
 
-If $M$ has boundary $\partial M$ we require the homeomorphisms to
-be the identity on $\partial M$.
 
-In particular we are interested in
- the $n$-punctured disc.
-This is a disc $D = \{ x\in \mathR^2 s.t. |x|\leq 1 \} $
-with $n$ points removed:
+\heading{Braid group representation}
 
-    $$ D_n := D - Q_n,$$
-
-where $Q_n$ is some finite subset of the interior of $D$.
-
-%topologically this is a sphere with $n+1$ holes in it.
-
-It is a theorem that the group $MCG(D_n)$ is isomorphic to $B_n.$
-(See \cite{Kassel10}, chapter 1.)
-
-We fix $Q_n$ to be the points $\{(0, i/(n+1)) for i=1,...n\}$
-then we define the line $L = \{(0, x) s.t. |x|\leq 1\}.$
-Given a representative $f$ of an element of $MCG(D_n)$
-we define the
-curve diagram as the
-image of $L$ under $f$.
-
-It is a theorem (see \cite{Dehornoy02}) that such curve diagrams
-correspond uniquely to elements of the mapping class group, and
-hence to the braid group $B_n$.
 
 Here we verify the braid relations directly:
 
@@ -141,10 +232,12 @@ Here we verify the braid relations directly:
 \includegraphics[width=0.5\textwidth]{curve-braid.eps}
 \end{center}
 
+\cite{Dehornoy02}
+
 
 % ----------------------------------------------------------------------------
 
-\heading{Pair-of-pants decompositions}
+%\heading{Pair-of-pants decompositions}
 
 %We measure charge in regions bounded by curves, ie. elements of
 %the first homology group $H_1(D_n).$
