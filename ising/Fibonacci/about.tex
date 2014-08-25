@@ -127,8 +127,7 @@ We can generalize this to $f : L_m\to D_n$ with $m\leq n$
 to mean a map $L\to D$ that restricts to an injection $R_m\to Q_n,$
 modulo isotopy.
 
-%\important{Definition:} A curve diagram is...
-
+DIAGRAM
 
 % ----------------------------------------------------------------------------
 
@@ -147,7 +146,7 @@ We denote such an element by $b(i, f).$
 diagram $f:L_n\to D_n$ we mean a
 sequence of curve diagrams $f_k: L_n\to D_n$ and local actions:
 
-        $$ b(i_1, f_1), b(i_2, f_2), ... b(i_N, f_N) $$
+        $$ b(i_1, f_1),\ b(i_2, f_2),\ ...\ b(i_N, f_N) $$
 
 such that $f_1=f,$ and
 
@@ -158,13 +157,13 @@ such that $f_1=f,$ and
 
 \heading{Local factorization of $MCG(D_n)$}
 
-\important{Theorem:}
+\important{Problem:}
 Given curve diagrams $f:L_n\to D_n$ and $g:L_2\to D_n$
 find $\phi\in MCG(D_n)$ as a product of
 a sequence of local moves such that % DIAGRAM
 $g = \phi f i.$
 
-\important{Proof:}
+\important{Solution:}
 
 1) decompose $f$ along (finitely many) intersections
 with $g.$
@@ -176,8 +175,25 @@ with $g.$
 % DIAGRAM
 
 let $h_k = g_k + f_k.$
-This is a simple closed curve in $D$...
+This is a simple closed curve in $D$ which splits $D$
+into two regions, the inside (simply connected) and the
+outside.
+We find six cases, which we can distinguish between
+using the winding number and whether the end points
+of $f$ are inside or outside:
 
+% DIAGRAM
+
+
+% ----------------------------------------------------------------------------
+
+\heading{Combinatorial formulation}
+
+We discretize the prolem for software implementation...
+
+% ----------------------------------------------------------------------------
+
+\heading{Numerical results}
 
 % ----------------------------------------------------------------------------
 
