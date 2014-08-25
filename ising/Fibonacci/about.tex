@@ -8,8 +8,8 @@
 \documentclass[12pt,a4paper]{article}
 %\documentclass[11pt, twocolumn]{article}
 
-\usepackage[paper=a4paper,dvips,top=1.5cm,left=1.5cm,right=1.5cm,
-    foot=1cm,bottom=1.5cm]{geometry}
+%\usepackage[paper=a4paper,dvips,top=1.5cm,left=1.5cm,right=1.5cm,foot=1cm,bottom=1.5cm]{geometry}
+\usepackage[paper=a4paper,dvips,top=3.0cm,left=1.5cm,right=1.5cm,foot=1cm,bottom=1.5cm]{geometry}
 
 %\usepackage{epsf}
 \usepackage{amsmath}
@@ -118,16 +118,23 @@ this space, modulo isotopy.
 The line $L = \{ x\in \mathR\ s.t.\ |x|\leq 1 \} $,
 and a finite set $R_n\subset L$,
 $L_n = (L, R_n).$
+By a slight abuse of notation, we enumerate the points in $R_n$ 
+in a monotonically increasing order,
+and understand such notation as $[i, i+1]$ to mean the closed interval in $L$
+with (consecutive) endpoints $i, i+1 \in R_n.$
 
 We define a curve diagram as an embedding $f : L\to D$ that
-restricts to an injection $R_n\to Q_n,$ modulo
+restricts to a bijection $R_n\to Q_n,$ modulo
 isotopy.
 This will be denoted as $f : L_n\to D_n.$
 We can generalize this to $f : L_m\to D_n$ with $m\leq n$
 to mean a map $L\to D$ that restricts to an injection $R_m\to Q_n,$
 modulo isotopy.
 
-DIAGRAM
+\begin{center}
+\includegraphics[width=0.5\textwidth]{curve-diagram.eps}
+\end{center}
+
 
 % ----------------------------------------------------------------------------
 
@@ -136,15 +143,22 @@ DIAGRAM
 The mapping class group $MCG(D_n)$ acts on curve diagrams $f : L_n\to D_n$
 via post-composition.
 
-\important{Definition:} by a {\it local action} on a curve
-diagram $f:L_n\to D_n$ we mean an element of $MCG(D_n)$
+\important{Definition:} by a {\it half-twist} on a curve
+diagram $f:L_n\to D_n$ at $i$ we mean an element of $MCG(D_n)$
 that can be represented by a half-twist that acts
 on a small neighbourhood of $f([i, i+1]).$
-We denote such an element by $b(i, f).$
+We denote a clockwise half-twist by $b(i, f):$
 
-\important{Definition:} by a {\it sequence of local moves} on a curve
+\begin{center}
+\includegraphics[width=0.2\textwidth]{halftwist-1.eps}
+\includegraphics[width=0.15\textwidth]{halftwist-2.eps}
+\end{center}
+
+See \cite{Kassel10} for more details on half-twists.
+
+\important{Definition:} by a {\it sequence of half-twists} on a curve
 diagram $f:L_n\to D_n$ we mean a
-sequence of curve diagrams $f_k: L_n\to D_n$ and local actions:
+sequence of curve diagrams $f_k: L_n\to D_n$, and a sequence of half-twists:
 
         $$ b(i_1, f_1),\ b(i_2, f_2),\ ...\ b(i_N, f_N) $$
 
@@ -155,13 +169,27 @@ such that $f_1=f,$ and
 
 % ----------------------------------------------------------------------------
 
-\heading{Local factorization of $MCG(D_n)$}
+\heading{Half-twist factorization of $MCG(D_n)$}
 
 \important{Problem:}
 Given curve diagrams $f:L_n\to D_n$ and $g:L_2\to D_n$
 find $\phi\in MCG(D_n)$ as a product of
-a sequence of local moves such that % DIAGRAM
-$g = \phi f i.$
+a sequence of half-twists such that % DIAGRAM
+$g = \phi f i,$ where $i$ is an inclusion of $L_2$ into $L_n:$
+
+\begin{center}
+\includegraphics{halftwist-factor.eps}
+\end{center}
+
+\important{Examples:}
+
+In this example we use an inverse half-twist about the segment $[a, a+1]:$
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{example-problem-1.eps}
+\end{center}
+
+
 
 \important{Solution:}
 
@@ -266,6 +294,14 @@ Here we verify the braid relations directly:
 %http://projecteuclid.org/download/pdf_1/euclid.cmp/1104178138
 %http://arxiv.org/pdf/math/9912085v1.pdf
 
+
+% ----------------------------------------------------------------------------
+
+\heading{Combinatorial Formulation}
+
+% ----------------------------------------------------------------------------
+
+\heading{Numerical Simulations}
 
 % ----------------------------------------------------------------------------
 

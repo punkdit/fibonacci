@@ -43,9 +43,20 @@ def harrow(x0, x1, y, extra=[], label=None):
 
 c = canvas.canvas()
 
-harrow(0, 1, 0)
+c.text(0.0, 1.8, "$L_2$", [])
+c.text(1.8, 1.8, "$D_n$", [])
+harrow(0.6, 1.8, 2.0, label="$g$")
 
-c.writeEPSfile("fig00.eps")
+c.text(0.9, 0.0, "$L_n$", [])
+
+arrow(0.2, 1.7, 1.0, 0.5)
+#c.text(0.2, 0.8, "$\subset$", [])
+c.text(0.2, 0.8, "$i$", [])
+
+arrow(1.2, 0.5, 1.9, 1.7)
+c.text(1.6, 0.8, "$\phi f$", [])
+
+c.writeEPSfile("halftwist-factor.eps")
 
 # -------------------------------------------------
 
