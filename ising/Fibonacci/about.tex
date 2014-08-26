@@ -83,6 +83,8 @@ $\sigma_1, \sigma_2, ... \sigma_{n-1}$ with the following relations:
 
 \heading{Fibonacci Anyons}
 
+Every surface that is not a sphere, torus, disc or annulus, admits
+a pair-of-pants decomposition, see \cite{Ivanov01}, Theorem 2.4.A.
 
 So we have a (linear) representation of the braid group:
 
@@ -141,7 +143,25 @@ modulo isotopy.
 \heading{Group action}
 
 The mapping class group $MCG(D_n)$ acts on curve diagrams $f : L_n\to D_n$
-via post-composition.
+via post-composition (left multiplication). See \cite{Dehornoy02}, chapter 6.
+
+%\heading{Braid group representation}
+
+In particular, we can single out specific ``braid'' elements of $MCG(D_n)$.
+These act on the image of a pair-of-pants embedding: $g:D_2\to D_n.$
+
+DIAGRAM
+
+Here we verify the braid relations directly:
+
+\begin{center}
+%\includegraphics[width=0.5\textwidth]{mypicture.png}
+\includegraphics[width=0.5\textwidth]{curve-braid.eps}
+\end{center}
+
+% ----------------------------------------------------------------------------
+
+\heading{Half-twists}
 
 \important{Definition:} by a {\it half-twist} on a curve
 diagram $f:L_n\to D_n$ at $i$ we mean an element of $MCG(D_n)$
@@ -154,7 +174,9 @@ We denote a clockwise half-twist by $b(i, f):$
 \includegraphics[width=0.15\textwidth]{halftwist-2.eps}
 \end{center}
 
-See \cite{Kassel10} for more details on half-twists.
+Each half-twist corresponds to a braid action of two neighbouring
+holes on $f$.
+See \cite{Kassel10}, Section 1.6.2, for more details on half-twists.
 
 \important{Definition:} by a {\it sequence of half-twists} on a curve
 diagram $f:L_n\to D_n$ we mean a
@@ -174,12 +196,15 @@ such that $f_1=f,$ and
 \important{Problem:}
 Given curve diagrams $f:L_n\to D_n$ and $g:L_2\to D_n$
 find $\phi\in MCG(D_n)$ as a product of
-a sequence of half-twists such that % DIAGRAM
+a sequence of half-twists such that
 $g = \phi f i,$ where $i$ is an inclusion of $L_2$ into $L_n:$
 
 \begin{center}
 \includegraphics{halftwist-factor.eps}
 \end{center}
+
+The idea is that we would like to apply half-twists to a curve diagram
+until the two holes indicated by $g$ become neighbours.
 
 \important{Examples:}
 
@@ -190,38 +215,94 @@ In this example we use an inverse half-twist about the segment $[a, a+1]:$
 \end{center}
 
 
-
 \important{Solution:}
 
 1) decompose $f$ along (finitely many) intersections
 with $g.$
 
-% DIAGRAM
+\begin{center}
+\includegraphics[width=0.3\textwidth]{snake-decompose.eps}
+\end{center}
+
 
 2) on each component $k$:
 
-% DIAGRAM
+\begin{center}
+\includegraphics[width=0.3\textwidth]{snake-component.eps}
+\end{center}
 
 let $h_k = g_k + f_k.$
 This is a simple closed curve in $D$ which splits $D$
 into two regions, the inside (simply connected) and the
 outside.
-We find six cases, which we can distinguish between
+We find three basic cases (there are more including reflections
+and rotations of these), which we can distinguish between
 using the winding number and whether the end points
-of $f$ are inside or outside:
+of $f$ are on the inside or outside of $h_k$:
 
-% DIAGRAM
+\begin{center}
+\includegraphics[width=0.5\textwidth]{snake-cases.eps}
+\end{center}
 
 
 % ----------------------------------------------------------------------------
 
-\heading{Combinatorial formulation}
+\heading{Disjoint sum of two curve diagrams}
 
-We discretize the prolem for software implementation...
+Given two disjoint curve diagrams $f:L_m\to D_n$ and $f':L_{m'}\to D_n$
+we define their sum  $f+f':L_{m+m'}\to D_n$ ...
+
+
+% ----------------------------------------------------------------------------
+
+\heading{Planar diagrams}
+
+We aim discretize the problem for software implementation.
+Our first task is to characterize what happens to a curve
+if we ``forget'' any braiding inside a disc.
+We define the following set of ``planar diagrams'' as:
+
+    $$ T = \{ f(L)\cap E / \sim \ \text{s.t.}\ f:L\to D \}$$
+
+where $f:L\to D$ is a curve (not an isotopy class)
+whose image $f(L)$ intersects a disc $E\subset D$ in a finite number of components
+and the equivalence relation $\sim$ consists of isotopies that fix $\partial E.$
+
+This object has a simple combinatorial description 
+as a string consisting of
+the four labels {\bf ( ) H T} such that 
+the parentheses are balanced. The two labels H and T specify the
+head and tail endpoints of $f$, and each appears at most once in the string.
+
+For example, the following diagram is represented by
+the string {\bf(())H}:
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{planar.eps}
+\end{center}
+
+See \cite{Abramsky08} Proposition 1.6, for a similar treatment.
+
+% ----------------------------------------------------------------------------
+
+\heading{Tiling}
+
+Now we consider a tiling of the disc into subdiscs that are disjoint on
+their interiors.
+
+% ----------------------------------------------------------------------------
+
+\heading{Simulation and noise model}
+
+
 
 % ----------------------------------------------------------------------------
 
 \heading{Numerical results}
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{threshold-graph.eps}
+\end{center}
 
 % ----------------------------------------------------------------------------
 
@@ -264,21 +345,6 @@ We discretize the prolem for software implementation...
 %correspond uniquely to elements of the mapping class group, and
 %hence to the braid group $B_n$.
 
-
-
-\heading{Braid group representation}
-
-
-Here we verify the braid relations directly:
-
-\begin{center}
-%\includegraphics[width=0.5\textwidth]{mypicture.png}
-\includegraphics[width=0.5\textwidth]{curve-braid.eps}
-\end{center}
-
-\cite{Dehornoy02}
-
-
 % ----------------------------------------------------------------------------
 
 %\heading{Pair-of-pants decompositions}
@@ -295,13 +361,13 @@ Here we verify the braid relations directly:
 %http://arxiv.org/pdf/math/9912085v1.pdf
 
 
-% ----------------------------------------------------------------------------
-
-\heading{Combinatorial Formulation}
-
-% ----------------------------------------------------------------------------
-
-\heading{Numerical Simulations}
+%% ----------------------------------------------------------------------------
+%
+%\heading{Combinatorial Formulation}
+%
+%% ----------------------------------------------------------------------------
+%
+%\heading{Numerical Simulations}
 
 % ----------------------------------------------------------------------------
 

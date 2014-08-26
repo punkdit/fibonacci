@@ -11,7 +11,7 @@ def write(c):
     sys.stdout.flush()
 
 
-def flatten(im):
+def flat(im):
 
     a = numpy.array(im)
     shape = a.shape
@@ -86,7 +86,7 @@ def pick(im):
             a[i, j] = [0, 0, 0] # switch colour to black
     
         else:
-            a[i, j] = [255, 255, 255]
+            a[i, j] = [255, 255, 255] # whiteout
     
       write('.')
     write('\n')
@@ -155,6 +155,24 @@ if funcname == 'cat':
     args = sys.argv[2:]
     eps_cat(*args)
 
+elif funcname == 'trace':
+
+    name = sys.argv[2]
+    stem = '.'.join(name.split('.')[:-1])
+    
+    name_png = "%s.png" % (stem,)
+    name_pnm = "%s.pnm" % (stem,)
+    name_eps = "%s.eps" % (stem,)
+    
+    cmd = 'pngtopnm %s > %s' % (name_png, name_pnm)
+    print cmd
+    os.system(cmd)
+    
+    cmd = 'potrace -e -q -c %s' % (name_pnm)
+    print cmd
+    os.system(cmd)
+    
+    r, g, b = 1., 0.5, 0.5
 
 else:
     func = eval(funcname)
@@ -163,8 +181,8 @@ else:
     stem = '.'.join(name.split('.')[:-1])
     
     im = None
-    #im = Image.open(name)
-    #im = func(im)
+    im = Image.open(name)
+    im = func(im)
     
     name_png = "%s-%s.png" % (stem, funcname)
     name_pnm = "%s-%s.pnm" % (stem, funcname)
@@ -183,6 +201,8 @@ else:
     os.system(cmd)
     
     r, g, b = 1., 0.5, 0.5
+
+
 
 
 
