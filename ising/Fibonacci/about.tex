@@ -81,17 +81,58 @@ $\sigma_1, \sigma_2, ... \sigma_{n-1}$ with the following relations:
 
 % ----------------------------------------------------------------------------
 
-\heading{Fibonacci Anyons}
+\heading{Anyons}
 
-Every surface that is not a sphere, torus, disc or annulus, admits
-a pair-of-pants decomposition, see \cite{Ivanov01}, Theorem 2.4.A.
+
+We measure charge contained within a disc. % region, circle
+Commuting measurements are either disjoint discs or
+one wholly contained within the other:
+
+DIAGRAM
+
+So (proof?) we get a basis for the Hilbert space from
+a pair-of-pants (POP) decomposition:
+
+DIAGRAM
+
+Every surface that is not a sphere, torus, disc or annulus, has
+a POP decomposition, see \cite{Ivanov01}, Theorem 2.4.A.
+
+We say that a POP decomposition of $D_n$
+{\it admits} a curve $f:L_n\to D_n$
+if the curve performs a depth first traversal of $Q_n.$
+This means that if the curve visits the trunk of a POP
+then it visits all the legs of the POP before leaving the POP.
+
+Conversely, given a curve $f:L_n\to D_n$
+and a binary rooted tree $t$,
+we can recover a unique POP that admits $f$.
+(proof: use small neighbourhoods of the curve)
+
+DIAGRAM
+
+\important{F-moves:} given a nested POP and admissable $f$,
+the f-move is the change of basis as follows:
+
+DIAGRAM
+
+\important{R-moves:} we examine the action of $MCG(D_n)$
+on our state space. Given a single POP and curve $f:L_2\to D_n$,
+the half-twist acts on $\psi$ as $R\psi$.
+
+DIAGRAM
+
+This together with f-moves gives all the half-twists on
+the curve $f$.
 
 So we have a (linear) representation of the braid group:
 
     $$ \kappa : B_n \to GL(F_n).$$
 
-Where $F_n$ is the Hilbert state space of $n$ Fibonacci anyons with
-trivial total charge.
+Where $F_n$ is the Hilbert state space of $n$ Fibonacci anyons.
+%with trivial total charge.
+
+See \cite{Pfeifer12, Pfeifer14}
 
 
 % ----------------------------------------------------------------------------
@@ -260,19 +301,22 @@ we define their sum  $f+f':L_{m+m'}\to D_n$ ...
 We aim discretize the problem for software implementation.
 Our first task is to characterize what happens to a curve
 if we ``forget'' any braiding inside a disc.
-We define the following set of ``planar diagrams'' as:
+We adapt the Abramsky combinatorial formalism 
+of the Temperly-Lieb algebra to our needs (\cite{Abramsky08}, Proposition 1.6).
+The following set of ``planar diagrams'' as is defined as:
 
     $$ T = \{ f(L)\cap E / \sim \ \text{s.t.}\ f:L\to D \}$$
 
 where $f:L\to D$ is a curve (not an isotopy class)
 whose image $f(L)$ intersects a disc $E\subset D$ in a finite number of components
-and the equivalence relation $\sim$ consists of isotopies that fix $\partial E.$
+and the equivalence relation $\sim$ consists of 
+isotopies that fix $\partial E.$ % Local (relative?) isotopies
 
 This object has a simple combinatorial description 
 as a string consisting of
-the four labels {\bf ( ) H T} such that 
-the parentheses are balanced. The two labels H and T specify the
-head and tail endpoints of $f$, and each appears at most once in the string.
+the four labels {\bf (, ), H, T} such that 
+the parentheses are balanced. The two labels {\bf H} and {\bf T} specify the
+head and tail endpoints of $f$, each of which appears at most once in the string.
 
 For example, the following diagram is represented by
 the string {\bf(())H}:
@@ -281,14 +325,23 @@ the string {\bf(())H}:
 \includegraphics[width=0.5\textwidth]{planar.eps}
 \end{center}
 
-See \cite{Abramsky08} Proposition 1.6, for a similar treatment.
-
 % ----------------------------------------------------------------------------
 
 \heading{Tiling}
 
-Now we consider a tiling of the disc into subdiscs that are disjoint on
-their interiors.
+%Now we consider a tiling of the disc into subdiscs that are disjoint on
+%their interiors.
+We consider now a cellulation of a disc.
+Concretely, we choose a regular $l$ by $l$ square tiling of a square region.
+
+DIAGRAM
+
+The holes $Q_n$ will always be contained within the interior of the
+tiles.
+
+\important{Definition:} the discrete curve space $C_n^(l)$ consists of
+curves $L_n\to D_n$ modulo isotopy that fixes the boundary of
+every tile.
 
 % ----------------------------------------------------------------------------
 
