@@ -76,8 +76,12 @@ def pick(im):
         v = a[i, j]
     
         vs = v.sum()
-        va = vs / 3
-        vd = ((v-va)**2/3.).sum()**0.5
+        va = vs / 3.
+        #vd = ((v-va)**2/3.).sum()**0.5
+        vd = ((v[0]-va)**2+(v[1]-va)**2+(v[2]-va)**2 ) / 3.
+        vd = vd**0.5
+
+        #write("%.0f,%.0f "%(va,vd))
     
         if va > 200:
             a[i, j] = [255, 255, 255]
@@ -86,6 +90,7 @@ def pick(im):
             a[i, j] = [0, 0, 0] # switch colour to black
     
         else:
+            #print "%.1f:%s"%(vd, v-va),
             a[i, j] = [255, 255, 255] # whiteout
     
       write('.')
