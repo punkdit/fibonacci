@@ -81,62 +81,6 @@ $\sigma_1, \sigma_2, ... \sigma_{n-1}$ with the following relations:
 
 % ----------------------------------------------------------------------------
 
-\heading{Anyons}
-
-
-We measure charge contained within a disc. % region, circle
-Commuting measurements are either disjoint discs or
-one wholly contained within the other:
-
-DIAGRAM
-
-So (proof?) we get a basis for the Hilbert space from
-a pair-of-pants (POP) decomposition:
-
-DIAGRAM
-
-Every surface that is not a sphere, torus, disc or annulus, has
-a POP decomposition, see \cite{Ivanov01}, Theorem 2.4.A.
-
-We say that a POP decomposition of $D_n$
-{\it admits} a curve $f:L_n\to D_n$
-if the curve performs a depth first traversal of $Q_n.$
-This means that if the curve visits the trunk of a POP
-then it visits all the legs of the POP before leaving the POP.
-
-Conversely, given a curve $f:L_n\to D_n$
-and a binary rooted tree $t$,
-we can recover a unique POP that admits $f$.
-(proof: use small neighbourhoods of the curve)
-
-DIAGRAM
-
-\important{F-moves:} given a nested POP and admissable $f$,
-the f-move is the change of basis as follows:
-
-DIAGRAM
-
-\important{R-moves:} we examine the action of $MCG(D_n)$
-on our state space. Given a single POP and curve $f:L_2\to D_n$,
-the half-twist acts on $\psi$ as $R\psi$.
-
-DIAGRAM
-
-This together with f-moves gives all the half-twists on
-the curve $f$.
-
-So we have a (linear) representation of the braid group:
-
-    $$ \kappa : B_n \to GL(F_n).$$
-
-Where $F_n$ is the Hilbert state space of $n$ Fibonacci anyons.
-%with trivial total charge.
-
-See \cite{Pfeifer12, Pfeifer14}
-
-
-% ----------------------------------------------------------------------------
-
 \heading{Curve Diagrams}
 
 The disc $D = \{ x\in \mathR^2\ s.t.\ |x|\leq 1 \} $,
@@ -219,6 +163,75 @@ Each half-twist corresponds to a braid action of two neighbouring
 holes on $f$.
 See \cite{Kassel10}, Section 1.6.2, for more details on half-twists.
 
+% ----------------------------------------------------------------------------
+
+\heading{Anyons}
+
+
+We measure charge contained within a disc. % region, circle
+Commuting measurements are either disjoint discs or
+one wholly contained within the other.
+So (proof?) we get a basis for the Hilbert space from
+a pair-of-pants (POP) decomposition:
+
+\begin{center}
+\includegraphics[width=0.2\textwidth]{POP-1.eps}
+\end{center}
+
+The feet of the POP form the $n$ holes $Q_n$ in the disc $D$.
+\footnote{Every surface that is not a sphere, torus, disc or annulus, has
+a POP decomposition, see \cite{Ivanov01}, Theorem 2.4.A.}
+
+We say that a POP decomposition of $D_n$
+{\it admits} a curve $f:L_n\to D_n$
+if (there is a curve in the isotopy class of)
+the curve performs a depth first traversal of the POP.
+This means that if the curve visits the trunk of a POP
+then it visits all the legs of the POP before leaving that POP.
+
+\begin{center}
+\includegraphics[width=0.2\textwidth]{POP-2.eps}
+\end{center}
+
+Conversely, given a curve $f:L_n\to D_n$
+and a binary rooted tree $t$,
+we can recover a unique POP that admits $f$.
+(proof: use small neighbourhoods of the curve)
+
+\begin{center}
+\includegraphics[width=0.2\textwidth]{POP-3.eps}
+\end{center}
+
+\important{F-moves:} given a nested POP and admissable $f$,
+the F-move is the change of basis as follows:
+
+\begin{center}
+\includegraphics[width=0.3\textwidth]{POP-4.eps}
+\end{center}
+
+\important{R-moves:} we examine the action of $MCG(D_n)$
+on our state space. Given a single POP and curve $f:L_2\to D_n$,
+the half-twist on $f$ acts on $\psi$ as $R\psi$.
+
+DIAGRAM?
+
+This together with f-moves gives all the half-twists on
+the curve $f$.
+
+So we have a (linear) representation of the braid group:
+
+    $$ \kappa : B_n \to GL(F_n).$$
+
+Where $F_n$ is the Hilbert state space of $n$ Fibonacci anyons.
+%with trivial total charge.
+
+See \cite{Pfeifer12, Pfeifer14}
+
+
+% ----------------------------------------------------------------------------
+
+\heading{Half-twist factorization of $MCG(D_n)$}
+
 \important{Definition:} by a {\it sequence of half-twists} on a curve
 diagram $f:L_n\to D_n$ we mean a
 sequence of curve diagrams $f_k: L_n\to D_n$, and a sequence of half-twists:
@@ -229,10 +242,6 @@ such that $f_1=f,$ and
 
         $$ f_{k+1} = b(i_k, f_k) f_k,\ \  \text{} 1\leq k<N.$$
 
-
-% ----------------------------------------------------------------------------
-
-\heading{Half-twist factorization of $MCG(D_n)$}
 
 \important{Problem:}
 Given curve diagrams $f:L_n\to D_n$ and $g:L_2\to D_n$
