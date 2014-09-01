@@ -47,6 +47,10 @@
 %\author{Steven T. Flammia}
 %\affiliation{Centre for Engineered Quantum Systems, School of Physics, The University of Sydney, Sydney, Australia}
 
+%\begin{abstract}
+%
+%\end{abstract}
+
 \maketitle
 
 %{\it $^1$ Centre for Engineered Quantum Systems, School of Physics, The University of Sydney, Sydney, Australia}
@@ -85,7 +89,25 @@
 
 % ----------------------------------------------------------------------------
 
-\heading{Curve Diagrams}
+\heading{Abstract}
+
+Technical contribution: 
+(1) discretization of curve diagrams,
+(2) classification theorem
+(3) simulation
+
+% ----------------------------------------------------------------------------
+
+\heading{Introduction}
+
+Fibonacci hard
+
+Below bond-percolation threshold we expect to see clusters
+of charges of size $O(log(n))$ with variance $O(log(log(n))$. CITATION
+
+% ----------------------------------------------------------------------------
+
+\heading{Curve diagrams}
 
 The disc $D = \{ x\in \mathR^2\ s.t.\ |x|\leq 1 \} $,
 has boundary $\partial D = \{ x\in \mathR^2\ s.t.\ |x|=1 \} $.
@@ -210,7 +232,7 @@ we can recover a unique POP that admits $f$.
 The above POP would be represented by the following tree:
 
 \begin{center}
-\includegraphics[width=0.2\textwidth]{POP-3.eps}
+\includegraphics[width=0.14\textwidth]{POP-3.eps}
 \end{center}
 
 (proof: use small neighbourhoods of the curve)
@@ -222,6 +244,8 @@ the F-move is the change of basis as follows:
 \includegraphics[width=0.3\textwidth]{POP-4.eps}
 \end{center}
 
+XXX F-moves can be nested
+
 \important{R-moves:} we examine the action of $MCG(D_n)$
 on our state space. Given a single POP and curve $f:L_2\to D_n$,
 the half-twist on $f$ acts on $\psi$ as $R\psi$.
@@ -229,9 +253,10 @@ the half-twist on $f$ acts on $\psi$ as $R\psi$.
 DIAGRAM?
 
 This together with f-moves gives all the half-twists on
-the curve $f$.
+the curve $f$. Therefore, we may work solely with curve
+diagrams, forgetting the underlying POP (tree) structure.
 
-So we have a (linear) representation of the braid group:
+We have a (linear) representation of the braid group:
 
     $$ \kappa : B_n \to GL(F_n).$$
 
@@ -307,6 +332,7 @@ of $f$ are on the inside or outside of $h_k$:
 \includegraphics[width=0.5\textwidth]{snake-cases.eps}
 \end{center}
 
+XXX
 
 % ----------------------------------------------------------------------------
 
@@ -335,19 +361,20 @@ where $f:L\to D$ is a continuous function
 whose image $f(L)$ intersects a disc $E\subset D$ in a finite number of components,
 and the equivalence relation $\sim$ consists of 
 isotopies that fix $\partial E.$ % Local (relative?) isotopies
+Each component of $f(L)\cap E$ we call a {\it strand.}
 
-This object has a simple combinatorial description 
-as a string consisting of
+Elements of $P$ have a simple combinatorial description 
+as a finite sequence (a word) consisting of
 the four labels {\bf (, ), H, T} such that 
 the parentheses are balanced.
-To construct the string, begin at a point on $\partial E$, and proceed
-clockwise. Visiting a strand for the first time produces a {\bf ( } label,
+To construct such a word, begin at a point on $\partial E$, and proceeding
+clockwise: visiting a strand for the first time produces a {\bf ( } label,
 and visiting a strand for the second time produces a {\bf ) } label.
 The two labels {\bf H} and {\bf T} specify the
-head and tail endpoints of $f$, each of which appears at most once in the string.
+head and tail endpoints of $f$, each of which appears at most once in the word.
 
 For example, the following planar diagram can be represented by
-the string {\bf(())H}:
+the word {\bf(())H}:
 
 \begin{center}
 \includegraphics[width=0.5\textwidth]{planar.eps}
@@ -372,10 +399,21 @@ tiles.
 curves $L_n\to D_n$ modulo isotopy that fixes the boundary of
 every tile.
 
+Combinatorialy, we store an element of $C_n^{(l)}$ by patching
+together words for planar diagrams in a compatible way: 
+neighbouring tiles must agree on the strands that they share.
+
 % ----------------------------------------------------------------------------
 
 \heading{Simulation and noise model}
 
+Poisson process, pair creation $t_{\mathrm{sim}}$
+
+Extraction of syndrome, PICTURE
+
+Clustering of charges, CITE BravyiHaah
+
+Multi-round
 
 
 % ----------------------------------------------------------------------------
@@ -385,6 +423,16 @@ every tile.
 \begin{center}
 \includegraphics[width=0.5\textwidth]{threshold-graph.eps}
 \end{center}
+
+Threshold appears at $t_{\mathrm{sim}}\simeq 0.125$
+
+% ----------------------------------------------------------------------------
+
+\heading{Conclusion}
+
+% ----------------------------------------------------------------------------
+
+\important{Acknowledgements}
 
 % ----------------------------------------------------------------------------
 
@@ -431,7 +479,7 @@ every tile.
 
 %\heading{Pair-of-pants decompositions}
 
-%We measure charge in regions bounded by curves, ie. elements of
+%In an abelian theory we measure charge in regions bounded by curves, ie. elements of
 %the first homology group $H_1(D_n).$
 
 
@@ -443,15 +491,9 @@ every tile.
 %http://arxiv.org/pdf/math/9912085v1.pdf
 
 
-%% ----------------------------------------------------------------------------
-%
-%\heading{Combinatorial Formulation}
-%
-%% ----------------------------------------------------------------------------
-%
-%\heading{Numerical Simulations}
 
 % ----------------------------------------------------------------------------
+
 
 \bibliography{refs}{}
 \bibliographystyle{abbrv}
