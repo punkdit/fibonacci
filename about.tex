@@ -103,7 +103,7 @@ Technical contribution:
 Fibonacci hard
 
 Below bond-percolation threshold we expect to see clusters
-of charges of size $O(log(n))$ with variance $O(log(log(n))$. CITATION
+of charges of size $O(log(n))$ with variance $O(1)$ \cite{Bazant00}.
 
 % ----------------------------------------------------------------------------
 
@@ -148,6 +148,10 @@ modulo isotopy.
 \includegraphics[width=0.4\textwidth]{curve-diagram.eps}
 \end{center}
 
+XXX $\partial L\to \partial D$ XXX
+
+Given two disjoint curve diagrams $f:L_m\to D_n$ and $f':L_{m'}\to D_n$
+we define their sum  $f+f':L_{m+m'}\to D_n$ ...
 
 % ----------------------------------------------------------------------------
 
@@ -158,6 +162,8 @@ via post-composition (left multiplication).
 This action is transitive and XXX so we can identify an element of
 $MCG(D_n)$ by its action on any curve $f:L_n\to D_n.$
 See \cite{Dehornoy02}, chapter 6.
+XXX $\partial L\to \partial D$ XXX
+
 
 %\heading{Braid group representation}
 
@@ -336,17 +342,9 @@ XXX
 
 % ----------------------------------------------------------------------------
 
-\heading{Disjoint sum of two curve diagrams}
-
-Given two disjoint curve diagrams $f:L_m\to D_n$ and $f':L_{m'}\to D_n$
-we define their sum  $f+f':L_{m+m'}\to D_n$ ...
-
-
-% ----------------------------------------------------------------------------
-
 \heading{Planar diagrams}
 
-We aim discretize the problem for software implementation.
+We aim to discretize the problem for software implementation.
 Our first task is to characterize what happens to a curve
 if we ``forget'' any braiding inside a sub-disc.
 We adapt the Abramsky combinatorial description 
@@ -389,9 +387,6 @@ the word {\bf(())H}:
 %their interiors.
 We now consider a cellulation of a disc.
 Concretely, we choose a regular $l$ by $l$ square tiling of a square region.
-
-DIAGRAM
-
 The holes $Q_n$ will always be contained within the interior of the
 tiles.
 
@@ -403,18 +398,26 @@ Combinatorialy, we store an element of $C_n^{(l)}$ by patching
 together words for planar diagrams in a compatible way: 
 neighbouring tiles must agree on the strands that they share.
 
+\begin{center}
+\includegraphics[width=0.4\textwidth]{discrete-curve.eps}
+\end{center}
+
 % ----------------------------------------------------------------------------
 
 \heading{Simulation and noise model}
 
 Poisson process, pair creation $t_{\mathrm{sim}}$
 
-Extraction of syndrome, PICTURE
+PICTURE
 
-Clustering of charges, CITE BravyiHaah
+Extraction of syndrome
+
+PICTURE
 
 Multi-round
+Clustering of charges, \cite{Brell13} \cite{Bravyi13}
 
+Fail on big braid
 
 % ----------------------------------------------------------------------------
 
@@ -424,15 +427,19 @@ Multi-round
 \includegraphics[width=0.5\textwidth]{threshold-graph.eps}
 \end{center}
 
-Threshold appears at $t_{\mathrm{sim}}\simeq 0.125$
+Threshold appears at $t_{\mathrm{sim}}\simeq 0.124 \pm 0.004$
+
+Plot of computational power...
 
 % ----------------------------------------------------------------------------
 
-\heading{Conclusion}
+\heading{Conclusion/Discussion}
 
 % ----------------------------------------------------------------------------
 
 \important{Acknowledgements}
+
+Yo to my bro's and homies
 
 % ----------------------------------------------------------------------------
 
