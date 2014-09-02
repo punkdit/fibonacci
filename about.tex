@@ -1,5 +1,5 @@
 
-\documentclass[12pt,a4paper]{article}
+\documentclass[11pt,a4paper]{article}
 %\documentclass[11pt, twocolumn]{article}
 
 %\usepackage[paper=a4paper,dvips,top=1.5cm,left=1.5cm,right=1.5cm,foot=1cm,bottom=1.5cm]{geometry}
@@ -92,8 +92,8 @@
 \heading{Abstract}
 
 Technical contribution: 
-(1) discretization of curve diagrams,
-(2) classification theorem
+(1) classification theorem
+(2) discretization of curve diagrams
 (3) simulation
 
 % ----------------------------------------------------------------------------
@@ -102,8 +102,18 @@ Technical contribution:
 
 Fibonacci hard
 
+
+the dimensionality of the state space
+of anyons grows as $d^n$.
+For fibonacci anyons $d\simeq 1.6$ and
+it is known that braiding generates a dense
+set of unitaries on the state space, so we
+only expect to be able to simulate for small $n.$
+
 Below bond-percolation threshold we expect to see clusters
 of charges of size $O(log(n))$ with variance $O(1)$ \cite{Bazant00}.
+
+DIAGRAM
 
 % ----------------------------------------------------------------------------
 
@@ -399,24 +409,38 @@ together words for planar diagrams in a compatible way:
 neighbouring tiles must agree on the strands that they share.
 
 \begin{center}
-\includegraphics[width=0.4\textwidth]{discrete-curve.eps}
+\includegraphics[width=0.3\textwidth]{discrete-curve.eps}
 \end{center}
 
 % ----------------------------------------------------------------------------
 
 \heading{Simulation and noise model}
 
-Poisson process, pair creation $t_{\mathrm{sim}}$
+\begin{center}
+(i)
+\includegraphics[width=0.26\textwidth]{pair-create.eps}
+\hskip 10pt
+(ii)
+\includegraphics[width=0.26\textwidth]{syndrome-1.eps}
+\hskip 10pt
+(iii)
+\includegraphics[width=0.26\textwidth]{syndrome-2.eps}
+\end{center}
 
-PICTURE
+We Maintain a collection of disjoint curves.
 
-Extraction of syndrome
+(i) Poisson process, pair creation $t_{\mathrm{sim}}$.
 
-PICTURE
+(ii) join fusion trees (curves)
+that participate in the same site (tile).
+(iii) measure charge on each site and leave result on
+one of the strands.
+These charge measurements give the initial syndrome for the
+error correction procedure.
 
-Multi-round
-Clustering of charges, \cite{Brell13} \cite{Bravyi13}
+Multi-round, clustering of charges, \cite{Brell13} \cite{Bravyi13}
 
+Torus:
 Fail on big braid
 
 % ----------------------------------------------------------------------------
