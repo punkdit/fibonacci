@@ -1,0 +1,7 @@
+fibonacci.aux
+fibonacci.bbl
+fibonacci.blg
+*.log
+*.out
+fibonacci.synctex.gz
+fibonacci.pdf
