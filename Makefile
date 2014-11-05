@@ -1,28 +1,12 @@
 
 
-out: about.pdf
-	open about.pdf 
+out: fibonacci.pdf
+	open fibonacci.pdf 
 
-
-about.pdf: about.dvi
-	#dvips -Ppdf about.dvi about.ps
-	dvipdf about.dvi about.pdf
-
-about.dvi: about.tex refs.bib
-	latex  about
-	bibtex  about
-	latex  about
-	latex  about
-
-fig: compose.eps
-	open compose.eps
-
-
-compose.eps: render.py
-	./render.py
-
-
-#about.tex: _about.tex ../expr.py
-#	../expr.py  _about.tex about.tex
+fibonacci.pdf: fibonacci.tex refs2.bib
+	pdflatex fibonacci.tex
+	bibtex fibonacci
+	pdflatex fibonacci.tex
+	pdflatex fibonacci.tex
 
 
