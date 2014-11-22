@@ -5,3 +5,8 @@ fibonacci.blg
 *.out
 fibonacci.synctex.gz
 fibonacci.pdf
+fib2.aux
+fib2.synctex.gz
+fib2.pdf
+fib2.blg
+fib2.bbl
