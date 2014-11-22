@@ -1,0 +1,103 @@
+% This line sets the project root file.
+% 
+% !TEX root = ../fib2.tex
+% 
+%------------------------------------------------------------------------------------------------------------%
+
+%------------------------------------------------------------------------------------------------------------%
+% Packages
+%------------------------------------------------------------------------------------------------------------%
+
+\usepackage{color}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{fullpage}
+%\usepackage{caption}
+\PassOptionsToPackage{caption=false}{subfig}
+\usepackage{subfig}
+\usepackage{enumerate}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit}
+%\usepackage[square,comma,numbers,sort&compress]{natbib}
+\usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
+\usepackage{bm}  % Define \bm{} to use bold math fonts
+
+\usepackage[pdfpagelabels,pdftex,bookmarks,breaklinks]{hyperref}
+\definecolor{darkblue}{RGB}{0,0,127} % choose colors
+\definecolor{darkgreen}{RGB}{0,150,0}
+\hypersetup{colorlinks, linkcolor=darkblue, citecolor=darkgreen, filecolor=red, urlcolor=blue}
+%\hypersetup{pdftitle=Title\ Goes\ Here}% add a title to the metadata
+
+\usepackage{layout}
+
+%------------------------------------------------------------------------------------------------------------%
+% PGF Stuff
+%------------------------------------------------------------------------------------------------------------%
+
+%\pgfrealjobname{main}
+
+%------------------------------------------------------------------------------------------------------------%
+% Page Layout
+%------------------------------------------------------------------------------------------------------------%
+
+\addtolength{\textheight}{0\textheight}
+
+%------------------------------------------------------------------------------------------------------------%
+% Theorem Environments
+%------------------------------------------------------------------------------------------------------------%
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newtheorem{claim}{Claim}[section]
+
+\renewenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ $\Box$}
+
+%------------------------------------------------------------------------------------------------------------%
+% Macros
+%------------------------------------------------------------------------------------------------------------%
+
+% double-struck math font
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\E{\mathbb{E}}
+
+\def\e{\mathrm{e}}
+\def\lg{\mathrm{lg}}
+
+\newcommand{\Eref}[1]{Eq.~(\ref{#1})}
+\newcommand{\Sref}[1]{Sec.~\ref{#1}}
+\newcommand{\Fref}[1]{Fig.~\ref{#1}}
+\newcommand{\Aref}[1]{Appendix~\ref{#1}}
+
+\def\eps{\epsilon}
+\def\th{^{\rm th}}
+\def\st{^{\rm st}}
+\def\rd{^{\rm rd}}
+\def\cO{\mathcal{O}}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Prob}{Prob}
+
+\newcommand{\ket}[1]{|{#1}\rangle}
+\newcommand{\expect}[1]{\langle{#1}\rangle}
+\newcommand{\bra}[1]{\langle{#1}|}
+\newcommand{\ketbra}[2]{|{#1}\rangle\!\langle{#2}|}
+\newcommand{\braket}[2]{\langle{#1}|{#2}\rangle}
+\newcommand{\proj}[1]{\ketbra{#1}{#1}}
+
+%------------------------------------------------------------------------------------------------------------%
+% Comment fonts
+%------------------------------------------------------------------------------------------------------------%
+
+\newcommand{\cggb}[1]{\textcolor{blue}{#1}}
+\newcommand{\sdb}[1]{\textcolor{red}{#1}}
+
