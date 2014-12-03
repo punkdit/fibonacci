@@ -3,7 +3,8 @@
 % !TEX root = fib2.tex
 % 
 %------------------------------------------------------------------------------------------------------------%
-\documentclass[a4paper,nofootinbib,superscriptaddress]{revtex4}
+\documentclass[aps, pra, a4paper, 11pt, nofootinbib, superscriptaddress, tightenlines, 
+notitlepage, longbibliography]{revtex4}
 
 % Packages, Macros, Layout, Environments, etc.
 \input{macros}
@@ -13,31 +14,39 @@
 \title{Classical simulation of error correction in a Fibonacci anyon code}
 
 \author{Simon Burton}
-\affiliation{Centre for Engineered Quantum Systems, School of Physics, The University of Sydney, Sydney, Australia}
+\affiliation{Centre for Engineered Quantum Systems, School of Physics, 
+The University of Sydney, Sydney, Australia}
 \author{Courtney G.\ Brell}
-\affiliation{Institut f\"ur Theoretische Physik, Leibniz Universit\"at Hannover, Appelstra\ss e 2, 30167 Hannover, Germany}
+\affiliation{Institut f\"{u}r Theoretische Physik, Leibniz Universit\"{a}t Hannover, 
+Appelstra\ss{}e 2, 30167 Hannover, Germany}
 \author{Steven T.\ Flammia}
-\affiliation{Centre for Engineered Quantum Systems, School of Physics, The University of Sydney, Sydney, Australia}
+\affiliation{Centre for Engineered Quantum Systems, School of Physics, 
+The University of Sydney, Sydney, Australia}
 
 \date{\today}
 
 \begin{abstract}
-We study two dimensional systems that support Fibonacci anyon excitations. In general, the braiding of Fibonacci anyons is sufficient for universal quantum computation, and so the classical simulation of their dynamics is likely to be hard. However, we show that for typical processes of interest for the study of successful error-correction in anyon systems, the relevant dynamics are in fact efficiently classically simulable, and make use of this fact to demonstrate the success of an error-correction protocol for a Fibonacci anyon computer. \cggb{Is this claim too bold?} We numerically simulate a phenomenological model of the system and noise processes on lattice sizes up to $128\times128$ sites, and demonstrate an error-correction threshold of around $0.125$ - comparable to those previously known for abelian and (non-universal) non-abelian anyon models.
+We study two-dimensional systems that support Fibonacci anyon excitations. In general, the 
+braiding of Fibonacci anyons is sufficient for universal quantum computation, and so the 
+classical simulation of their dynamics is likely to be hard. However, we show that for typical 
+processes of interest for the study of quantum error correction in anyon systems the 
+relevant dynamics can in fact be efficiently simulated classically for a wide range of system 
+parameters. We make use of this fact to demonstrate the success of an error-correction 
+protocol for a Fibonacci anyon quantum memory below a particular noise threshold. We 
+numerically simulate a phenomenological model of the system and noise processes on lattice 
+sizes of up to $128\times128$ sites, and demonstrate an error-correction threshold of around 
+$12.5\%$, a number that is comparable to those previously known for abelian and 
+(non-universal) non-abelian anyon models.
 \end{abstract}
 
 \maketitle
-
-%\vspace{-1.5cm}
-% new page after abstract & TOC
-%\clearpage
-%\tableofcontents
-%\clearpage
 
 %------------------------------------------------------------------------------------------------------------%
 
 %\layout % check the layout
 
 \section{Introduction}
+
 
 	\cggb{Put introduction back in.}
 
