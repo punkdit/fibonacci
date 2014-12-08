@@ -93,7 +93,7 @@ models~\cite{Levin2005, Kapit2013, Palumbo2014}.
 \stf{Describe main results and why they are badass.}
 
 %------------------------------------------------------------------------------------------------------------%
-\paragraph{Modelling Fibonacci anyons}
+\paragraph{Modelling Fibonacci anyons.}
 
 A physical anyon model is abstractly described by a unitary modular tensor 
 category~\cite{Wang2010b}. This object contains the data describing the types of anyonic 
@@ -101,7 +101,7 @@ particles, as well as the results of topological operations such as braiding or 
 anyons. The Fibonacci anyon model consists of only one non-trivial particle type, 
 conventionally called $\tau$. Denoting the vacuum by $\mathbb{I}$, we can describe the 
 possible fusion outcomes of Fibonacci anyons as $\tau\times\tau=\mathbb{I}+\tau$, i.e.~two 
-$\tau$ particles may either fuse to vacuum or to a $\tau$ particle.
+$\tau$ particles can either fuse to vacuum or to a $\tau$ particle.
 
 We can associate a Hilbert space with the fusion outcomes of a fixed number of $\tau$ 
 particles, and for $n$ particles of type $\tau$, the dimension of this space grows 
@@ -125,60 +125,81 @@ microscopic details of the system. This is consistent with the principles of top
 ordered systems and anyonic physics, where the key universal features describing the anyon 
 model correspond to large length-scale physics, while the microscopic physics plays a less 
 important and non-universal role. As such, we model the system simply as a square lattice of 
-sites on which sets of anyons may reside. Allowed anyon dynamics are considered to be local 
+sites on which sets of anyons can reside. Allowed anyon dynamics are considered to be local 
 on this lattice, which we take to have periodic boundary conditions. For more details of an 
 analogous model, see~\cite{Brell2013}.
 	
 %------------------------------------------------------------------------------------------------------------%
-\paragraph{Noise and error-correction}
+\paragraph{Noise and error-correction.}
 
 The main noise processes we consider are pair-creation events, in which a pair of $\tau$ anyons are created from vacuum on two neighbouring sites.
 
-\cggb{Details. Consider merging parts of this section with parts of \Sref{s:simalg}.}
+\cggb{Details. Consider merging parts of this section with parts of Simulation below.}
 
 %------------------------------------------------------------------------------------------------------------%	
-\paragraph{Logical errors}
+\paragraph{Logical errors.}
 
 \cggb{Logical operators}
 
 %------------------------------------------------------------------------------------------------------------%	
-\paragraph{Decoding algorithm}
+\paragraph{Decoding algorithm.}
 
 \cggb{Describe decoding.}
 
-\cggb{How does this relate to other decoding schemes used in~\cite{Wootton2013,Brell2013,Hutter2014}?}
+\cggb{How does this relate to other decoding schemes used 
+in~\cite{Wootton2013,Brell2013,Hutter2014}?}
 
 %------------------------------------------------------------------------------------------------------------%	
-\paragraph{Simulation}
+\paragraph{Simulation.}
 
-Although simulation of general processes involving $n$ Fibonacci anyons is BQP-complete (and thus unlikely to be classically tractable), noise and error-correction procedures have structure that we can exploit to efficiently simulate typical processes of interest. In particular, those processes in which we expect error-correction to succeed are also those that we expect to be able to efficiently simulate for the following reasons.
+Although simulating pair creation, braiding, and fusion of $n$ Fibonacci anyons is equivalent 
+to in computational power to universal quantum computing (and thus unlikely to be classically 
+tractable), noise and error-correction procedures have structure that we can exploit to 
+efficiently simulate typical processes of interest. In particular, those processes in which we 
+expect error-correction to succeed are also those that we expect to be able to efficiently 
+simulate for the following heuristic reasons.
 
-Below the (bond) percolation threshold, we expect random sets of bonds to decompose into separate clusters of average size $O(log(n))$ and variance $O(1)$, \cite{Bazant2000}. In our context, the random bonds correspond to noise processes, and so separate clusters correspond to sets of anyons that could not have interacted at any point in their history. As such, we can simulate the braiding processes of each cluster separately. In other words: it is a (tensor) product state, so we compute with each factor separately. Since each cluster has only size $O(log(n))$, we may typically simulate these dynamics efficiently. 
+Below the (bond) percolation threshold for (say) a square lattice, we expect random sets of 
+bonds to decompose into separate clusters of average size $O(\log(n))$ and variance 
+$O(1)$,~\cite{Bazant2000}. In our context, the random bonds correspond to noise processes, 
+and so disconnected clusters correspond to sets of anyons that could not have interacted at 
+any point in their history. As such, we can simulate the braiding processes of each cluster 
+separately. In other words: the quantum state factorizes into a tensor product, and we can 
+compute with each factor separately. Since each cluster has size only $O(\log(n))$, we can 
+typically simulate these dynamics efficiently because the resulting fusion space has 
+dimension $O(\mathrm{poly}(n))$. There are rare random processes that violate this 
+reasoning, but processes such as these are suppressed exponentially in $L$, the 
+lattice size~\cite{Grimmett1989}. 
 
-However, random noise processes are not the only dynamics that we need consider. We must also consider the effect of the error-correction routine itself. This acts iteratively to fuse particles on increasing length scales. While this kind of fusion would typically merge clusters, forcing us to compute dynamics of larger and larger sets of anyons, at each length scale the total number of anyons present is dramatically reduced. Indeed, the goal of the error correction algorithm is to reduce the number of anyons as much as possible.
+However, random noise processes are not the only dynamics that we need to consider. We 
+must also consider the effect of the error-correction routine itself. This acts iteratively to fuse 
+particles on increasing length scales. While this kind of fusion would typically merge clusters, 
+forcing us to compute dynamics of larger and larger sets of anyons, at each length scale the 
+total number of anyons present is dramatically reduced. Indeed, the goal of the error 
+correction algorithm is to reduce the number of anyons as much as possible.
 
-\cggb{Can we make a concrete claim about the maximum size of clusters at each stage of the decoding procedure? Do we know anything about the distribution of separations between clusters in the sub-critical percolation regime?}
+\cggb{Can we make a concrete claim about the maximum size of clusters at each stage of the decoding procedure?} \stf{Well, the worst case behavior has no bound, so we need a statement about expectation.} \cggb{Do we know anything about the distribution of separations between clusters in the sub-critical percolation regime?} \stf{I think the Bravyi \& Haah appendix might provide some results that would be useful in making such a statement.}
 
-Of course, if we were to consider noise so strong that the clusters percolate over the lattice, we would no longer be able to efficiently simulate the system. However, recall that logical errors in our system correspond to processes that act over a non-trivial loop of the torus. If the noise operations are so common to have percolated, this is an example of a situation where we expect error-correction \emph{not} to succeed. Similarly, if the noise has not yet percolated by itself, but the clusters are merged into a large (percolated) cluster by the decoding algorithm, this is again an example of a process that we expect to correspond to a failure of error-correction. So we see that the events that we are able to efficiently simulate correspond precisely to those for which we expect error-correction to succeed. We may simply declare failure on non-simulable events. This allows us to simulate and demonstrate the success of error-correction schemes for Fibonacci anyons, without explicitly simulating the failure of such schemes.
+Of course, if we were to consider noise so strong that the clusters percolate over the lattice, we would no longer be able to efficiently simulate the system. However, recall that logical errors in our system correspond to processes that act over a non-trivial loop of the torus. If the noise operations are so common to have percolated, this is an example of a situation where we expect error-correction \emph{not} to succeed. Similarly, if the noise has not yet percolated by itself, but the clusters are merged into a large (percolated) cluster by the decoding algorithm, this is again an example of a process that we expect to correspond to a failure of error-correction. So we see that the events that we are able to efficiently simulate correspond precisely to those for which we expect error-correction to succeed. We can simply declare failure on non-simulable events. This allows us to simulate and demonstrate the success of error-correction schemes for Fibonacci anyons, without explicitly simulating the failure of such schemes.
 
 %------------------------------------------------------------------------------------------------------------%	
-\paragraph{Simulation algorithm}
+\paragraph{Simulation algorithm.}
 
-We cover the surface of the torus with LxL disjoint squares. These {\it tiles} are the regions over which
+We cover the surface of the torus with $L\times L$ disjoint squares. These \emph{tiles} are the regions over which
 charge measurements occur, in order to produce a syndrome for the decoder.
 
-In order to keep track of the observables of the system we maintain a set of disjoint {\it curves}. These curves can also be thought of as a top-down view of the fusion tree. In general, this winds around the two dimensional tiles in a haphazard way determined by the progress of the simulation. For comparison, previous work used a single fixed Z-shaped curve (row-major ordering) \cite{Brell2013}.
+In order to keep track of the observables of the system we maintain a set of disjoint \emph{curves}. These curves can also be thought of as a top-down view of the fusion tree. In general, this winds around the two dimensional tiles in a haphazard way determined by the progress of the simulation. For comparison, previous work used a single fixed Z-shaped curve (row-major ordering)~\cite{Brell2013}.
 
-\begin{center}
+\begin{figure}[th!]\begin{center}
 	{\scriptsize (i)
-	\includegraphics[width=0.26\columnwidth]{pair-create.pdf}
-	\hskip 5pt
+	\includegraphics[width=0.27\columnwidth]{pair-create.pdf}
+	\hskip 4pt
 	(ii)
-	\includegraphics[width=0.26\columnwidth]{syndrome-1.pdf}
-	\hskip 5pt
+	\includegraphics[width=0.27\columnwidth]{syndrome-1.pdf}
+	\hskip 4pt
 	(iii)}
-	\includegraphics[width=0.26\columnwidth]{syndrome-2.pdf}
-\end{center}
+	\includegraphics[width=0.27\columnwidth]{syndrome-2.pdf}
+\caption{default}\label{default}\end{center}\end{figure}
 
 Each round of simulation proceeds in four steps as follows:
 
@@ -190,21 +211,22 @@ Each round of simulation proceeds in four steps as follows:
 \end{enumerate}
 
 %------------------------------------------------------------------------------------------------------------%
-\paragraph{Numerical results}
+\paragraph{Numerical results.}
 
 We plot the performance of the decoder as a function of error rate for varying lattice sizes. The error rate is parameterized by the Poisson process duration $t_{\mathrm{sim}}$. There is clear evidence of a decoding threshold below
 which decoding succeeds with asymptotic certainty as the system size increases. This threshold is at $t_{\mathrm{sim}}\simeq 0.125 \pm 0.003.$
 
-\begin{center}
+\begin{figure}[th!]\begin{center}
 	\includegraphics[width=\columnwidth]{anyons-kyle.pdf}
-\end{center}
+\caption{default}\label{default}\end{center}\end{figure}
+
 
 \cggb{Define $t_{\mathrm{sim}}$.}
 	
 \cggb{Comment on the effect of declaring failure on some simulations on this plot. Would we expect it to change if we simulated every event completely? If so, how?}
 
 %------------------------------------------------------------------------------------------------------------%
-\paragraph{Discussion}
+\paragraph{Discussion.}
 
 \cggb{Comment on choice of encoding, and applicability of our simulation techniques to simulation of fusion encodings as in Fibonacci anyon computing schemes.}
 	
