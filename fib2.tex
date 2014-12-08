@@ -178,7 +178,11 @@ forcing us to compute dynamics of larger and larger sets of anyons, at each leng
 total number of anyons present is dramatically reduced. Indeed, the goal of the error 
 correction algorithm is to reduce the number of anyons as much as possible.
 
-\cggb{Can we make a concrete claim about the maximum size of clusters at each stage of the decoding procedure?} \stf{Well, the worst case behavior has no bound, so we need a statement about expectation.} \cggb{Do we know anything about the distribution of separations between clusters in the sub-critical percolation regime?} \stf{I think the Bravyi \& Haah appendix might provide some results that would be useful in making such a statement.}
+\cggb{Can we make a concrete claim about the maximum size of clusters at each stage of the 
+decoding procedure?} \stf{Well, the worst case behavior has no bound, so we need a 
+statement about expectation.} \cggb{Do we know anything about the distribution of 
+separations between clusters in the sub-critical percolation regime?} \stf{I think the Bravyi \& 
+Haah appendix might provide some results that would be useful in making such a statement.}
 
 Of course, if we were to consider noise so strong that the clusters percolate over the lattice, we would no longer be able to efficiently simulate the system. However, recall that logical errors in our system correspond to processes that act over a non-trivial loop of the torus. If the noise operations are so common to have percolated, this is an example of a situation where we expect error-correction \emph{not} to succeed. Similarly, if the noise has not yet percolated by itself, but the clusters are merged into a large (percolated) cluster by the decoding algorithm, this is again an example of a process that we expect to correspond to a failure of error-correction. So we see that the events that we are able to efficiently simulate correspond precisely to those for which we expect error-correction to succeed. We can simply declare failure on non-simulable events. This allows us to simulate and demonstrate the success of error-correction schemes for Fibonacci anyons, without explicitly simulating the failure of such schemes.
 
@@ -235,6 +239,8 @@ which decoding succeeds with asymptotic certainty as the system size increases. 
 \cggb{Comment on the fact that these methods are not restricted to Fibonacci anyons, and could be used to demonstrate the success of error-correction protocols on arbitrary anyon models.}
 	
 \cggb{Comment on applicability of our simulation techniques to non-phenomenological models. Is it possible that the same ideas could be useful when there is more microscopic detail available, or are they restricted to exactly our phenomenological setup?}
+
+\stf{Is there a possibility of using MPS like Rob Pfeiffer to improve the simulations or include interactions?}
 
 \cggb{Do we have much more to say?}
 
