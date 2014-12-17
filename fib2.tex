@@ -88,9 +88,9 @@ system with Fibonacci anyons, a class of nonabelian anyons that are universal fo
 computation~\cite{Wang2010b}. Fibonacci anyons are experimentally motivated as the 
 expected excitations of the $\nu=\frac{12}{5}$ fractional quantum Hall 
 states~\cite{Slingerland2001}, and can also be realized in several spin 
-models~\cite{Levin2005, Kapit2013, Palumbo2014}. 
+models~\cite{Levin2005, Kapit2013, Palumbo2014} and composite heterostructures~\cite{Mong2014}.
 
-\stf{Describe main results and why they are badass.}
+\stf{Describe main results and why they are badass. cite:~\cite{Bonesteel2012}}
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Modelling Fibonacci anyons.}
@@ -194,7 +194,8 @@ charge measurements occur, in order to produce a syndrome for the decoder.
 
 In order to keep track of the observables of the system we maintain a set of disjoint \emph{curves}. These curves can also be thought of as a top-down view of the fusion tree. In general, this winds around the two dimensional tiles in a haphazard way determined by the progress of the simulation. For comparison, previous work used a single fixed Z-shaped curve (row-major ordering)~\cite{Brell2013}.
 
-\begin{figure}[th!]\begin{center}
+\begin{figure}[th!]
+\begin{center}
 	{\scriptsize (i)
 	\includegraphics[width=0.27\columnwidth]{pair-create.pdf}
 	\hskip 4pt
@@ -203,7 +204,10 @@ In order to keep track of the observables of the system we maintain a set of dis
 	\hskip 4pt
 	(iii)}
 	\includegraphics[width=0.27\columnwidth]{syndrome-2.pdf}
-\caption{default}\label{default}\end{center}\end{figure}
+\caption{default}
+\label{default}
+\end{center}
+\end{figure}
 
 Each round of simulation proceeds in four steps as follows:
 
@@ -220,9 +224,13 @@ Each round of simulation proceeds in four steps as follows:
 We plot the performance of the decoder as a function of error rate for varying lattice sizes. The error rate is parameterized by the Poisson process duration $t_{\mathrm{sim}}$. There is clear evidence of a decoding threshold below
 which decoding succeeds with asymptotic certainty as the system size increases. This threshold is at $t_{\mathrm{sim}}\simeq 0.125 \pm 0.003.$
 
-\begin{figure}[th!]\begin{center}
+\begin{figure}[th!]
+\begin{center}
 	\includegraphics[width=\columnwidth]{anyons-kyle.pdf}
-\caption{default}\label{default}\end{center}\end{figure}
+\caption{default}
+\label{default}
+\end{center}
+\end{figure}
 
 
 \cggb{Define $t_{\mathrm{sim}}$.}
