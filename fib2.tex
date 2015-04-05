@@ -9,7 +9,7 @@
 %------------------------------------------------------------------------------------------------------------%
 
 \usepackage{color}
-\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{amsmath,amsfonts,amssymb}
 \usepackage{graphicx}
 \usepackage[caption=false]{subfig}
 \usepackage{enumerate}
@@ -32,7 +32,6 @@
 
 \newcommand{\Eref}[1]{Eq.~(\ref{#1})}
 \newcommand{\Fref}[1]{Fig.~\ref{#1}}
-\newcommand{\Aref}[1]{Appendix~\ref{#1}}
 
 \newcommand{\eps}{\epsilon}
 
@@ -148,7 +147,7 @@ which for the Fibonacci anyons gives rise to a 2-fold degeneracy. For convenienc
 (in particular to minimize finite-size effects in our numerical computations~\cite{Brell2013}), 
 this global space is the one in which we will encode, and demonstrate protection of, quantum 
 information.
-	
+
 The fusion outcome of any particular experiment depends on the history of the particles, in 
 particular how they have braided around one another. Braiding operations are treated as 
 unitary actions on the fusion space. Pair-creation events should be considered isometries 
@@ -167,7 +166,7 @@ a less important (and non-universal) role. As such, we model the system simply a
 periodic $L\times L$ square lattice $\Lambda$ of sites with upon which sets of anyons can 
 reside. Allowed anyon dynamics (pair-creation, braiding, and fusion) are considered to act 
 locally on edges of $\Lambda$. For more details of an analogous model, see~\cite{Brell2013}.
-	
+
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Noise and error-correction.}
 
@@ -186,7 +185,7 @@ seen in~\cite{Brell2013} that a simplified noise model consisting of pair-creati
 is sufficient to capture the qualitative features of an error-correction simulation, and so we 
 will restrict to pair-creation noise processes in this study for convenience. These events act 
 on neighbouring pairs of sites, and so may be associated with an edge of the lattice, chosen 
-uniformly at random at each timestep of the simulation. The simulation time, and thus the 
+uniformly at random at each time step of the simulation. The simulation time, and thus the 
 error-correction threshold, will be measured in terms of average number of noise processes 
 per edge, as opposed to an iid noise probability per edge. The latter measure is not 
 appropriate for error processes in nonabelian anyon models, but the two coincide in the limit 
@@ -226,7 +225,7 @@ iii) measuring the total charge on each tile.}
 \label{f:simex}
 \end{center}
 \end{figure*}
-	
+
 %------------------------------------------------------------------------------------------------------------%	
 \paragraph{Classical simulability.}
 
@@ -291,7 +290,7 @@ in \Fref{f:simex}).
 
 \begin{enumerate}[i)]
 	\item The noise process is modelled by a sequence of pair-creation events distributed as 
-	a Poisson process across each edge. Curves are created crossing the relevent edge 
+	a Poisson process across each edge. Curves are created crossing the relevant edge 
 	and terminating on the neighbouring sites.
 	\item We first join curves that participate in the same tile in order to, 
 	\cggb{maybe a couple more lines of detail on this and the next point?}
@@ -323,7 +322,7 @@ threshold behavior around at $t_{\mathrm{sim}}\simeq 0.125$.}
 \end{figure}
 
 \cggb{Do we need to define $t_{\mathrm{sim}}$ more explicitly?}
-	
+
 \cggb{Comment on the effect of declaring failure on some simulations on this plot. Would 
 we expect it to change if we simulated every event completely? If so, how?}
 
@@ -339,11 +338,11 @@ system, we could have encoded it in the fusion space of several preferred $\tau$
 This situation would be appropriate to model error-correction routines in a topological 
 quantum computation protocol. Additionally, we expect our results to be stable to changes 
 in details of the noise model, decoding algorithm, etc.
-	
+
 None of our techniques are restricted to simulation of Fibonacci anyon dynamics, and could 
 equally well be used to simulate successful error-correction protocols in an arbitrary anyon 
 code.	
-	
+
 \cggb{Comment on applicability of our simulation techniques to non-phenomenological 
 models. Is it possible that the same ideas could be useful when there is more microscopic 
 detail available, or are they restricted to exactly our phenomenological setup?}
