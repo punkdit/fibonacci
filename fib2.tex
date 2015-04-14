@@ -70,12 +70,8 @@ The University of Sydney, Sydney, Australia}
 \begin{abstract}
 Classically simulating the dynamics of excitations in two-dimensional quantum systems that 
 support anyons is likely intractable in general because such dynamics are sufficient for 
-universal quantum computation. However, for typical processes of interest for the the study of 
-quantum error correction in anyon systems, the relevant dynamics can in fact be efficiently 
-simulated classically for a wide range of system parameters, even when the underlying anyon 
-model is universal~\cite{RGsim}. We make use of this fact to demonstrate the success of an 
-error-correction protocol for a Fibonacci anyon quantum memory. We numerically simulate a 
-phenomenological model of the system and noise processes on lattice sizes of up to 
+universal quantum computation. However, processes of interest for the study of quantum error correction in anyon systems are typically drawn from a restricted class that displays significant structure over a wide range of system parameters.
+We exploit this structure to classically simulate, and thus demonstrate the success of, an error-correction protocol for a quantum memory based on a universal anyon model, the Fibonacci anyons.  We numerically simulate a phenomenological model of the system and noise processes on lattice sizes of up to 
 $128\times128$ sites, and find a lower bound on the error-correction threshold of 
 approximately $12.5\%$, which is comparable to those previously known for abelian and 
 (non-universal) nonabelian anyon models.
@@ -85,37 +81,28 @@ approximately $12.5\%$, which is comparable to those previously known for abelia
 
 %------------------------------------------------------------------------------------------------------------%
 
-Anyonic excitations in two-dimensional quantum systems~\cite{Wilczek1990} offer 
-tremendous promise for long-term storage and processing of quantum 
-information~\cite{Kitaev2003}. The topological features of quantum systems that support 
-such excitations are insensitive to local 
-perturbations~\cite{Bravyi2010, *Bravyi2011a, *Michalakis2013}, and the excitations 
-themselves can in general be used to perform universal quantum 
-computation~\cite{Freedman2002, *Freedman2002b}. 
+Topologically ordered quantum systems in two dimensions offer tremendous promise for long-term storage and processing of quantum 
+information~\cite{Kitaev2003}. The topological features of such systems are insensitive to local perturbations~\cite{Bravyi2010, Bravyi2011a, Michalakis2013}, and have excitations displaying anyonic statistics~\cite{Wilczek1990}. These anyons can in general be used as quantum memories or to perform universal topological quantum computation~\cite{Freedman2002, Freedman2002b, Nayak????}.
 
 Quantum error correction is vital to harnessing the computational power of these topologically 
 ordered systems. When coupled to a heat bath at any finite temperature, thermal fluctuations 
-will create anyons that diffuse and quickly corrupt the stored quantum 
+will create spurious anyons that diffuse and quickly corrupt the stored quantum 
 information~\cite{Pastawski2010}. Thus, the passive protection provided by the mass gap 
-and low temperature must be augmented by an \emph{active} procedure. 
+at low temperature must be augmented by an \emph{active} procedure. 
 
 Almost all of the sizable research effort on active quantum error correction for topological 
 systems has focused on the case of abelian anyons~\cite{Terhal2014}. These systems are 
 well suited to studying quantum error correction because the dynamics of excitations in 
-abelian anyon models can be simulated numerically very efficiently, allowing lattice 
-simulations of decoding with over 1 million sites~\cite{Duclos-Cianci2010}. The ability to 
-efficiently simulate these systems is a consequence of the limitation that abelian anyons 
-cannot be used for universal quantum computation. 
+abelian anyon models (at the RG fixed point) can be simulated numerically very efficiently, allowing lattice 
+simulations of decoding with over 1 million sites~\cite{Duclos-Cianci2010}. Standard algorithms to efficiently simulate these systems rely on the abelian nature of these particles, and in particular the fact that abelian anyons cannot be used for quantum computation. 
 
 Recent investigations have begun to explore quantum error correction for nonabelian anyon 
-models~\cite{Brell2013, Wootton2013, Hutter2014}. These models are particularly interesting 
-because braiding and fusion of anyons in these models leads in general to universal quantum 
-computation. However, the initial studies have focused on models such as Ising 
+models~\cite{Brell2013, Wootton2013, Hutter2014}. Nonabelian anyon models are particularly interesting 
+because braiding and fusion of these anyons in general allows for the implementation of universal quantum 
+computation. However, the initial studies of error-correction in nonabelian anyon systems have focused on specific models, such as the Ising 
 anyons~\cite{Brell2013} and the so-called $\Phi$-$\Lambda$ 
-model~\cite{Wootton2013, Hutter2014} that, while nonabelian, are not universal, a fact 
-that was exploited to enable efficient classical simulation of error correction in these systems. 
-The remarkable computational power of universal anyon models becomes a liability when we 
-seek to simulate these systems on classical computers. 
+model~\cite{Wootton2013, Hutter2014} that, while nonabelian, are not universal. The general dynamics of these particular anyon models is known to be classically simulable, a fact
+that was exploited to enable efficient simulation of error correction in these systems. When considering more general anyon models, their ability to perform universal quantum computation would seem a significant barrier to their simulation on a classical computer. While simulation of general dynamics does indeed seem intractable, we argue that the kinds of processes that are typical of thermal noise are sufficiently structured to allow for their classical simulation in precisely the regimes where we expect successful error correction to be possible. This insight allows us to simulate both noise and error-correction for a quantum code based on a universal anyon model.
 
 Here we consider a full simulation of quantum error correction in a two-dimensional lattice 
 system with Fibonacci anyons, a class of nonabelian anyons that are universal for quantum 
@@ -125,7 +112,9 @@ states~\cite{Slingerland2001}, and can also be realized in several spin
 models~\cite{Levin2005, Kapit2013, Palumbo2014} and composite 
 heterostructures~\cite{Mong2014}.
 
-\stf{Describe main results and why they are badass. cite:~\cite{Bonesteel2012}}
+\stf{cite:~\cite{Bonesteel2012}} \cggb{what is this citation for? something about experimentally relevant in engineered systems?}
+
+We use a flexible phenomenological model of dynamics and thermal noise to describe a system with Fibonacci anyon excitations. Within this model, we apply existing general topological error-correction protocols to simulate the successful preservation of quantum information encoded in topological degrees of freedom. Topological quantum computation protocols using nonabelian anyons typically implicitly assume the existence of an error-correction protocol to correct for diffusion or unwanted creation of anyons. Our results are the first explicit demonstration that such a scheme will be successful when applied to a universal topological quantum computer.
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Modelling Fibonacci anyons.}
@@ -206,8 +195,7 @@ exceeds the total size of the lattice. \cggb{A few more details? What is our len
 Note that we expect that our qualitative results may be reproduced by most alternative 
 families of decoders, such as matching decoders~\cite{?} and soft-decisions 
 RG decoders~\cite{?} \cggb{do we?}. The advantage of using a hard-decision RG decoder is 
-its simplicity and flexibility, and the fact that this simplicity allows for a proof of efficient 
-classical simulability of successful error-correction~\cite{RGsim}.
+its simplicity and flexibility, and the fact that its clustering scheme does is compatible with the structure in the noise processes that allows us to classically simulate them.
 
 \begin{figure*}[th!]
 \begin{center}
@@ -232,10 +220,9 @@ iii) measuring the total charge on each tile.}
 Although simulating pair creation, braiding, and fusion of $n$ Fibonacci anyons is equivalent 
 in computational power to universal quantum computing (and thus unlikely to be classically 
 tractable), noise processes and error-correction procedures have structure that we can 
-exploit to efficiently simulate typical processes of interest~\cite{RGsim}. In particular, those 
+exploit to efficiently simulate typical processes of interest. In particular, those 
 processes in which we expect error-correction to succeed are also those that we expect to 
-be able to efficiently simulate for the following heuristic reasons (see Ref.~\cite{RGsim} 
-for a more rigorous analysis).
+be able to efficiently simulate for the following heuristic reasons (we leave a more rigorous analysis of simulability for noise and error correction processes as an open problem).
 
 Below the (bond) percolation threshold for (say) a square lattice, we expect random sets of 
 bonds to decompose into separate clusters of average size $O(\log(n))$ and variance 
@@ -358,10 +345,7 @@ include interactions?}
 %------------------------------------------------------------------------------------------------------------%
 \acknowledgements 
 
-\cggb {People we chatted to.} This work was supported by the ARC via 
-EQuS project number CE11001013, and by the US Army Research Office grant numbers 
-W911NF-14-1-0098 and W911NF-14-1-0103. STF also acknowledges support from an 
-ARC Future Fellowship FT130101744. \cggb{CGB funding.}
+\cggb {People we chatted to.} This work was supported by the ARC via EQuS project number CE11001013, by the US Army Research Office grant numbers W911NF-14-1-0098 and W911NF-14-1-0103, ERC grant QFTCMPS and by the cluster of excellence EXC 201 Quantum Engineering and Space-Time Research. STF also acknowledges support from an ARC Future Fellowship FT130101744.
 
 %------------------------------------------------------------------------------------------------------------%
 \bibliography{refs2}
