@@ -71,7 +71,7 @@ The University of Sydney, Sydney, Australia}
 Classically simulating the dynamics of excitations in two-dimensional quantum systems that 
 support anyons is likely intractable in general because such dynamics are sufficient for 
 universal quantum computation. However, processes of interest for the study of quantum error correction in anyon systems are typically drawn from a restricted class that displays significant structure over a wide range of system parameters.
-We exploit this structure to classically simulate, and thus demonstrate the success of, an error-correction protocol for a quantum memory based on a universal anyon model, the Fibonacci anyons.  We numerically simulate a phenomenological model of the system and noise processes on lattice sizes of up to 
+We exploit this structure to classically simulate, and thereby demonstrate the success of, an error-correction protocol for a quantum memory based on the universal Fibonacci anyon model.  We numerically simulate a phenomenological model of the system and noise processes on lattice sizes of up to 
 $128\times128$ sites, and find a lower bound on the error-correction threshold of 
 approximately $12.5\%$, which is comparable to those previously known for abelian and 
 (non-universal) nonabelian anyon models.
@@ -82,7 +82,7 @@ approximately $12.5\%$, which is comparable to those previously known for abelia
 %------------------------------------------------------------------------------------------------------------%
 
 Topologically ordered quantum systems in two dimensions offer tremendous promise for long-term storage and processing of quantum 
-information~\cite{Kitaev2003}. The topological features of such systems are insensitive to local perturbations~\cite{Bravyi2010, Bravyi2011a, Michalakis2013}, and have excitations displaying anyonic statistics~\cite{Wilczek1990}. These anyons can in general be used as quantum memories or to perform universal topological quantum computation~\cite{Freedman2002, Freedman2002b, Nayak????}.
+information~\cite{Dennis2002} \cggb{a relevant review reference?}. The topological features of such systems are insensitive to local perturbations~\cite{Bravyi2010, Bravyi2011a, Michalakis2013}, and have excitations displaying anyonic statistics~\cite{Wilczek1990}. These anyons can in general be used as quantum memories or to perform universal topological quantum computation~\cite{Kitaev2003, Freedman2002, Nayak2008}.
 
 Quantum error correction is vital to harnessing the computational power of these topologically 
 ordered systems. When coupled to a heat bath at any finite temperature, thermal fluctuations 
@@ -91,7 +91,7 @@ information~\cite{Pastawski2010}. Thus, the passive protection provided by the m
 at low temperature must be augmented by an \emph{active} procedure. 
 
 Almost all of the sizable research effort on active quantum error correction for topological 
-systems has focused on the case of abelian anyons~\cite{Terhal2014}. These systems are 
+systems has focused on the case of abelian anyons~\cite{Terhal2014} \cggb{revise citations here: poulin decoding stuff, what else?}. These systems are 
 well suited to studying quantum error correction because the dynamics of excitations in 
 abelian anyon models (at the RG fixed point) can be simulated numerically very efficiently, allowing lattice 
 simulations of decoding with over 1 million sites~\cite{Duclos-Cianci2010}. Standard algorithms to efficiently simulate these systems rely on the abelian nature of these particles, and in particular the fact that abelian anyons cannot be used for quantum computation. 
@@ -106,7 +106,7 @@ that was exploited to enable efficient simulation of error correction in these s
 
 Here we consider a full simulation of quantum error correction in a two-dimensional lattice 
 system with Fibonacci anyons, a class of nonabelian anyons that are universal for quantum 
-computation~\cite{Wang2010b}. Fibonacci anyons are experimentally motivated as the 
+computation~\cite{Freedman2002, Nayak2008}. Fibonacci anyons are experimentally motivated as the 
 expected excitations of the $\nu=\frac{12}{5}$ fractional quantum Hall 
 states~\cite{Slingerland2001}, and can also be realized in several spin 
 models~\cite{Levin2005, Kapit2013, Palumbo2014} and composite 
@@ -121,7 +121,7 @@ We use a flexible phenomenological model of dynamics and thermal noise to descri
 
 The topological features of a physical anyon model are abstractly described by a unitary 
 modular tensor category~\cite{Wang2010b}. This object contains the data describing the 
-types of anyonic particles, as well as the results of topological operations such as braiding or 
+types of anyonic particles, as well as the results of topological operations such as braiding and 
 fusion of these anyons. The Fibonacci anyon model consists of only one non-trivial particle 
 type, conventionally labelled $\tau$. Denoting the vacuum by $\mathbb{I}$, we can describe 
 the possible fusion outcomes of Fibonacci anyons as $\tau\times\tau=\mathbb{I}+\tau$, 
@@ -142,10 +142,9 @@ particular how they have braided around one another. Braiding operations are tre
 unitary actions on the fusion space. Pair-creation events should be considered isometries 
 that enlarge the fusion space, while fusion events correspond to projective measurements 
 of combined charge of some number of particles. For details of the description of these 
-processes in Fibonacci anyons, see Ref.~\cite{Trebst2008}. 
-\stf{check that this ref is a good one...} 
+processes in Fibonacci anyons, see e.g.~Ref.~\cite{Nayak2008} and references therein. 
 Braiding of Fibonacci anyons and measurements of fusion outcomes is known to be 
-sufficient to implement universal quantum computation~\cite{?}.
+sufficient to implement universal quantum computation~\cite{Freedman2002, Nayak2008}.
 
 We use a phenomenological model of Fibonacci anyon dynamics which neglects any 
 microscopic details of the system. This is consistent with the principles of topologically 
@@ -171,8 +170,8 @@ conditions, this space is two-fold degenerate as noted above. We identify this g
 as the codespace of our model. Typical realistic noise processes in this kind of system are 
 pair-creation, hopping, exchange etc.~of anyons on neighbouring sites of $\Lambda$. It was 
 seen in~\cite{Brell2013} that a simplified noise model consisting of pair-creation events only 
-is sufficient to capture the qualitative features of an error-correction simulation, and so we 
-will restrict to pair-creation noise processes in this study for convenience. These events act 
+is sufficient to capture the qualitative features of an error-correction simulation, and so for convenience we 
+will restrict to pair-creation noise processes in the numerical results presented in this study. Such pair-creation events act 
 on neighbouring pairs of sites, and so may be associated with an edge of the lattice, chosen 
 uniformly at random at each time step of the simulation. The simulation time, and thus the 
 error-correction threshold, will be measured in terms of average number of noise processes 
@@ -183,19 +182,18 @@ of low error rates in those cases where they are comparable (see Ref.~\cite{Brel
 In order to perform a logical error on our code, a noise process must have support on a 
 ribbon running around a homologically nontrivial loop of the lattice. These correspond to 
 processes in which anyonic charge is transported around the non-trivial loop before 
-annihilating to vacuum. More details can be found in Ref.~\cite{?}.
+annihilating to vacuum.
 
-Our error-correction algorithm is based on the hard-decision renormalization group (RG) 
-decoders studied in Refs.~\cite{?}. Our decoder proceeds by measuring the occupations of 
+Our error-correction algorithm is based on a hard-decision renormalization group (RG) 
+decoder~\cite{Bravyi2011}. The decoder proceeds by measuring the occupations of 
 anyons at each site of the lattice, forming clusters of nearby anyons and fusing the anyons 
 within each cluster, before iterating at increasing length scales. It terminates when the lattice 
 is free of anyons (i.e.~we have returned to the codespace) or the clustering length scale 
 exceeds the total size of the lattice. \cggb{A few more details? What is our length schedule?} 
 \cggb{How does our decoder relate to other decoding schemes used in~\cite{Wootton2013,Brell2013,Hutter2014}?} 
-Note that we expect that our qualitative results may be reproduced by most alternative 
-families of decoders, such as matching decoders~\cite{?} and soft-decisions 
+Note that, as was found in Ref.~\cite{Brell2013}, we expect that our qualitative results may be reproduced by most alternative families of decoders, such as matching decoders~\cite{?} and soft-decisions 
 RG decoders~\cite{?} \cggb{do we?}. The advantage of using a hard-decision RG decoder is 
-its simplicity and flexibility, and the fact that its clustering scheme does is compatible with the structure in the noise processes that allows us to classically simulate them.
+its simplicity and flexibility, and the fact that its clustering scheme is compatible with the structure in the noise processes that allows us to classically simulate them.
 
 \begin{figure*}[th!]
 \begin{center}
@@ -224,9 +222,9 @@ exploit to efficiently simulate typical processes of interest. In particular, th
 processes in which we expect error-correction to succeed are also those that we expect to 
 be able to efficiently simulate for the following heuristic reasons (we leave a more rigorous analysis of simulability for noise and error correction processes as an open problem).
 
-Below the (bond) percolation threshold for (say) a square lattice, we expect random sets of 
+Below the (bond) percolation threshold for (say) a 2D square lattice, we expect random sets of 
 bonds to decompose into separate clusters of average size $O(\log(n))$ and variance 
-$O(1)$~\cite{Bazant2000}. \cggb{Do we want to use the word cluster here again or switch?} 
+$O(1)$~\cite{Bazant2000}. \cggb{Do we want to use the word cluster here again or switch? What was our alternative word again?} 
 Each noise process in our model is associated with a (randomly distributed) edge, and so 
 disconnected clusters correspond to sets of anyons that could not have interacted at any 
 point in their history. As such, we can simulate the braiding processes of each cluster 
@@ -265,7 +263,7 @@ Our concrete simulation proceeds by associating a \emph{tile} with each site of 
 $L\times L$ periodic square lattice. In order to keep track of the observables of the system 
 we maintain a set of disjoint curves, representing the history of anyons on the lattice (these 
 curves can also be thought of as a top-down view of the fusion tree). 
-\stf{this next sentence is currently incorrect.}
+\stf{this next sentence is currently incorrect.} \cggb{Why?}
 The ends of curves 
 correspond to leaves of the fusion tree, or anyons. In general, the curves wind around the two 
 dimensional tiles in a haphazard way determined by the progress of the simulation. This 
