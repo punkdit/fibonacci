@@ -47,7 +47,7 @@
 %------------------------------------------------------------------------------------------------------------%
 
 \newcommand{\cggb}[1]{\textcolor{blue}{#1}}
-\newcommand{\sdb}[1]{\textcolor{red}{#1}}
+\newcommand{\dude}[1]{\textcolor{red}{#1}}
 \newcommand{\stf}[1]{\textcolor{green}{#1}}
 
 %------------------------------------------------------------------------------------------------------------%
@@ -116,6 +116,13 @@ heterostructures~\cite{Mong2014}.
 
 We use a flexible phenomenological model of dynamics and thermal noise to describe a system with Fibonacci anyon excitations. Within this model, we apply existing general topological error-correction protocols to simulate the successful preservation of quantum information encoded in topological degrees of freedom. Topological quantum computation protocols using nonabelian anyons typically implicitly assume the existence of an error-correction protocol to correct for diffusion or unwanted creation of anyons. Our results are the first explicit demonstration that such a scheme will be successful when applied to a universal topological quantum computer.
 
+\dude{we should stress the distinction between
+simulation the fib dynamics and the simulation of
+the decoder (which is poly by design).. this is something
+that doherty completely missed at first.. the decoder is
+classical and it does not care what anyon system it is
+looking at.}
+
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Modelling Fibonacci anyons.}
 
@@ -147,13 +154,18 @@ Braiding of Fibonacci anyons and measurements of fusion outcomes is known to be
 sufficient to implement universal quantum computation~\cite{Freedman2002, Nayak2008}.
 
 We use a phenomenological model of Fibonacci anyon dynamics which neglects any 
-microscopic details of the system. This is consistent with the principles of topologically 
+microscopic details of the system. 
+\dude{Another way of saying this is that we are doing a tqft simulation.}
+This is consistent with the principles of topologically 
 ordered systems and anyonic physics, where the key universal features describing the 
 anyon model correspond to large length-scale physics, while the microscopic physics plays 
 a less important (and non-universal) role. As such, we model the system simply as a 
 periodic $L\times L$ square lattice $\Lambda$ of sites with upon which sets of anyons can 
 reside. Allowed anyon dynamics (pair-creation, braiding, and fusion) are considered to act 
 locally on edges of $\Lambda$. For more details of an analogous model, see~\cite{Brell2013}.
+
+\dude{I really need to see something about observables vs. states. Even if
+we dont mention tqft.}
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Noise and error-correction.}
@@ -182,17 +194,21 @@ of low error rates in those cases where they are comparable (see Ref.~\cite{Brel
 In order to perform a logical error on our code, a noise process must have support on a 
 ribbon running around a homologically nontrivial loop of the lattice. These correspond to 
 processes in which anyonic charge is transported around the non-trivial loop before 
-annihilating to vacuum.
+annihilating to vacuum \dude{or not}.
 
 Our error-correction algorithm is based on a hard-decision renormalization group (RG) 
-decoder~\cite{Bravyi2011}. The decoder proceeds by measuring the occupations of 
+decoder~\cite{Bravyi2011}. 
+The decoder proceeds by measuring the occupations of 
 anyons at each site of the lattice, forming clusters of nearby anyons and fusing the anyons 
-within each cluster, before iterating at increasing length scales. It terminates when the lattice 
+within each cluster, before iterating at increasing length scales.
+It terminates when the lattice 
 is free of anyons (i.e.~we have returned to the codespace) or the clustering length scale 
-exceeds the total size of the lattice. \cggb{A few more details? What is our length schedule?} 
+exceeds the total size of the lattice.
+\cggb{A few more details? What is our length schedule?} 
 \cggb{How does our decoder relate to other decoding schemes used in~\cite{Wootton2013,Brell2013,Hutter2014}?} 
 Note that, as was found in Ref.~\cite{Brell2013}, we expect that our qualitative results may be reproduced by most alternative families of decoders, such as matching decoders~\cite{?} and soft-decisions 
-RG decoders~\cite{?} \cggb{do we?}. The advantage of using a hard-decision RG decoder is 
+RG decoders~\cite{?} \cggb{do we?}.
+The advantage of using a hard-decision RG decoder is 
 its simplicity and flexibility, and the fact that its clustering scheme is compatible with the structure in the noise processes that allows us to classically simulate them.
 
 \begin{figure*}[th!]
@@ -260,15 +276,17 @@ simulating the failure of such schemes.
 \paragraph{Simulation algorithm.}
 
 Our concrete simulation proceeds by associating a \emph{tile} with each site of the 
-$L\times L$ periodic square lattice. In order to keep track of the observables of the system 
-we maintain a set of disjoint curves, representing the history of anyons on the lattice (these 
-curves can also be thought of as a top-down view of the fusion tree). 
-\stf{this next sentence is currently incorrect.} \cggb{Why?}
-The ends of curves 
-correspond to leaves of the fusion tree, or anyons. In general, the curves wind around the two 
-dimensional tiles in a haphazard way determined by the progress of the simulation. This 
-allows a dynamically generated basis for the fusion space that easily allows for tensor 
-decomposition into factors corresponding to disjoint clusters. For comparison, previous work 
+$L\times L$ periodic square lattice.
+In order to keep track of the observables of the system 
+we maintain a set of disjoint curves, representing the history of anyons on the lattice.
+These curves can also be thought of as a top-down view of the fusion tree:
+the anyons on the leaves of the fusion tree are here displayed as points along each curve.
+%The ends of curves correspond to leaves of the fusion tree, or anyons. 
+In general, the curves wind around the two 
+dimensional tiles in a haphazard way determined by the progress of the simulation.
+This allows a dynamically generated basis for the fusion space that easily allows for tensor 
+decomposition into factors corresponding to disjoint clusters.
+For comparison, previous work 
 used a single fixed basis for the fusion space (determined by row-major ordering of 
 sites)~\cite{Brell2013}.
 
@@ -276,18 +294,18 @@ Each round of simulation proceeds in four steps as follows (an example is shown
 in \Fref{f:simex}).
 
 \begin{enumerate}[i)]
-	\item The noise process is modelled by a sequence of pair-creation events distributed as 
-	a Poisson process across each edge. Curves are created crossing the relevant edge 
-	and terminating on the neighbouring sites.
-	\item We first join curves that participate in the same tile in order to, 
-	\cggb{maybe a couple more lines of detail on this and the next point?}
-	\item measure the charge on each tile. Any resulting anyon is left somewhere in the tile.
-	\item The decoder examines this syndrome and clusters nearby anyons. Each cluster 
-	is then measured (fused), and the decoder continues to cluster and fuse on larger 
-	scales until there are no more anyons, or a cluster includes a non-trivial loop on the 
-	lattice. Since operators with support on such non-trivial clusters will generally perform an 
-	undetectable error on the encoded state, in this case we abandon the simulation and 
-	declare failure to error correct.
+\item The noise process is modelled by a sequence of pair-creation events distributed as 
+a Poisson process across each edge. Curves are created crossing the relevant edge 
+and terminating on the neighbouring sites.
+\item We first join curves that participate in the same tile in order to, 
+\cggb{maybe a couple more lines of detail on this and the next point?}
+\item measure the charge on each tile. Any resulting anyon is left somewhere in the tile.
+\item The decoder examines this syndrome and clusters nearby anyons. Each cluster 
+is then measured (fused), and the decoder continues to cluster and fuse on larger 
+scales until there are no more anyons, or a cluster includes a non-trivial loop on the 
+lattice. Since operators with support on such non-trivial clusters will generally perform an 
+undetectable error on the encoded state, in this case we abandon the simulation and 
+declare failure to error correct.
 \end{enumerate}
 
 %------------------------------------------------------------------------------------------------------------%
@@ -303,7 +321,7 @@ certainty as the system size increases at $t_{\mathrm{sim}}\simeq 0.125 \pm 0.00
 \begin{center}
 	\includegraphics[width=\columnwidth]{anyons-kyle.pdf}
 \caption{Decoder failure as a function of simulation time for various lattice sizes, showing 
-threshold behavior around at $t_{\mathrm{sim}}\simeq 0.125$.}
+threshold behavior at around $t_{\mathrm{sim}}\simeq 0.125$.}
 \label{f:threshold}
 \end{center}
 \end{figure}
@@ -312,6 +330,13 @@ threshold behavior around at $t_{\mathrm{sim}}\simeq 0.125$.}
 
 \cggb{Comment on the effect of declaring failure on some simulations on this plot. Would 
 we expect it to change if we simulated every event completely? If so, how?}
+\dude{you spend alot of effort arguing above that we can
+neglect these occurances, but i am wondering if we need to be
+this strenuous: i did many calculations of global braids/fusions
+and they all do a non-unitary on the logical space.. i could not
+see how to braid around the torus in *any* trivial way *at all*.
+This falls short of a proof, but i'm fairly convinced our sim is
+in fact 100 percent correct.}
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Discussion.}
@@ -336,6 +361,8 @@ detail available, or are they restricted to exactly our phenomenological setup?}
 
 \stf{Is there a possibility of using MPS like Rob Pfeiffer to improve the simulations or 
 include interactions?}
+\dude{Our simulation is effectively doing a contraction of a 2d peps-like network. So
+yeah, maybe there are connections.}
 
 \cggb{Do we have much more to say?}
 
@@ -343,7 +370,8 @@ include interactions?}
 %------------------------------------------------------------------------------------------------------------%
 \acknowledgements 
 
-\cggb {People we chatted to.} This work was supported by the ARC via EQuS project number CE11001013, by the US Army Research Office grant numbers W911NF-14-1-0098 and W911NF-14-1-0103, ERC grant QFTCMPS and by the cluster of excellence EXC 201 Quantum Engineering and Space-Time Research. STF also acknowledges support from an ARC Future Fellowship FT130101744.
+\cggb {People we chatted to.} 
+This work was supported by the ARC via EQuS project number CE11001013, by the US Army Research Office grant numbers W911NF-14-1-0098 and W911NF-14-1-0103, ERC grant QFTCMPS and by the cluster of excellence EXC 201 Quantum Engineering and Space-Time Research. STF also acknowledges support from an ARC Future Fellowship FT130101744.
 
 %------------------------------------------------------------------------------------------------------------%
 \bibliography{refs2}
