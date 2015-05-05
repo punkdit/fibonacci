@@ -70,8 +70,13 @@ The University of Sydney, Sydney, Australia}
 \begin{abstract}
 Classically simulating the dynamics of excitations in two-dimensional quantum systems that 
 support anyons is likely intractable in general because such dynamics are sufficient for 
-universal quantum computation. However, processes of interest for the study of quantum error correction in anyon systems are typically drawn from a restricted class that displays significant structure over a wide range of system parameters.
-We exploit this structure to classically simulate, and thereby demonstrate the success of, an error-correction protocol for a quantum memory based on the universal Fibonacci anyon model.  We numerically simulate a phenomenological model of the system and noise processes on lattice sizes of up to 
+universal quantum computation. However, processes of interest for the study of quantum 
+error correction in anyon systems are typically drawn from a restricted class that displays 
+significant structure over a wide range of system parameters.
+We exploit this structure to classically simulate, and thereby demonstrate the success of, an 
+error-correction protocol for a quantum memory based on the universal Fibonacci anyon 
+model.  We numerically simulate a phenomenological model of the system and noise 
+processes on lattice sizes of up to 
 $128\times128$ sites, and find a lower bound on the error-correction threshold of 
 approximately $12.5\%$, which is comparable to those previously known for abelian and 
 (non-universal) nonabelian anyon models.
@@ -81,8 +86,13 @@ approximately $12.5\%$, which is comparable to those previously known for abelia
 
 %------------------------------------------------------------------------------------------------------------%
 
-Topologically ordered quantum systems in two dimensions offer tremendous promise for long-term storage and processing of quantum 
-information~\cite{Dennis2002} \cggb{a relevant review reference?}. The topological features of such systems are insensitive to local perturbations~\cite{Bravyi2010, Bravyi2011a, Michalakis2013}, and have excitations displaying anyonic statistics~\cite{Wilczek1990}. These anyons can in general be used as quantum memories or to perform universal topological quantum computation~\cite{Kitaev2003, Freedman2002, Nayak2008}.
+Topologically ordered quantum systems in two dimensions offer tremendous promise for 
+long-term storage and processing of quantum information~\cite{Brown2015, Terhal2015}. 
+The topological features of such systems are insensitive to local 
+perturbations~\cite{Bravyi2010, Bravyi2011a, Michalakis2013}, and have excitations 
+displaying anyonic statistics~\cite{Wilczek1990}. These anyons can in general be used as 
+quantum memories~\cite{Kitaev2003, Dennis2002} or to perform universal topological 
+quantum computation~\cite{Freedman2002, Nayak2008}.
 
 Quantum error correction is vital to harnessing the computational power of these topologically 
 ordered systems. When coupled to a heat bath at any finite temperature, thermal fluctuations 
@@ -91,7 +101,7 @@ information~\cite{Pastawski2010}. Thus, the passive protection provided by the m
 at low temperature must be augmented by an \emph{active} procedure. 
 
 Almost all of the sizable research effort on active quantum error correction for topological 
-systems has focused on the case of abelian anyons~\cite{Terhal2014} \cggb{revise citations here: poulin decoding stuff, what else?}. These systems are 
+systems has focused on the case of abelian anyons~\cite{Terhal2015} \cggb{revise citations here: poulin decoding stuff~\cite{Duclos-Cianci2010, Duclos-Cianci2010a, Duclos-Cianci2013}, what else?} \stf{Dan Browne's recent work, Bravyi's recent work, Austin Fowler? Do we really want to cite everyone that's ever decoded the toric code?}. These systems are 
 well suited to studying quantum error correction because the dynamics of excitations in 
 abelian anyon models (at the RG fixed point) can be simulated numerically very efficiently, allowing lattice 
 simulations of decoding with over 1 million sites~\cite{Duclos-Cianci2010}. Standard algorithms to efficiently simulate these systems rely on the abelian nature of these particles, and in particular the fact that abelian anyons cannot be used for quantum computation. 
@@ -160,7 +170,7 @@ This is consistent with the principles of topologically
 ordered systems and anyonic physics, where the key universal features describing the 
 anyon model correspond to large length-scale physics, while the microscopic physics plays 
 a less important (and non-universal) role. As such, we model the system simply as a 
-periodic $L\times L$ square lattice $\Lambda$ of sites with upon which sets of anyons can 
+periodic $L\times L$ square lattice $\Lambda$ of sites upon which sets of anyons can 
 reside. Allowed anyon dynamics (pair-creation, braiding, and fusion) are considered to act 
 locally on edges of $\Lambda$. For more details of an analogous model, see~\cite{Brell2013}.
 
