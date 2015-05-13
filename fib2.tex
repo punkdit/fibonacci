@@ -125,7 +125,7 @@ heterostructures~\cite{Mong2014}.
 We use a flexible phenomenological model of dynamics and thermal noise to describe a system with Fibonacci anyon excitations. Within this model, we apply existing general topological error-correction protocols to simulate the successful preservation of quantum information encoded in topological degrees of freedom. Topological quantum computation protocols using nonabelian anyons typically implicitly assume the existence of an error-correction protocol to correct for diffusion or unwanted creation of anyons. Our results are the first explicit demonstration that such a scheme will be successful when applied to a universal topological quantum computer.
 
 %------------------------------------------------------------------------------------------------------------%
-\paragraph{Modelling Fibonacci anyons.}
+\paragraph{Modeling Fibonacci anyons.}
 
 The topological features of a physical anyon model are abstractly described by a unitary 
 modular tensor category~\cite{Wang2010b}. This object contains the data describing the 
@@ -181,11 +181,11 @@ with $\proj{\mathbb{I}}_i$ the projector to charge $\mathbb{I}$ at site $i$, i.e
 space of the model has vacuum (or no anyon) at each site. Given the toroidal boundary 
 conditions, this space is two-fold degenerate as noted above. We identify this ground space 
 as the codespace of our model. Typical realistic noise processes in this kind of system are 
-pair-creation, hopping, exchange etc.~of anyons on neighbouring sites of $\Lambda$. It was 
+pair-creation, hopping, exchange etc.~of anyons on neighboring sites of $\Lambda$. It was 
 seen in~\cite{Brell2013} that a simplified noise model consisting of pair-creation events only 
 is sufficient to capture the qualitative features of an error-correction simulation, and so for convenience we 
 will restrict to pair-creation noise processes in the numerical results presented in this study. Such pair-creation events act 
-on neighbouring pairs of sites, and so may be associated with an edge of the lattice, chosen 
+on neighboring pairs of sites, and so may be associated with an edge of the lattice, chosen 
 uniformly at random at each time step of the simulation. The simulation time, and thus the 
 error-correction threshold, will be measured in terms of average number of noise processes 
 per edge, as opposed to an iid noise probability per edge. The latter measure is not 
@@ -204,10 +204,9 @@ The decoder proceeds by measuring the occupations of
 anyons at each site of the lattice, forming clusters of nearby anyons and fusing the anyons 
 within each cluster, before iterating at increasing length scales.
 It terminates when the lattice 
-is free of anyons (i.e.~we have returned to the codespace) or the clustering length scale 
-exceeds the total size of the lattice.
-\cggb{A few more details? What is our length schedule?} 
-\cggb{How does our decoder relate to other decoding schemes used in~\cite{Wootton2013,Brell2013,Hutter2014}?} 
+is free of anyons (i.e.~we have returned to the codespace) or the decoder performs a homologically nontrivial operation, thereby altering the codespace.
+%\cggb{A few more details? What is our length schedule?} 
+%\cggb{How does our decoder relate to other decoding schemes used in~\cite{Wootton2013,Brell2013,Hutter2014}?} 
 Note that, as was found in Ref.~\cite{Brell2013}, we expect that our qualitative results may be reproduced by most alternative families of decoders, although it may not be clear in all cases how to extend these decoders to the non-abelian setting.
 The advantage of using a hard-decision RG decoder is 
 its simplicity and flexibility, and the fact that its clustering scheme is compatible with the structure in the noise processes that allows us to classically simulate them.
@@ -215,16 +214,17 @@ its simplicity and flexibility, and the fact that its clustering scheme is compa
 \begin{figure*}[th!]
 \begin{center}
 	{\scriptsize (a)
-	\includegraphics[width=0.57\columnwidth]{pair-create.pdf}
+	\includegraphics[width=0.45\columnwidth]{pair-create.pdf}
 	\hskip 4pt
 	(b)
-	\includegraphics[width=0.57\columnwidth]{syndrome-1.pdf}
+	\includegraphics[width=0.45\columnwidth]{syndrome-1.pdf}
 	\hskip 4pt
-	(c)}
-	\includegraphics[width=0.57\columnwidth]{syndrome-2.pdf}
-\caption{The simulation of noise processes proceeds by a) creating pairs of anyons on 
-neighbouring tiles represented by open curves b) joining the curves within a given tile 
-c) measuring the total charge on each tile.}
+	(c)
+	\includegraphics[width=0.45\columnwidth]{syndrome-2.pdf}
+	\hskip 4pt
+	(d)}
+	\includegraphics[width=0.45\columnwidth]{syndrome-2.pdf}
+\caption{\stf{polish this a bit} The simulation of noise processes proceeds by a) creating pairs of anyons on neighboring tiles represented by open curves b) joining the curves within a given tile c) measuring the total charge on each tile. \stf{Add another graph that shows how we use syndrome info.}}
 \label{f:simex}
 \end{center}
 \end{figure*}
@@ -260,29 +260,21 @@ forcing us to compute dynamics of larger and larger sets of anyons, large cluste
 anyons present is dramatically reduced by fusion, leading to a smaller number of anyons that 
 must be simulated.
 
-Of course, if we were to consider noise so strong that the clusters percolate over the lattice, 
-we would no longer expect to be able to efficiently simulate the system. However, recall that logical 
-errors in our system correspond to processes that act over a non-trivial loop of the torus. If 
-the noise operations are so common to have percolated, this is an example of a situation 
-where we expect error-correction \emph{not} to succeed. Similarly, if the noise has not yet 
-percolated by itself, but the clusters are merged into a large (percolated) cluster by the 
-decoding algorithm, this is again an example of a process that we expect in general to correspond to a 
-failure of error-correction. In this way, we see that the events that we are able to efficiently 
-simulate correspond to those for which we expect error-correction to succeed. We 
-can simply declare failure on non-simulable events. This allows us to simulate and 
-demonstrate the success of error-correction schemes for Fibonacci anyons, without explicitly 
-simulating the failure of such schemes.
+Of course, if we were to consider noise so strong that the clusters percolate over the entire lattice, we would no longer expect to be able to efficiently simulate the system for large $L$. 
+However, recall that logical errors in our system correspond to processes that act over a non-trivial loop of the torus. 
+Our simulation remains efficient until the point that we start to create nontrivial loops around the torus, and our simulation declares failure at this point, meaning that we can simulate large lattice sizes in this regime, including up to $L=128$.
 
 %------------------------------------------------------------------------------------------------------------%	
 \paragraph{Simulation algorithm.}
+
+\stf{Add figure about observables versus states.}
 
 Our concrete simulation proceeds by associating a \emph{tile} with each site of the 
 $L\times L$ periodic square lattice.
 In order to keep track of the observables of the system 
 we maintain a set of disjoint curves, representing the history of anyons on the lattice.
 These curves can also be thought of as a top-down view of the fusion tree:
-the anyons comprising the fusion tree are here displayed as points along each curve. \cggb{Is this still true?}
-%The ends of curves correspond to leaves of the fusion tree, or anyons. 
+the anyons comprising the fusion tree are here displayed as points along each curve. 
 In general, the curves wind around the two 
 dimensional tiles in a haphazard way determined by the progress of the simulation.
 This allows a dynamically generated basis for the fusion space that easily allows for tensor 
@@ -294,10 +286,10 @@ sites)~\cite{Brell2013}.
 Each round of simulation proceeds in four steps as follows (an example is shown 
 in \Fref{f:simex}).
 
-\begin{enumerate}[i)]
-\item The noise process is modelled by a sequence of pair-creation events distributed as 
+\begin{enumerate}[a)]
+\item The noise process is modeled by a sequence of pair-creation events distributed as 
 a Poisson process across each edge. Curves are created crossing the relevant edge 
-and terminating on the neighbouring sites.
+and terminating on the neighboring sites.
 \item We first join curves that participate in the same tile in order to, 
 \cggb{maybe a couple more lines of detail on this and the next point? perhaps also the previous paragraph?}
 \item measure the charge on each tile. Any resulting anyon is left somewhere in the tile.
@@ -309,43 +301,41 @@ undetectable error on the encoded state, in this case we abandon the simulation 
 declare failure to error correct.
 \end{enumerate}
 
+
+
 \stf{Cite~\cite{Pfeifer2010} for braiding tricks}
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Numerical results.}
 
 We plot the performance of the decoder as a function of error rate for varying lattice sizes in 
-\Fref{f:threshold}. The error rate is parameterized by the Poisson process duration 
-$t_{\mathrm{sim}}$, representing the expected number of errors per edge during the simulation. 
+\Fref{f:threshold}. 
+The error rate is parameterized by the Poisson process duration $t_{\mathrm{sim}}$, representing the expected number of errors per edge during the simulation. 
 We find evidence of a decoding threshold below which decoding succeeds with asymptotic 
 certainty as the system size increases at $t_{\mathrm{sim}}\simeq 0.125 \pm 0.003$.
 
 \begin{figure}[th!]
 \begin{center}
 	\includegraphics[width=\columnwidth]{anyons-kyle.pdf}
-\caption{Decoder failure as a function of simulation time for various lattice sizes, showing 
+\caption{\stf{polish this a bit} Decoder failure as a function of simulation time for various lattice sizes, showing 
 threshold behavior at around $t_{\mathrm{sim}}\simeq 0.125$.}
 \label{f:threshold}
 \end{center}
 \end{figure}
 
-%\cggb{Do we need to define $t_{\mathrm{sim}}$ more explicitly?}
-
-We can guarantee that error-correction will succeed whenever noise does not percolate, but it is possible that percolated events may still result in no error. The connection between the percolation threshold and the error-correction threshold is not well understood in general~\cite{Hastings2014}, though it is clear that our threshold estimate will be a lower bound for the true threshold that may be found if all events (including those that have percolated) were simulated by an optimal decoder. However, by simulating such percolated events on small lattices, our evidence suggests that for the Fibonacci anyon code that we study, the vast majority of such events will result in a logical error. As such it is likely that neglecting such events does not significantly effect our observed threshold value.
-
+We can guarantee that error-correction will succeed whenever noise does not percolate, but it is possible that percolated events may still result in no error. 
+The connection between the percolation threshold and the error-correction threshold is not well understood in general~\cite{Hastings2014}, though it is clear that our threshold estimate will be a lower bound for the true threshold that may be found if all events (including those that have percolated) were simulated by an optimal decoder. 
+However, calculations of such nontrivial operations suggest that all such processes will indeed result in a logical or leakage error.
+As such it is likely that neglecting full simulation for such events does not significantly effect our observed threshold value.
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Discussion.}
 
-We have demonstrated classical simulation of successful error correction in a universal anyon 
-model. Though we have chosen several properties of our model and simulation in a 
-convenient way for simplicity, we think it very unlikely that they will affect the qualitative 
-results, similarly to the results of Ref.~\cite{Brell2013}. In particular, although we have 
-modelled our logical qubit as encoded in the global topological degrees of freedom of our 
-system, we could have encoded it in the fusion space of several preferred $\tau$ anyons. 
-This situation would be appropriate to model error-correction routines for topological 
-quantum computation. Additionally, we expect our results to be stable to changes 
-in details of the noise model, decoding algorithm, and so on.
+We have demonstrated classical simulation of successful error correction in a universal anyon model. 
+Though we have chosen several properties of our model and simulation in a convenient way for simplicity, we think it very unlikely that they will affect the qualitative results, similarly to the results of Ref.~\cite{Brell2013}. 
+In particular, although we have modeled our logical qubit as encoded in the global topological degrees of freedom of our system, we could have encoded it in the fusion space of several preferred $\tau$ anyons. 
+This situation would be appropriate to model error-correction routines for topological quantum computation. 
+Additionally, we expect our results to be stable to changes in details of the noise model, decoding algorithm, and so on.
 
 None of our techniques are restricted to simulation of Fibonacci anyon dynamics, and could 
 equally well be used to simulate successful error-correction protocols in an arbitrary anyon 
