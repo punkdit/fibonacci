@@ -94,16 +94,17 @@ c = canvas.canvas()
 
 
 def anyon(x, y):
-    c.stroke(path.circle(x, y, 0.05), [red, style.linewidth.thick])
+    c.fill(path.circle(x, y, 0.07), [white])
+    c.stroke(path.circle(x, y, 0.07), [red, style.linewidth.thick])
 
-w, h = 2., 2.
+w, h = 1.5, 1.5
 m = 0.1
 
 # --------------------------------------------------------------------
 
 x0, y0 = 0.6, h + 10*m
 
-c.text(x0-0.6, y0, "a)")
+c.text(x0-0.8, y0, "(a)")
 
 c.stroke(path.rect(x0, y0, w, h), dashed)
 c.stroke(path.rect(x0+w+m, y0, w, h), dotted)
@@ -124,7 +125,7 @@ anyon(x0+m+1.2*w, y)
 
 x0, y0 = 0.6, 0.
     
-c.text(x0-0.6, y0, "b)")
+c.text(x0-0.8, y0, "(b)")
 
 c.stroke(path.rect(x0, y0, w, h), dashed)
 c.stroke(path.rect(x0+w+m, y0, w, h), dotted)
@@ -150,6 +151,8 @@ anyon(x0+m+1.2*w, y)
 
 # --------------------------------------------------------------------
 
+w, h = 2., 2.
+
 N = 20
 
 def dopath(ps, extra=[], fill=False, closepath=True):
@@ -161,7 +164,7 @@ def dopath(ps, extra=[], fill=False, closepath=True):
         c.fill(p, [deformer.smoothed(0.3)]+extra+[color.rgb.white])
     c.stroke(p, [deformer.smoothed(0.3)]+extra)
 
-x0, y0 = 3*w + 5*m, -2*m
+x0, y0 = 2.8*w + 0*m, -6*m
 
 dx = w
 dy = 12*m
@@ -195,7 +198,7 @@ perm = [2, 0, 1, 3]
 for i in [0, 1, 2, 3]:
     braid(x0, y0+ys[i], x1, y1+ys[perm[i]])
 
-c.text(x0-1.5, 0, "c)")
+c.text(x0-1.5, 0, "(c)")
 
 
 y2 = y0+0.95*h
@@ -237,7 +240,7 @@ for y in ys:
 
 # --------------------------------------------------------------------
 
-c.text(x0+1.2, 0.5*dy, "d)")
+c.text(x0+1.2, 0.3*dy, "(d)")
 
 x0 += dx
 y0 += dy
