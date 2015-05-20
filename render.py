@@ -2,6 +2,8 @@
 
 import sys
 from math import *
+from random import *
+import numpy
 
 from pyx import canvas, path, deco, trafo, style, text, color, deformer
 
@@ -83,6 +85,166 @@ if 0:
     
     # -------------------------------------------------
 
+def anyon(x, y, r=0.07):
+    c.fill(path.circle(x, y, r), [white])
+    c.stroke(path.circle(x, y, r), [red, style.linewidth.thick])
+
+from qupy.ldpc.solve import parse
+from qupy.braid.tree import Tree
+
+l = 8
+w, h = 0.8, 0.8
+m = 0.05
+
+
+if 1:
+    seed(2)
+    data = numpy.zeros((l, l), dtype=numpy.int32)
+    
+    for count in range(10):
+      if random()<0.5:
+        i = randint(0, l-2)
+        j = randint(0, l-1)
+        data[i, j] += 1
+        data[i+1, j] += 1
+      else:
+        # horizontal
+        i = randint(0, l-1)
+        j = randint(0, l-2)
+        data[i, j] += 1
+        data[i, j+1] += 1
+    
+    for i in range(l):
+      for j in range(l):
+        if data[i,j]>1:
+          if random()<0.5:
+            data[i,j]=0
+          else:
+            data[i,j]=1
+
+else:
+    data = parse("""
+........
+........
+...1....
+...1....
+..1.....
+........
+.11.....
+........
+""")
+
+#print data
+
+data = data[1:, :7]
+l = 7
+
+sites = [(i, j) for i in range(l) for j in range(l)]
+nbd = dict(((i, j), []) for (i, j) in sites)
+for i in range(l):
+  for j in range(l):
+    items = nbd[i, j]
+    if (i+1, j) in nbd:
+        items.append((i+1, j))
+    if (i-1, j) in nbd:
+        items.append((i-1, j))
+    if (i, j+1) in nbd:
+        items.append((i, j+1))
+    if (i, j-1) in nbd:
+        items.append((i, j-1))
+
+
+def join1(clusters):
+    # join clusters using "T_1" separation
+    j = 0
+    while j < len(clusters):
+        cj = clusters[j]
+        for k in range(j+1, len(clusters)):
+            ck = clusters[k]
+            assert len(ck) == 1 
+            for c in cj.sites:
+                if ck.root in nbd[c]:
+                    cj.add(c, ck.root) # c <-- ck.root
+                    clusters.pop(k)
+                    break
+            else:
+                continue
+            break
+            # meow :-)
+        else:
+            j += 1 
+
+def grow(clusters):
+    width = 1 # ?
+    for cluster in clusters:
+        cluster.grow(nbd, width)
+
+def join(clusters):
+    j = 0
+    while j < len(clusters):
+        delta = len(clusters) - j
+        cj = clusters[j]
+        for k in range(j+1, len(clusters)):
+            ck = clusters[k]
+            if cj.intersects(ck):
+                clusters[j] = cj.join(ck)
+                clusters.pop(k)
+                break
+        else:
+            j += 1
+        assert len(clusters)-j < delta
+
+def coord(i, j):
+    return (j+0.5)*w-m, (i+0.5)*h-m
+
+
+def draw(dx=0., dy=0.):
+
+    data1 = data.copy()
+    for tree in trees:
+      for p0 in tree.sites:
+        p1 = tree.parent[p0]
+        print p0, p1
+        if p1 is None:
+            continue # root
+        x0, y0 = coord(*p0)
+        x1, y1 = coord(*p1)
+        data1[p0] = 0
+        c.stroke(path.line(x0+dx, y0+dy, x1+dx, y1+dy),
+            [style.linewidth.Thick, deco.earrow(size=0.3)])
+
+    for i, j in sites:
+        c.stroke(path.rect(j*w+dx, i*h+dy, w-2*m, h-2*m))
+        if data[i,j]:
+            x, y = coord(i, j)
+            anyon(x+dx, y+dy, 0.1*w)
+
+    data[:] = data1
+
+
+c = canvas.canvas()
+
+#print nbd
+trees = [Tree(site) for site in sites if data[site]]
+join1(trees)
+
+c.text(-0.7, 0., "(a)")
+draw(0., 0.)
+
+grow(trees)
+join(trees)
+
+x = l*w+1.2*w
+c.text(x-0.7, 0., "(b)")
+draw(x, 0.)
+
+
+c.writePDFfile("pic-decode.pdf")
+
+
+sys.exit(0)
+
+
 
 #dashed = [style.linestyle.dashed]
 #dotted = [style.linestyle.dotted]
@@ -92,10 +254,6 @@ dotted = [style.linestyle.dashed]
 
 c = canvas.canvas()
 
-
-def anyon(x, y):
-    c.fill(path.circle(x, y, 0.07), [white])
-    c.stroke(path.circle(x, y, 0.07), [red, style.linewidth.thick])
 
 w, h = 1.5, 1.5
 m = 0.1
