@@ -26,6 +26,7 @@ lred = rgb(1., 0.4, 0.4)
 white = rgb(1., 1., 1.) 
 
 shade = rgb(0.75, 0.55, 0)
+grey = rgb(0.75, 0.75, 0.75)
 
 light_shade = rgb(0.85, 0.65, 0.1)
 light_shade = rgb(0.9, 0.75, 0.4)
@@ -200,13 +201,34 @@ def coord(i, j):
 
 def draw(dx=0., dy=0.):
 
+    r = 4.*m
     data1 = data.copy()
+    lines = []
     for tree in trees:
       for p0 in tree.sites:
+        x0, y0 = coord(*p0)
+        c.fill(path.circle(x0+dx, y0+dy, r), [grey])
         p1 = tree.parent[p0]
-        print p0, p1
+        #print p0, p1
         if p1 is None:
             continue # root
+        lines.append((p0, p1))
+
+        x1, y1 = coord(*p1)
+        #data1[p0] = 0
+        #c.stroke(path.line(x0+dx, y0+dy, x1+dx, y1+dy),
+        #    [style.linewidth.Thick, deco.earrow(size=0.3)])
+
+        if x0==x1:
+            c.fill(path.rect(x0-r+dx, y0+dy, 2*r, y1-y0), [grey])
+        else:
+            c.fill(path.rect(x0+dx, y0-r+dy, x1-x0, 2*r), [grey])
+        c.fill(path.circle(x0+dx, y0+dy, r), [grey])
+        c.fill(path.circle(x1+dx, y1+dy, r), [grey])
+        #c.stroke(path.line(x0+dx, y0+dy, x1+dx, y1+dy),
+        #    [style.linewidth.THICK, style.linecap.round, grey])
+
+    for (p0, p1) in lines:
         x0, y0 = coord(*p0)
         x1, y1 = coord(*p1)
         data1[p0] = 0
