@@ -212,23 +212,23 @@ Note that, as was found in Ref.~\cite{Brell2013}, we expect that our qualitative
 The advantage of using a hard-decision RG decoder is 
 its simplicity and flexibility, and the fact that its clustering scheme is compatible with the structure in the noise processes that allows us to classically simulate them.
 
-\begin{figure*}[th!]
-\begin{center}
-	{\scriptsize (a)
-	\includegraphics[width=0.45\columnwidth]{pair-create.pdf}
-	\hskip 4pt
-	(b)
-	\includegraphics[width=0.45\columnwidth]{syndrome-1.pdf}
-	\hskip 4pt
-	(c)
-	\includegraphics[width=0.45\columnwidth]{syndrome-2.pdf}
-	\hskip 4pt
-	(d)}
-	\includegraphics[width=0.45\columnwidth]{syndrome-2.pdf}
-\caption{\stf{polish this a bit} The simulation of noise processes proceeds by a) creating pairs of anyons on neighboring tiles represented by open curves b) joining the curves within a given tile c) measuring the total charge on each tile. \stf{Add another graph that shows how we use syndrome info.}}
-\label{f:simex}
-\end{center}
-\end{figure*}
+%\begin{figure*}[th!]
+%\begin{center}
+%	{\scriptsize (a)
+%	\includegraphics[width=0.45\columnwidth]{pair-create.pdf}
+%	\hskip 4pt
+%	(b)
+%	\includegraphics[width=0.45\columnwidth]{syndrome-1.pdf}
+%	\hskip 4pt
+%	(c)
+%	\includegraphics[width=0.45\columnwidth]{syndrome-2.pdf}
+%	\hskip 4pt
+%	(d)}
+%	\includegraphics[width=0.45\columnwidth]{syndrome-2.pdf}
+%\caption{\stf{polish this a bit} The simulation of noise processes proceeds by a) creating pairs of anyons on neighboring tiles represented by open curves b) joining the curves within a given tile c) measuring the total charge on each tile. \stf{Add another graph that shows how we use syndrome info.}}
+%\label{f:simex}
+%\end{center}
+%\end{figure*}
 
 %------------------------------------------------------------------------------------------------------------%	
 \paragraph{Classical simulability.}
@@ -268,7 +268,7 @@ Our simulation remains efficient until the point that we start to create nontriv
 %------------------------------------------------------------------------------------------------------------%	
 \paragraph{Simulation algorithm.}
 
-\stf{Add figure about observables versus states.}
+%\stf{Add figure about observables versus states.}
 
 Our concrete simulation proceeds by associating a \emph{tile} with each site of the 
 $L\times L$ periodic square lattice.
@@ -308,23 +308,23 @@ observables are now represented on the curve.
 \end{center}
 \end{figure}
 
-Each round of simulation proceeds in four steps as follows (an example is shown 
-in \Fref{f:simex}).
-
-\begin{enumerate}[a)]
-\item The noise process is modeled by a sequence of pair-creation events distributed as 
-a Poisson process across each edge. Curves are created crossing the relevant edge 
-and terminating on the neighboring sites.
-\item We first join curves that participate in the same tile in order to, 
-\cggb{maybe a couple more lines of detail on this and the next point? perhaps also the previous paragraph?}
-\item measure the charge on each tile. Any resulting anyon is left somewhere in the tile.
-\item The decoder examines this syndrome and clusters nearby anyons. Each cluster 
-is then measured (fused), and the decoder continues to cluster and fuse on larger 
-scales until there are no more anyons, or a cluster includes a non-trivial loop on the 
-lattice. Since operators with support on such non-trivial clusters will generally perform an 
-undetectable error on the encoded state, in this case we abandon the simulation and 
-declare failure to error correct.
-\end{enumerate}
+%Each round of simulation proceeds in four steps as follows (an example is shown 
+%in \Fref{f:simex}).
+%
+%\begin{enumerate}[a)]
+%\item The noise process is modeled by a sequence of pair-creation events distributed as 
+%a Poisson process across each edge. Curves are created crossing the relevant edge 
+%and terminating on the neighboring sites.
+%\item We first join curves that participate in the same tile in order to, 
+%\cggb{maybe a couple more lines of detail on this and the next point? perhaps also the previous paragraph?}
+%\item measure the charge on each tile. Any resulting anyon is left somewhere in the tile.
+%\item The decoder examines this syndrome and clusters nearby anyons. Each cluster 
+%is then measured (fused), and the decoder continues to cluster and fuse on larger 
+%scales until there are no more anyons, or a cluster includes a non-trivial loop on the 
+%lattice. Since operators with support on such non-trivial clusters will generally perform an 
+%undetectable error on the encoded state, in this case we abandon the simulation and 
+%declare failure to error correct.
+%\end{enumerate}
 
 
 
