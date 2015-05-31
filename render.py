@@ -86,6 +86,8 @@ if 0:
     
     # -------------------------------------------------
 
+text.set(docopt="12pt")
+
 def anyon(x, y, r=0.07):
     c.fill(path.circle(x, y, r), [white])
     c.stroke(path.circle(x, y, r), [red, style.linewidth.thick])
@@ -262,9 +264,10 @@ draw(x, 0.)
 
 
 c.writePDFfile("pic-decode.pdf")
+c.writeEPSfile("pic-decode.eps")
 
 
-sys.exit(0)
+#sys.exit(0)
 
 
 
@@ -274,6 +277,7 @@ sys.exit(0)
 dashed = []
 dotted = [style.linestyle.dashed]
 
+text.set(docopt="10pt")
 c = canvas.canvas()
 
 
@@ -449,6 +453,7 @@ dopath(ps, dashed)
 
 
 c.writePDFfile("pic-syndrome.pdf")
+c.writeEPSfile("pic-syndrome.eps")
 
 
 
