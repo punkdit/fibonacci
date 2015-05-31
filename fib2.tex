@@ -15,8 +15,9 @@
 \usepackage[caption=false]{subfig}
 \usepackage{enumerate}
 
-\usepackage{tikz}
-\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit}
+%\usepackage{tikz}
+%\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit}
+
 \usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
 %\usepackage{bm}  % Define \bm{} to use bold math fonts
 
@@ -201,6 +202,12 @@ where $a$, $b$, and $c$ represent particle types, or $F$-moves, representing the
 		\end{tikzpicture}
 	\end{align}
 
+\dude{these equations are too big... i was hoping for something tight, like
+in http://arxiv.org/abs/1504.02868
+any ideas? i might just generate a bunch of little pdf's...
+}
+
+
 These manipulations encode the data of the unitary modular tensor category, and can be used to represent the state of a system of anyons as a linear combination of fusion trees. For the Fibonacci anyons, the non-trivial $R$ and $F$ moves are given by
 \begin{align}
 	R_{\mathbb{I}}^{\tau\tau}&= \e^{\frac{-4\pi i}{5}}\qquad R_\tau^{\tau\tau}= \e^{\frac{3\pi i}{5}}\\
@@ -213,14 +220,16 @@ microscopic details of the system.
 This is consistent with the principles of topologically 
 ordered systems and anyonic physics, where the key universal features describing the 
 anyon model correspond to large length-scale physics, while the microscopic physics plays 
-a less important (and non-universal) role. Effectively, we simulate a $(2+1)$-dimensional topological quantum field theory on a discrete space-time.
-As such, we model the system simply as a 
-periodic $L\times L$ square lattice $\Lambda$ of sites upon which sets of anyons can 
-reside. Allowed anyon dynamics (pair-creation, braiding, and fusion) are considered to act 
-locally on edges of $\Lambda$. For more details of an analogous model, see~\cite{Brell2013}.
-
-\dude{I really need to see something about observables vs. states. Even if
-we dont mention tqft.}
+a less important (and non-universal) role.
+We simulate a $(2+1)$-dimensional topological quantum field theory.
+%Effectively, we simulate a $(2+1)$-dimensional topological quantum field theory on a discrete space-time.
+%As such, we model the system simply as a 
+%periodic $L\times L$ square lattice $\Lambda$ of sites upon which sets of anyons can 
+%reside. 
+%Allowed anyon dynamics (pair-creation, braiding, and fusion) are considered to act 
+%locally on edges of $\Lambda$. 
+%For more details of an analogous model, see~\cite{Brell2013}.
+\dude{something about observables vs. states.}
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Noise and error-correction.}
@@ -238,8 +247,9 @@ as the codespace of our model. Typical realistic noise processes in this kind of
 pair-creation, hopping, exchange etc.~of anyons on neighboring sites of $\Lambda$. It was 
 seen in~\cite{Brell2013} that a simplified noise model consisting of pair-creation events only 
 is sufficient to capture the qualitative features of an error-correction simulation, and so for convenience we 
-will restrict to pair-creation noise processes in the numerical results presented in this study. Such pair-creation events act 
-on neighboring pairs of sites, and so may be associated with an edge of the lattice, chosen 
+will restrict to pair-creation noise processes in the numerical results presented in this study. 
+Such pair-creation events act on neighboring pairs of sites,
+and so may be associated with an edge of the lattice, chosen 
 uniformly at random at each time step of the simulation. The simulation time, and thus the 
 error-correction threshold, will be measured in terms of average number of noise processes 
 per edge, as opposed to an iid noise probability per edge. The latter measure is not 
@@ -252,20 +262,48 @@ processes in which anyonic charge is transported around the non-trivial loop bef
 annihilating to vacuum.
 % cggb{we want to define logical operators as those that map the codespace to itself, so for it to be a logical operator, they must annihilate to vacuum. they need not be unitary}.
 
-Our error-correction algorithm is based on a hard-decision renormalization group (RG) 
-decoder~\cite{Bravyi2011}. 
+Our error-correction algorithm is
+based on a heirarchical clustering algorithm~\cite{Hastie2009},
+and has some 
+similarities to the hard-decision renormalization group (RG) decoder~\cite{Bravyi2011}. 
 The decoder proceeds by measuring the occupations of 
-anyons at each site of the lattice, forming clusters of nearby anyons and fusing the anyons 
-within each cluster, before iterating at linearly increasing length scales.
-It terminates when the lattice 
-is free of anyons (i.e.~we have returned to the codespace) or the clustering length scale exceeds the size of the lattice.
-%the decoder performs a homologically nontrivial operation, thereby altering the codespace.
+anyons at each site of the lattice, forming clusters of nearby anyons and 
+%fusing the anyons within each cluster. 
+measureing the total charge within each cluster.
+Clusters with trivial charge are discarded, and
+the rest are joined (agglomeratively~\cite{Hastie2009})
+at linearly increasing length scales.
+See FIG. \ref{f:decode}.
+Note that unlike the abelian case, the decoder
+cannot know the charge of each cluster based only
+on the syndrome information (as in \cite{Bravyi2011}),
+and so will query (measure) the system to find this.
+The simulation proceeds in this way as a dialogue between decoder
+and system, terminating when the lattice 
+is free of anyons (i.e.~we have returned to the codespace) 
+or the decoder performs a homologically nontrivial operation, thereby altering the codespace.
+%or the clustering length scale exceeds the size of the lattice.
 %\cggb{our simulation may terminate when the decoder performs a nontrivial operation, but here we're just describing the decoder, which can't know that.}
+%\dude{in our sim the decoder stops when there is one cluster. Ie., it never gives up.}
 %\cggb{A few more details? What is our length schedule?} 
 %\cggb{How does our decoder relate to other decoding schemes used in~\cite{Wootton2013,Brell2013,Hutter2014}?} 
 Note that, as was found in Ref.~\cite{Brell2013}, we expect that our qualitative results may be reproduced by most alternative families of decoders, although it may not be clear in all cases how to extend these decoders to the non-abelian setting.
-The advantage of using a hard-decision RG decoder is 
+The advantage of using a hard-decision decoder is 
 its simplicity and flexibility, and the fact that its clustering scheme is compatible with the structure in the noise processes that allows us to classically simulate them.
+
+\begin{figure}[th!]
+\begin{center}
+	\includegraphics[width=1.0\columnwidth]{pic-decode.eps}
+\caption{The decoder works by maintaining a set of disjoint clusters as rooted trees.
+(a) Trees are formed from neighboring sites that contain a charge.
+(b) For each successive round, we grow all trees, 
+and overlapping trees are joined to form
+a single tree. Arrows denote movement of charge to the root of the tree.
+The root of each tree is chosen arbitrarily.
+}
+\label{f:decode}
+\end{center}
+\end{figure}
 
 %\begin{figure*}[th!]
 %\begin{center}
@@ -296,11 +334,19 @@ processes in which we expect error-correction to succeed are also those that we 
 be able to efficiently simulate for the following heuristic reasons (we leave a more rigorous analysis of simulability for noise and error correction processes as an open problem).
 
 Below the (bond) percolation threshold for (say) a 2D square lattice, we expect random sets of 
-bonds to decompose into separate clusters~\footnote{We use the word cluster to refer both to groupings of nearby anyons as formed by the decoding algorithm and to connected components of a graph under percolation, since both of these usages are standard in the literature. The intended meaning will remain clear from context.} of average size $O(\log(n))$ and variance 
+bonds to decompose into separate clusters~\footnote{
+We use the word cluster to refer both to groupings 
+of nearby anyons as formed by the decoding algorithm and 
+to connected components of a graph under percolation\dude{confusing}, since both 
+of these usages are standard in the literature. The intended 
+meaning will remain clear from context.} of average size $O(\log(n))$ and variance 
 $O(1)$~\cite{Bazant2000}.
 Each noise process in our model is associated with a (randomly distributed) edge, and so 
 disconnected clusters correspond to sets of anyons that could not have interacted at any 
-point in their history. Although normally anyons can interact by braiding without ever coming into contact with one another, in this case charge conservation implies that each distinct cluster must have trivial total charge, and so all such interactions are trivial.
+point in their history. 
+Although normally anyons can interact by braiding without ever coming 
+into contact with one another \dude{um um um}, in this case charge conservation 
+implies that each distinct cluster must have trivial total charge, and so all such interactions are trivial.
 This allows us to simulate the braiding processes within each cluster 
 separately. In other words: the quantum state in the fusion space of all anyons factorizes into 
 a tensor product over bond clusters, and we can compute each factor separately. Since each 
@@ -317,9 +363,15 @@ forcing us to compute dynamics of larger and larger sets of anyons, large cluste
 anyons present is dramatically reduced by fusion, leading to a smaller number of anyons that 
 must be simulated.
 
-Of course, if we were to consider noise so strong that the clusters percolate over the entire lattice, we would no longer expect to be able to efficiently simulate the noise and recovery processes in the system. 
+Of course, if we were to consider noise so strong that 
+the clusters percolate over the entire lattice, we would no 
+longer expect to be able to efficiently simulate the noise and recovery processes in the system. 
 However, recall that logical errors in our system correspond to processes that act over a non-trivial loop of the torus. 
-Our simulation remains efficient until the point that we start to create nontrivial loops around the torus, and our simulation begins to declare failure whenever non-trivial logical operations occur, meaning that we can simulate large lattice sizes in the successful error-correction (sub-percolated) regime, including up to $L=128$.
+Our simulation remains efficient \dude{efficiency has nothing to do with it}
+until the point that we start to create nontrivial loops around the torus, 
+and our simulation begins to declare failure whenever non-trivial logical 
+operations occur, meaning that we can simulate large lattice sizes 
+in the successful error-correction (sub-percolated) regime, including up to $L=128$.
 
 %------------------------------------------------------------------------------------------------------------%	
 \paragraph{Simulation algorithm.}
@@ -335,7 +387,8 @@ the anyons comprising the fusion tree are here displayed as points along each cu
 In general, the curves wind around the two 
 dimensional tiles in a haphazard way determined by the progress of the simulation.
 This allows a dynamically generated basis for the fusion space that easily allows for tensor 
-decomposition into factors corresponding to disjoint clusters.
+decomposition into factors corresponding 
+to disjoint clusters \dude{confusing use of this word}.
 For comparison, previous work 
 used a single fixed basis for the fusion space (determined by row-major ordering of 
 sites)~\cite{Brell2013}.
@@ -343,25 +396,38 @@ sites)~\cite{Brell2013}.
 
 \begin{figure}[th!]
 \begin{center}
-	\includegraphics[width=\columnwidth]{pic-syndrome.pdf}
+	\includegraphics[width=1.0\columnwidth]{pic-syndrome.eps}
 \caption{Four equivalent representations of a state,
 along with two syndrome observables marked with solid and dashed lines:
 (a) two pairs are joined in (b).
 Deform the curve straight to get (c),
 then effect some
 braid operations on the state so that (d) the two
-observables are now represented on the curve. \cggb{I'm not totally clear on what I'm looking at here. Is this the diagram where we want to explain the whole simulation algorithm? Is the idea that we start with a), which is given by the set of noise processes that have happened, then we connect stuff up arbitrarily into b) to make some fusion tree. Then c) is what's happening after linearizing the picture? And d) is c) after some R and F moves so you go into the standard basis for the fusion tree? Are the red lines between c) and d) just denoting leaves with the same identity or do they have some more precise meaning wrt the braid moves that relate c) and d)?}}
+observables are now represented on the curve. 
+%\cggb{I'm not totally clear on what I'm looking at here. Is this the diagram where we want to explain the whole simulation algorithm? Is the idea that we start with a), which is given by the set of noise processes that have happened, then we connect stuff up arbitrarily into b) to make some fusion tree. Then c) is what's happening after linearizing the picture? And d) is c) after some R and F moves so you go into the standard basis for the fusion tree? Are the red lines between c) and d) just denoting leaves with the same identity or do they have some more precise meaning wrt the braid moves that relate c) and d)?}
+}
 \label{f:syndrome}
 \end{center}
 \end{figure}
 
-\begin{figure}[th!]
-\begin{center}
-	\includegraphics[width=\columnwidth]{pic-decode.pdf}
-\caption{The decoder works by maintaining a set of disjoint clusters (rooted trees). \cggb{Is this diagram where we want to explain the decoding algorithm? Is part a) round one of clustering and part b) round 2 of clustering? Do the arrow directions just denote the direction stuff goes when we try to fuse it all together or does it have some deeper meaning?}}
-\label{f:decode}
-\end{center}
-\end{figure}
+In FIG. \ref{f:syndrome} we show two adjacent sites
+involved in a syndrome measurement.
+%This will be the total charge on each site, ie. either $\tau$ or $\mathbb{I}.$
+The error process has resulted in two pair
+creation events along the edge joining these sites.
+\dude{i'd like to write out the equations for each of
+these 4 steps, but we'd need to keep it tight somehow.}
+First, (a) we show the state as a tensor product of two pairs $\tau\tau\otimes\tau\tau$.
+Then, (b) these two pairs are embedded into a single larger fusion
+tree $\tau\tau\tau\tau$.
+This is continuosly deformable into the picture in (c).
+It is now clear the two braid operations required so
+that the observables are represented on the fusion tree.
+The general algorithm and datastructures used
+for this proceedure will be discussed elsewhere.
+
+\dude{Arrgh, what do we say about how to simulate moving anyons around
+the lattice ?}
 
 %Each round of simulation proceeds in four steps as follows (an example is shown 
 %in \Fref{f:simex}).
@@ -380,8 +446,6 @@ observables are now represented on the curve. \cggb{I'm not totally clear on wha
 %undetectable error on the encoded state, in this case we abandon the simulation and 
 %declare failure to error correct.
 %\end{enumerate}
-
-
 
 \stf{Cite~\cite{Pfeifer2010} for braiding tricks}
 
