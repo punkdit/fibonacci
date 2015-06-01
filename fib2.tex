@@ -24,7 +24,7 @@
 \definecolor{darkblue}{RGB}{0,0,127} % choose colors
 \definecolor{darkgreen}{RGB}{0,150,0}
 \hypersetup{colorlinks, linkcolor=darkblue, citecolor=darkgreen, filecolor=red, urlcolor=blue}
-\hypersetup{pdfauthor={Simon Burton, Courtney Brell, Steven T. Flammia}}
+\hypersetup{pdfauthor={Simon Burton, Courtney G. Brell, Steven T. Flammia}}
 %\hypersetup{pdftitle={Title\ Goes\ Here}}
 
 %------------------------------------------------------------------------------------------------------------%
@@ -214,7 +214,7 @@ This is consistent with the principles of topologically
 ordered systems and anyonic physics, where the key universal features describing the 
 anyon model correspond to large length-scale physics, while the microscopic physics plays 
 a less important (and non-universal) role.
-We simulate a $(2+1)$-dimensional topological quantum field theory.
+Our simulation is in effect that of a $(2+1)$-dimensional topological quantum field theory, which allows for topological processes such as pair-creation, braiding, and fusion of anyonic charges. This is modelled on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside.  For more details of an analogous model, see~\cite{Brell2013}.
 %Effectively, we simulate a $(2+1)$-dimensional topological quantum field theory on a discrete space-time.
 %As such, we model the system simply as a 
 %periodic $L\times L$ square lattice $\Lambda$ of sites upon which sets of anyons can 
@@ -257,42 +257,34 @@ annihilating to vacuum.
 
 Our error-correction algorithm is
 based on a hierarchical clustering algorithm~\cite{Hastie2009},
-and has some 
-similarities to the hard-decision renormalization group (RG) decoder~\cite{Bravyi2011}. 
+and follows a similar strategy to the hard-decision renormalization group (RG) decoder~\cite{Bravyi2011}. 
 The decoder proceeds by measuring the occupations of 
-anyons at each site of the lattice, forming clusters of nearby anyons and 
+anyons at each site of the lattice, producing a \emph{syndrome} of occupied sites. Following this, it forms clusters of nearby anyons and 
 %fusing the anyons within each cluster. 
-measuring the total charge within each cluster.
+measures the total charge within each cluster.
 Clusters with trivial charge are discarded, and
 the rest are joined (agglomeratively~\cite{Hastie2009})
-at linearly increasing length scales.
-See FIG. \ref{f:decode}.
-Note that unlike the abelian case, the decoder
-cannot know the charge of each cluster based only
-on the syndrome information (as in \cite{Bravyi2011}),
+at linearly increasing length scales. This iterative process concludes when there is at most a single cluster remaining (see \Fref{f:decode}).
+Note that unlike the case of abelian anyons, the decoder
+cannot determine the charge of each cluster given only the syndrome information (as in \cite{Bravyi2011}),
 and so will query (measure) the system to find this.
-The simulation proceeds in this way as a dialogue between decoder
-and system, terminating when the lattice 
-is free of anyons (i.e.~we have returned to the codespace) 
-or the decoder performs a homologically nontrivial operation, thereby altering the codespace.
+Our simulation proceeds in this way as a dialogue between decoder
+and system, terminating when either the decoder itself terminates or when it performs a homologically nontrivial operation, thereby altering the codespace (and failing to perform successful information recovery).
 %or the clustering length scale exceeds the size of the lattice.
 %\cggb{our simulation may terminate when the decoder performs a nontrivial operation, but here we're just describing the decoder, which can't know that.}
 %\dude{in our sim the decoder stops when there is one cluster. Ie., it never gives up.}
 %\cggb{A few more details? What is our length schedule?} 
 %\cggb{How does our decoder relate to other decoding schemes used in~\cite{Wootton2013,Brell2013,Hutter2014}?} 
 Note that, as was found in Ref.~\cite{Brell2013}, we expect that our qualitative results may be reproduced by most alternative families of decoders, although it may not be clear in all cases how to extend these decoders to the non-abelian setting.
-The advantage of using a hard-decision decoder is 
+The advantage of using a clustering decoder is 
 its simplicity and flexibility, and the fact that its clustering scheme is compatible with the structure in the noise processes that allows us to classically simulate them.
 
 \begin{figure}[t!]
 \begin{center}
 	\includegraphics[width=1.0\columnwidth]{pic-decode.pdf}
 \caption{The decoder works by maintaining a set of disjoint clusters as rooted trees.
-(a) Trees are formed from neighboring sites that contain a charge.
-(b) For each successive round, we grow all trees, 
-and overlapping trees are joined to form
-a single tree. Arrows denote movement of charge to the root of the tree.
-The root of each tree is chosen arbitrarily.
+(a) At the initial clustering stage, these trees are formed from neighboring sites that contain charges. Within each cluster, the charges are transported to the root of the tree (chosen arbitrarily), and their combined charge measured. The direction of transport (towards the root) is denoted by arrows.
+(b) At each successive round, all trees are grown in every direction, and overlapping trees are joined. Again, any charges within a cluster are transported to the root of the tree and measured. \cggb{Do we delete the clusters that do not contain any charges (fuse to vacuum) or leave them around?}
 }
 \label{f:decode}
 \end{center}
@@ -356,10 +348,10 @@ Of course, if we were to consider noise so strong that
 the clusters percolate over the entire lattice, we would no 
 longer expect to be able to efficiently simulate the noise and recovery processes in the system. 
 However, recall that logical errors in our system correspond to processes that act over a non-trivial loop of the torus. 
-Our simulation remains efficient \dude{efficiency has nothing to do with it}
-until the point that we start to create nontrivial loops around the torus, 
-and our simulation begins to declare failure whenever non-trivial logical 
-operations occur, meaning that we can simulate large lattice sizes 
+Below the point at which the decoder begins to create such nontrivial loops, our simulation remains efficient,
+%\dude{efficiency has nothing to do with it}
+while it begins to declare failure whenever non-trivial logical 
+operations occur. This allows us to simulate large lattice sizes 
 in the successful error-correction (sub-percolated) regime, including up to $L=128$.
 
 %------------------------------------------------------------------------------------------------------------%	
@@ -367,7 +359,7 @@ in the successful error-correction (sub-percolated) regime, including up to $L=1
 
 %\stf{Add figure about observables versus states.}
 
-Our concrete simulation proceeds by associating a \emph{tile} with each site of the 
+Our concrete simulation proceeds by associating a tile with each site of the 
 $L\times L$ periodic square lattice.
 In order to keep track of the observables of the system 
 we maintain a set of disjoint curves, representing the history of anyons on the lattice.
