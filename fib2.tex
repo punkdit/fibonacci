@@ -15,7 +15,7 @@
 \usepackage{enumerate}
 
 \usepackage{tikz}
-\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,shapes.misc}
 
 \usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
 %\usepackage{bm}  % Define \bm{} to use bold math fonts
@@ -205,6 +205,52 @@ where $a$, $b$, and $c$ represent particle types, or $F$-moves, representing the
 in http://arxiv.org/abs/1504.02868
 any ideas? i might just generate a bunch of little pdf's...
 }
+\stf{How about stealing from the 1504 paper?}
+\begin{equation*}
+\begin{tikzpicture}[baseline={([yshift=-20pt]current bounding box.north)}]
+\draw (0,0) to (0,1);
+\draw (0.5,0) to (0.5,1);
+\draw (0.5,0.25) to (0,0.75);
+\node[font=\fontsize{7}{0}\selectfont] at (-0.15,0) {$c$};
+\node[font=\fontsize{7}{0}\selectfont] at (-0.15,1) {$a$};
+\node[font=\fontsize{7}{0}\selectfont] at (0.65,0) {$d$};
+\node[font=\fontsize{7}{0}\selectfont] at (0.65,1) {$b$};
+\node[font=\fontsize{7}{0}\selectfont] at (0.28,0.65) {$e$};
+\end{tikzpicture}
+\!\!=\sum_f F^{ab,e}_{cd,f}\!
+\begin{tikzpicture}[baseline={([yshift=-20pt]current bounding box.north)}]
+\draw (0,0) to (0.25,0.25);
+\draw (0.5,0) to (0.25,0.25);
+\draw (0.25,0.25) to (0.25,0.75);
+\draw (0.25,0.75) to (0,1);
+\draw (0.25,0.75) to (0.5,1);
+\node[font=\fontsize{7}{0}\selectfont] at (-0.15,0) {$c$};
+\node[font=\fontsize{7}{0}\selectfont] at (-0.15,1) {$a$};
+\node[font=\fontsize{7}{0}\selectfont] at (0.65,0) {$d$};
+\node[font=\fontsize{7}{0}\selectfont] at (0.65,1) {$b$};
+\node[font=\fontsize{7}{0}\selectfont] at (0.35,0.5) {$f$};
+\end{tikzpicture}\quad , \quad
+\begin{tikzpicture}[baseline={([yshift=-20pt]current bounding box.north)}]
+\draw (0,0) to (0,0.25);
+\draw (0,0.25) to (0.25,0.5);
+\draw (0.25,0.5) to (0.05,0.7);
+\draw (-0.05,0.8) to (-0.25,1);
+\draw (0,0.25) to (-0.25,0.5);
+\draw (-0.25,0.5) to (0.25,1);
+\node[font=\fontsize{7}{0}\selectfont] at (0.15,0.1) {$c$};
+\node[font=\fontsize{7}{0}\selectfont] at (0.35,1) {$a$};
+\node[font=\fontsize{7}{0}\selectfont] at (-0.35,1.03) {$b$};
+\end{tikzpicture}
+\!\!=R^{ab}_{c}\!
+\begin{tikzpicture}[baseline={([yshift=-20pt]current bounding box.north)}]
+\draw (0,0) to (0,0.5);
+\draw (0,0.5) to (0.25,1);
+\draw (0,0.5) to (-0.25,1);
+\node[font=\fontsize{7}{0}\selectfont] at (0.15,0.1) {$c$};
+\node[font=\fontsize{7}{0}\selectfont] at (0.35,1.02) {$b$};
+\node[font=\fontsize{7}{0}\selectfont] at (-0.35,1) {$a$};
+\end{tikzpicture}.
+\end{equation*}
 
 
 These manipulations encode the data of the unitary modular tensor category, and can be used to represent the state of a system of anyons as a linear combination of fusion trees. For the Fibonacci anyons, the non-trivial $R$ and $F$ moves are given by
