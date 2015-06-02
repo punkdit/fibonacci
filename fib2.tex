@@ -206,7 +206,7 @@ These manipulations encode the data of the unitary modular tensor category, and 
 	R_{\mathbb{I}}^{\tau\tau}&= \e^{\frac{-4\pi i}{5}}\qquad R_\tau^{\tau\tau}= \e^{\frac{3\pi i}{5}}\\
 	F_{\tau}^{\tau\tau\tau} &= \begin{pmatrix}\varphi^{-1}&\varphi^{-\frac{1}{2}}\\\varphi^{-\frac{1}{2}}&-\varphi^{-1}\end{pmatrix} \,,
 \end{align}
-where in the last expression, $\varphi=\frac{1+\sqrt{5}}{2}$ is the golden ratio, and the matrix is given in a basis labelled $(\mathbb{I},\tau)$.
+where the matrix is given in a basis labelled $(\mathbb{I},\tau)$.
 
 We use a phenomenological model of Fibonacci anyon dynamics which neglects any 
 microscopic details of the system. 
@@ -309,12 +309,11 @@ of average size $O(\log(n))$ and variance $O(1)$~\cite{Bazant2000}.
 Each noise process in our model is associated with a (randomly distributed) edge, and so 
 disconnected components correspond to sets of anyons that could not have interacted at any 
 point in their history. 
-Although normally anyons can interact by braiding without ever coming 
-into contact with one another \dude{um um um}, in this case charge conservation 
-implies that each distinct component must have trivial total charge, and so all such interactions are trivial.
-This allows us to simulate the braiding processes within each component 
-separately. In other words: the quantum state in the fusion space of all anyons factorizes into 
-a tensor product over components, and we can compute each factor separately. Since each 
+We are free to neglect the degrees of freedom associated with braiding between components because each component has trivial total charge.
+This allows us to simulate the braiding processes within each component separately. 
+In other words: the quantum state in the fusion space of all anyons factorizes into 
+a tensor product over components. 
+Since each 
 component has size only $O(\log(n))$, we can typically simulate these dynamics efficiently 
 because the resulting fusion space has dimension $O(\mathrm{poly}(n))$. There are rare 
 random processes that violate this reasoning, but processes such as these are suppressed 
@@ -382,16 +381,16 @@ these 4 steps, but we'd need to keep it tight somehow.}
 First, (a) we show the state as a tensor product of two pairs $\tau\tau\otimes\tau\tau$.
 Then, (b) these two pairs are embedded into a single larger fusion
 tree $\tau\tau\tau\tau$.
-This is continuosly deformable into the picture in (c).
+This is continuously deformable into the picture in (c).
 It is now clear the two braid operations required so
 that the observables are represented on the fusion tree.
-The general algorithm and datastructures used
-for this proceedure will be discussed elsewhere.
+The general algorithm and data structures used
+for this procedure will be discussed elsewhere.
 
 \dude{Arrgh, what do we say about how to simulate moving anyons around
 the lattice ?}
 
-\stf{Cite~\cite{Pfeifer2010} for braiding tricks}
+\stf{Cite~\cite{Pfeifer2012} for braiding tricks}
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Numerical results.}
@@ -432,11 +431,10 @@ As such, our methods could be used to demonstrate successful error-correction in
 
 There are several interesting avenues for further research. 
 Although it is not completely obvious how to do so, applying these methods to more realistic models such as concrete microscopic spin models or models with non-topological features would give direct insight into practical error rates needed for topological quantum memories in non-Abelian systems. 
-\dude{This doesn't make much sense to me:} Another potential direction is to incorporate tensor network methods for simulating anyons~\cite{Pfeifer2012, Singh2014} to improve the speed and scale of the simulations. 
+It would be extremely interesting to find \emph{classical} spin models whose phase diagram encodes the threshold for error correction in these systems~\cite{Dennis2002}.
+%Another potential direction is to incorporate tensor network methods for simulating anyons~\cite{Pfeifer2012, Singh2014} to improve the speed and scale of the simulations. 
 Finally, perhaps the most important open question is whether 
 \emph{fault-tolerant} decoders can be designed for nonabelian anyon codes. 
-\dude{Another important question is wether this error
-correction process can be mapped to a classical stat mech problem, like RBIM.}
 
 
 %------------------------------------------------------------------------------------------------------------%
