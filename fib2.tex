@@ -275,9 +275,15 @@ its simplicity and flexibility, and the fact that its clustering scheme is compa
 \begin{center}
 	\includegraphics[width=1.0\columnwidth]{pic-decode.pdf}
 \caption{The decoder works by maintaining a set of disjoint clusters as rooted trees.
-(a) At the initial clustering stage, these trees are formed from neighboring sites that contain charges. Within each cluster, the charges are transported to the root of the tree (chosen arbitrarily), and their combined charge measured. The direction of transport (towards the root) is denoted by arrows.
-(b) At each successive round, all trees are grown in every direction, and overlapping trees are joined. Again, any charges within a cluster are transported to the root of the tree and measured. \cggb{Do we delete the clusters that do not contain any charges (fuse to vacuum) or leave them around?}
-}
+(a) At the initial clustering stage, these trees are formed 
+from neighboring sites that contain charges. Within each cluster, the 
+charges are transported to the root of the tree (chosen 
+arbitrarily), and their combined charge measured. The direction of transport 
+(towards the root) is denoted by arrows.
+(b) At each successive round, all trees are grown in 
+every direction, and overlapping trees are joined. Again, any charges 
+within a cluster are transported to the root of the 
+tree and measured. Any clusters with vacuum total charge are deleted.
 \label{f:decode}
 \end{center}
 \end{figure}
@@ -294,7 +300,6 @@ be able to efficiently simulate for the following heuristic reasons (we leave a 
 
 Below the (bond) percolation threshold for (say) a 2D square lattice, we expect random sets of 
 bonds to decompose into separate connected components 
-%~\footnote{We use the word cluster to refer both to groupings of nearby anyons as formed by the decoding algorithm and to connected components of a graph under percolation\dude{confusing}, since both of these usages are standard in the literature. The intended meaning will remain clear from context.}
 of average size $O(\log(n))$ and variance $O(1)$~\cite{Bazant2000}.
 Each noise process in our model is associated with a (randomly distributed) edge, and so 
 disconnected components correspond to sets of anyons that could not have interacted at any 
@@ -312,14 +317,14 @@ exponentially in the lattice size $L$~\cite{Grimmett1989}.
 
 However, random noise processes are not the only dynamics that we need to consider. We 
 must also consider the effect of the error-correction routine itself. This acts iteratively to fuse 
-particles on increasing length scales. While this kind of fusion would typically merge clusters, 
-forcing us to compute dynamics of larger and larger sets of anyons, large clusters are sparsely distributed 
+particles on increasing length scales. While this kind of fusion would typically merge components, 
+forcing us to compute dynamics of larger and larger sets of anyons, large components are sparsely distributed 
 (and thus unlikely to be merged), and in addition at each length scale the total number of 
 anyons present is dramatically reduced by fusion, leading to a smaller number of anyons that 
 must be simulated.
 
 Of course, if we were to consider noise so strong that 
-the clusters percolate over the entire lattice, we would no 
+the components percolate over the entire lattice, we would no 
 longer expect to be able to efficiently simulate the noise and recovery processes in the system. 
 However, recall that logical errors in our system correspond to processes that act over a non-trivial loop of the torus. 
 Below the point at which the decoder begins to create such nontrivial loops, our simulation remains efficient,
@@ -341,7 +346,7 @@ In general, the curves wind around the two
 dimensional tiles in a haphazard way determined by the progress of the simulation.
 This allows a dynamically generated basis for the fusion space that easily allows for tensor 
 decomposition into factors corresponding 
-to disjoint clusters \dude{confusing use of this word}.
+to disjoint components.
 For comparison, previous work 
 used a single fixed basis for the fusion space (determined by row-major ordering of 
 sites)~\cite{Brell2013}.
