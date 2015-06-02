@@ -494,53 +494,6 @@ these 4 steps, but we'd need to keep it tight somehow.}
 \end{align*}
 \cggb{Here 1,2,3,4 are meant to refer to the 4 different leaves in \Fref{f:syndrome} a) taken clockwise from the top left (equivalently those in c) taken down the page). The first diagram represents a), the second b) and c) together, and the last three d). Is this correct? Of course I would clean and explain these properly if this is the kind of thing we want. Also I haven't been very careful with the calculation. I would need to check if there is a Frobenius-Schur indicator missing on the last line. We could also do something like make circles above 1,4 and 2,3 at the end to show the measurements being made in the figure or something.}
 
-	\begin{align}
-		\begin{tikzpicture}[baseline=0.5cm,scale=0.3]		
-			\draw(0,0)--(0,1);
-			\draw plot [smooth, tension=1] coordinates { (0,1) (0.75,1.8) (-0.6,2.45) (-1,3)};
-			\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (0,1) (-0.75,1.8) (0.6,2.45) (1,3)};
-			\draw plot [smooth, tension=1] coordinates { (0,1) (-0.75,1.8) (0.6,2.45) (1,3)};
-			\node at (0,0) [anchor=west] {{\scriptsize $c$}};
-			\node at (-1,3) [anchor=east] {{\scriptsize $b$}};
-			\node at (1,3) [anchor=west] {{\scriptsize $a$}};
-		\end{tikzpicture}
-		&\;\;=\;\;R^{ab}_c\cdot\;
-		\begin{tikzpicture}[baseline=0.5cm,scale=0.3]		
-			\draw(0,0)--(0,1);
-			\draw(0,1)--(-1,2)--(-1,3);
-			\draw(0,1)--(1,2)--(1,3);
-			\node at (0,0) [anchor=west] {{\scriptsize $c$}};
-			\node at (-1,3) [anchor=east] {{\scriptsize $b$}};
-			\node at (1,3) [anchor=west] {{\scriptsize $a$}};
-		\end{tikzpicture}
-	\end{align}
-where $a$, $b$, and $c$ represent particle types, or $F$-moves, representing the associativity rule for fusion processes, denoted as
-	\begin{align}
-		\begin{tikzpicture}[baseline=0.6cm,scale=0.3]
-			\draw(0,0)--(0,1)--(-2,3);
-			\draw(0,3)--(-1,2);
-			\draw(2,3)--(0,1);
-			\node at (-0.45,1.6) [anchor=north east] {{\scriptsize $i$}};
-			\node at (0,0) [anchor=west] {{\scriptsize $d$}};
-			\node at (2,3) [anchor=east] {{\scriptsize $c$}};
-			\node at (0,3) [anchor=east] {{\scriptsize $b$}};
-			\node at (-2,3) [anchor=east] {{\scriptsize $a$}};
-		\end{tikzpicture}
-		&\;\;=\;\;\sum_j[F^{abc}_d]_{ij}\cdot\;
-		\begin{tikzpicture}[baseline=0.6cm,scale=0.3]		
-			\draw(0,0)--(0,1)--(-2,3);
-			\draw(0,3)--(1,2);
-			\draw(2,3)--(0,1);
-			\node at (0.42,1.63) [anchor=north west] {{\scriptsize $j$}};
-			\node at (0,0) [anchor=east] {{\scriptsize $d$}};
-			\node at (2,3) [anchor=east] {{\scriptsize $c$}};
-			\node at (0,3) [anchor=east] {{\scriptsize $b$}};
-			\node at (-2,3) [anchor=east] {{\scriptsize $a$}};
-		\end{tikzpicture}
-	\end{align}
-
-
-
 
 First, (a) we show the state as a tensor product of two pairs $\tau\tau\otimes\tau\tau$.
 Then, (b) these two pairs are embedded into a single larger fusion
