@@ -215,7 +215,11 @@ ordered systems and anyonic physics, where the key universal features describing
 anyon model correspond to large length-scale physics, while the microscopic physics plays 
 a less important (and non-universal) role.
 Our simulation is in effect that of a $(2+1)$-dimensional topological quantum field theory, which allows for topological processes such as pair-creation, braiding, and fusion of anyonic charges. This is modelled on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside.  For more details of an analogous model, see~\cite{Brell2013}.
-\dude{something about observables vs. states.}
+
+As was noted in~\cite{Pfeifer2014}, when dealing with two-dimensional 
+anyon dynamics, it is not sufficient to consider only
+the algebraic (fusion/braiding) properties of the anyons,
+one must also account for the algebra of observables.
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Noise and error-correction.}
@@ -250,7 +254,7 @@ annihilating to vacuum.
 
 Our error-correction algorithm is
 based on a hierarchical clustering algorithm~\cite{Hastie2009},
-and follows a similar strategy to the hard-decision renormalization group (RG) decoder~\cite{Bravyi2011}. 
+and follows a similar strategy to the hard-decision renormalization group decoder~\cite{Bravyi2011}. 
 The decoder proceeds by measuring the occupations of 
 anyons at each site of the lattice, producing a \emph{syndrome} of occupied sites. Following this, it forms clusters of nearby anyons and 
 measures the total charge within each cluster.
@@ -283,8 +287,9 @@ arbitrarily), and their combined charge measured. The direction of transport
 (b) At each successive round, all trees are grown in 
 every direction, and overlapping trees are joined. Again, any charges 
 within a cluster are transported to the root of the 
-tree and measured. Any clusters with vacuum total charge are deleted.
+tree and measured. All clusters with vacuum total charge are deleted.
 \label{f:decode}
+}
 \end{center}
 \end{figure}
 
@@ -367,7 +372,7 @@ observables are now represented on the curve.
 \end{center}
 \end{figure}
 
-In FIG. \ref{f:syndrome} we show two adjacent sites
+In \Fref{f:syndrome} we show two adjacent sites
 involved in a syndrome measurement.
 %This will be the total charge on each site, ie. either $\tau$ or $\mathbb{I}.$
 The error process has resulted in two pair
@@ -427,8 +432,11 @@ As such, our methods could be used to demonstrate successful error-correction in
 
 There are several interesting avenues for further research. 
 Although it is not completely obvious how to do so, applying these methods to more realistic models such as concrete microscopic spin models or models with non-topological features would give direct insight into practical error rates needed for topological quantum memories in non-Abelian systems. 
-Another potential direction is to incorporate tensor network methods for simulating anyons~\cite{Pfeifer2012, Singh2014} to improve the speed and scale of the simulations. 
-Finally, perhaps the most important open question is whether \emph{fault-tolerant} decoders can be designed for nonabelian anyon codes. 
+\dude{This doesn't make much sense to me:} Another potential direction is to incorporate tensor network methods for simulating anyons~\cite{Pfeifer2012, Singh2014} to improve the speed and scale of the simulations. 
+Finally, perhaps the most important open question is whether 
+\emph{fault-tolerant} decoders can be designed for nonabelian anyon codes. 
+\dude{Another important question is wether this error
+correction process can be mapped to a classical stat mech problem, like RBIM.}
 
 
 %------------------------------------------------------------------------------------------------------------%
