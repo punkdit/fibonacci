@@ -215,13 +215,6 @@ ordered systems and anyonic physics, where the key universal features describing
 anyon model correspond to large length-scale physics, while the microscopic physics plays 
 a less important (and non-universal) role.
 Our simulation is in effect that of a $(2+1)$-dimensional topological quantum field theory, which allows for topological processes such as pair-creation, braiding, and fusion of anyonic charges. This is modelled on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside.  For more details of an analogous model, see~\cite{Brell2013}.
-%Effectively, we simulate a $(2+1)$-dimensional topological quantum field theory on a discrete space-time.
-%As such, we model the system simply as a 
-%periodic $L\times L$ square lattice $\Lambda$ of sites upon which sets of anyons can 
-%reside. 
-%Allowed anyon dynamics (pair-creation, braiding, and fusion) are considered to act 
-%locally on edges of $\Lambda$. 
-%For more details of an analogous model, see~\cite{Brell2013}.
 \dude{something about observables vs. states.}
 
 %------------------------------------------------------------------------------------------------------------%
@@ -260,7 +253,6 @@ based on a hierarchical clustering algorithm~\cite{Hastie2009},
 and follows a similar strategy to the hard-decision renormalization group (RG) decoder~\cite{Bravyi2011}. 
 The decoder proceeds by measuring the occupations of 
 anyons at each site of the lattice, producing a \emph{syndrome} of occupied sites. Following this, it forms clusters of nearby anyons and 
-%fusing the anyons within each cluster. 
 measures the total charge within each cluster.
 Clusters with trivial charge are discarded, and
 the rest are joined (agglomeratively~\cite{Hastie2009})
@@ -289,24 +281,6 @@ its simplicity and flexibility, and the fact that its clustering scheme is compa
 \label{f:decode}
 \end{center}
 \end{figure}
-
-%\begin{figure*}[th!]
-%\begin{center}
-%	{\scriptsize (a)
-%	\includegraphics[width=0.45\columnwidth]{pair-create.pdf}
-%	\hskip 4pt
-%	(b)
-%	\includegraphics[width=0.45\columnwidth]{syndrome-1.pdf}
-%	\hskip 4pt
-%	(c)
-%	\includegraphics[width=0.45\columnwidth]{syndrome-2.pdf}
-%	\hskip 4pt
-%	(d)}
-%	\includegraphics[width=0.45\columnwidth]{syndrome-2.pdf}
-%\caption{\stf{polish this a bit} The simulation of noise processes proceeds by a) creating pairs of anyons on neighboring tiles represented by open curves b) joining the curves within a given tile c) measuring the total charge on each tile. \stf{Add another graph that shows how we use syndrome info.}}
-%\label{f:simex}
-%\end{center}
-%\end{figure*}
 
 %------------------------------------------------------------------------------------------------------------%	
 \paragraph{Classical simulability.}
@@ -357,8 +331,6 @@ in the successful error-correction (sub-percolated) regime, including up to $L=1
 %------------------------------------------------------------------------------------------------------------%	
 \paragraph{Simulation algorithm.}
 
-%\stf{Add figure about observables versus states.}
-
 Our concrete simulation proceeds by associating a tile with each site of the 
 $L\times L$ periodic square lattice.
 In order to keep track of the observables of the system 
@@ -385,7 +357,6 @@ Deform the curve straight to get (c),
 then effect some
 braid operations on the state so that (d) the two
 observables are now represented on the curve. 
-%\cggb{I'm not totally clear on what I'm looking at here. Is this the diagram where we want to explain the whole simulation algorithm? Is the idea that we start with a), which is given by the set of noise processes that have happened, then we connect stuff up arbitrarily into b) to make some fusion tree. Then c) is what's happening after linearizing the picture? And d) is c) after some R and F moves so you go into the standard basis for the fusion tree? Are the red lines between c) and d) just denoting leaves with the same identity or do they have some more precise meaning wrt the braid moves that relate c) and d)?}
 }
 \label{f:syndrome}
 \end{center}
@@ -409,24 +380,6 @@ for this proceedure will be discussed elsewhere.
 
 \dude{Arrgh, what do we say about how to simulate moving anyons around
 the lattice ?}
-
-%Each round of simulation proceeds in four steps as follows (an example is shown 
-%in \Fref{f:simex}).
-%
-%\begin{enumerate}[a)]
-%\item The noise process is modeled by a sequence of pair-creation events distributed as 
-%a Poisson process across each edge. Curves are created crossing the relevant edge 
-%and terminating on the neighboring sites.
-%\item We first join curves that participate in the same tile in order to, 
-%\cggb{maybe a couple more lines of detail on this and the next point? perhaps also the previous paragraph?}
-%\item measure the charge on each tile. Any resulting anyon is left somewhere in the tile.
-%\item The decoder examines this syndrome and clusters nearby anyons. Each cluster 
-%is then measured (fused), and the decoder continues to cluster and fuse on larger 
-%scales until there are no more anyons, or a cluster includes a non-trivial loop on the 
-%lattice. Since operators with support on such non-trivial clusters will generally perform an 
-%undetectable error on the encoded state, in this case we abandon the simulation and 
-%declare failure to error correct.
-%\end{enumerate}
 
 \stf{Cite~\cite{Pfeifer2010} for braiding tricks}
 
