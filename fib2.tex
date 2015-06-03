@@ -15,7 +15,7 @@
 \usepackage{enumerate}
 
 \usepackage{tikz}
-\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,shapes.misc}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit}
 
 \usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
 %\usepackage{bm}  % Define \bm{} to use bold math fonts
@@ -25,7 +25,7 @@
 \definecolor{darkgreen}{RGB}{0,150,0}
 \hypersetup{colorlinks, linkcolor=darkblue, citecolor=darkgreen, filecolor=red, urlcolor=blue}
 \hypersetup{pdfauthor={Simon Burton, Courtney G. Brell, Steven T. Flammia}}
-%\hypersetup{pdftitle={Title\ Goes\ Here}}
+\hypersetup{pdftitle={Classical Simulation of Quantum Error Correction in a Fibonacci Anyon Code}}
 
 %------------------------------------------------------------------------------------------------------------%
 % Macros
@@ -100,7 +100,8 @@ will create spurious anyons that diffuse and quickly corrupt the stored quantum
 information~\cite{Pastawski2010}. Thus, the passive protection provided by the mass gap 
 at low temperature must be augmented by an \emph{active} decoding procedure. 
 
-In order to efficiently classically simulate an error-correction protocol for a topologically ordered quantum memory, it is necessary to simulate the physical noise processes, the decoding algorithm, and the physical recovery operations. Decoding algorithms are typically designed to run efficiently on a classical computer, but there is generally no guarantee that the noise and recovery processes should be classically simulable.
+In order to efficiently classically simulate an error-correction protocol for a topologically ordered quantum memory, it is necessary to simulate the physical noise processes, the decoding algorithm, and the physical recovery operations. 
+Decoding algorithms are typically designed to run efficiently on a classical computer, but there is generally no guarantee that the noise and recovery processes should be classically simulable.
 Because of this, almost all of the sizable research effort on active quantum error correction for topological systems has focused on the case of abelian anyons~\cite{Dennis2002, Duclos-Cianci2010, Duclos-Cianci2010a, Wang2010, Wang2010a, Duclos-Cianci2013, Bravyi2011, Bombin2012, Wootton2012, Anwar2014, Watson2014, Hutter2014a, Bravyi2014, Wootton2015, Fowler2015, Andrist2015}.
 %~\cite{Dennis2002, Duclos-Cianci2010, Bravyi2011, Bravyi2014}.
 Systems of abelian anyons are well suited to studying quantum error correction because (at the RG fixed point) noise and recovery processes can be efficiently simulated numerically, allowing lattice simulations of decoding with over 1 million sites~\cite{Duclos-Cianci2010}. 
@@ -176,7 +177,7 @@ The dynamics and history of a system of anyons can be conveniently represented b
 			\node at (1,3) [anchor=west] {{\scriptsize $a$}};
 		\end{tikzpicture}
 	\end{align}
-where $a$, $b$, and $c$ represent particle types, or $F$-moves, representing the associativity rule for fusion processes, denoted as
+where $a$, $b$, and $c$ represent particle types, or $F$-moves, representing the associativity rule for fusion processes, 
 	\begin{align}
 		\label{e:fmove}
 		\begin{tikzpicture}[baseline=0.6cm,scale=0.3]
@@ -202,7 +203,7 @@ where $a$, $b$, and $c$ represent particle types, or $F$-moves, representing the
 		\end{tikzpicture}
 	\end{align}
 
-These manipulations encode the data of the unitary modular tensor category, and can be used to represent the state of a system of anyons as a linear combination of fusion trees. For the Fibonacci anyons, the non-trivial $R$ and $F$ moves are given by
+These manipulations encode the data of the unitary modular tensor category, and can be used to represent the state of a system of anyons as a linear combination of fusion trees. For the Fibonacci anyons, the non-trivial $R$ and $F$ moves are 
 \begin{equation*}
 	R_{\mathbb{I}}^{\tau\tau} = \e^{\frac{-4\pi i}{5}} 
 	\ \ , \ \
@@ -218,7 +219,10 @@ This is consistent with the principles of topologically
 ordered systems and anyonic physics, where the key universal features describing the 
 anyon model correspond to large length-scale physics, while the microscopic physics plays 
 a less important (and non-universal) role.
-Our simulation is in effect that of a $(2+1)$-dimensional topological quantum field theory, which allows for topological processes such as pair-creation, braiding, and fusion of anyonic charges. This is modelled on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside.  This treatment applies equally well to lattice models, where anyons can only be located at a discrete set of points, or continuum models, where a discretization of the manifold must be chosen in order to perform charge measurements. In the former case, each tile of $\Lambda$ represents a lattice site, while in the latter case each tile represents a measurement region. For more details of an analogous model, see~\cite{Brell2013}.
+Our simulation is in effect that of a $(2+1)$-dimensional topological quantum field theory, which allows for topological processes such as pair-creation, braiding, and fusion of anyonic charges. 
+This is modeled on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside. 
+This treatment applies equally well to lattice models, where anyons can only be located at a discrete set of points, or continuum models, where a discretization of the manifold must be chosen in order to perform charge measurements. 
+In the former case, each tile of $\Lambda$ represents a lattice site, while in the latter case each tile represents a measurement region. For more details of an analogous model, see~\cite{Brell2013}.
 
 As was noted in~\cite{Pfeifer2014}, when dealing with two-dimensional 
 anyon dynamics, it is not sufficient to consider only
@@ -340,35 +344,29 @@ in the successful error-correction (sub-percolated) regime, including up to $L=1
 %Our concrete simulation proceeds by associating a tile with each site of the 
 %$L\times L$ periodic square lattice $\Lambda$.
 
-In order to keep track of the state of the system 
-we maintain a set of disjoint curves, \cggb{do they need to be directed, or is that just for the figure?} representing the history of anyons on the lattice.
+In order to keep track of the state of the system we maintain a set of disjoint curves, 
+\cggb{do they need to be directed, or is that just for the figure?} 
+representing the history of anyons on the lattice.
 These curves can also be thought of as a top-down view of the fusion tree:
 the anyons comprising the fusion tree are here displayed as points along each curve. 
 In general, the curves wind around our two 
 dimensional manifold in a haphazard way determined by the progress of the simulation.
-This allows a dynamically generated basis for the fusion space that easily allows for tensor 
-decomposition into factors corresponding 
-to disjoint components. 
-used a single fixed basis for the fusion space (determined by row-major ordering of 
-sites)~\cite{Brell2013}.
+This creates a dynamically generated basis for the fusion space that easily allows for tensor factorization of disjoint components. 
+%For comparison, previous work used a single fixed basis for the fusion space determined by row-major ordering of sites~\cite{Brell2013}.
 
-The application of a pair-creation noise process corresponds to the addition of an extra piece of curve to the lattice, along with two preferred points on it denoting the anyon locations. Following the noise processes, our simulation must proceed to measure the total charge within each tile (the results of these measurements will form the error syndrome). This requires joining any curves within that tile, and performing braid moves along the curves until all anyons within the tile have been localized within a contiguous region of the curve. Following this, the total charge can (probabilistically) simply be read off the relevant section of the fusion tree.
-An example of this procedure for a simple noise process is shown in \Fref{f:syndrome}, and the corresponding braid moves are shown in \Fref{f:syndrome2}. The technical details of the algorithm and data structures used
-for this procedure will be discussed elsewhere.
+The application of a pair-creation noise process corresponds to the addition of an extra piece of curve to the lattice, along with two preferred points on it denoting the anyon locations. 
+Following the noise processes, our simulation must proceed to measure the total charge within each tile (the results of these measurements will form the error syndrome). 
+This requires joining any curves within that tile, and performing braid moves along the curves until all anyons within the tile have been localized within a contiguous region of the curve. 
+Following this, the total charge can (probabilistically) simply be read off the relevant section of the fusion tree.
+An example of this procedure for a simple noise process is shown in \Fref{f:syndrome}, and the corresponding braid moves are shown in \Fref{f:syndrome}(e). The technical details of the algorithm and data structures used for this procedure will be discussed elsewhere.
 Braiding processes that encircle a non-trivial loop of our (toric) manifold can also be treated in an analogous way, following e.g.~\cite{Pfeifer2012}.
 \cggb{This paragraph and the next still needs another look.}
 
-\begin{figure}[th!]
+\begin{figure}[t!]
 \begin{center}
-	\includegraphics[width=1.0\columnwidth]{pic-syndrome.pdf}\\
-\caption{(a) Noise processes initially form isolated sets of pair-created anyons, each crossing the boundary of a tile. These events are each represented by curves, where anyons are denoted by specific points on these curves. (b) In order to measure the total charge contained within each tile, we must first join the fusion trees associated with all such pairs. This corresponds to joining the edges associated with each pair into a continuous path, representing a basis for the fusion space chosen arbitrarily. (c) The total charge of each tile can then be found by braiding anyons around each other until all charges within a tile are neighbours on the path, as in (d). \cggb{We should think about the best way to represent the transition from (c) to (d). I think the current red lines might be confusing, but I don't have any great ideas.}}
-\label{f:syndrome}
-\end{center}
-\end{figure}
-
-\begin{figure}[th!]
-\begin{center}
-			\begin{tikzpicture}[baseline=0.7cm,scale=0.3, xscale=0.9]
+	\includegraphics[width=1.0\columnwidth]{pic-syndrome.pdf}\\[10pt]
+	(e)\ \ 
+	\begin{tikzpicture}[baseline=0.7cm,scale=0.3, xscale=0.9]
 			\begin{scope}[xshift=2cm,yshift=2cm]		
 				\draw(1,0)--(0,1)[dashed];
 				\draw(0,1)--(-1,2)--(-1,3);
@@ -409,14 +407,14 @@ Braiding processes that encircle a non-trivial loop of our (toric) manifold can 
 			\end{scope}
 			%
 			\begin{scope}[xshift=6cm,yshift=2cm]
-				\draw plot [smooth, tension=1] coordinates { (1,3) (0.75,3.8) (-0.6,4.45) (-1,5)};
+				\draw plot [smooth, tension=.6] coordinates { (1,3) (0.75,3.8) (-0.6,4.45) (-1,5)};
 				\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
-				\draw plot [smooth, tension=1] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
+				\draw plot [smooth, tension=.6] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
 			\end{scope}
 			\begin{scope}[xshift=4cm,yshift=4cm]
-				\draw plot [smooth, tension=1] coordinates { (1,3) (0.75,3.8) (-0.6,4.45) (-1,5)};
+				\draw plot [smooth, tension=.6] coordinates { (1,3) (0.75,3.8) (-0.6,4.45) (-1,5)};
 				\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
-				\draw plot [smooth, tension=1] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
+				\draw plot [smooth, tension=.6] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
 			\end{scope}
 		\end{tikzpicture}
 		$\xrightarrow{R, F}$
@@ -438,13 +436,22 @@ Braiding processes that encircle a non-trivial loop of our (toric) manifold can 
 				\node at (-1,0) [anchor=west] {{\scriptsize $q'$}};
 			\end{scope}
 		\end{tikzpicture}
-\caption{In order to transform from the configuration shown in \Fref{f:syndrome}(c) to \ref{f:syndrome}(d), several operations must be performed. The labels of the four leaves of these fusion trees correspond to the four anyons taken from the top of the path in \Fref{f:syndrome}(c) to the bottom. Vacuum charges are denoted by dashed lines. In order to rearrange the anyons so that particles 1 and 4 are neighbors, several braid moves must be performed as shown. The effect of these on the fusion tree can then be evaluated by the application of several $R$ and $F$ moves as defined in equations (\ref{e:rmove}) and (\ref{e:fmove}). After the manipulations shown, the total charges within each tile can be read off the diagram as $q$ and $q'$.}
-\label{f:syndrome2}
+\caption{(a) Noise processes initially form isolated sets of pair-created anyons, each crossing the boundary of a tile. 
+These events are each represented by curves, where anyons are denoted by specific points on these curves. 
+(b) In order to measure the total charge contained within each tile, we must first join the fusion trees associated with all such pairs. 
+This corresponds to joining the edges associated with each pair into a continuous path, representing a basis for the fusion space chosen arbitrarily. 
+(c) The total charge of each tile can then be found by braiding anyons around each other until all charges within a tile are neighbors on the path, as in (d). 
+The red lines correspond to the worldline braids that perform this step.
+(e) The specific braids required to transform (c) to (d), where the labels of the four leaves of these fusion trees correspond to the four anyons taken from the top of the path in (c) to the bottom. 
+Vacuum charges are denoted by dashed lines. 
+After applying several $R$ and $F$ moves from equations (\ref{e:rmove}) and (\ref{e:fmove}), the total charges within each tile can be read off the diagram as $q$ and $q'$.}
+\label{f:syndrome}
 \end{center}
 \end{figure}
 
-
-Following the result of these charge measurements, the decoder determines a recovery operation that involves fusion of subsets of anyons. These fusion results can be calculated in an analogous way, and the output charge placed at an appropriate point in the lattice. This procedure is iterated until either the decoder terminates successfully, or the simulation itself declares failure.
+Following the result of these charge measurements, the decoder determines a recovery operation that involves fusion of subsets of anyons. 
+These fusion results can be calculated in an analogous way, and the output charge placed at an appropriate point in the lattice. 
+This procedure is iterated until either the decoder terminates successfully, or the simulation itself declares failure.
 
 
 %------------------------------------------------------------------------------------------------------------%
@@ -456,10 +463,12 @@ The error rate is parameterized by the Poisson process duration $t_{\mathrm{sim}
 We find evidence of a decoding threshold below which decoding succeeds with asymptotic 
 certainty as the system size increases at $t_{\mathrm{sim}}\simeq 0.125 \pm 0.003$.
 
-\begin{figure}[th!]
+\begin{figure}[t!]
 \begin{center}
 	\includegraphics[width=\columnwidth]{anyons-kyle.pdf}
-\caption{The decoder failure rate (a lower bound on the logical error probability) is shown as a function of simulation time for linear lattice sizes from $L=16$ to $128$. This exhibits threshold behaviour at a critical memory lifetime of $t_{\mathrm{sim}}^*\simeq 0.125$. This implies the Fibonacci anyon code simulated here is able to perfectly reliably store quantum information for times less than $t_{\mathrm{sim}}^*$ in the $L\to \infty$ limit.}
+\caption{The decoder failure rate (a lower bound on the logical error probability) is shown as a function of simulation time for linear lattice sizes from $L=16$ to $128$. 
+This exhibits threshold behavior at a critical memory lifetime of $t_{\mathrm{sim}}^*\simeq 0.125$. 
+This implies the Fibonacci anyon code simulated here is able to perfectly reliably store quantum information for times less than $t_{\mathrm{sim}}^*$ in the $L\to \infty$ limit.}
 \label{f:threshold}
 \end{center}
 \end{figure}
