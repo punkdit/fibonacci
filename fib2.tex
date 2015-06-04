@@ -119,7 +119,7 @@ Concretely, we consider the simulation of quantum error correction in a two-dime
 system with Fibonacci anyons, a class of nonabelian anyons that are universal for quantum 
 computation~\cite{Freedman2002, Nayak2008}. Fibonacci anyons are experimentally motivated as the 
 expected excitations of the $\nu=\frac{12}{5}$ fractional quantum Hall 
-states~\cite{Slingerland2001}, and can also be realized in several spin 
+states~\cite{Slingerland2001}, and can be realized in several spin 
 models~\cite{Levin2005, Bonesteel2012, Kapit2013, Palumbo2014} and composite 
 heterostructures~\cite{Mong2014}.
 
@@ -293,6 +293,7 @@ tree and measured. All clusters with vacuum total charge are deleted.
 \label{f:decode}
 }
 \end{center}
+\vspace{-10pt}
 \end{figure}
 
 %------------------------------------------------------------------------------------------------------------%	
@@ -438,15 +439,16 @@ Braiding processes that encircle a non-trivial loop of our (toric) manifold can 
 		\end{tikzpicture}
 \caption{(a) Noise processes initially form isolated sets of pair-created anyons, each crossing the boundary of a tile. 
 These events are each represented by curves, where anyons are denoted by specific points on these curves. 
-(b) In order to measure the total charge contained within each tile, we must first join the fusion trees associated with all such pairs. 
+(b) To measure the total charge contained within each tile, we must first join the fusion trees associated with all such pairs. 
 This corresponds to joining the edges associated with each pair into a continuous path, representing a basis for the fusion space chosen arbitrarily. 
 (c) The total charge of each tile can then be found by braiding anyons around each other until all charges within a tile are neighbors on the path, as in (d). 
 The red lines correspond to the worldline braids that perform this step.
 (e) The specific braids required to transform (c) to (d), where the labels of the four leaves of these fusion trees correspond to the four anyons taken from the top of the path in (c) to the bottom. 
-Vacuum charges are denoted by dashed lines. 
-After applying several $R$ and $F$ moves from equations (\ref{e:rmove}) and (\ref{e:fmove}), the total charges within each tile can be read off the diagram as $q$ and $q'$.}
+Dashed lines denote vacuum charges. 
+After applying several $R$ and $F$ moves (see Eqs.~(\ref{e:rmove}) and (\ref{e:fmove})), the total charges within each tile can be read off the diagram as $q$ and $q'$.}
 \label{f:syndrome}
 \end{center}
+\vspace{-10pt}
 \end{figure}
 
 Following the result of these charge measurements, the decoder determines a recovery operation that involves fusion of subsets of anyons. 
@@ -471,6 +473,7 @@ This exhibits threshold behavior at a critical memory lifetime of $t_{\mathrm{si
 This implies the Fibonacci anyon code simulated here is able to perfectly reliably store quantum information for times less than $t_{\mathrm{sim}}^*$ in the $L\to \infty$ limit.}
 \label{f:threshold}
 \end{center}
+\vspace{-10pt}
 \end{figure}
 
 We can guarantee that error-correction will succeed whenever noise does not percolate, but it is possible that percolated events may still result in no error. 
