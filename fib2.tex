@@ -76,8 +76,8 @@ The University of Sydney, Sydney, Australia}
 Classically simulating the dynamics of anyonic excitations in two-dimensional quantum systems is likely intractable in general because such dynamics are sufficient to implement 
 universal quantum computation. However, processes of interest for the study of quantum 
 error correction in anyon systems are typically drawn from a restricted class that displays 
-significant structure \dude{sparsity?} over a wide range of system parameters.
-We exploit this structure \dude{sparsity?} to classically simulate, and thereby demonstrate the success of, an 
+significant structure over a wide range of system parameters.
+We exploit this structure to classically simulate, and thereby demonstrate the success of, an 
 error-correction protocol for a quantum memory based on the universal Fibonacci anyon 
 model.  We numerically simulate a phenomenological model of the system and noise 
 processes on lattice sizes of up to 
@@ -132,7 +132,7 @@ ability to perform universal quantum computation would seem a significant
 barrier to their simulation on a classical computer. While simulation 
 of general dynamics does indeed seem intractable, we argue that 
 the kinds of processes that are typical of thermal noise 
-are sufficiently structured  \dude{sparse?} to allow for their classical simulation 
+are sufficiently structured  to allow for their classical simulation 
 in the regimes where we expect successful error correction to 
 be possible. This insight allows us to simulate the noise 
 and recovery processes for a quantum code based on a universal anyon model.
@@ -287,8 +287,8 @@ and in general braiding will twist these loops in different
 ways.
 \emph{picture?}
 
-These pictures (sans quantum) are called 
-\emph{curve diagrams} and are used in
+These pictures, abstracted from the quantum context,
+are called \emph{curve diagrams} and are used in
 the study of braid groups \cite{Dehornoy2002}.
 In general, such a curve diagram is 
 a continuous embedding of a line that passes through 
@@ -408,10 +408,8 @@ appropriate for error processes in nonabelian anyon models, but the two coincide
 of low error rates in those cases where they are comparable (see Ref.~\cite{Brell2013}).
 
 In order to perform a logical error on our code, a noise process must have support on a 
-ribbon running around a homologically nontrivial loop of the lattice.
-\dude{any homologically nontrivial region is allowed for this, not just ribbons}
-These correspond to 
-processes in which anyonic charge is transported around the non-trivial loop before 
+a homologically nontrivial region of the lattice.
+These correspond to processes in which anyonic charge is transported around a non-trivial loop before 
 annihilating to vacuum.
 
 Our error-correction algorithm is
@@ -437,7 +435,7 @@ our qualitative results may be reproduced by most alternative families
 of decoders, although it may not be clear in all cases how to extend these decoders to the non-abelian setting.
 The advantage of using a clustering decoder is 
 its simplicity and flexibility, and the fact that its clustering 
-scheme is compatible with the structure \dude{sparsity?} in the noise 
+scheme is compatible with the structure in the noise 
 processes that allows us to classically simulate them.
 
 \begin{figure}[t!]
@@ -464,7 +462,7 @@ tree and measured. All clusters with vacuum total charge are deleted.
 
 Although simulating pair creation, braiding, and fusion of $n$ Fibonacci anyons is equivalent 
 in computational power to universal quantum computing (and thus unlikely to be classically 
-tractable), noise processes and error-correction procedures have structure \dude{sparsity?} that we can 
+tractable), noise processes and error-correction procedures have structure that we can 
 exploit to efficiently simulate typical processes of interest. In particular, those 
 processes in which we expect error-correction to succeed are also those that we expect to 
 be able to efficiently simulate for the following heuristic reasons 
@@ -484,28 +482,42 @@ In other words: the quantum state in the fusion space of all anyons factorizes i
 a tensor product over components. 
 Since each 
 component has size only $O(\log(n))$, we can typically simulate these dynamics efficiently 
-because the resulting fusion space has dimension $O(\mathrm{poly}(n))$. There are \sout{rare}
+because the resulting fusion space has dimension $O(\mathrm{poly}(n))$. 
+There are 
 random processes that violate this reasoning, but processes such as these are suppressed 
 exponentially in the lattice size $L$~\cite{Grimmett1989}. 
 
 However, random noise processes are not the only dynamics that we need to consider. We 
 must also consider the effect of the error-correction routine itself. This acts iteratively to fuse 
 particles on increasing length scales. While this kind of fusion would typically merge components, 
-forcing us to compute dynamics of larger and larger sets of anyons, large components are sparsely distributed 
+forcing us to compute dynamics of larger and larger sets of anyons,
+large components are sparsely distributed 
 (and thus unlikely to be merged), and in addition at each length scale the total number of 
 anyons present is dramatically reduced by fusion, leading to a smaller number of anyons that 
 must be simulated.
 
-Of course, if we were to consider noise so strong that 
-the components percolate over the entire lattice, we would no 
-longer expect to be able to efficiently simulate the noise and recovery processes in the system. 
-However, recall that logical errors in our system correspond to 
-processes that act over a non-trivial loop of the torus. 
-Below the point at which the decoder begins to create 
-such nontrivial loops, our simulation remains efficient \dude{why are we still conflating these},
-while it begins to declare failure whenever non-trivial logical 
-operations occur. This allows us to simulate large lattice sizes 
-in the successful error-correction (sub-percolated) regime, including up to $L=128$.
+At some point, with noise strong enough, the state will
+no longer decompose at all and computing dynamics will
+become exponentially difficult in the system size.
+However, for finite lattice size, this regime is somewhere
+beyond the decoder threshold, which is the 
+point at which the decoder creates nontrivial (extensive) loops.
+We can view the system state as a tensor network, on which
+the decoder is performing an (efficiently simulable) contraction.
+This enables simulation of error correction in
+the area around decoder threshold for lattice sizes up to $L=128.$
+\dude{more polish needed...}
+
+%Of course, if we were to consider noise so strong that 
+%the components percolate over the entire lattice, we would no 
+%longer expect to be able to efficiently simulate the noise and recovery processes in the system. 
+%However, recall that logical errors in our system correspond to 
+%processes that act over a non-trivial loop of the torus. 
+%Below the point at which the decoder begins to create 
+%such nontrivial loops, our simulation remains efficient
+%while it begins to declare failure whenever non-trivial logical 
+%operations occur. This allows us to simulate large lattice sizes 
+%in the successful error-correction (sub-percolated) regime, including up to $L=128$.
 
 %------------------------------------------------------------------------------------------------------------%	
 \paragraph{Simulation algorithm.}
@@ -662,7 +674,7 @@ The red lines correspond to the worldline braids that perform this step.
 
 Following the result of these charge measurements, the decoder determines 
 a recovery operation that involves fusion of subsets of anyons. 
-These fusion results can be calculated in \sout{an analogous} the same way, 
+These fusion results can be calculated in the same way, 
 and the output charge placed at an appropriate point in the lattice. 
 This procedure is iterated until either the decoder terminates successfully, 
 or the simulation itself declares failure.
@@ -688,8 +700,9 @@ This implies the Fibonacci anyon code simulated here is able to perfectly reliab
 \vspace{-10pt}
 \end{figure}
 
-We can guarantee that error-correction will succeed whenever noise does 
-not percolate \dude{um, what?}, 
+We can guarantee that error-correction will succeed whenever
+the action of noise plus decoder 
+does not percolate the anyons accross the lattice,
 but it is possible that percolated events may still result in no error. 
 The connection between the percolation threshold and the error-correction threshold 
 is not well understood in general~\cite{Hastings2014}, though it is clear 
@@ -706,11 +719,14 @@ such events does not significantly affect our observed threshold value.
 
 We have demonstrated classical simulation of successful error correction in a universal anyon model. 
 Though we have chosen several properties of our model and 
-simulation in a convenient way for simplicity, it seems \sout{highly}
-unlikely that they will affect the qualitative results, similarly to the results of Ref.~\cite{Brell2013}. 
+simulation in a convenient way for simplicity,
+Ref.~\cite{Brell2013} presents good evidence that it is
+unlikely that these choices will affect our results qualitatively.
+%it seems highly
+%unlikely that they will affect the qualitative results, similarly to the results of Ref.~\cite{Brell2013}. 
 In particular, although we have modeled our logical qubit as 
 encoded in the global topological degrees of freedom of our 
-system, we could have encoded it in the fusion space of several preferred $\tau$\dude{?} anyons. 
+system, we could have encoded it in the fusion space of several preferred anyons. 
 This situation would be appropriate to model error-correction routines for topological quantum computation. 
 Additionally, we expect our results to be stable to changes in details of the noise model and decoding algorithm.
 

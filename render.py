@@ -550,9 +550,9 @@ c.stroke(path.line(x-1.2*r, y, x+1.5*r, y), grarrow)
 ellipse(x, y, r, r)
 
 anyon(x-0.4*r, 0)
-c.text(x-0.3*r, 0.3*r, "$\scriptstyle b$", south)
+c.text(x-0.3*r, 0.3*r, "$\scriptstyle a$", south)
 anyon(x+0.4*r, 0)
-c.text(x+0.3*r, -0.3*r, "$\scriptstyle a$", north)
+c.text(x+0.3*r, -0.3*r, "$\scriptstyle b$", north)
 
 c.text(x+r, y-r, "$\scriptstyle c$", southwest)
 
