@@ -9,7 +9,7 @@ from pyx import canvas, path, deco, trafo, style, text, color, deformer
 
 text.set(mode="latex") 
 text.set(docopt="12pt")
-#text.preamble(r"\usepackage{amsmath}")
+text.preamble(r"\usepackage{amsmath,amsfonts,amssymb}")
 
 rgb = color.rgb
 rgbfromhexstring = color.rgbfromhexstring
@@ -91,12 +91,12 @@ if 0:
     
     c.writeEPSfile("halftwist-factor.eps")
     
+    text.set(docopt="12pt")
+
+
 #############################################################################
 #
 #
-
-
-text.set(docopt="12pt")
 
 def anyon(x, y, r=0.07):
     c.fill(path.circle(x, y, r), [white])
@@ -283,27 +283,36 @@ c.writeEPSfile("pic-decode.eps")
 
 
 #sys.exit(0)
-
-
-
-#dashed = [style.linestyle.dashed]
-#dotted = [style.linestyle.dotted]
+#text.set(docopt="10pt")
 
 dashed = []
 dotted = [style.linestyle.dashed]
 
-text.set(docopt="10pt")
 c = canvas.canvas()
+old_c = None
+def push():
+    global c, old_c
+    assert old_c is None
+    old_c = c
+    c = canvas.canvas()
+    
+def pop(extra=[]):
+    global c, old_c
+    old_c.insert(c, extra)
+    c = old_c
+    old_c = None
 
-
-w, h = 1.5, 1.5
-m = 0.1
 
 # --------------------------------------------------------------------
 
-x0, y0 = 0.6, h + 10*m
+w, h = 1.0, 1.0
+m = 0.1
 
-c.text(x0-0.8, y0, "(a)")
+#x0, y0 = 0.6, h + 10*m
+x0, y0 = 0., 0.
+
+push()
+#c.text(x0-0.8, y0, "(a)")
 
 c.stroke(path.rect(x0, y0, w, h), dashed)
 c.stroke(path.rect(x0+w+m, y0, w, h), dotted)
@@ -320,11 +329,15 @@ c.stroke(path.line(x0+1.5*w+m, y, x0+0.5*w, y), grarrow)
 anyon(x0+0.8*w, y)
 anyon(x0+m+1.2*w, y)
 
+pop([trafo.rotate(-90), trafo.translate(0.8, 2.5*h)])
+c.text(0., 0.5*h, "(a)")
+
 # --------------------------------------------------------------------
 
-x0, y0 = 0.6, 0.
+#x0, y0 = 0.6, 0.
     
-c.text(x0-0.8, y0, "(b)")
+#c.text(x0-0.8, y0, "(b)")
+push()
 
 c.stroke(path.rect(x0, y0, w, h), dashed)
 c.stroke(path.rect(x0+w+m, y0, w, h), dotted)
@@ -348,9 +361,16 @@ y = y0+0.7*h
 anyon(x0+0.8*w, y)
 anyon(x0+m+1.2*w, y)
 
+pop([trafo.rotate(-90), trafo.translate(2.*w+0.8, 2.5*h)])
+c.text(2.*w, 0.5*h, "(b)")
+
+
 # --------------------------------------------------------------------
 
+push()
+w1, h1 = w, h
 w, h = 2., 2.
+#w, h = 1.5, 1.5
 
 N = 20
 
@@ -363,9 +383,9 @@ def dopath(ps, extra=[], fill=False, closepath=True):
         c.fill(p, [deformer.smoothed(0.3)]+extra+[color.rgb.white])
     c.stroke(p, [deformer.smoothed(0.3)]+extra)
 
-x0, y0 = 2.8*w + 0*m, -6*m
+#x0, y0 = 2.8*w + 0*m, -6*m
 
-dx = w
+dx = 0.8*w
 dy = 12*m
 
 r = 0.5*h
@@ -397,7 +417,7 @@ perm = [2, 0, 1, 3]
 for i in [0, 1, 2, 3]:
     braid(x0, y0+ys[i], x1, y1+ys[perm[i]])
 
-c.text(x0-1.5, 0, "(c)")
+#c.text(x0-1.5, 0, "(c)")
 
 
 y2 = y0+0.95*h
@@ -439,7 +459,7 @@ for y in ys:
 
 # --------------------------------------------------------------------
 
-c.text(x0+1.2, 0.3*dy, "(d)")
+#c.text(x0+1.2, 0.3*dy, "(d)")
 
 x0 += dx
 y0 += dy
@@ -465,8 +485,15 @@ for i in range(N):
 
 dopath(ps, dashed)
 
-#c.writePDFfile("pic-syndrome.pdf")
+#pop([trafo.rotate(-90)])
+pop([trafo.rotate(-90), trafo.translate(2.*w+1.0, 2*h1)])
+c.text(4.3*w1, 2*h1, "(c)")
+c.text(5.4*w1, 0.5*h1, "(d)")
+
+c.writePDFfile("pic-syndrome.pdf")
 c.writeEPSfile("pic-syndrome.eps")
+
+sys.exit(0)
 
 #############################################################################
 #
@@ -557,6 +584,45 @@ c.text(x+0.3*r, -0.3*r, "$\scriptstyle b$", north)
 c.text(x+r, y-r, "$\scriptstyle c$", southwest)
 
 c.writePDFfile("pic-rmove.pdf")
+
+
+#############################################################################
+#
+#
+
+w = 1.0
+
+c = canvas.canvas()
+
+x = 0.
+y = 0.
+r = 0.5
+
+c.text(x-1.6*r, y, r"$\alpha$", center)
+ellipse(x, y+0.1*r, r, 0.7*r)
+
+anyon(x-0.4*r, 0)
+c.text(x-0.4*r, 0.3*r, r"$\scriptstyle \tau$", south)
+anyon(x+0.4*r, 0)
+c.text(x+0.4*r, 0.3*r, r"$\scriptstyle \tau$", south)
+
+c.text(x+r, y-0.5*r, r"$\scriptstyle \mathbb{I}$", southwest)
+
+x += w
+c.text(x, y, r"$+\ \beta$", center)
+
+x += w
+#c.stroke(path.line(x-1.2*r, y, x+1.5*r, y), grarrow)
+ellipse(x, y+0.1*r, r, 0.7*r)
+
+anyon(x-0.4*r, 0)
+c.text(x-0.4*r, 0.3*r, r"$\scriptstyle \tau$", south)
+anyon(x+0.4*r, 0)
+c.text(x+0.4*r, 0.3*r, r"$\scriptstyle \tau$", south)
+
+c.text(x+r, y-0.5*r, r"$\scriptstyle \tau$", southwest)
+
+c.writePDFfile("pic-fibonacci.pdf")
 
 
 #############################################################################

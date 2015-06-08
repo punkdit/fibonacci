@@ -212,7 +212,7 @@ are regions bounded by circles (Wilson loops)
 and measure the total charge of the region.
 %The algebraic properties of these processes
 These dynamics and observables obey algebraic rules
-given by a unitary modular tensor category~\cite{Wang2010b} (UMTC). 
+given by a unitary modular tensor category~\cite{Wang2010b}. % (UMTC). 
 
 %As was noted in~\cite{Pfeifer2014}, when dealing with two-dimensional 
 %anyon dynamics, it is not sufficient to consider only
@@ -239,17 +239,30 @@ theories is this: the outcome of measurements in an abelian theory
 are determined by particle content only.
 That is, the fusion space is one-dimensional (a phase).
 This is no longer the case in a non-abelian theory.
-An example is Fibonacci: $\tau\times\tau=\tau+\vac$
-\emph{picture here?}
+%An example is Fibonacci: $\tau\times\tau=\tau+\vac$
+%\emph{picture here?}
 %specify a state requires nesting multiple wilson lines.
+In particular, we consider a system supporting Fibonacci
+anyon excitations, denoted by $\tau.$
+Two such anyons can have total charge
+that is a superposition of $\tau$ and $\vac$ (vacuum),
+so the fusion space in this case is 2-dimensional:
+\begin{align*}
+\includegraphics[]{pic-fibonacci.pdf}
+\end{align*}
+For $n$ anyons of type $\tau$, the 
+dimension of this space grows asymptotically as $\varphi^n$ for $\varphi=\frac{1+\sqrt{5}}{2}$ 
+the golden ratio. Additionally, there is a global degeneracy associated with the topology of the 
+manifold on which the anyons reside. We will consider systems with the topology of a torus, 
+which for the Fibonacci anyons gives rise to a 2-fold degeneracy.
+%For convenience 
+%(in particular to minimize finite-size effects in our numerical computations~\cite{Brell2013}), 
+This global space is the one in which we will encode, and demonstrate protection of, quantum 
+information.
 
-Non-intersecting loops commute (why?), and so
+Non-intersecting loops commute, and so
 a basis for the state can be built from a maximal
-%set of non-intersecting loops.
-set of disjoint and nested loops.
-\emph{picture?}
-%Observables measure the charge within a
-%region bounded by a directed closed loop.
+set of disjoint, nested loops.
 For three anyons, we relate two
 possible ways of nesting loops %these measurements
 via $F$-moves:
@@ -285,7 +298,7 @@ holding two anyons (punctures) with charges $a$ and $b$.
 We are free to draw loops around charges,
 and in general braiding will twist these loops in different
 ways.
-\emph{picture?}
+\dude{picture? ref Fig 2?}
 
 These pictures, abstracted from the quantum context,
 are called \emph{curve diagrams} and are used in
@@ -295,64 +308,14 @@ a continuous embedding of a line that passes through
 each puncture once. 
 Remarkably, any two such linear orderings are related by
 braiding (half-twists).
+\dude{optional paragraph..}
 
 The $R$ and $F$-moves obey composition of diagrams.
-\emph{picture?}
+\dude{picture?}
 Fusion is the ``reverse'' of composition: replace the
 interior of a disc by a single charge.
-\emph{picture?}
+\dude{picture?}
 
-%The dynamics and history of a system of anyons can be conveniently represented by a graphical calculus, which can be regarded as a representation of the world-lines of the particles. These diagrams can be manipulated by $R$-moves, corresponding to braiding processes:
-%	\begin{align}
-%	\label{e:rmove}
-%		\begin{tikzpicture}[baseline=0.5cm,scale=0.3]		
-%			\draw(0,0)--(0,1);
-%			\draw plot [smooth, tension=1] coordinates { (0,1) (0.75,1.8) (-0.6,2.45) (-1,3)};
-%			\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (0,1) (-0.75,1.8) (0.6,2.45) (1,3)};
-%			\draw plot [smooth, tension=1] coordinates { (0,1) (-0.75,1.8) (0.6,2.45) (1,3)};
-%			\node at (0,0) [anchor=west] {{\scriptsize $c$}};
-%			\node at (-1,3) [anchor=east] {{\scriptsize $b$}};
-%			\node at (1,3) [anchor=west] {{\scriptsize $a$}};
-%		\end{tikzpicture}
-%		&\;\;=\;\;R^{ab}_c\cdot\;
-%		\begin{tikzpicture}[baseline=0.5cm,scale=0.3]		
-%			\draw(0,0)--(0,1);
-%			\draw(0,1)--(-1,2)--(-1,3);
-%			\draw(0,1)--(1,2)--(1,3);
-%			\node at (0,0) [anchor=west] {{\scriptsize $c$}};
-%			\node at (-1,3) [anchor=east] {{\scriptsize $b$}};
-%			\node at (1,3) [anchor=west] {{\scriptsize $a$}};
-%		\end{tikzpicture}
-%	\end{align}
-%where $a$, $b$, and $c$ represent particle types, or $F$-moves, representing the associativity rule for fusion processes, 
-%	\begin{align}
-%		\label{e:fmove}
-%		\begin{tikzpicture}[baseline=0.6cm,scale=0.3]
-%			\draw(0,0)--(0,1)--(-2,3);
-%			\draw(0,3)--(-1,2);
-%			\draw(2,3)--(0,1);
-%			\node at (-0.45,1.6) [anchor=north east] {{\scriptsize $i$}};
-%			\node at (0,0) [anchor=west] {{\scriptsize $d$}};
-%			\node at (2,3) [anchor=east] {{\scriptsize $c$}};
-%			\node at (0,3) [anchor=east] {{\scriptsize $b$}};
-%			\node at (-2,3) [anchor=east] {{\scriptsize $a$}};
-%		\end{tikzpicture}
-%		&\;\;=\;\;\sum_j[F^{abc}_d]_{ij}\cdot\;
-%		\begin{tikzpicture}[baseline=0.6cm,scale=0.3]		
-%			\draw(0,0)--(0,1)--(-2,3);
-%			\draw(0,3)--(1,2);
-%			\draw(2,3)--(0,1);
-%			\node at (0.42,1.63) [anchor=north west] {{\scriptsize $j$}};
-%			\node at (0,0) [anchor=east] {{\scriptsize $d$}};
-%			\node at (2,3) [anchor=east] {{\scriptsize $c$}};
-%			\node at (0,3) [anchor=east] {{\scriptsize $b$}};
-%			\node at (-2,3) [anchor=east] {{\scriptsize $a$}};
-%		\end{tikzpicture}
-%	\end{align}
-
-%These manipulations encode the data of the unitary modular tensor 
-%category, and can be used to represent the state of 
-%a system of anyons as a linear combination of fusion trees.
 
 For the Fibonacci anyons, the non-trivial $R$ and $F$ moves are 
 \begin{equation*}
@@ -363,6 +326,20 @@ For the Fibonacci anyons, the non-trivial $R$ and $F$ moves are
 	F_{\tau}^{\tau\tau\tau} = \begin{pmatrix}\varphi^{-1}&\varphi^{-\frac{1}{2}}\\\varphi^{-\frac{1}{2}}&-\varphi^{-1}\end{pmatrix} \,,
 \end{equation*}
 where the matrix is given in a basis labelled $(\vac,\tau)$.
+%unitary actions on the fusion space. Pair-creation events should be considered isometries 
+%that enlarge the fusion space, while fusion events correspond to projective measurements 
+%of combined charge of some number of particles.
+For detailed description of these 
+processes in Fibonacci anyons, see e.g.~Ref.~\cite{Nayak2008} and references therein. 
+Braiding of Fibonacci anyons and measurements of fusion outcomes is known to be 
+sufficient to implement universal quantum computation~\cite{Freedman2002, Nayak2008}.
+
+This treatment of anyon dynamics we consider to be a phenomenological model;
+it neglects any microscopic details of the system.
+This is consistent with the principles of topologically 
+ordered systems and anyonic physics, where the key universal features describing the 
+anyon model correspond to large length-scale physics, while the microscopic physics plays 
+a less important (and non-universal) role.
 
 %We use a phenomenological model of Fibonacci anyon dynamics which neglects any 
 %microscopic details of the system. 
@@ -551,9 +528,9 @@ and then performing $R$ and $F$-moves on the resulting
 curve so that 
 all anyons within the tile have been 
 localized within a contiguous region of the curve. 
-(Heisenberg picture...)
+\dude{Heisenberg picture?}
 The observable corresponding to the tile is then
-represented in the state ...
+represented in the state \dude{polish}.
 %The total charge is then (probabilistically) read off the 
 %relevant section of the fusion tree. 
 An example of this 
@@ -568,104 +545,18 @@ this procedure will be discussed elsewhere.
 
 \begin{figure}[t!]
 \begin{center}
-	\includegraphics[width=0.8\columnwidth]{pic-syndrome.pdf} %\\[10pt]
-%	(e)\ \ 
-%	\begin{tikzpicture}[baseline=0.7cm,scale=0.3, xscale=0.9]
-%			\begin{scope}[xshift=2cm,yshift=2cm]		
-%				\draw(1,0)--(0,1)[dashed];
-%				\draw(0,1)--(-1,2)--(-1,3);
-%				\draw(0,1)--(1,2)--(1,3);
-%				\node at (-1,3) [anchor=west] {{\scriptsize $1$}};
-%				\node at (1,3) [anchor=west] {{\scriptsize $2$}};
-%			\end{scope}
-%			%			
-%			\begin{scope}[xshift=4cm]
-%				\draw(0,0)--(0,1)[dashed];
-%				\draw(0,1)--(-1,2)--(1,4)--(1,5);
-%				\draw(0,1)--(3,4)--(3,5);
-%				\node at (1,5) [anchor=west] {{\scriptsize $3$}};
-%				\node at (3,5) [anchor=west] {{\scriptsize $4$}};
-%			\end{scope}
-%		\end{tikzpicture}
-%		\hspace{-3mm}$\longrightarrow$\hspace{1mm}
-%		\begin{tikzpicture}[baseline=1.5cm,scale=0.3, xscale=1]
-%			\begin{scope}[xshift=2cm,yshift=2cm]		
-%				\draw(1,0)--(0,1)[dashed];
-%				\draw(0,1)--(-1,2)--(-1,7);
-%				\draw(0,1)--(1,2)--(1,5);
-%				\node at (-1,3) [anchor=west] {{\scriptsize $1$}};
-%				\node at (1,3) [anchor=west] {{\scriptsize $2$}};
-%				\node at (-1,7) [anchor=west] {{\scriptsize $1$}};
-%				\node at (1,7) [anchor=west] {{\scriptsize $4$}};
-%			\end{scope}
-%			%			
-%			\begin{scope}[xshift=4cm]
-%				\draw(0,0)--(0,1)[dashed];
-%				\draw(0,1)--(-1,2)--(1,4)--(1,5);
-%				\draw(0,1)--(3,4)--(3,5);
-%				\draw(3,7)--(3,9);
-%				\node at (1,5) [anchor=west] {{\scriptsize $3$}};
-%				\node at (3,5) [anchor=west] {{\scriptsize $4$}};
-%				\node at (1,9) [anchor=west] {{\scriptsize $2$}};
-%				\node at (3,9) [anchor=west] {{\scriptsize $3$}};
-%			\end{scope}
-%			%
-%			\begin{scope}[xshift=6cm,yshift=2cm]
-%				\draw plot [smooth, tension=.6] coordinates { (1,3) (0.75,3.8) (-0.6,4.45) (-1,5)};
-%				\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
-%				\draw plot [smooth, tension=.6] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
-%			\end{scope}
-%			\begin{scope}[xshift=4cm,yshift=4cm]
-%				\draw plot [smooth, tension=.6] coordinates { (1,3) (0.75,3.8) (-0.6,4.45) (-1,5)};
-%				\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
-%				\draw plot [smooth, tension=.6] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
-%			\end{scope}
-%		\end{tikzpicture}
-%		$\xrightarrow{R, F}$
-%		\begin{tikzpicture}[baseline=0.2cm,scale=0.3,xscale=0.9]		
-%			\draw(2,-1)--(0,1)[];
-%			\draw(0,1)--(-1,2)--(-1,3);
-%			\draw(0,1)--(1,2)--(1,3);
-%			\node at (-1,3) [anchor=west] {{\scriptsize $1$}};
-%			\node at (1,3) [anchor=west] {{\scriptsize $4$}};
-%			\node at (1,-0.05) [anchor=east] {{\scriptsize $q$}};
-%			\draw(2,-1)--(2,-2)[dashed];
-%			%			
-%			\begin{scope}[xshift=4cm]
-%				\draw(-2,-1)--(0,1)[];
-%				\draw(0,1)--(-1,2)--(-1,3);
-%				\draw(0,1)--(1,2)--(1,3);
-%				\node at (-1,3) [anchor=west] {{\scriptsize $2$}};
-%				\node at (1,3) [anchor=west] {{\scriptsize $3$}};
-%				\node at (-1,0) [anchor=west] {{\scriptsize $q'$}};
-%			\end{scope}
-%		\end{tikzpicture}
+	\includegraphics[width=1.0\columnwidth]{pic-syndrome.pdf}
 \caption{
 (a) Noise processes initially form isolated sets of pair-created anyons, 
 each crossing the boundary of a tile. 
-%These events are 
-%each represented by curves, where anyons are denoted by specific 
-%points on these curves. 
 (b) To measure the total charge 
 contained within each tile, 
 we first join the participating curve 
 diagrams arbitrarily into a single curve diagram.
-%we must first join the fusion 
-%trees associated with all such pairs. 
-%This corresponds to joining 
-%the edges associated with each pair into a continuous path, 
-%representing a basis for the fusion space chosen arbitrarily. 
 (c) The total charge of each tile can then be found 
 by braiding anyons around each other until all charges within 
-a tile are neighbors on the path, as in (d).  
+a tile are neighbors on the curve, as in (d).  
 The red lines correspond to the worldline braids that perform this step.
-%(e) The specific braids required to transform (c) 
-%to (d), where the labels of the four leaves of 
-%these fusion trees correspond to the four anyons taken from 
-%the top of the path in (c) to the bottom. 
-%Dashed lines denote vacuum charges. 
-%After applying several $R$ and $F$ moves (see Eqs.~(\ref{e:rmove}) and 
-%(\ref{e:fmove})), the total charges within each tile can be read off the diagram as $q$ and $q'$.
 }
 \label{f:syndrome}
 \end{center}
