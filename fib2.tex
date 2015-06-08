@@ -1,4 +1,5 @@
-\documentclass[aps, prl, letterpaper, twocolumn, superscriptaddress, notitlepage, 10pt]{revtex4-1}
+%\documentclass[aps, prl, letterpaper, twocolumn, superscriptaddress, notitlepage, 10pt]{revtex4-1}
+\documentclass[aps, prl, letterpaper, twocolumn, superscriptaddress, notitlepage, 10pt]{revtex4}
 \usepackage{times}
 
 % use these settings for a more reader-friendly version
@@ -14,8 +15,8 @@
 \usepackage[caption=false]{subfig}
 \usepackage{enumerate}
 
-\usepackage{tikz}
-\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit}
+%\usepackage{tikz}
+%\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit}
 
 \usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
 %\usepackage{bm}  % Define \bm{} to use bold math fonts
@@ -27,6 +28,8 @@
 \hypersetup{pdfauthor={Simon Burton, Courtney G. Brell, Steven T. Flammia}}
 \hypersetup{pdftitle={Classical Simulation of Quantum Error Correction in a Fibonacci Anyon Code}}
 
+\usepackage[normalem]{ulem}
+
 %------------------------------------------------------------------------------------------------------------%
 % Macros
 %------------------------------------------------------------------------------------------------------------%
@@ -35,6 +38,7 @@
 \newcommand{\Fref}[1]{Fig.~\ref{#1}}
 
 \newcommand{\e}{\mathrm{e}}
+\newcommand{\vac}{\mathbb{I}}
 
 \newcommand{\ket}[1]{|{#1}\rangle}
 \newcommand{\expect}[1]{\langle{#1}\rangle}
@@ -72,8 +76,8 @@ The University of Sydney, Sydney, Australia}
 Classically simulating the dynamics of anyonic excitations in two-dimensional quantum systems is likely intractable in general because such dynamics are sufficient to implement 
 universal quantum computation. However, processes of interest for the study of quantum 
 error correction in anyon systems are typically drawn from a restricted class that displays 
-significant structure over a wide range of system parameters.
-We exploit this structure to classically simulate, and thereby demonstrate the success of, an 
+significant structure \dude{sparsity?} over a wide range of system parameters.
+We exploit this structure \dude{sparsity?} to classically simulate, and thereby demonstrate the success of, an 
 error-correction protocol for a quantum memory based on the universal Fibonacci anyon 
 model.  We numerically simulate a phenomenological model of the system and noise 
 processes on lattice sizes of up to 
@@ -100,12 +104,21 @@ will create spurious anyons that diffuse and quickly corrupt the stored quantum
 information~\cite{Pastawski2010}. Thus, the passive protection provided by the mass gap 
 at low temperature must be augmented by an \emph{active} decoding procedure. 
 
-In order to efficiently classically simulate an error-correction protocol for a topologically ordered quantum memory, it is necessary to simulate the physical noise processes, the decoding algorithm, and the physical recovery operations. 
-Decoding algorithms are typically designed to run efficiently on a classical computer, but there is generally no guarantee that the noise and recovery processes should be classically simulable.
-Because of this, almost all of the sizable research effort on active quantum error correction for topological systems has focused on the case of abelian anyons~\cite{Dennis2002, Duclos-Cianci2010, Duclos-Cianci2010a, Wang2010, Wang2010a, Duclos-Cianci2013, Bravyi2011, Bombin2012, Wootton2012, Anwar2014, Watson2014, Hutter2014a, Bravyi2014, Wootton2015, Fowler2015, Andrist2015}.
-%~\cite{Dennis2002, Duclos-Cianci2010, Bravyi2011, Bravyi2014}.
-Systems of abelian anyons are well suited to studying quantum error correction because (at the RG fixed point) noise and recovery processes can be efficiently simulated numerically, allowing lattice simulations of decoding with over 1 million sites~\cite{Duclos-Cianci2010}. 
-Standard algorithms are specifically tailored to exploit the abelian nature of these particles, particularly that abelian anyons cannot be used for quantum computation. 
+In order to efficiently classically simulate an error-correction protocol for 
+a topologically ordered quantum memory, it is necessary to simulate 
+the physical noise processes, the decoding algorithm, and the physical recovery operations. 
+Decoding algorithms are typically designed to run efficiently on a 
+classical computer, but there is generally no guarantee that the 
+noise and recovery processes should be classically simulable.
+Because of this, almost all of the sizable research effort 
+on active quantum error correction for topological systems has focused 
+on the case of abelian anyons~\cite{Dennis2002, Duclos-Cianci2010, Duclos-Cianci2010a, Wang2010, Wang2010a, Duclos-Cianci2013, Bravyi2011, Bombin2012, Wootton2012, Anwar2014, Watson2014, Hutter2014a, Bravyi2014, Wootton2015, Fowler2015, Andrist2015}.
+Systems of abelian anyons are well suited to studying quantum 
+error correction because (at the RG fixed point) noise and 
+recovery processes can be efficiently simulated numerically, allowing lattice simulations 
+of decoding with over 1 million sites~\cite{Duclos-Cianci2010}. 
+Standard algorithms are specifically tailored to exploit the abelian nature 
+of these particles, particularly that abelian anyons cannot be used for quantum computation. 
 
 Recent investigations have begun to explore quantum error correction for nonabelian anyon 
 models~\cite{Brell2013, Wootton2013, Hutter2014, Wootton2015b}. Nonabelian anyon models are especially interesting 
@@ -113,7 +126,16 @@ because braiding and fusion of these anyons in general allows for the implementa
 computation. However, the initial studies of error-correction in nonabelian anyon systems have focused on specific models, such as the Ising 
 anyons~\cite{Brell2013} and the so-called $\Phi$-$\Lambda$ 
 model~\cite{Wootton2013, Hutter2014} that, while nonabelian, are not universal. The general dynamics of these particular anyon models is known to be efficiently classically simulable, a fact
-that was exploited to enable efficient simulation of error correction in these systems. When considering more general anyon models, their ability to perform universal quantum computation would seem a significant barrier to their simulation on a classical computer. While simulation of general dynamics does indeed seem intractable, we argue that the kinds of processes that are typical of thermal noise are sufficiently structured to allow for their classical simulation in the regimes where we expect successful error correction to be possible. This insight allows us to simulate the noise and recovery processes for a quantum code based on a universal anyon model.
+that was exploited to enable efficient simulation of error correction 
+in these systems. When considering more general anyon models, their 
+ability to perform universal quantum computation would seem a significant 
+barrier to their simulation on a classical computer. While simulation 
+of general dynamics does indeed seem intractable, we argue that 
+the kinds of processes that are typical of thermal noise 
+are sufficiently structured  \dude{sparse?} to allow for their classical simulation 
+in the regimes where we expect successful error correction to 
+be possible. This insight allows us to simulate the noise 
+and recovery processes for a quantum code based on a universal anyon model.
 
 Concretely, we consider the simulation of quantum error correction in a two-dimensional lattice 
 system with Fibonacci anyons, a class of nonabelian anyons that are universal for quantum 
@@ -123,111 +145,242 @@ states~\cite{Slingerland2001}, and can be realized in several spin
 models~\cite{Levin2005, Bonesteel2012, Kapit2013, Palumbo2014} and composite 
 heterostructures~\cite{Mong2014}.
 
-We use a flexible phenomenological model of dynamics and thermal noise to describe a system with Fibonacci anyon excitations. Within this model, we apply existing general topological error-correction protocols, and simulate the successful preservation of quantum information encoded in topological degrees of freedom. Topological quantum computation protocols using nonabelian anyons typically implicitly assume the existence of an error-correction protocol to correct for diffusion or unwanted creation of anyons. Our results are the first explicit demonstration that such a scheme will be successful when applied to a universal topological quantum computer.
+We use a flexible phenomenological model of dynamics and thermal 
+noise to describe a system with Fibonacci anyon excitations. Within 
+this model, we apply existing general topological error-correction protocols, and 
+simulate the successful preservation of quantum information encoded in topological 
+degrees of freedom. Topological quantum computation protocols using nonabelian anyons 
+typically implicitly assume the existence of an error-correction protocol to 
+correct for diffusion or unwanted creation of anyons. Our results 
+are the first explicit demonstration that such a scheme will 
+be successful when applied to a universal topological quantum computer.
 
 %------------------------------------------------------------------------------------------------------------%
-\paragraph{Modeling Fibonacci anyons.}
+%\paragraph{Modeling Fibonacci anyons.}
+%\paragraph{Topological quantum field theory.}
+\paragraph{Topological model.}
 
-The topological features of a physical anyon model are abstractly described by a unitary 
-modular tensor category~\cite{Wang2010b}. This object contains the data describing the 
-types of anyonic particles, as well as the results of topological operations such as braiding and 
-fusion of these anyons. The Fibonacci anyon model consists of only one non-trivial particle 
-type, conventionally labelled $\tau$. Denoting the vacuum by $\mathbb{I}$, we can describe 
-the possible fusion outcomes of Fibonacci anyons as $\tau\times\tau=\mathbb{I}+\tau$, 
-i.e.~two $\tau$ particles can either fuse to vacuum or to a $\tau$ particle.
+%The topological features of a physical anyon model are abstractly described by a unitary 
+%modular tensor category~\cite{Wang2010b}. This object contains the data describing the 
+%types of anyonic particles, as well as the results of topological operations such as braiding and 
+%fusion of these anyons. The Fibonacci anyon model consists of only one non-trivial particle 
+%type, conventionally labelled $\tau$. Denoting the vacuum by $\vac$, we can describe 
+%the possible fusion outcomes of Fibonacci anyons as $\tau\times\tau=\vac+\tau$, 
+%i.e.~two $\tau$ particles can either fuse to vacuum or to a $\tau$ particle.
+%
+%Associated with each set of fusion outcomes for a fixed number of $\tau$ particles is a basis 
+%vector for a Hilbert space, the \emph{fusion} space. For $n$ particles of type $\tau$, the 
+%dimension of this space grows asymptotically as $\varphi^n$ for $\varphi=\frac{1+\sqrt{5}}{2}$ 
+%the golden ratio. Additionally, there is a global degeneracy associated with the topology of the 
+%manifold on which the anyons reside. We will consider systems with the topology of a torus, 
+%which for the Fibonacci anyons gives rise to a 2-fold degeneracy. For convenience 
+%(in particular to minimize finite-size effects in our numerical computations~\cite{Brell2013}), 
+%this global space is the one in which we will encode, and demonstrate protection of, quantum 
+%information.
+%
+%The fusion outcome of any particular experiment depends on the history of the particles, in 
+%particular how they have braided around one another. Braiding operations are treated as 
+%unitary actions on the fusion space. Pair-creation events should be considered isometries 
+%that enlarge the fusion space, while fusion events correspond to projective measurements 
+%of combined charge of some number of particles. For detailed description of these 
+%processes in Fibonacci anyons, see e.g.~Ref.~\cite{Nayak2008} and references therein. 
+%Braiding of Fibonacci anyons and measurements of fusion outcomes is known to be 
+%sufficient to implement universal quantum computation~\cite{Freedman2002, Nayak2008}.
 
-Associated with each set of fusion outcomes for a fixed number of $\tau$ particles is a basis 
-vector for a Hilbert space, the \emph{fusion} space. For $n$ particles of type $\tau$, the 
-dimension of this space grows asymptotically as $\varphi^n$ for $\varphi=\frac{1+\sqrt{5}}{2}$ 
-the golden ratio. Additionally, there is a global degeneracy associated with the topology of the 
-manifold on which the anyons reside. We will consider systems with the topology of a torus, 
-which for the Fibonacci anyons gives rise to a 2-fold degeneracy. For convenience 
-(in particular to minimize finite-size effects in our numerical computations~\cite{Brell2013}), 
-this global space is the one in which we will encode, and demonstrate protection of, quantum 
-information.
 
-The fusion outcome of any particular experiment depends on the history of the particles, in 
-particular how they have braided around one another. Braiding operations are treated as 
-unitary actions on the fusion space. Pair-creation events should be considered isometries 
-that enlarge the fusion space, while fusion events correspond to projective measurements 
-of combined charge of some number of particles. For detailed description of these 
-processes in Fibonacci anyons, see e.g.~Ref.~\cite{Nayak2008} and references therein. 
-Braiding of Fibonacci anyons and measurements of fusion outcomes is known to be 
-sufficient to implement universal quantum computation~\cite{Freedman2002, Nayak2008}.
+% From Picture TQFTs paper:
+%Within physics, TQFTs are referred to as “anyonic systems” [Wil][DFNSS]. These are
+%2-dimensional quantum mechanical systems with point like excitations (variously
+%called “quas-particle” or just “particle”, anyon, or perhaps “nonabelion”) which
+%under exchange exhibit exotic statistics: a nontrival representation of the braid
+%groups acting on a finite dimensional Hilbert space V consisting of “internal de-
+%grees of freedom”. Since these “internal degrees of freedom” sound mysterious,
+%we note that this information is accessed by fusion: fuse pairs of anyons along
+%a well defined trajectory and observe the outcome.
+%Statistics of anyons is described by unitary representations of the braid groups
 
-The dynamics and history of a system of anyons can be conveniently represented by a graphical calculus, which can be regarded as a representation of the world-lines of the particles. These diagrams can be manipulated by $R$-moves, corresponding to braiding processes:
-	\begin{align}
-	\label{e:rmove}
-		\begin{tikzpicture}[baseline=0.5cm,scale=0.3]		
-			\draw(0,0)--(0,1);
-			\draw plot [smooth, tension=1] coordinates { (0,1) (0.75,1.8) (-0.6,2.45) (-1,3)};
-			\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (0,1) (-0.75,1.8) (0.6,2.45) (1,3)};
-			\draw plot [smooth, tension=1] coordinates { (0,1) (-0.75,1.8) (0.6,2.45) (1,3)};
-			\node at (0,0) [anchor=west] {{\scriptsize $c$}};
-			\node at (-1,3) [anchor=east] {{\scriptsize $b$}};
-			\node at (1,3) [anchor=west] {{\scriptsize $a$}};
-		\end{tikzpicture}
-		&\;\;=\;\;R^{ab}_c\cdot\;
-		\begin{tikzpicture}[baseline=0.5cm,scale=0.3]		
-			\draw(0,0)--(0,1);
-			\draw(0,1)--(-1,2)--(-1,3);
-			\draw(0,1)--(1,2)--(1,3);
-			\node at (0,0) [anchor=west] {{\scriptsize $c$}};
-			\node at (-1,3) [anchor=east] {{\scriptsize $b$}};
-			\node at (1,3) [anchor=west] {{\scriptsize $a$}};
-		\end{tikzpicture}
-	\end{align}
-where $a$, $b$, and $c$ represent particle types, or $F$-moves, representing the associativity rule for fusion processes, 
-	\begin{align}
-		\label{e:fmove}
-		\begin{tikzpicture}[baseline=0.6cm,scale=0.3]
-			\draw(0,0)--(0,1)--(-2,3);
-			\draw(0,3)--(-1,2);
-			\draw(2,3)--(0,1);
-			\node at (-0.45,1.6) [anchor=north east] {{\scriptsize $i$}};
-			\node at (0,0) [anchor=west] {{\scriptsize $d$}};
-			\node at (2,3) [anchor=east] {{\scriptsize $c$}};
-			\node at (0,3) [anchor=east] {{\scriptsize $b$}};
-			\node at (-2,3) [anchor=east] {{\scriptsize $a$}};
-		\end{tikzpicture}
-		&\;\;=\;\;\sum_j[F^{abc}_d]_{ij}\cdot\;
-		\begin{tikzpicture}[baseline=0.6cm,scale=0.3]		
-			\draw(0,0)--(0,1)--(-2,3);
-			\draw(0,3)--(1,2);
-			\draw(2,3)--(0,1);
-			\node at (0.42,1.63) [anchor=north west] {{\scriptsize $j$}};
-			\node at (0,0) [anchor=east] {{\scriptsize $d$}};
-			\node at (2,3) [anchor=east] {{\scriptsize $c$}};
-			\node at (0,3) [anchor=east] {{\scriptsize $b$}};
-			\node at (-2,3) [anchor=east] {{\scriptsize $a$}};
-		\end{tikzpicture}
-	\end{align}
+We consider a 
+2-dimensional system with
+point-like excitations or quasiparticles known as anyons.
+These anyons show exotic statistics under exchange.
+The worldlines of these exchanges form \emph{braids}
+in (2+1)-dimensions
+which act unitarily on (the Hilbert space of) degrees of freedom known as the \emph{fusion space.}
+To access this space we define
+the \emph{observables} of the system: these
+are regions bounded by circles (Wilson loops)
+and measure the total charge of the region.
+%The algebraic properties of these processes
+These dynamics and observables obey algebraic rules
+given by a unitary modular tensor category~\cite{Wang2010b} (UMTC). 
 
-These manipulations encode the data of the unitary modular tensor category, and can be used to represent the state of a system of anyons as a linear combination of fusion trees. For the Fibonacci anyons, the non-trivial $R$ and $F$ moves are 
+%As was noted in~\cite{Pfeifer2014}, when dealing with two-dimensional 
+%anyon dynamics, it is not sufficient to consider only
+%the algebraic (fusion/braiding) properties of the anyons,
+%one must also account for the algebra of observables. \cggb{This sentence seems odd here. Consider moving?}
+
+From the perspective of
+\emph{topological quantum field theory}
+(TQFT), anyons are modelled
+as punctures in a surface~\cite{Pfeifer2014}, and it is not
+the anyons themselves that braid, but the space
+around the anyons that becomes braided (twisted).
+The generators corresponding to the braid
+group generators are called half-twists.
+This is the perspective we adopt.
+In particular, this shows the action of braiding
+on arbitrary observables (Wilson loops) as
+these occupy the space around the anyons.
+
+The state of a collection of anyons
+can be described by the observables of the system.
+An important difference between abelian and non-abelian
+theories is this: the outcome of measurements in an abelian theory
+are determined by particle content only.
+That is, the fusion space is one-dimensional (a phase).
+This is no longer the case in a non-abelian theory.
+An example is Fibonacci: $\tau\times\tau=\tau+\vac$
+\emph{picture here?}
+%specify a state requires nesting multiple wilson lines.
+
+Non-intersecting loops commute (why?), and so
+a basis for the state can be built from a maximal
+%set of non-intersecting loops.
+set of disjoint and nested loops.
+\emph{picture?}
+%Observables measure the charge within a
+%region bounded by a directed closed loop.
+For three anyons, we relate two
+possible ways of nesting loops %these measurements
+via $F$-moves:
+\begin{align}
+\label{e:fmove}
+\includegraphics[]{pic-fmove.pdf}
+\end{align}
+Here we have shown particles with charges $a$, $b$, and $c$
+as well as total charge $d$.
+The lhs shows a state where the anyons with charge $a$ and $b$ are
+observed to have total charge $i$.
+The rhs involves a superposition (summation)
+over charge states $j$ of the anyons with charge $b$ and $c$.
+The green line serves to linearly
+order the anyons, and track
+deformations in the underlying space 
+(the history of braiding processes).
+It also denotes the direction along
+which $F$-moves occur.
+
+%Here we show how braids effect observables:
+%Here we show the $R$-move, corresponding to a (clockwise) braiding processes:
+A clockwise braiding process is represented by an $R$-move:
+\begin{align}
+\label{e:rmove}
+\includegraphics[]{pic-rmove.pdf}
+\end{align}
+%where $a$, $b$, and $c$ represent particle types, and $F$-moves,
+%representing the associativity rule for fusion processes, 
+This is meant to show a \emph{half-twist} of the space
+inside the observable with value $c$
+holding two anyons (punctures) with charges $a$ and $b$.
+We are free to draw loops around charges,
+and in general braiding will twist these loops in different
+ways.
+\emph{picture?}
+
+These pictures (sans quantum) are called 
+\emph{curve diagrams} and are used in
+the study of braid groups \cite{Dehornoy2002}.
+In general, such a curve diagram is 
+a continuous embedding of a line that passes through 
+each puncture once. 
+Remarkably, any two such linear orderings are related by
+braiding (half-twists).
+
+The $R$ and $F$-moves obey composition of diagrams.
+\emph{picture?}
+Fusion is the ``reverse'' of composition: replace the
+interior of a disc by a single charge.
+\emph{picture?}
+
+%The dynamics and history of a system of anyons can be conveniently represented by a graphical calculus, which can be regarded as a representation of the world-lines of the particles. These diagrams can be manipulated by $R$-moves, corresponding to braiding processes:
+%	\begin{align}
+%	\label{e:rmove}
+%		\begin{tikzpicture}[baseline=0.5cm,scale=0.3]		
+%			\draw(0,0)--(0,1);
+%			\draw plot [smooth, tension=1] coordinates { (0,1) (0.75,1.8) (-0.6,2.45) (-1,3)};
+%			\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (0,1) (-0.75,1.8) (0.6,2.45) (1,3)};
+%			\draw plot [smooth, tension=1] coordinates { (0,1) (-0.75,1.8) (0.6,2.45) (1,3)};
+%			\node at (0,0) [anchor=west] {{\scriptsize $c$}};
+%			\node at (-1,3) [anchor=east] {{\scriptsize $b$}};
+%			\node at (1,3) [anchor=west] {{\scriptsize $a$}};
+%		\end{tikzpicture}
+%		&\;\;=\;\;R^{ab}_c\cdot\;
+%		\begin{tikzpicture}[baseline=0.5cm,scale=0.3]		
+%			\draw(0,0)--(0,1);
+%			\draw(0,1)--(-1,2)--(-1,3);
+%			\draw(0,1)--(1,2)--(1,3);
+%			\node at (0,0) [anchor=west] {{\scriptsize $c$}};
+%			\node at (-1,3) [anchor=east] {{\scriptsize $b$}};
+%			\node at (1,3) [anchor=west] {{\scriptsize $a$}};
+%		\end{tikzpicture}
+%	\end{align}
+%where $a$, $b$, and $c$ represent particle types, or $F$-moves, representing the associativity rule for fusion processes, 
+%	\begin{align}
+%		\label{e:fmove}
+%		\begin{tikzpicture}[baseline=0.6cm,scale=0.3]
+%			\draw(0,0)--(0,1)--(-2,3);
+%			\draw(0,3)--(-1,2);
+%			\draw(2,3)--(0,1);
+%			\node at (-0.45,1.6) [anchor=north east] {{\scriptsize $i$}};
+%			\node at (0,0) [anchor=west] {{\scriptsize $d$}};
+%			\node at (2,3) [anchor=east] {{\scriptsize $c$}};
+%			\node at (0,3) [anchor=east] {{\scriptsize $b$}};
+%			\node at (-2,3) [anchor=east] {{\scriptsize $a$}};
+%		\end{tikzpicture}
+%		&\;\;=\;\;\sum_j[F^{abc}_d]_{ij}\cdot\;
+%		\begin{tikzpicture}[baseline=0.6cm,scale=0.3]		
+%			\draw(0,0)--(0,1)--(-2,3);
+%			\draw(0,3)--(1,2);
+%			\draw(2,3)--(0,1);
+%			\node at (0.42,1.63) [anchor=north west] {{\scriptsize $j$}};
+%			\node at (0,0) [anchor=east] {{\scriptsize $d$}};
+%			\node at (2,3) [anchor=east] {{\scriptsize $c$}};
+%			\node at (0,3) [anchor=east] {{\scriptsize $b$}};
+%			\node at (-2,3) [anchor=east] {{\scriptsize $a$}};
+%		\end{tikzpicture}
+%	\end{align}
+
+%These manipulations encode the data of the unitary modular tensor 
+%category, and can be used to represent the state of 
+%a system of anyons as a linear combination of fusion trees.
+
+For the Fibonacci anyons, the non-trivial $R$ and $F$ moves are 
 \begin{equation*}
-	R_{\mathbb{I}}^{\tau\tau} = \e^{\frac{-4\pi i}{5}} 
+	R_{\vac}^{\tau\tau} = \e^{\frac{-4\pi i}{5}} 
 	\ \ , \ \
 	R_\tau^{\tau\tau}= \e^{\frac{3\pi i}{5}} 
 	\ \ , \ \
 	F_{\tau}^{\tau\tau\tau} = \begin{pmatrix}\varphi^{-1}&\varphi^{-\frac{1}{2}}\\\varphi^{-\frac{1}{2}}&-\varphi^{-1}\end{pmatrix} \,,
 \end{equation*}
-where the matrix is given in a basis labelled $(\mathbb{I},\tau)$.
+where the matrix is given in a basis labelled $(\vac,\tau)$.
 
-We use a phenomenological model of Fibonacci anyon dynamics which neglects any 
-microscopic details of the system. 
-This is consistent with the principles of topologically 
-ordered systems and anyonic physics, where the key universal features describing the 
-anyon model correspond to large length-scale physics, while the microscopic physics plays 
-a less important (and non-universal) role.
-Our simulation is in effect that of a $(2+1)$-dimensional topological quantum field theory, which allows for topological processes such as pair-creation, braiding, and fusion of anyonic charges. 
-This is modeled on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside. 
-This treatment applies equally well to lattice models, where anyons can only be located at a discrete set of points, or continuum models, where a discretization of the manifold must be chosen in order to perform charge measurements. 
-In the former case, each tile of $\Lambda$ represents a lattice site, while in the latter case each tile represents a measurement region. For more details of an analogous model, see~\cite{Brell2013}.
-
-As was noted in~\cite{Pfeifer2014}, when dealing with two-dimensional 
-anyon dynamics, it is not sufficient to consider only
-the algebraic (fusion/braiding) properties of the anyons,
-one must also account for the algebra of observables. \cggb{This sentence seems odd here. Consider moving?}
+%We use a phenomenological model of Fibonacci anyon dynamics which neglects any 
+%microscopic details of the system. 
+%This is consistent with the principles of topologically 
+%ordered systems and anyonic physics, where the key universal features describing the 
+%anyon model correspond to large length-scale physics, while the microscopic physics plays 
+%a less important (and non-universal) role.
+%Our simulation is in effect that of a $(2+1)$-dimensional topological 
+%quantum field theory, which allows for topological processes such as 
+%pair-creation, braiding, and fusion of anyonic charges. 
+%This is modeled on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside. 
+%This treatment applies equally well to lattice models, where anyons 
+%can only be located at a discrete set of points, 
+%or continuum models, where a discretization of the manifold must 
+%be chosen in order to perform charge measurements. 
+%In the former case, each tile of $\Lambda$ represents a 
+%lattice site, while in the latter case each tile represents 
+%a measurement region. For more details of an analogous model, see~\cite{Brell2013}.
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Noise and error-correction.}
@@ -236,9 +389,9 @@ We consider encoding a qubit of quantum information in the global degeneracy ass
 with the topology of the manifold of our system. We imagine an idealized Hamiltonian for this 
 system of the form
 \begin{align}
-	H=-\sum_{i\in \Lambda}\proj{\mathbb{I}}_i\;,\label{e:hamiltonian}
+	H=-\sum_{i\in \Lambda}\proj{\vac}_i\;,\label{e:hamiltonian}
 \end{align}
-with $\proj{\mathbb{I}}_i$ the projector to charge $\mathbb{I}$ at site (or tile) $i$, i.e.~the ground 
+with $\proj{\vac}_i$ the projector to charge $\vac$ at site (or tile) $i$, i.e.~the ground 
 space of the model has vacuum (or no anyon) at each site. Given the toroidal boundary 
 conditions, this space is two-fold degenerate as noted above. We identify this ground space 
 as the codespace of our model. Typical realistic noise processes in this kind of system are 
@@ -255,7 +408,9 @@ appropriate for error processes in nonabelian anyon models, but the two coincide
 of low error rates in those cases where they are comparable (see Ref.~\cite{Brell2013}).
 
 In order to perform a logical error on our code, a noise process must have support on a 
-ribbon running around a homologically nontrivial loop of the lattice. These correspond to 
+ribbon running around a homologically nontrivial loop of the lattice.
+\dude{any homologically nontrivial region is allowed for this, not just ribbons}
+These correspond to 
 processes in which anyonic charge is transported around the non-trivial loop before 
 annihilating to vacuum.
 
@@ -263,19 +418,27 @@ Our error-correction algorithm is
 based on a hierarchical clustering algorithm~\cite{Hastie2009, Wootton2015b},
 and follows a similar strategy to the hard-decision renormalization group decoder~\cite{Bravyi2011}. 
 The decoder proceeds by measuring the occupations of 
-anyons at each site of the lattice, producing a \emph{syndrome} of occupied sites. Following this, it forms clusters of nearby anyons and 
+anyons at each site of the lattice, producing a \emph{syndrome} 
+of occupied sites. Following this, it forms clusters of nearby anyons and 
 measures the total charge within each cluster.
 Clusters with trivial charge are discarded, and
 the rest are joined (agglomeratively~\cite{Hastie2009})
-at linearly increasing length scales. This iterative process concludes when there is at most a single cluster remaining (see \Fref{f:decode}).
+at linearly increasing length scales. This iterative process concludes when 
+there is at most a single cluster remaining (see \Fref{f:decode}).
 Note that unlike the case of abelian anyons, the decoder
 cannot determine the charge of each cluster given only the syndrome information (as in \cite{Bravyi2011}),
 and so will query (measure) the system to find this.
 Our simulation proceeds in this way as a dialogue between decoder
-and system, terminating when either the decoder itself terminates or when it performs a homologically nontrivial operation, thereby altering the codespace (and failing to perform successful information recovery).
-Note that, as was found in Ref.~\cite{Brell2013}, we expect that our qualitative results may be reproduced by most alternative families of decoders, although it may not be clear in all cases how to extend these decoders to the non-abelian setting.
+and system, terminating when either the decoder itself terminates or 
+when it performs a homologically nontrivial operation, thereby altering the 
+codespace (and failing to perform successful information recovery).
+Note that, as was found in Ref.~\cite{Brell2013}, we expect that 
+our qualitative results may be reproduced by most alternative families 
+of decoders, although it may not be clear in all cases how to extend these decoders to the non-abelian setting.
 The advantage of using a clustering decoder is 
-its simplicity and flexibility, and the fact that its clustering scheme is compatible with the structure in the noise processes that allows us to classically simulate them.
+its simplicity and flexibility, and the fact that its clustering 
+scheme is compatible with the structure \dude{sparsity?} in the noise 
+processes that allows us to classically simulate them.
 
 \begin{figure}[t!]
 \begin{center}
@@ -301,10 +464,12 @@ tree and measured. All clusters with vacuum total charge are deleted.
 
 Although simulating pair creation, braiding, and fusion of $n$ Fibonacci anyons is equivalent 
 in computational power to universal quantum computing (and thus unlikely to be classically 
-tractable), noise processes and error-correction procedures have structure that we can 
+tractable), noise processes and error-correction procedures have structure \dude{sparsity?} that we can 
 exploit to efficiently simulate typical processes of interest. In particular, those 
 processes in which we expect error-correction to succeed are also those that we expect to 
-be able to efficiently simulate for the following heuristic reasons (we leave a more rigorous analysis of simulability for noise and error correction processes as an open problem).
+be able to efficiently simulate for the following heuristic reasons 
+(we leave a more rigorous analysis of simulability for noise 
+and error correction processes as an open problem).
 
 Below the (bond) percolation threshold for (say) a 2D square lattice, we expect random sets of 
 bonds to decompose into separate connected components 
@@ -312,13 +477,14 @@ of average size $O(\log(n))$ and variance $O(1)$~\cite{Bazant2000}.
 Each noise process in our model is associated with a (randomly distributed) edge, and so 
 disconnected components correspond to sets of anyons that could not have interacted at any 
 point in their history. 
-We are free to neglect the degrees of freedom associated with braiding between components because each component has trivial total charge.
+We are free to neglect the degrees of freedom associated with braiding between components 
+because each component has trivial total charge.
 This allows us to simulate the braiding processes within each component separately. 
 In other words: the quantum state in the fusion space of all anyons factorizes into 
 a tensor product over components. 
 Since each 
 component has size only $O(\log(n))$, we can typically simulate these dynamics efficiently 
-because the resulting fusion space has dimension $O(\mathrm{poly}(n))$. There are rare 
+because the resulting fusion space has dimension $O(\mathrm{poly}(n))$. There are \sout{rare}
 random processes that violate this reasoning, but processes such as these are suppressed 
 exponentially in the lattice size $L$~\cite{Grimmett1989}. 
 
@@ -333,8 +499,10 @@ must be simulated.
 Of course, if we were to consider noise so strong that 
 the components percolate over the entire lattice, we would no 
 longer expect to be able to efficiently simulate the noise and recovery processes in the system. 
-However, recall that logical errors in our system correspond to processes that act over a non-trivial loop of the torus. 
-Below the point at which the decoder begins to create such nontrivial loops, our simulation remains efficient,
+However, recall that logical errors in our system correspond to 
+processes that act over a non-trivial loop of the torus. 
+Below the point at which the decoder begins to create 
+such nontrivial loops, our simulation remains efficient \dude{why are we still conflating these},
 while it begins to declare failure whenever non-trivial logical 
 operations occur. This allows us to simulate large lattice sizes 
 in the successful error-correction (sub-percolated) regime, including up to $L=128$.
@@ -345,115 +513,159 @@ in the successful error-correction (sub-percolated) regime, including up to $L=1
 %Our concrete simulation proceeds by associating a tile with each site of the 
 %$L\times L$ periodic square lattice $\Lambda$.
 
-In order to keep track of the state of the system we maintain a set of disjoint curves, 
-\cggb{do they need to be directed, or is that just for the figure?} 
-representing the history of anyons on the lattice.
-These curves can also be thought of as a top-down view of the fusion tree:
-the anyons comprising the fusion tree are here displayed as points along each curve. 
-In general, the curves wind around our two 
-dimensional manifold in a haphazard way determined by the progress of the simulation.
-This creates a dynamically generated basis for the fusion space that easily allows for tensor factorization of disjoint components. 
-For comparison, previous work used a single fixed basis for the fusion space determined by row-major ordering of sites~\cite{Brell2013}.
+%In order to keep track of the state of the system we maintain a set of disjoint curves, 
+%\cggb{do they need to be directed, or is that just for the figure?} 
+%representing the history of anyons on the lattice.
+%These curves can also be thought of as a top-down view of the fusion tree:
+%the anyons comprising the fusion tree are here displayed as points along each curve. 
+%In general, the curves wind around our two 
+%dimensional manifold in a haphazard way determined by the progress of the simulation.
+%This creates a dynamically generated basis for the fusion space 
+%that easily allows for tensor factorization of disjoint components. 
+%For comparison, previous work used a single fixed basis for 
+%the fusion space determined by row-major ordering of sites~\cite{Brell2013}.
 
-The application of a pair-creation noise process corresponds to the addition of an extra piece of curve to the lattice, along with two preferred points on it denoting the anyon locations. 
-Following the noise processes, our simulation must proceed to measure the total charge within each tile (the results of these measurements will form the error syndrome). 
-This requires joining any curves within that tile, and performing braid moves along the curves until all anyons within the tile have been localized within a contiguous region of the curve. 
-Following this, the total charge can (probabilistically) simply be read off the relevant section of the fusion tree.
-An example of this procedure for a simple noise process is shown in \Fref{f:syndrome}, and the corresponding braid moves are shown in \Fref{f:syndrome}(e). The technical details of the algorithm and data structures used for this procedure will be discussed elsewhere.
-Braiding processes that encircle a non-trivial loop of our (toric) manifold can also be treated in an analogous way, following e.g.~\cite{Pfeifer2012}.
-\cggb{This paragraph and the next still needs another look.}
+In order to keep track of the state of the system we maintain a set of disjoint curves, 
+one for each connected component with trivial total charge.
+The application of a pair-creation noise process corresponds to the 
+addition of an extra piece of curve to the lattice supporting
+two new anyons.
+%along with two preferred points on it denoting the anyon locations. 
+Following the noise processes, our simulation must %proceed to 
+measure the total charge within each tile; the results of 
+these measurements will form the error syndrome. 
+This requires joining (arbitrarily) any curves that intersect that tile, 
+and then performing $R$ and $F$-moves on the resulting
+curve so that 
+all anyons within the tile have been 
+localized within a contiguous region of the curve. 
+(Heisenberg picture...)
+The observable corresponding to the tile is then
+represented in the state ...
+%The total charge is then (probabilistically) read off the 
+%relevant section of the fusion tree. 
+An example of this 
+procedure for a simple noise process is shown in \Fref{f:syndrome}.
+%and the corresponding braid moves are shown in \Fref{f:syndrome}(e).
+The combinatorial derivation of the algorithm and data structures used for 
+this procedure will be discussed elsewhere.
+%Braiding processes that encircle 
+%a non-trivial loop of our (toric) manifold can also be 
+%treated in an analogous way, following e.g.~\cite{Pfeifer2012}.
+%\cggb{This paragraph and the next still needs another look.}
 
 \begin{figure}[t!]
 \begin{center}
-	\includegraphics[width=0.9\columnwidth]{pic-syndrome.pdf}\\[10pt]
-	(e) \ \ \ 
-	\begin{tikzpicture}[baseline=0.7cm,scale=0.3, xscale=0.9]
-			\begin{scope}[xshift=2cm,yshift=2cm]		
-				\draw(1,0)--(0,1)[dashed];
-				\draw(0,1)--(-1,2)--(-1,3);
-				\draw(0,1)--(1,2)--(1,3);
-				\node at (-1,3) [anchor=west] {{\scriptsize $1$}};
-				\node at (1,3) [anchor=west] {{\scriptsize $2$}};
-			\end{scope}
-			%			
-			\begin{scope}[xshift=4cm]
-				\draw(0,0)--(0,1)[dashed];
-				\draw(0,1)--(-1,2)--(1,4)--(1,5);
-				\draw(0,1)--(3,4)--(3,5);
-				\node at (1,5) [anchor=west] {{\scriptsize $3$}};
-				\node at (3,5) [anchor=west] {{\scriptsize $4$}};
-			\end{scope}
-		\end{tikzpicture}
-		\hspace{-3mm}$\longrightarrow$\hspace{1mm}
-		\begin{tikzpicture}[baseline=1.5cm,scale=0.3, xscale=1]
-			\begin{scope}[xshift=2cm,yshift=2cm]		
-				\draw(1,0)--(0,1)[dashed];
-				\draw(0,1)--(-1,2)--(-1,7);
-				\draw(0,1)--(1,2)--(1,5);
-				\node at (-1,3) [anchor=west] {{\scriptsize $1$}};
-				\node at (1,3) [anchor=west] {{\scriptsize $2$}};
-				\node at (-1,7) [anchor=west] {{\scriptsize $1$}};
-				\node at (1,7) [anchor=west] {{\scriptsize $4$}};
-			\end{scope}
-			%			
-			\begin{scope}[xshift=4cm]
-				\draw(0,0)--(0,1)[dashed];
-				\draw(0,1)--(-1,2)--(1,4)--(1,5);
-				\draw(0,1)--(3,4)--(3,5);
-				\draw(3,7)--(3,9);
-				\node at (1,5) [anchor=west] {{\scriptsize $3$}};
-				\node at (3,5) [anchor=west] {{\scriptsize $4$}};
-				\node at (1,9) [anchor=west] {{\scriptsize $2$}};
-				\node at (3,9) [anchor=west] {{\scriptsize $3$}};
-			\end{scope}
-			%
-			\begin{scope}[xshift=6cm,yshift=2cm]
-				\draw plot [smooth, tension=.6] coordinates { (1,3) (0.75,3.8) (-0.6,4.45) (-1,5)};
-				\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
-				\draw plot [smooth, tension=.6] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
-			\end{scope}
-			\begin{scope}[xshift=4cm,yshift=4cm]
-				\draw plot [smooth, tension=.6] coordinates { (1,3) (0.75,3.8) (-0.6,4.45) (-1,5)};
-				\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
-				\draw plot [smooth, tension=.6] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
-			\end{scope}
-		\end{tikzpicture}
-		$\xrightarrow{R, F}$
-		\begin{tikzpicture}[baseline=0.2cm,scale=0.3,xscale=0.9]		
-			\draw(2,-1)--(0,1)[];
-			\draw(0,1)--(-1,2)--(-1,3);
-			\draw(0,1)--(1,2)--(1,3);
-			\node at (-1,3) [anchor=west] {{\scriptsize $1$}};
-			\node at (1,3) [anchor=west] {{\scriptsize $4$}};
-			\node at (1,-0.05) [anchor=east] {{\scriptsize $q$}};
-			\draw(2,-1)--(2,-2)[dashed];
-			%			
-			\begin{scope}[xshift=4cm]
-				\draw(-2,-1)--(0,1)[];
-				\draw(0,1)--(-1,2)--(-1,3);
-				\draw(0,1)--(1,2)--(1,3);
-				\node at (-1,3) [anchor=west] {{\scriptsize $2$}};
-				\node at (1,3) [anchor=west] {{\scriptsize $3$}};
-				\node at (-1,0) [anchor=west] {{\scriptsize $q'$}};
-			\end{scope}
-		\end{tikzpicture}
-\caption{(a) Noise processes initially form isolated sets of pair-created anyons, each crossing the boundary of a tile. 
-These events are each represented by curves, where anyons are denoted by specific points on these curves. 
-(b) To measure the total charge contained within each tile, we must first join the fusion trees associated with all such pairs. 
-This corresponds to joining the edges associated with each pair into a continuous path, representing a basis for the fusion space chosen arbitrarily. 
-(c) The total charge of each tile can then be found by braiding anyons around each other until all charges within a tile are neighbors on the path, as in (d). 
+	\includegraphics[width=0.8\columnwidth]{pic-syndrome.pdf} %\\[10pt]
+%	(e)\ \ 
+%	\begin{tikzpicture}[baseline=0.7cm,scale=0.3, xscale=0.9]
+%			\begin{scope}[xshift=2cm,yshift=2cm]		
+%				\draw(1,0)--(0,1)[dashed];
+%				\draw(0,1)--(-1,2)--(-1,3);
+%				\draw(0,1)--(1,2)--(1,3);
+%				\node at (-1,3) [anchor=west] {{\scriptsize $1$}};
+%				\node at (1,3) [anchor=west] {{\scriptsize $2$}};
+%			\end{scope}
+%			%			
+%			\begin{scope}[xshift=4cm]
+%				\draw(0,0)--(0,1)[dashed];
+%				\draw(0,1)--(-1,2)--(1,4)--(1,5);
+%				\draw(0,1)--(3,4)--(3,5);
+%				\node at (1,5) [anchor=west] {{\scriptsize $3$}};
+%				\node at (3,5) [anchor=west] {{\scriptsize $4$}};
+%			\end{scope}
+%		\end{tikzpicture}
+%		\hspace{-3mm}$\longrightarrow$\hspace{1mm}
+%		\begin{tikzpicture}[baseline=1.5cm,scale=0.3, xscale=1]
+%			\begin{scope}[xshift=2cm,yshift=2cm]		
+%				\draw(1,0)--(0,1)[dashed];
+%				\draw(0,1)--(-1,2)--(-1,7);
+%				\draw(0,1)--(1,2)--(1,5);
+%				\node at (-1,3) [anchor=west] {{\scriptsize $1$}};
+%				\node at (1,3) [anchor=west] {{\scriptsize $2$}};
+%				\node at (-1,7) [anchor=west] {{\scriptsize $1$}};
+%				\node at (1,7) [anchor=west] {{\scriptsize $4$}};
+%			\end{scope}
+%			%			
+%			\begin{scope}[xshift=4cm]
+%				\draw(0,0)--(0,1)[dashed];
+%				\draw(0,1)--(-1,2)--(1,4)--(1,5);
+%				\draw(0,1)--(3,4)--(3,5);
+%				\draw(3,7)--(3,9);
+%				\node at (1,5) [anchor=west] {{\scriptsize $3$}};
+%				\node at (3,5) [anchor=west] {{\scriptsize $4$}};
+%				\node at (1,9) [anchor=west] {{\scriptsize $2$}};
+%				\node at (3,9) [anchor=west] {{\scriptsize $3$}};
+%			\end{scope}
+%			%
+%			\begin{scope}[xshift=6cm,yshift=2cm]
+%				\draw plot [smooth, tension=.6] coordinates { (1,3) (0.75,3.8) (-0.6,4.45) (-1,5)};
+%				\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
+%				\draw plot [smooth, tension=.6] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
+%			\end{scope}
+%			\begin{scope}[xshift=4cm,yshift=4cm]
+%				\draw plot [smooth, tension=.6] coordinates { (1,3) (0.75,3.8) (-0.6,4.45) (-1,5)};
+%				\draw[color=white, line width=7] plot [smooth, tension=1] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
+%				\draw plot [smooth, tension=.6] coordinates { (-1,3) (-0.75,3.8) (0.6,4.45) (1,5)};
+%			\end{scope}
+%		\end{tikzpicture}
+%		$\xrightarrow{R, F}$
+%		\begin{tikzpicture}[baseline=0.2cm,scale=0.3,xscale=0.9]		
+%			\draw(2,-1)--(0,1)[];
+%			\draw(0,1)--(-1,2)--(-1,3);
+%			\draw(0,1)--(1,2)--(1,3);
+%			\node at (-1,3) [anchor=west] {{\scriptsize $1$}};
+%			\node at (1,3) [anchor=west] {{\scriptsize $4$}};
+%			\node at (1,-0.05) [anchor=east] {{\scriptsize $q$}};
+%			\draw(2,-1)--(2,-2)[dashed];
+%			%			
+%			\begin{scope}[xshift=4cm]
+%				\draw(-2,-1)--(0,1)[];
+%				\draw(0,1)--(-1,2)--(-1,3);
+%				\draw(0,1)--(1,2)--(1,3);
+%				\node at (-1,3) [anchor=west] {{\scriptsize $2$}};
+%				\node at (1,3) [anchor=west] {{\scriptsize $3$}};
+%				\node at (-1,0) [anchor=west] {{\scriptsize $q'$}};
+%			\end{scope}
+%		\end{tikzpicture}
+\caption{
+(a) Noise processes initially form isolated sets of pair-created anyons, 
+each crossing the boundary of a tile. 
+%These events are 
+%each represented by curves, where anyons are denoted by specific 
+%points on these curves. 
+(b) To measure the total charge 
+contained within each tile, 
+we first join the participating curve 
+diagrams arbitrarily into a single curve diagram.
+%we must first join the fusion 
+%trees associated with all such pairs. 
+%This corresponds to joining 
+%the edges associated with each pair into a continuous path, 
+%representing a basis for the fusion space chosen arbitrarily. 
+(c) The total charge of each tile can then be found 
+by braiding anyons around each other until all charges within 
+a tile are neighbors on the path, as in (d).  
 The red lines correspond to the worldline braids that perform this step.
-(e) The specific braids required to transform (c) to (d), where the labels of the four leaves of these fusion trees correspond to the four anyons taken from the top of the path in (c) to the bottom. 
-Dashed lines denote vacuum charges. 
-After applying several $R$ and $F$ moves (see Eqs.~(\ref{e:rmove}) and (\ref{e:fmove})), the total charges within each tile can be read off the diagram as $q$ and $q'$.}
+%(e) The specific braids required to transform (c) 
+%to (d), where the labels of the four leaves of 
+%these fusion trees correspond to the four anyons taken from 
+%the top of the path in (c) to the bottom. 
+%Dashed lines denote vacuum charges. 
+%After applying several $R$ and $F$ moves (see Eqs.~(\ref{e:rmove}) and 
+%(\ref{e:fmove})), the total charges within each tile can be read off the diagram as $q$ and $q'$.
+}
 \label{f:syndrome}
 \end{center}
 \vspace{-10pt}
 \end{figure}
 
-Following the result of these charge measurements, the decoder determines a recovery operation that involves fusion of subsets of anyons. 
-These fusion results can be calculated in an analogous way, and the output charge placed at an appropriate point in the lattice. 
-This procedure is iterated until either the decoder terminates successfully, or the simulation itself declares failure.
+Following the result of these charge measurements, the decoder determines 
+a recovery operation that involves fusion of subsets of anyons. 
+These fusion results can be calculated in \sout{an analogous} the same way, 
+and the output charge placed at an appropriate point in the lattice. 
+This procedure is iterated until either the decoder terminates successfully, 
+or the simulation itself declares failure.
 
 
 %------------------------------------------------------------------------------------------------------------%
@@ -476,29 +688,46 @@ This implies the Fibonacci anyon code simulated here is able to perfectly reliab
 \vspace{-10pt}
 \end{figure}
 
-We can guarantee that error-correction will succeed whenever noise does not percolate, but it is possible that percolated events may still result in no error. 
-The connection between the percolation threshold and the error-correction threshold is not well understood in general~\cite{Hastings2014}, though it is clear that our threshold estimate will be a lower bound for the true threshold that may be found if all events (including those that have percolated) were simulated by an optimal decoder. 
-However, calculations of such nontrivial operations suggest that all such processes will indeed result in a logical or leakage error.
-As such it is likely that neglecting full simulation for such events does not significantly affect our observed threshold value.
+We can guarantee that error-correction will succeed whenever noise does 
+not percolate \dude{um, what?}, 
+but it is possible that percolated events may still result in no error. 
+The connection between the percolation threshold and the error-correction threshold 
+is not well understood in general~\cite{Hastings2014}, though it is clear 
+that our threshold estimate will be a lower bound for 
+the true threshold that may be found if all events 
+(including those that have percolated) were simulated by an optimal decoder. 
+However, calculations of such nontrivial operations suggest that all such 
+processes will indeed result in a logical or leakage error.
+As such it is likely that neglecting full simulation for 
+such events does not significantly affect our observed threshold value.
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Discussion.}
 
 We have demonstrated classical simulation of successful error correction in a universal anyon model. 
-Though we have chosen several properties of our model and simulation in a convenient way for simplicity, it seems highly unlikely that they will affect the qualitative results, similarly to the results of Ref.~\cite{Brell2013}. 
-In particular, although we have modeled our logical qubit as encoded in the global topological degrees of freedom of our system, we could have encoded it in the fusion space of several preferred $\tau$ anyons. 
+Though we have chosen several properties of our model and 
+simulation in a convenient way for simplicity, it seems \sout{highly}
+unlikely that they will affect the qualitative results, similarly to the results of Ref.~\cite{Brell2013}. 
+In particular, although we have modeled our logical qubit as 
+encoded in the global topological degrees of freedom of our 
+system, we could have encoded it in the fusion space of several preferred $\tau$\dude{?} anyons. 
 This situation would be appropriate to model error-correction routines for topological quantum computation. 
 Additionally, we expect our results to be stable to changes in details of the noise model and decoding algorithm.
 
 None of our techniques are restricted to simulation of Fibonacci anyon dynamics, and could 
-equally well be used to simulate successful error-correction protocols in an arbitrary anyon 
-code. 
-As such, our methods could be used to demonstrate successful error-correction in an arbitrary anyonic topological quantum computation.
+equally well be used to simulate successful error-correction protocols in an arbitrary anyon code. 
+As such, our methods could be used to demonstrate successful 
+error-correction in an arbitrary anyonic topological quantum computation.
 
 There are several interesting avenues for further research. 
-Although it is not completely obvious how to do so, applying these methods to more realistic models such as concrete microscopic spin models or models with non-topological features would give direct insight into practical error rates needed for topological quantum memories in non-Abelian systems. 
-It would be extremely interesting to find \emph{classical} spin models whose phase diagram encodes the threshold for error correction in these systems~\cite{Dennis2002}.
-%Another potential direction is to incorporate tensor network methods for simulating anyons~\cite{Pfeifer2012, Singh2014} to improve the speed and scale of the simulations. 
+Although it is not completely obvious how to do so, 
+applying these methods to more realistic models such as concrete 
+microscopic spin models or models with non-topological features would give 
+direct insight into practical error rates needed for topological quantum memories in non-Abelian systems. 
+It would be extremely interesting to find \emph{classical} spin models 
+whose phase diagram encodes the threshold for error correction in these systems~\cite{Dennis2002}.
+%Another potential direction is to incorporate tensor network methods for 
+%simulating anyons~\cite{Pfeifer2012, Singh2014} to improve the speed and scale of the simulations. 
 Finally, perhaps the most important open question is whether 
 \emph{fault-tolerant} decoders can be designed for nonabelian anyon codes. 
 

@@ -10,7 +10,6 @@ from pyx import canvas, path, deco, trafo, style, text, color, deformer
 text.set(mode="latex") 
 text.set(docopt="12pt")
 #text.preamble(r"\usepackage{amsmath}")
-#text.preamble(r"\
 
 rgb = color.rgb
 rgbfromhexstring = color.rgbfromhexstring
@@ -32,6 +31,15 @@ light_shade = rgb(0.85, 0.65, 0.1)
 light_shade = rgb(0.9, 0.75, 0.4)
 
 
+north = [text.halign.boxcenter, text.valign.top]
+northeast = [text.halign.boxright, text.valign.top]
+northwest = [text.halign.boxleft, text.valign.top]
+south = [text.halign.boxcenter, text.valign.bottom]
+southeast = [text.halign.boxright, text.valign.bottom]
+southwest = [text.halign.boxleft, text.valign.bottom]
+east = [text.halign.boxright, text.valign.middle]
+west = [text.halign.boxleft, text.valign.middle]
+center = [text.halign.boxcenter, text.valign.middle]
 
 
 st_dashed = [style.linestyle.dashed]
@@ -54,7 +62,6 @@ def varrow(x, y0, y1, extra=[], label=None):
     arrow(x, y0, x, y1, extra)
     if label:
         c.text(x-0.1, (y0+y1)/2., label, [text.halign.boxright])
-
 
 def harrow(x0, x1, y, extra=[], label=None):
     arrow(x0, y, x1, y, extra)
@@ -84,7 +91,10 @@ if 0:
     
     c.writeEPSfile("halftwist-factor.eps")
     
-    # -------------------------------------------------
+#############################################################################
+#
+#
+
 
 text.set(docopt="12pt")
 
@@ -263,8 +273,13 @@ c.text(x-0.7, 0., "(b)")
 draw(x, 0.)
 
 
-c.writePDFfile("pic-decode.pdf")
+#c.writePDFfile("pic-decode.pdf")
 c.writeEPSfile("pic-decode.eps")
+
+
+#############################################################################
+#
+#
 
 
 #sys.exit(0)
@@ -293,15 +308,15 @@ c.text(x0-0.8, y0, "(a)")
 c.stroke(path.rect(x0, y0, w, h), dashed)
 c.stroke(path.rect(x0+w+m, y0, w, h), dotted)
 
-extra = [green, style.linewidth.THick, deco.earrow(size=0.2)]
+grarrow = [green, style.linewidth.THick, deco.earrow(size=0.2)]
 
 y = y0+0.3*h
-c.stroke(path.line(x0+0.5*w, y, x0+1.5*w+m, y), extra)
+c.stroke(path.line(x0+0.5*w, y, x0+1.5*w+m, y), grarrow)
 anyon(x0+0.8*w, y)
 anyon(x0+m+1.2*w, y)
     
 y = y0+0.7*h
-c.stroke(path.line(x0+1.5*w+m, y, x0+0.5*w, y), extra)
+c.stroke(path.line(x0+1.5*w+m, y, x0+0.5*w, y), grarrow)
 anyon(x0+0.8*w, y)
 anyon(x0+m+1.2*w, y)
 
@@ -323,7 +338,7 @@ p = path.path(
     path.lineto(x0+0.5*w, y0+0.7*h),
     path.lineto(x0+0.5*w, y0+1.3*h),
 )
-c.stroke(p, [deformer.smoothed(0.3)]+extra)
+c.stroke(p, [deformer.smoothed(0.3)]+grarrow)
 
 y = y0+0.3*h
 anyon(x0+0.8*w, y)
@@ -417,7 +432,7 @@ for i in range(N):
 
 dopath(ps, dashed, fill=True)
 
-c.stroke(path.line(x0, y0, x0, y0+2*h), extra)
+c.stroke(path.line(x0, y0, x0, y0+2*h), grarrow)
 for y in ys:
     anyon(x0, y0+y)
 
@@ -429,7 +444,7 @@ c.text(x0+1.2, 0.3*dy, "(d)")
 x0 += dx
 y0 += dy
 
-c.stroke(path.line(x0, y0, x0, y0+2*h), extra)
+c.stroke(path.line(x0, y0, x0, y0+2*h), grarrow)
 
 for y in ys:
     anyon(x0, y0+y)
@@ -450,11 +465,150 @@ for i in range(N):
 
 dopath(ps, dashed)
 
-
-
-c.writePDFfile("pic-syndrome.pdf")
+#c.writePDFfile("pic-syndrome.pdf")
 c.writeEPSfile("pic-syndrome.eps")
 
+#############################################################################
+#
+#
+
+def ellipse(x0, y0, rx, ry, extra=[]):
+    ps = []
+    for i in range(N):
+        theta = 2*pi*i / (N-1)
+        ps.append((x0+rx*sin(theta), y0+ry*cos(theta)))
+    dopath(ps, extra)
 
 
+def bump(t):
+    assert 0.<=t<=1.
+    if t<=0.5:
+        t1 = 0.5*(2*t)**4
+    else:
+        t1 = 1.-bump(1.-t)
+    assert 0.<=t1<=1., (t, t1)
+    return t1
+
+#for i in range(N):
+#    t = 1.*i/(N-1)
+#    print t, bump(t)
+
+
+w = 1.3
+
+c = canvas.canvas()
+
+x = 0.
+y = 0.
+r = 0.5
+
+ps = []
+ps.append((x-1.2*r, y))
+ps.append((x-1.*r, y))
+
+N = 40
+for i in range(N):
+    t = 1.*i/(N-1) # 0.0 -> 1.0
+    theta = pi*bump(t)
+    r1 = (1.-t)*r + t*(0.4*r)
+    ps.append((x-r1*cos(theta), y+r1*sin(theta)))
+
+for i in range(N):
+    t = 1.*i/(N-1) # 0.0 -> 1.0
+    theta = pi*bump(t) + pi
+    r1 = t*r + (1.-t)*(0.4*r)
+    ps.append((x+r1*cos(theta), y+r1*sin(theta)))
+
+#print ps
+
+ps.append((x+1.*r, y))
+ps.append((x+1.2*r, y))
+ps.append((x+1.5*r, y))
+
+dopath(ps, grarrow, closepath=False)
+
+#c.stroke(path.line(x-1.2*r, y, x+1.5*r, y), grarrow)
+ellipse(x, y, r, r)
+
+anyon(x-0.4*r, 0)
+c.text(x-0.3*r, 0.2*r, "$\scriptstyle a$", southwest)
+anyon(x+0.4*r, 0)
+c.text(x+0.3*r, -0.2*r, "$\scriptstyle b$", northeast)
+
+c.text(x+r, y-r, "$\scriptstyle c$", southwest)
+
+#R_{\mathbb{I}}^{\tau\tau} = \e^{\frac{-4\pi i}{5}} 
+#R_\tau^{\tau\tau}= \e^{\frac{3\pi i}{5}} 
+#F_{\tau}^{\tau\tau\tau} = \begin{pmatrix}\varphi^{-1}&\varphi^{-\frac{1}{2}}\\\varphi^{-\frac{1}{2}}&-\varphi^{-1}\end{pmatrix} \,,
+
+x += w
+#c.text(x, y, r"$= \mathrm{e}^{\frac{-4\pi i}{5}} $", center)
+c.text(x, y, r"$= R_c^{ab} $", center)
+
+x += w
+c.stroke(path.line(x-1.2*r, y, x+1.5*r, y), grarrow)
+ellipse(x, y, r, r)
+
+anyon(x-0.4*r, 0)
+c.text(x-0.3*r, 0.3*r, "$\scriptstyle b$", south)
+anyon(x+0.4*r, 0)
+c.text(x+0.3*r, -0.3*r, "$\scriptstyle a$", north)
+
+c.text(x+r, y-r, "$\scriptstyle c$", southwest)
+
+c.writePDFfile("pic-rmove.pdf")
+
+
+#############################################################################
+#
+#
+
+
+w = 2.2
+
+c = canvas.canvas()
+
+x = 0.
+y = 0.
+r = 0.5
+
+
+c.stroke(path.line(x-2.0*r, y, x+2.2*r, y), grarrow)
+anyon(x-r, y)
+c.text(x-r, y+0.25*r, "$\scriptstyle a$", south)
+anyon(x, y)
+c.text(x, y+0.25*r, "$\scriptstyle b$", south)
+anyon(x+r, y)
+c.text(x+r, y+0.25*r, "$\scriptstyle c$", south)
+
+ellipse(x-0.5*r, y+0.1*r, 0.9*r, 0.7*r)
+c.text(x+0.5*r, y-0.4*r, "$\scriptstyle i$", center)
+ellipse(x, y+0.1*r, 1.6*r, 1.0*r)
+c.text(x+1.4*r, y-0.9*r, "$\scriptstyle d$", southwest)
+
+x += w
+
+c.text(x+0.1*r, y, "$ = \sum_j[F^{abc}_d]_{ij}$", center)
+
+x += w
+
+c.stroke(path.line(x-2.0*r, y, x+2.2*r, y), grarrow)
+anyon(x-r, y)
+c.text(x-r, y+0.25*r, "$\scriptstyle a$", south)
+anyon(x, y)
+c.text(x, y+0.25*r, "$\scriptstyle b$", south)
+anyon(x+r, y)
+c.text(x+r, y+0.25*r, "$\scriptstyle c$", south)
+
+ellipse(x+0.5*r, y+0.1*r, 0.9*r, 0.7*r)
+c.text(x-0.5*r, y-0.4*r, "$\scriptstyle j$", center)
+ellipse(x, y+0.1*r, 1.6*r, 1.0*r)
+c.text(x-1.4*r, y-0.9*r, "$\scriptstyle d$", southeast)
+
+c.writePDFfile("pic-fmove.pdf")
+
+
+#############################################################################
+#
+#
 
