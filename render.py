@@ -70,6 +70,33 @@ def harrow(x0, x1, y, extra=[], label=None):
             [text.valign.bottom, text.halign.boxcenter])
 
 
+def anyon(x, y, r=0.07):
+    c.fill(path.circle(x, y, r), [white])
+    c.stroke(path.circle(x, y, r), [red, style.linewidth.thick])
+
+
+N = 20
+
+def dopath(ps, extra=[], fill=False, closepath=True):
+    ps = [path.moveto(*ps[0])]+[path.lineto(*p) for p in ps[1:]]
+    if closepath:
+        ps.append(path.closepath())
+    p = path.path(*ps)
+    if fill:
+        c.fill(p, [deformer.smoothed(0.3)]+extra+[color.rgb.white])
+    c.stroke(p, [deformer.smoothed(0.3)]+extra)
+
+def ellipse(x0, y0, rx, ry, extra=[], fill=False):
+    ps = []
+    for i in range(N):
+        theta = 2*pi*i / (N-1)
+        ps.append((x0+rx*sin(theta), y0+ry*cos(theta)))
+    dopath(ps, extra, fill)
+
+
+#############################################################################
+#
+#
 
 if 0:
     # -------------------------------------------------
@@ -98,9 +125,115 @@ if 0:
 #
 #
 
-def anyon(x, y, r=0.07):
-    c.fill(path.circle(x, y, r), [white])
-    c.stroke(path.circle(x, y, r), [red, style.linewidth.thick])
+c = canvas.canvas()
+
+
+r = 0.5
+w = 3.0
+
+ellipse(w, 0., 1.0*r, 1.8*r)
+
+class Tracer(object):
+    def __init__(self, x0, y0, r, theta):
+        self.x0 = x0
+        self.y0 = y0
+        self.theta = theta
+        self.r = r
+        self.ps = []
+
+    def get(self):
+        theta = self.theta
+        r = self.r
+        x = self.x0 + r*sin(theta)
+        y = self.y0 + r*cos(theta)
+        return x, y
+
+    def reset(self, r):
+        # recalculate x0, y0
+        if r==self.r:
+            return
+        x1, y1 = self.get()
+        theta = self.theta
+        self.x0 = x1 - r*sin(theta)
+        self.y0 = y1 - r*cos(theta)
+        self.r = r
+
+    def trace(self, r=None, dtheta=0.05*pi):
+        theta = self.theta
+        if r is not None:
+            self.reset(r)
+        self.ps.append(self.get())
+        if self.r > 0:
+            self.theta = theta + dtheta
+        else:
+            self.theta = theta - dtheta
+
+    def __call__(self, count=1, r=None):
+        icount = int(count)
+        for i in range(icount):
+            self.trace(r)
+        fcount = count - icount
+        if fcount<1e-6:
+            return
+        self.trace(r, fcount*0.05*pi)
+
+    def dopath(self, *args, **kw):
+        dopath(self.ps, *args, **kw)
+
+tracer = Tracer(w, r, 0.4*r, -0.8*pi)
+tracer(21.5, 0.4*r)
+tracer(8, 2.2*r)
+tracer(15.5, 0.6*r)
+tracer(5, 1.7*r)
+tracer(22, 0.3*r)
+#tracer(2., 2*r)
+tracer(5.1, -1*r)
+tracer(17.5, -0.3*r)
+tracer(10.4, -1.28*r)
+
+tracer.dopath(closepath=True)
+
+c.stroke(path.line(0., r, w, r), [style.linewidth.thick, red])
+
+N = 60
+ps1, ps2 = [], []
+for i in range(N):
+    t = 1.*i/(N-1)
+    theta = 2*pi*t
+    x = (t**0.9)*w
+    y = 0.5*r*cos(theta)
+    ps1.append((x, y-0.5*r))
+    ps2.append((x, -y-0.5*r))
+
+for ps in (ps1[:3*N/4-1], ps1[3*N/4+1:]):
+    dopath(ps, [style.linewidth.thick, red], closepath=False)
+
+for ps in (ps2[:N/4-1], ps2[N/4+1:]):
+    dopath(ps, [style.linewidth.thick, red], closepath=False)
+
+ellipse(0., 0.,    1.0*r, 1.8*r, [white], fill=True)
+ellipse(0., 0.,    1.0*r, 1.8*r)
+ellipse(0., 0.5*r, 0.7*r, 1.0*r)
+
+anyon(0., r)
+anyon(0., 0.)
+anyon(0., -r)
+
+anyon(w, r)
+anyon(w, 0.)
+anyon(w, -r)
+
+
+c.writePDFfile("pic-braid-loop.pdf")
+
+
+sys.exit(0)
+
+N = 20
+
+#############################################################################
+#
+#
 
 from qupy.ldpc.solve import parse
 from qupy.braid.tree import Tree
@@ -289,6 +422,7 @@ dashed = []
 dotted = [style.linestyle.dashed]
 
 c = canvas.canvas()
+
 old_c = None
 def push():
     global c, old_c
@@ -329,7 +463,7 @@ c.stroke(path.line(x0+1.5*w+m, y, x0+0.5*w, y), grarrow)
 anyon(x0+0.8*w, y)
 anyon(x0+m+1.2*w, y)
 
-pop([trafo.rotate(-90), trafo.translate(0.8, 2.5*h)])
+pop([trafo.rotate(-90), trafo.translate(0.7, 2.5*h)])
 c.text(0., 0.5*h, "(a)")
 
 # --------------------------------------------------------------------
@@ -361,7 +495,7 @@ y = y0+0.7*h
 anyon(x0+0.8*w, y)
 anyon(x0+m+1.2*w, y)
 
-pop([trafo.rotate(-90), trafo.translate(2.*w+0.8, 2.5*h)])
+pop([trafo.rotate(-90), trafo.translate(2.*w+0.7, 2.5*h)])
 c.text(2.*w, 0.5*h, "(b)")
 
 
@@ -371,17 +505,6 @@ push()
 w1, h1 = w, h
 w, h = 2., 2.
 #w, h = 1.5, 1.5
-
-N = 20
-
-def dopath(ps, extra=[], fill=False, closepath=True):
-    ps = [path.moveto(*ps[0])]+[path.lineto(*p) for p in ps[1:]]
-    if closepath:
-        ps.append(path.closepath())
-    p = path.path(*ps)
-    if fill:
-        c.fill(p, [deformer.smoothed(0.3)]+extra+[color.rgb.white])
-    c.stroke(p, [deformer.smoothed(0.3)]+extra)
 
 #x0, y0 = 2.8*w + 0*m, -6*m
 
@@ -407,7 +530,7 @@ def braid(x0, y0, x1, y1):
         x += dx*(cos(theta)+2) / (2.)
         y += dy
         ps.append((x, y))
-    dopath(ps, [color.rgb.white, style.linewidth.THICk], closepath=False)
+    dopath(ps, [color.rgb.white, style.linewidth.THICK], closepath=False)
     dopath(ps, [red], closepath=False)
 
 
@@ -498,14 +621,6 @@ sys.exit(0)
 #############################################################################
 #
 #
-
-def ellipse(x0, y0, rx, ry, extra=[]):
-    ps = []
-    for i in range(N):
-        theta = 2*pi*i / (N-1)
-        ps.append((x0+rx*sin(theta), y0+ry*cos(theta)))
-    dopath(ps, extra)
-
 
 def bump(t):
     assert 0.<=t<=1.
