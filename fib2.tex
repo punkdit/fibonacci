@@ -359,27 +359,33 @@ a less important (and non-universal) role.
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Noise and error-correction.}
 
-We model the system on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside. 
-This treatment applies equally well to lattice models, where anyons 
-can only be located at a discrete set of points, 
-or continuum models, where a discretization of the manifold must 
-be chosen in order to perform charge measurements. 
-In the former case, each tile of $\Lambda$ represents a 
-lattice site, while in the latter case each tile represents 
-a measurement region. For more details of an analogous model, see~\cite{Brell2013}.
+%We model the system on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside. 
+%This treatment applies equally well to lattice models, where anyons 
+%can only be located at a discrete set of points, 
+%or continuum models, where a discretization of the manifold must 
+%be chosen in order to perform charge measurements. 
+%In the former case, each tile of $\Lambda$ represents a 
+%lattice site, while in the latter case each tile represents 
+%a measurement region. For more details of an analogous model, see~\cite{Brell2013}.
 
 We consider encoding a qubit of quantum information in the global degeneracy associated 
-with the topology of the manifold of our system. We imagine an idealized Hamiltonian for this 
-system of the form
+with the topology of the manifold of our system.
+We endow this manifold with a finite set of $L\times L$ observables arranged in
+a square lattice tiling $\Lambda$.
+These \emph{tiles} will be the oservables accesible to the error-correction procedure (\emph{decoder}).
+We imagine an idealized Hamiltonian for this system of the form
 \begin{align}
 	H=-\sum_{i\in \Lambda}\proj{\vac}_i\;,\label{e:hamiltonian}
 \end{align}
-with $\proj{\vac}_i$ the projector to charge $\vac$ at site (or tile) $i$, i.e.~the ground 
-space of the model has vacuum (or no anyon) at each site. Given the toroidal boundary 
-conditions, this space is two-fold degenerate as noted above. We identify this ground space 
-as the codespace of our model. Typical realistic noise processes in this kind of system are 
-pair-creation, hopping, exchange etc.~of anyons on neighboring sites of $\Lambda$. It was 
-seen in~\cite{Brell2013} that a simplified noise model consisting of pair-creation events only 
+with $\proj{\vac}_i$ the projector to charge $\vac$ at tile $i$, i.e.~the ground 
+space of the model has vacuum total charge in each tile.
+\dude{ouch this no longer works..}
+Given the toroidal boundary 
+conditions, this space is two-fold degenerate as noted above.
+We identify this ground space as the codespace of our model. 
+Typical realistic noise processes in this kind of system are 
+pair-creation, hopping, exchange etc.~of anyons on neighboring sites of $\Lambda$.
+It was seen in~\cite{Brell2013} that a simplified noise model consisting of pair-creation events only 
 is sufficient to capture the qualitative features of an error-correction simulation, and so for convenience we 
 will restrict to pair-creation noise processes in the numerical results presented in this study. 
 Such pair-creation events act on neighboring pairs of sites,
@@ -482,15 +488,20 @@ must be simulated.
 At some point, with strong enough noise, the state will
 no longer decompose at all and computing dynamics will
 become exponentially difficult in the system size.
-However, for finite lattice size, this regime is somewhere
-beyond the decoder threshold, which is the 
-point at which the decoder creates nontrivial (extensive) loops.
-\stf{CGB and I are still not confident in the previous sentence or the next one}
-We can view the system state as a tensor network, on which
-the decoder is performing an (efficiently simulable) contraction.
+However, for finite lattice size, we use heuristics
+to minimize non-local braid moves, which helps to
+maintain the state as a separable product. \dude{???}
 This enables simulation of error correction in
 the area around decoder threshold for lattice sizes up to $L=128.$
-\dude{more polish needed...}
+%However, for finite lattice size, this regime is somewhere
+%beyond the decoder threshold, which is the 
+%point at which the decoder creates nontrivial (extensive) loops.
+%\stf{CGB and I are still not confident in the previous sentence or the next one}
+%We can view the system state as a tensor network, on which
+%the decoder is performing an (efficiently simulable) contraction.
+%This enables simulation of error correction in
+%the area around decoder threshold for lattice sizes up to $L=128.$
+%\dude{more polish needed...}
 
 %However, recall that logical errors in our system correspond to 
 %processes that act over a non-trivial loop of the torus. 
@@ -533,9 +544,9 @@ and then performing $R$ and $F$-moves on the resulting
 curve so that 
 all anyons within the tile have been 
 localized within a contiguous region of the curve. 
-\dude{Heisenberg picture?}
-The observable corresponding to the tile is then
-represented in the state \dude{polish}.
+%\dude{Heisenberg picture?}
+%The observable corresponding to the tile is then
+%represented in the state \dude{polish}.
 %The total charge is then (probabilistically) read off the 
 %relevant section of the fusion tree. 
 An example of this 
