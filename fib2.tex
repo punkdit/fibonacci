@@ -207,9 +207,8 @@ The worldlines of these exchanges form \emph{braids}
 in (2+1)-dimensions
 which act unitarily on (the Hilbert space of) degrees of freedom known as the \emph{fusion space.}
 To access this space we define
-the \emph{observables} of the system: these
-are regions bounded by circles (Wilson loops)
-and measure the total charge of the region.
+the topological observables of the system: these
+are total charge measurements within regions bounded by closed loops (Wilson loops).
 %The algebraic properties of these processes
 These dynamics and observables obey algebraic rules
 given by a unitary modular tensor category~\cite{Wang2010b}. % (UMTC). 
@@ -223,33 +222,35 @@ From the perspective of
 \emph{topological quantum field theory}
 (TQFT), anyons are modelled
 as punctures in a surface~\cite{Pfeifer2014}, and it is not
-the anyons themselves that braid, but the space
-around the anyons that becomes braided (twisted).
-The generators corresponding to the braid
-group generators are called half-twists.
+the anyons themselves that braid, but the manifold in which the anyons embed 
+is considered deformed (twisted) by these braid moves.
+%The generators corresponding to the braid
+%group generators are called half-twists.
+% -we thought this was a getting ahead of ourselves since we haven't introduced this stuff yet.
 This is the perspective we adopt.
 In particular, this shows the action of braiding
 on arbitrary observables (Wilson loops) as
-these occupy the space around the anyons.
+these deform with the manifold.
 
 The state of a collection of anyons
 can be described by the observables of the system.
-An important difference between abelian and non-abelian
-theories is this: the outcome of measurements in an abelian theory
-are determined by particle content only.
-That is, the fusion space is one-dimensional (a phase).
-This is no longer the case in a non-abelian theory.
+The difference between abelian and non-abelian
+anyon theories is that the outcomes of measurements in an abelian theory
+are determined uniquely particle content only.
+That is, the fusion space is one-dimensional for abelian anyons, and generally larger for non-abelian anyons.
 %An example is Fibonacci: $\tau\times\tau=\tau+\vac$
 %\emph{picture here?}
 %specify a state requires nesting multiple wilson lines.
-In particular, we consider a system supporting Fibonacci
+In particular, we consider a system supporting (non-abelian) Fibonacci
 anyon excitations, denoted by $\tau.$
 Two such anyons can have total charge
 that is a superposition of $\tau$ and $\vac$ (vacuum),
-so the fusion space in this case is 2-dimensional:
+so the fusion space in this case is 2-dimensional.
+We can represent basis states for this space using diagrams of definite total charge for the Wilson loops, and arbitrary states as linear combinations of these diagrams:
 \begin{align*}
 \includegraphics[]{pic-fibonacci.pdf}
 \end{align*}
+
 For $n$ anyons of type $\tau$, the 
 dimension of this space grows asymptotically as $\varphi^n$ for $\varphi=\frac{1+\sqrt{5}}{2}$ 
 the golden ratio. Additionally, there is a global degeneracy associated with the topology of the 
@@ -258,13 +259,13 @@ which for the Fibonacci anyons gives rise to a 2-fold degeneracy.
 %For convenience 
 %(in particular to minimize finite-size effects in our numerical computations~\cite{Brell2013}), 
 This global space is the one in which we will encode, and demonstrate protection of, quantum 
-information.
+information. 
 
-Non-intersecting loops commute, and so
-a basis for the state can be built from a maximal
+Observables associated to non-intersecting loops commute, and so
+a basis for the space can be built from a maximal
 set of disjoint, nested loops.
-For three anyons, we relate two
-possible ways of nesting loops %these measurements
+For three anyons, two
+possible ways of nesting loops are related %these measurements
 via $F$-moves:
 \begin{align}
 \label{e:fmove}
@@ -272,10 +273,10 @@ via $F$-moves:
 \end{align}
 Here we have shown particles with charges $a$, $b$, and $c$
 as well as total charge $d$.
-The lhs shows a state where the anyons with charge $a$ and $b$ are
+The lefthand side shows a state where the anyons with charge $a$ and $b$ are
 observed to have total charge $i$.
-The rhs involves a superposition (summation)
-over charge states $j$ of the anyons with charge $b$ and $c$.
+The righthand side involves a superposition 
+over total charge $j$ of the anyons with charge $b$ and $c$.
 The green line serves to linearly
 order the anyons, and track
 deformations in the underlying space 
@@ -299,31 +300,27 @@ We are free to draw loops around charges,
 and in general braiding will twist these loops in different
 ways.
 \dude{picture? ref Fig 2?}
-
-Braiding within an observable will only change the phase
-of that observable \dude{???}, otherwise may twist these
-loops in various ways:
+%
+%
+%Braiding within an observable will only change the phase
+%of that observable \dude{???}, otherwise may twist these
+%loops in various ways:
 \begin{align*}
 \includegraphics[]{pic-braid-loop.pdf}
 \end{align*}
-
-
+%
+%
+These diagrams can be composed, and the fusion operation replaces the 
+interior of a disc by a single charge.
 These pictures, abstracted from the quantum context,
 are called \emph{curve diagrams} and are used in
 the study of braid groups \cite{Dehornoy2002}.
-In general, such a curve diagram is 
-a continuous embedding of a line that passes through 
-each puncture once. 
-Remarkably, any two such linear orderings are related by
-braiding (half-twists).
-\dude{optional paragraph..}
-
-The $R$ and $F$-moves obey composition of diagrams.
-\dude{picture?}
-Fusion is the ``reverse'' of composition: replace the
-interior of a disc by a single charge.
-\dude{picture?}
-
+%In general, such a curve diagram is 
+%a continuous embedding of a line that passes through 
+%each puncture once. 
+%Remarkably, any two such linear orderings are related by
+%braiding (half-twists).
+%\dude{optional paragraph..}
 
 For the Fibonacci anyons, the non-trivial $R$ and $F$ moves are 
 \begin{equation*}
@@ -358,17 +355,18 @@ a less important (and non-universal) role.
 %Our simulation is in effect that of a $(2+1)$-dimensional topological 
 %quantum field theory, which allows for topological processes such as 
 %pair-creation, braiding, and fusion of anyonic charges. 
-%This is modeled on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside. 
-%This treatment applies equally well to lattice models, where anyons 
-%can only be located at a discrete set of points, 
-%or continuum models, where a discretization of the manifold must 
-%be chosen in order to perform charge measurements. 
-%In the former case, each tile of $\Lambda$ represents a 
-%lattice site, while in the latter case each tile represents 
-%a measurement region. For more details of an analogous model, see~\cite{Brell2013}.
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Noise and error-correction.}
+
+We model the system on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside. 
+This treatment applies equally well to lattice models, where anyons 
+can only be located at a discrete set of points, 
+or continuum models, where a discretization of the manifold must 
+be chosen in order to perform charge measurements. 
+In the former case, each tile of $\Lambda$ represents a 
+lattice site, while in the latter case each tile represents 
+a measurement region. For more details of an analogous model, see~\cite{Brell2013}.
 
 We consider encoding a qubit of quantum information in the global degeneracy associated 
 with the topology of the manifold of our system. We imagine an idealized Hamiltonian for this 
@@ -481,21 +479,19 @@ large components are sparsely distributed
 anyons present is dramatically reduced by fusion, leading to a smaller number of anyons that 
 must be simulated.
 
-At some point, with noise strong enough, the state will
+At some point, with strong enough noise, the state will
 no longer decompose at all and computing dynamics will
 become exponentially difficult in the system size.
 However, for finite lattice size, this regime is somewhere
 beyond the decoder threshold, which is the 
 point at which the decoder creates nontrivial (extensive) loops.
+\stf{CGB and I are still not confident in the previous sentence or the next one}
 We can view the system state as a tensor network, on which
 the decoder is performing an (efficiently simulable) contraction.
 This enables simulation of error correction in
 the area around decoder threshold for lattice sizes up to $L=128.$
 \dude{more polish needed...}
 
-%Of course, if we were to consider noise so strong that 
-%the components percolate over the entire lattice, we would no 
-%longer expect to be able to efficiently simulate the noise and recovery processes in the system. 
 %However, recall that logical errors in our system correspond to 
 %processes that act over a non-trivial loop of the torus. 
 %Below the point at which the decoder begins to create 
@@ -522,7 +518,8 @@ the area around decoder threshold for lattice sizes up to $L=128.$
 %For comparison, previous work used a single fixed basis for 
 %the fusion space determined by row-major ordering of sites~\cite{Brell2013}.
 
-In order to keep track of the state of the system we maintain a set of disjoint curves, 
+In order to keep track of the state of the system we maintain 
+a set of disjoint directed curves, 
 one for each connected component with trivial total charge.
 The application of a pair-creation noise process corresponds to the 
 addition of an extra piece of curve to the lattice supporting
