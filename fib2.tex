@@ -220,13 +220,10 @@ given by a unitary modular tensor category~\cite{Wang2010b}. % (UMTC).
 
 From the perspective of
 \emph{topological quantum field theory}
-(TQFT), anyons are modelled
+anyons are modelled
 as punctures in a surface~\cite{Pfeifer2014}, and it is not
-the anyons themselves that braid, but the manifold in which the anyons embed 
-is considered deformed (twisted) by these braid moves.
-%The generators corresponding to the braid
-%group generators are called half-twists.
-% -we thought this was a getting ahead of ourselves since we haven't introduced this stuff yet.
+the anyons themselves that braid, but the manifold in which the anyons reside 
+becomes deformed (twisted) by these braid moves.
 This is the perspective we adopt.
 In particular, this shows the action of braiding
 on arbitrary observables (Wilson loops) as
@@ -298,13 +295,7 @@ inside the observable with value $c$
 holding two anyons (punctures) with charges $a$ and $b$.
 We are free to draw loops around charges,
 and in general braiding will twist these loops in different
-ways.
-\dude{picture? ref Fig 2?}
-%
-%
-%Braiding within an observable will only change the phase
-%of that observable \dude{???}, otherwise may twist these
-%loops in various ways:
+ways:
 \begin{align*}
 \includegraphics[]{pic-braid-loop.pdf}
 \end{align*}
@@ -373,16 +364,15 @@ with the topology of the manifold of our system.
 We endow this manifold with a finite set of $L\times L$ observables arranged in
 a square lattice tiling $\Lambda$.
 These \emph{tiles} will be the oservables accesible to the error-correction procedure (\emph{decoder}).
-We imagine an idealized Hamiltonian for this system of the form
+We can use these observables to construct an idealized Hamiltonian for this system of the form
 \begin{align}
-	H=-\sum_{i\in \Lambda}\proj{\vac}_i\;,\label{e:hamiltonian}
+	H=-\sum_{T\in \Lambda}\proj{\vac}_T\;,\label{e:hamiltonian}
 \end{align}
-with $\proj{\vac}_i$ the projector to charge $\vac$ at tile $i$, i.e.~the ground 
+with $\proj{\vac}_T$ the projector to charge $\vac$ at tile $T$, i.e.~the ground 
 space of the model has vacuum total charge in each tile.
-\dude{ouch this no longer works..}
 Given the toroidal boundary 
-conditions, this space is two-fold degenerate as noted above.
-We identify this ground space as the codespace of our model. 
+conditions, this space contains the two-fold degenerate codespace.
+%We identify this ground space as the codespace of our model. 
 Typical realistic noise processes in this kind of system are 
 pair-creation, hopping, exchange etc.~of anyons on neighboring sites of $\Lambda$.
 It was seen in~\cite{Brell2013} that a simplified noise model consisting of pair-creation events only 
@@ -490,7 +480,7 @@ no longer decompose at all and computing dynamics will
 become exponentially difficult in the system size.
 However, for finite lattice size, we use heuristics
 to minimize non-local braid moves, which helps to
-maintain the state as a separable product. \dude{???}
+maintain the state as a separable product.
 This enables simulation of error correction in
 the area around decoder threshold for lattice sizes up to $L=128.$
 %However, for finite lattice size, this regime is somewhere
