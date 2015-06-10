@@ -359,11 +359,14 @@ a less important (and non-universal) role.
 %lattice site, while in the latter case each tile represents 
 %a measurement region. For more details of an analogous model, see~\cite{Brell2013}.
 
+% We need to relate this to discrete models: toric code, string nets, etc.
+
 We consider encoding a qubit of quantum information in the global degeneracy associated 
 with the topology of the manifold of our system.
-We endow this manifold with a finite set of $L\times L$ observables arranged in
+We endow this manifold with a finite set of $L\times L$ Wilson loops arranged in
 a square lattice tiling $\Lambda$.
-These \emph{tiles} will be the oservables accesible to the error-correction procedure (\emph{decoder}).
+%We tile the manifols with  a finite set of $L\times L$ Wilson loops arranged in
+These \emph{tiles} will be the observables accesible to the error-correction procedure (\emph{decoder}).
 We can use these observables to construct an idealized Hamiltonian for this system of the form
 \begin{align}
 	H=-\sum_{T\in \Lambda}\proj{\vac}_T\;,\label{e:hamiltonian}
@@ -373,6 +376,7 @@ space of the model has vacuum total charge in each tile.
 Given the toroidal boundary 
 conditions, this space contains the two-fold degenerate codespace.
 %We identify this ground space as the codespace of our model. 
+
 Typical realistic noise processes in this kind of system are 
 pair-creation, hopping, exchange etc.~of anyons on neighboring sites of $\Lambda$.
 It was seen in~\cite{Brell2013} that a simplified noise model consisting of pair-creation events only 
@@ -475,12 +479,15 @@ large components are sparsely distributed
 anyons present is dramatically reduced by fusion, leading to a smaller number of anyons that 
 must be simulated.
 
-At some point, with strong enough noise, the state will
+In the regime where the action of noise plus decoder does not percolate it is
+clear that the simulation is efficient.
+However at some point, with strong enough noise, the state will
 no longer decompose at all and computing dynamics will
 become exponentially difficult in the system size.
-However, for finite lattice size, we use heuristics
-to minimize non-local braid moves, which helps to
-maintain the state as a separable product.
+Despite this, we use heuristics %for finite lattice size, we use heuristics
+that minimize non-local braid moves, which helps to
+maintain the state as a separable product beyond the
+sub-percolated regime.
 This enables simulation of error correction in
 the area around decoder threshold for lattice sizes up to $L=128.$
 %However, for finite lattice size, this regime is somewhere
