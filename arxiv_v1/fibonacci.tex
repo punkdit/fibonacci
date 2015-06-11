@@ -42,13 +42,6 @@
 \newcommand{\braket}[2]{\langle{#1}|{#2}\rangle}
 \newcommand{\proj}[1]{\ketbra{#1}{#1}}
 
-%------------------------------------------------------------------------------------------------------------%
-% Comment fonts
-%------------------------------------------------------------------------------------------------------------%
-
-\newcommand{\cggb}[1]{\textcolor{blue}{#1}}
-\newcommand{\dude}[1]{\textcolor{red}{#1}}
-\newcommand{\stf}[1]{\textcolor{green}{#1}}
 
 %------------------------------------------------------------------------------------------------------------%
 \begin{document}
@@ -159,7 +152,7 @@ point-like anyonic quasiparticle excitations, which exhibit exotic statistics un
 The worldlines of these exchanges form \emph{braids}
 in (2+1)-dimensions
 which act unitarily on the Hilbert space of degrees of freedom known as the \emph{fusion space}.
-To access this space we define
+To describe this space we define
 the topological observables of the system: these
 are total charge measurements within regions bounded by 
 closed loops (Wilson loops).
@@ -205,7 +198,7 @@ and arbitrary states as linear combinations of these diagrams:
 \includegraphics[]{pic-fibonacci.pdf}
 \end{align*}
 For $n$ anyons of type $\tau$, the 
-dimension of this space grows asymptotically as $\varphi^n$, where $\varphi=\frac{1+\sqrt{5}}{2}$ 
+dimension of the fusion space grows asymptotically as $\varphi^n$, where $\varphi=\frac{1+\sqrt{5}}{2}$ 
 is the golden ratio.
 
 Observables associated to non-intersecting loops commute, and so
@@ -272,14 +265,14 @@ space of the model has vacuum total charge in each tile.
 Given the toroidal boundary 
 conditions, this space contains the two-fold degenerate codespace.
 
-Typical noise processes in this kind of system are 
+Typical thermal noise processes in this kind of system are 
 pair-creation, hopping, exchange etc.~of anyons. Such a model was analyzed in detail for Ising anyons in Ref.~\cite{Brell2013}.
 It was seen that a simplified noise model consisting of pair-creation events only 
 is sufficient to capture the qualitative features of an error-correction simulation, and so for convenience we 
 will restrict to pair-creation noise processes in the numerical results presented in this study. 
 
 Pair-creation events acting within a single tile do not affect the corresponding observable, and so the only pair-creation events we need explicitly consider act between neighboring pairs of tiles. These are then each associated with an edge of the lattice $\Lambda$, chosen 
-uniformly at random. The simulation time, and thus the 
+uniformly at random to model high-temperature, short timescale thermalizing dynamics. The simulation time, and thus the 
 error-correction threshold, will be measured in terms of average number of noise processes 
 per edge, as opposed to an iid noise probability per edge. The latter measure is not 
 appropriate for error processes in nonabelian anyon models, but the two coincide in the limit 
@@ -294,7 +287,7 @@ a less important (and non-universal) role.
 Additionally, while we model a continuum anyon theory, our analysis can be trivially reinterpreted to apply directly to lattice spin models or other systems where space is fundamentally discrete.
 
 In order to perform a logical error on our code, a noise process must have support on a 
-a homologically nontrivial region of the lattice.
+a homologically nontrivial region of the manifold.
 These correspond to processes in which anyonic charge is transported around a non-trivial loop before 
 annihilating to vacuum.
 
@@ -478,11 +471,11 @@ The connection between the percolation threshold and the error-correction thresh
 is not well understood in general~\cite{Hastings2014}, though it is clear 
 that our threshold estimate will be a lower bound for 
 the true threshold that may be found if all events 
-(including those that have percolated) were simulated by an optimal decoder. 
-However, calculations of such nontrivial operations for small lattice sizes suggest that almost all such 
+(including those that have percolated) were simulated. 
+However, calculations of homologically nontrivial operations for small lattice sizes suggest that almost all such 
 processes will indeed result in a logical or leakage error.
 As such it is likely that neglecting the full simulation of 
-such events does not significantly affect our observed threshold value.
+these events does not significantly affect our observed threshold value.
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Discussion.}
@@ -520,6 +513,6 @@ We thank A.\ Doherty and R.\ Pfeifer for discussions.
 This work was supported by the ARC via EQuS project number CE11001013, by the US Army Research Office grant numbers W911NF-14-1-0098 and W911NF-14-1-0103, ERC grant QFTCMPS and by the cluster of excellence EXC 201 Quantum Engineering and Space-Time Research. STF also acknowledges support from an ARC Future Fellowship FT130101744.
 
 %------------------------------------------------------------------------------------------------------------%
-\bibliography{refs2}
+\bibliography{fibonacci}
 
 \end{document}
