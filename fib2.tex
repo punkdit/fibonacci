@@ -347,13 +347,6 @@ which for the Fibonacci anyons gives rise to a 2-fold degeneracy.
 %This global space is the one in which we will encode, and demonstrate protection of, quantum information. 
 % -- we say this again in the paragraph after next.
 
-We consider this treatment of anyon dynamics to be a phenomenological model in that
-it neglects any microscopic details of the system.
-This is consistent with the principles of topologically 
-ordered systems and anyonic physics, where the key universal features describing the 
-anyon model correspond to large length-scale physics, while the microscopic physics plays 
-a less important (and non-universal) role.
-Additionally, while we model a continuum anyon theory, our analysis can be trivially reinterpreted to apply directly to lattice spin models or other systems where space is fundamentally discrete.
 %\dude{but how do we relate to discrete models: toric code, string nets, etc.
 %microscopic lattice models.}
 
@@ -369,27 +362,28 @@ Additionally, while we model a continuum anyon theory, our analysis can be trivi
 %lattice site, while in the latter case each tile represents 
 %a measurement region. 
 %For more details of an analogous model, see~\cite{Brell2013}.
-\cggb{I would consider restoring the sentence that refers the reader to our previous paper for details of the phenomenological model.}
+%\cggb{I would consider restoring the sentence that refers the reader to our previous paper for details of the phenomenological model.}
 
 We consider encoding a qubit of quantum information in the global degeneracy associated 
 with the topology of the manifold of our system.
 We endow this manifold with a finite set of $L\times L$ Wilson loops arranged in
 a square lattice tiling $\Lambda$.
 %We tile the manifold with a finite set of $L\times L$ Wilson loops arranged in
-These \emph{tiles} will be the observables accesible to the error-correction procedure (\emph{decoder}).
+These \emph{tiles} will be the observables accessible to the error-correction procedure (\emph{decoder}).
 We can use these observables to construct an idealized Hamiltonian for this system of the form
-\begin{align}
-	H=-\sum_{t\in \Lambda}\proj{\vac}_t\;,\label{e:hamiltonian}
-\end{align}
+%\begin{align}
+	$H=-\sum_{t\in \Lambda}\proj{\vac}_t\;,$
+%\end{align}
 with $\proj{\vac}_t$ the projector to charge $\vac$ at tile $t$, i.e.~the ground 
 space of the model has vacuum total charge in each tile.
 Given the toroidal boundary 
-conditions, this space is the two-fold degenerate codespace. \cggb{Subtlety in that there could be anyons around in the ground space.}
+conditions, this space contains the two-fold degenerate codespace.
+%\cggb{Subtlety in that there could be anyons around in the ground space.}
 %We identify this ground space as the codespace of our model. 
 
 Typical noise processes in this kind of system are 
-pair-creation, hopping, exchange etc.~of anyons.
-It was seen in~\cite{Brell2013} that a simplified noise model consisting of pair-creation events only 
+pair-creation, hopping, exchange etc.~of anyons. Such a model was analyzed in detail for Ising anyons in Ref.~\cite{Brell2013}.
+It was seen that a simplified noise model consisting of pair-creation events only 
 is sufficient to capture the qualitative features of an error-correction simulation, and so for convenience we 
 will restrict to pair-creation noise processes in the numerical results presented in this study. 
 
@@ -399,6 +393,14 @@ error-correction threshold, will be measured in terms of average number of noise
 per edge, as opposed to an iid noise probability per edge. The latter measure is not 
 appropriate for error processes in nonabelian anyon models, but the two coincide in the limit 
 of low error rates in those cases where they are comparable (see Ref.~\cite{Brell2013}).
+
+We consider this treatment of anyon dynamics to be a phenomenological model in that
+it neglects any microscopic details of the system.
+This is consistent with the principles of topologically 
+ordered systems and anyonic physics, where the key universal features describing the 
+anyon model correspond to large length-scale physics, while the microscopic physics plays 
+a less important (and non-universal) role.
+Additionally, while we model a continuum anyon theory, our analysis can be trivially reinterpreted to apply directly to lattice spin models or other systems where space is fundamentally discrete.
 
 In order to perform a logical error on our code, a noise process must have support on a 
 a homologically nontrivial region of the lattice.
@@ -488,16 +490,16 @@ forcing us to compute dynamics of larger and larger sets of anyons,
 large components are sparsely distributed
 (and thus unlikely to be merged), and in addition at each length scale the total number of 
 anyons present is dramatically reduced by fusion, leading to a smaller number of anyons that 
-must be simulated. \cggb{is this really helping the simulation so much as it seems? is it clear that we don't still need to simulate the entire set of anyons even though they arent there anymore?}
+must be simulated.
 
 In the regime where the combined action of noise and error-correction does not percolate
-it is clear \dude{check this} that the simulation is efficient.
+it is reasonable to expect that the simulation is efficient.
 However, with strong enough noise the state in the fusion space will
 no longer decompose at all and computing dynamics will
 become exponentially difficult in the system size.
 Despite this, we use heuristics %for finite lattice size, we use heuristics
-that minimize non-local braid moves \cggb{what does minimize mean here?}, which helps to
-maintain the state as a separable product beyond the
+that minimize braid moves, which helps to
+track the state beyond the
 sub-percolated regime.
 This enables simulation of error correction in
 the regime around the error-correction threshold for linear lattice sizes up to $L=128$.
@@ -527,11 +529,13 @@ the regime around the error-correction threshold for linear lattice sizes up to 
 %that easily allows for tensor factorization of disjoint components. 
 %For comparison, previous work used a single fixed basis for 
 %the fusion space determined by row-major ordering of sites~\cite{Brell2013}.
-\cggb{I would be an advocate for restoring the sentences that compare the dynamically generated basis here to our previous work's fixed fusion basis.}
+%\cggb{I would be an advocate for restoring the sentences that compare the dynamically generated basis here to our previous work's fixed fusion basis.}
 
 In order to track the state of the system we maintain 
 a set of disjoint directed curves, 
 one for each connected component with trivial total charge.
+Unlike previous work~\cite{Brell2013}, this creates a dynamically generated basis for the fusion space 
+that easily allows for tensor factorization of disjoint components.
 The application of a pair-creation noise process corresponds to the 
 addition of an extra curve to the lattice, supporting
 two new anyons.
@@ -554,9 +558,9 @@ procedure for a simple noise process is shown in \Fref{f:syndrome}.
 %and the corresponding braid moves are shown in \Fref{f:syndrome}(e).
 The combinatorial derivation of the algorithm and data structures used for 
 this procedure will be discussed elsewhere.
-%Braiding processes that encircle 
-%a non-trivial loop of our (toric) manifold can also be 
-%treated in an analogous way, following e.g.~\cite{Pfeifer2012}.
+Braiding processes that encircle 
+a non-trivial loop of our (toric) manifold can also be 
+treated in an analogous way, following e.g.~\cite{Pfeifer2012}.
 \cggb{what does the combinatorial comment mean?}
 \cggb{why did the Pfeifer ref get commented? it should certainly go somewhere.}
 %\cggb{This paragraph and the next still needs another look.}
