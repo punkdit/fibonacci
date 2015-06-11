@@ -242,7 +242,7 @@ The deformation of observables corresponding to the implementation of a braid pr
 This process relates two different ways of observing (or fusing) the top two charges.
 %This braid relates two different ways of observing the same charges.
 %We are free to draw these loops around charges,
-In general, braiding will wind or unwind the Wilson loops, following
+In general, braiding will twist these loops in different ways following
 the deformation of the manifold itself.
 \label{f:braidloop}
 }
@@ -295,7 +295,7 @@ order the anyons, and track
 deformations in the underlying space, 
 i.e.\ the history of braiding processes.
 It also denotes the direction along
-which $F$-moves occur. A clockwise braiding process is represented by an $R$-move:
+which $F$-moves occur. A clockwise braiding process, or \emph{half-twist}, is effected by an $R$-move:
 \begin{align}
 \label{e:rmove}
 \includegraphics[]{pic-rmove.pdf}
@@ -535,7 +535,7 @@ In order to track the state of the system we maintain
 a set of disjoint directed curves, 
 one for each connected component with trivial total charge.
 Unlike previous work~\cite{Brell2013}, this creates a dynamically generated basis for the fusion space 
-that easily allows for tensor factorization of disjoint components.
+that allows for tensor factorization of disjoint components.
 The application of a pair-creation noise process corresponds to the 
 addition of an extra curve to the lattice, supporting
 two new anyons.
@@ -556,7 +556,7 @@ localized within a contiguous region of the curve.
 An example of this 
 procedure for a simple noise process is shown in \Fref{f:syndrome}.
 %and the corresponding braid moves are shown in \Fref{f:syndrome}(e).
-The combinatorial derivation of the algorithm and data structures used for 
+The details of the algorithm and data structures used for 
 this procedure will be discussed elsewhere.
 Braiding processes that encircle 
 a non-trivial loop of our (toric) manifold can also be 
@@ -641,7 +641,7 @@ In particular, although we have modeled our logical qubit as
 encoded in the global topological degrees of freedom of our 
 system, we could have encoded it in the fusion space of several preferred anyons. 
 This situation would be appropriate to model error-correction routines for topological quantum computation. 
-Additionally, we expect our results to be stable to changes in details of the noise model and decoding algorithm.
+Additionally, we expect our results to be stable to changes in details of the noise model and decoding algorithm, again following Ref.~\cite{Brell2013}.
 
 None of our techniques are restricted to simulation of Fibonacci anyon dynamics, and could 
 equally well be used to simulate successful error-correction protocols in an arbitrary anyon code. 
