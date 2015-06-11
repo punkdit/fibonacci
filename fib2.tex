@@ -202,23 +202,24 @@ We consider a
 point-like anyonic quasiparticle excitations, which exhibit exotic statistics under exchange.
 The worldlines of these exchanges form \emph{braids}
 in (2+1)-dimensions
-which act unitarily on (the Hilbert space of) degrees of freedom known as the \emph{fusion space.}
+which act unitarily on the Hilbert space of degrees of freedom known as the \emph{fusion space}.
 To access this space we define
 the topological observables of the system: these
-are total charge measurements within regions bounded by \dude{directed} closed loops (Wilson loops).
+are total charge measurements within regions bounded by %\dude{directed} 
+closed loops (Wilson loops).
 The possible results of such a charge measurement correspond to different anyon particle types in the model.
 %The algebraic properties of these processes
 These dynamics and observables obey algebraic rules
 given by a unitary modular tensor category~\cite{Wang2010b}. % (UMTC). 
 However, from the perspective of
 \emph{topological quantum field theory}
-anyons are modelled
+anyons are modeled
 as punctures in a surface~\cite{Pfeifer2014}, and it is not
 the anyons themselves that braid,
 but the manifold in which the anyons reside 
 that becomes deformed (twisted) by these braid moves.
 This is the perspective we adopt (see \Fref{f:braidloop}).
-\dude{Fig or FIG ?}
+%\dude{Fig or FIG ?}
 %In particular, this shows the action of braiding
 %on arbitrary observables (Wilson loops) as
 %these deform with the manifold.
@@ -251,9 +252,9 @@ the deformation of the manifold itself.
 
 %The state \dude{space?} of a collection of anyons
 %can be described by the observables of the system.
-The \dude{key?} difference between abelian and nonabelian
-anyon theories is that outcomes of total charge measurements in an abelian theory
-are determined uniquely by particle content only.
+The defining %\dude{key?} 
+difference between abelian and nonabelian
+anyon theories is that in an abelian theory particle content alone uniquely determines the outcome of total charge measurements.
 In contrast, outcomes for nonabelian charge measurements depend on the history of the particles as well as their type.
 %The defining characteristic of a \emph{nonabelian}
 %anyon theory is that ...
@@ -270,8 +271,8 @@ and arbitrary states as linear combinations of these diagrams:
 \includegraphics[]{pic-fibonacci.pdf}
 \end{align*}
 For $n$ anyons of type $\tau$, the 
-dimension of this space grows asymptotically as $\varphi^n$ for $\varphi=\frac{1+\sqrt{5}}{2}$ 
-the golden ratio.
+dimension of this space grows asymptotically as $\varphi^n$, where $\varphi=\frac{1+\sqrt{5}}{2}$ 
+is the golden ratio.
 
 Observables associated to non-intersecting loops commute, and so
 a basis for the space can be built from a maximal
@@ -288,23 +289,20 @@ as well as total charge $d$.
 The lefthand side shows a state where the anyons with charge $a$ and $b$ are
 observed to have total charge $i$.
 The righthand side involves a superposition 
-over total charge $j$ of the anyons with charge $b$ and $c$.
-
+over total charge $j$ of the anyons with charge $b$ and $c$. 
 The green line serves to linearly
 order the anyons, and track
-deformations in the underlying space 
-(the history of braiding processes).
+deformations in the underlying space, 
+i.e.\ the history of braiding processes.
 It also denotes the direction along
-which $F$-moves occur.
-
-A clockwise braiding process is represented by an $R$-move:
+which $F$-moves occur. A clockwise braiding process is represented by an $R$-move:
 \begin{align}
 \label{e:rmove}
 \includegraphics[]{pic-rmove.pdf}
 \end{align}
-This is meant to show a \emph{half-twist} of the space
-inside the observable with value $c$
-holding two anyons (punctures) with charges $a$ and $b$. \cggb{This statement isn't quite true. I suggest just deleting.}
+%This is meant to show a \emph{half-twist} of the space
+%inside the observable with value $c$
+%holding two anyons (punctures) with charges $a$ and $b$. \cggb{This statement isn't quite true. I suggest just deleting.}
 
 These diagrams can be composed (glued)
 by regarding the outermost observable
@@ -330,7 +328,7 @@ replacing the interior of a loop by a single charge.
 %that enlarge the fusion space, while fusion events correspond to projective measurements 
 %of combined charge of some number of particles.
 
-For the Fibonacci anyons, the non-trivial $R$ and $F$ moves are 
+For Fibonacci anyons, the non-trivial $R$ and $F$ moves are 
 \begin{equation*}
 	R_{\vac}^{\tau\tau} = \e^{\frac{-4\pi i}{5}} 
 	\ \ , \ \
@@ -338,15 +336,16 @@ For the Fibonacci anyons, the non-trivial $R$ and $F$ moves are
 	\ \ , \ \
 	F_{\tau}^{\tau\tau\tau} = \begin{pmatrix}\varphi^{-1}&\varphi^{-\frac{1}{2}}\\\varphi^{-\frac{1}{2}}&-\varphi^{-1}\end{pmatrix} \,,
 \end{equation*}
-where the matrix is given in a basis labelled $(\vac,\tau)$. For more details of the Fibonacci anyon theory, see e.g.~Ref.~\cite{Nayak2008} and references therein. 
-Braiding of Fibonacci anyons and measurements of fusion outcomes is known to be 
-sufficient to implement universal quantum computation~\cite{Freedman2002, Nayak2008}.
+where the matrix is given in a basis labelled $(\vac,\tau)$. For more details of the Fibonacci anyon theory, see e.g.\ Ref.~\cite{Nayak2008} and references therein. 
+%Braiding of Fibonacci anyons and measurements of fusion outcomes is known to be 
+%sufficient to implement universal quantum computation~\cite{Freedman2002, Nayak2008}.
+% -- we already said this in the intro and we're pressed for space, so I cut this sentence 
 
-Finally, in addition to the fusion space of any anyons present, there is also a global degeneracy associated with the topology of the 
-manifold on which the anyons reside. We will consider systems with the topology of a torus, 
+In addition to the fusion space there is also a global degeneracy associated with the topology of the 
+manifold on which the anyons reside. We consider systems with the topology of a torus, 
 which for the Fibonacci anyons gives rise to a 2-fold degeneracy.
-This global space is the one in which we will encode, and demonstrate protection of, quantum 
-information. 
+%This global space is the one in which we will encode, and demonstrate protection of, quantum information. 
+% -- we say this again in the paragraph after next.
 
 We consider this treatment of anyon dynamics to be a phenomenological model in that
 it neglects any microscopic details of the system.
@@ -368,14 +367,15 @@ Additionally, while we model a continuum anyon theory, our analysis can be trivi
 %be chosen in order to perform charge measurements. 
 %In the former case, each tile of $\Lambda$ represents a 
 %lattice site, while in the latter case each tile represents 
-%a measurement region. For more details of an analogous model, see~\cite{Brell2013}.
+%a measurement region. 
+%For more details of an analogous model, see~\cite{Brell2013}.
 \cggb{I would consider restoring the sentence that refers the reader to our previous paper for details of the phenomenological model.}
 
 We consider encoding a qubit of quantum information in the global degeneracy associated 
 with the topology of the manifold of our system.
 We endow this manifold with a finite set of $L\times L$ Wilson loops arranged in
 a square lattice tiling $\Lambda$.
-%We tile the manifols with  a finite set of $L\times L$ Wilson loops arranged in
+%We tile the manifold with a finite set of $L\times L$ Wilson loops arranged in
 These \emph{tiles} will be the observables accesible to the error-correction procedure (\emph{decoder}).
 We can use these observables to construct an idealized Hamiltonian for this system of the form
 \begin{align}
@@ -384,7 +384,7 @@ We can use these observables to construct an idealized Hamiltonian for this syst
 with $\proj{\vac}_t$ the projector to charge $\vac$ at tile $t$, i.e.~the ground 
 space of the model has vacuum total charge in each tile.
 Given the toroidal boundary 
-conditions, this space \cggb{is} the two-fold degenerate codespace. \cggb{Subtlety in that there could be anyons around in the ground space.}
+conditions, this space is the two-fold degenerate codespace. \cggb{Subtlety in that there could be anyons around in the ground space.}
 %We identify this ground space as the codespace of our model. 
 
 Typical noise processes in this kind of system are 
