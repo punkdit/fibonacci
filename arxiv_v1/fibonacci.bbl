@@ -170,7 +170,7 @@
   {Wang}}, \bibinfo {author} {\bibfnamefont {A.~G.}\ \bibnamefont {Fowler}},
   \bibinfo {author} {\bibfnamefont {A.~M.}\ \bibnamefont {Stephens}}, \ and\
   \bibinfo {author} {\bibfnamefont {L.~C.~L.}\ \bibnamefont {Hollenberg}},\
-  }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Quant. Info.
+  }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Quant. Inf.
   Comput.}\ }\textbf {\bibinfo {volume} {10}},\ \bibinfo {pages} {456}
   (\bibinfo {year} {2010}{\natexlab{a}})},\ \Eprint
   {http://arxiv.org/abs/0905.0531} {arXiv:0905.0531} \BibitemShut {NoStop}%
@@ -181,7 +181,7 @@
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.~S.}\ \bibnamefont
   {Wang}}, \bibinfo {author} {\bibfnamefont {A.~G.}\ \bibnamefont {Fowler}},
   \bibinfo {author} {\bibfnamefont {C.~D.}\ \bibnamefont {Hill}}, \ and\
-  \bibinfo {author} {\bibfnamefont {L.~C.}\ \bibnamefont {Hollenberg}},\
+  \bibinfo {author} {\bibfnamefont {L.~C.~L.}\ \bibnamefont {Hollenberg}},\
   }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Quant. Inf.
   Comput.}\ }\textbf {\bibinfo {volume} {10}},\ \bibinfo {pages} {780}
   (\bibinfo {year} {2010}{\natexlab{b}})},\ \Eprint
@@ -191,10 +191,9 @@
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
   {Duclos-Cianci}}\ and\ \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
-  {Poulin}},\ }\href {http://arxiv.org/abs/1304.6100} {\bibfield  {journal}
-  {\bibinfo  {journal} {Quant. Info. \& Comp.}\ } (\bibinfo {year} {2013})},\
-  \Eprint {http://arxiv.org/abs/1304.6100} {arXiv:1304.6100} \BibitemShut
-  {NoStop}%
+  {Poulin}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Quant.
+  Inf. Comput.}\ } (\bibinfo {year} {2013})},\ \Eprint
+  {http://arxiv.org/abs/1304.6100} {arXiv:1304.6100} \BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Bravyi}\ and\ \citenamefont
   {Haah}(2013)}]{Bravyi2011}%
   \BibitemOpen
@@ -211,9 +210,10 @@
   {Bombin}}, \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
   {Duclos-Cianci}}, \ and\ \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
   {Poulin}},\ }\href {http://stacks.iop.org/1367-2630/14/i=7/a=073048}
-  {\bibfield  {journal} {\bibinfo  {journal} {New Journal of Physics}\ }\textbf
-  {\bibinfo {volume} {14}},\ \bibinfo {pages} {073048} (\bibinfo {year}
-  {2012})}\BibitemShut {NoStop}%
+  {\bibfield  {journal} {\bibinfo  {journal} {New J. Phys.}\ }\textbf {\bibinfo
+  {volume} {14}},\ \bibinfo {pages} {073048} (\bibinfo {year} {2012})},\
+  \Eprint {http://arxiv.org/abs/1103.4606} {arXiv:1103.4606} \BibitemShut
+  {NoStop}%
 \bibitem [{\citenamefont {Wootton}\ and\ \citenamefont
   {Loss}(2012)}]{Wootton2012}%
   \BibitemOpen
@@ -222,7 +222,7 @@
   }\href {\doibase 10.1103/PhysRevLett.109.160503} {\bibfield  {journal}
   {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf {\bibinfo {volume} {109}},\
   \bibinfo {pages} {160503} (\bibinfo {year} {2012})},\ \Eprint
-  {http://arxiv.org/abs/1202.4316} {1202.4316} \BibitemShut {NoStop}%
+  {http://arxiv.org/abs/1202.4316} {arXiv:1202.4316} \BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Anwar}\ \emph {et~al.}(2014)\citenamefont {Anwar},
   \citenamefont {Brown}, \citenamefont {Campbell},\ and\ \citenamefont
   {Browne}}]{Anwar2014}%
@@ -243,17 +243,16 @@
   {Anwar}}, \ and\ \bibinfo {author} {\bibfnamefont {D.~E.}\ \bibnamefont
   {Browne}},\ }\href@noop {} {\  (\bibinfo {year} {2014})},\ \Eprint
   {http://arxiv.org/abs/1411.3028} {arXiv:1411.3028} \BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Hutter}\ \emph
-  {et~al.}(2014{\natexlab{a}})\citenamefont {Hutter}, \citenamefont {Wootton},\
-  and\ \citenamefont {Loss}}]{Hutter2014a}%
+\bibitem [{\citenamefont {Hutter}\ \emph {et~al.}(2014)\citenamefont {Hutter},
+  \citenamefont {Wootton},\ and\ \citenamefont {Loss}}]{Hutter2014a}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont
   {Hutter}}, \bibinfo {author} {\bibfnamefont {J.~R.}\ \bibnamefont {Wootton}},
   \ and\ \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Loss}},\ }\href
   {\doibase 10.1103/PhysRevA.89.022326} {\bibfield  {journal} {\bibinfo
   {journal} {Phys. Rev. A}\ }\textbf {\bibinfo {volume} {89}},\ \bibinfo
-  {pages} {022326} (\bibinfo {year} {2014}{\natexlab{a}})}\BibitemShut
-  {NoStop}%
+  {pages} {022326} (\bibinfo {year} {2014})},\ \Eprint
+  {http://arxiv.org/abs/1302.2669} {arXiv:1302.2669} \BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Bravyi}\ \emph {et~al.}(2014)\citenamefont {Bravyi},
   \citenamefont {Suchara},\ and\ \citenamefont {Vargo}}]{Bravyi2014}%
   \BibitemOpen
@@ -266,7 +265,7 @@
   {http://arxiv.org/abs/1405.4883} {arXiv:1405.4883} \BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Wootton}(2015)}]{Wootton2015}%
   \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~R.}\ \bibnamefont
   {Wootton}},\ }\href {\doibase 10.3390/e17041946} {\bibfield  {journal}
   {\bibinfo  {journal} {Entropy}\ }\textbf {\bibinfo {volume} {17}},\ \bibinfo
   {pages} {1946} (\bibinfo {year} {2015})},\ \Eprint
@@ -275,7 +274,7 @@
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~G.}\ \bibnamefont
   {Fowler}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Quant.
-  Inf. Comp.}\ }\textbf {\bibinfo {volume} {15}},\ \bibinfo {pages} {0145}
+  Inf. Comput.}\ }\textbf {\bibinfo {volume} {15}},\ \bibinfo {pages} {0145}
   (\bibinfo {year} {2015})},\ \Eprint {http://arxiv.org/abs/1307.1740}
   {arXiv:1307.1740} \BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Andrist}\ \emph {et~al.}(2015)\citenamefont
@@ -287,8 +286,8 @@
   {Wootton}}, \ and\ \bibinfo {author} {\bibfnamefont {H.~G.}\ \bibnamefont
   {Katzgraber}},\ }\href {\doibase 10.1103/PhysRevA.91.042331} {\bibfield
   {journal} {\bibinfo  {journal} {Phys. Rev. A}\ }\textbf {\bibinfo {volume}
-  {91}},\ \bibinfo {pages} {042331} (\bibinfo {year} {2015})}\BibitemShut
-  {NoStop}%
+  {91}},\ \bibinfo {pages} {042331} (\bibinfo {year} {2015})},\ \Eprint
+  {http://arxiv.org/abs/1406.5974} {arXiv:1406.5974} \BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Brell}\ \emph {et~al.}(2014)\citenamefont {Brell},
   \citenamefont {Burton}, \citenamefont {Dauphinais}, \citenamefont {Flammia},\
   and\ \citenamefont {Poulin}}]{Brell2013}%
@@ -314,14 +313,15 @@
   Rev. X}\ }\textbf {\bibinfo {volume} {4}},\ \bibinfo {pages} {011051}
   (\bibinfo {year} {2014})},\ \Eprint {http://arxiv.org/abs/1310.3846}
   {arXiv:1310.3846} \BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Hutter}\ \emph
-  {et~al.}(2014{\natexlab{b}})\citenamefont {Hutter}, \citenamefont {Loss},\
-  and\ \citenamefont {Wootton}}]{Hutter2014}%
+\bibitem [{\citenamefont {Hutter}\ \emph {et~al.}(2015)\citenamefont {Hutter},
+  \citenamefont {Loss},\ and\ \citenamefont {Wootton}}]{Hutter2014}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont
   {Hutter}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Loss}}, \ and\
-  \bibinfo {author} {\bibfnamefont {J.~R.}\ \bibnamefont {Wootton}},\
-  }\href@noop {} {\  (\bibinfo {year} {2014}{\natexlab{b}})},\ \Eprint
+  \bibinfo {author} {\bibfnamefont {J.~R.}\ \bibnamefont {Wootton}},\ }\href
+  {http://stacks.iop.org/1367-2630/17/i=3/a=035017} {\bibfield  {journal}
+  {\bibinfo  {journal} {New J. Phys.}\ }\textbf {\bibinfo {volume} {17}},\
+  \bibinfo {pages} {035017} (\bibinfo {year} {2015})},\ \Eprint
   {http://arxiv.org/abs/1410.4478} {arXiv:1410.4478} \BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Wootton}\ and\ \citenamefont
   {Hutter}(2015)}]{Wootton2015b}%
@@ -407,8 +407,9 @@
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.~N.~C.}\
   \bibnamefont {Pfeifer}},\ }\href {\doibase 10.1103/PhysRevB.89.035105}
   {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. B}\ }\textbf {\bibinfo
-  {volume} {89}},\ \bibinfo {pages} {035105} (\bibinfo {year}
-  {2014})}\BibitemShut {NoStop}%
+  {volume} {89}},\ \bibinfo {pages} {035105} (\bibinfo {year} {2014})},\
+  \Eprint {http://arxiv.org/abs/1310.0373} {arXiv:1310.0373} \BibitemShut
+  {NoStop}%
 \bibitem [{\citenamefont {Hastie}\ \emph {et~al.}(2009)\citenamefont {Hastie},
   \citenamefont {Tibshirani},\ and\ \citenamefont {Friedman}}]{Hastie2009}%
   \BibitemOpen
@@ -455,6 +456,7 @@
   {Watson}}, \ and\ \bibinfo {author} {\bibfnamefont {R.~G.}\ \bibnamefont
   {Melko}},\ }\href {\doibase 10.1103/PhysRevLett.112.070501} {\bibfield
   {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf {\bibinfo
-  {volume} {112}},\ \bibinfo {pages} {070501} (\bibinfo {year}
-  {2014})}\BibitemShut {NoStop}%
+  {volume} {112}},\ \bibinfo {pages} {070501} (\bibinfo {year} {2014})},\
+  \Eprint {http://arxiv.org/abs/1309.2680} {arXiv:1309.2680} \BibitemShut
+  {NoStop}%
 \end{thebibliography}%
