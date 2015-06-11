@@ -1,5 +1,4 @@
 \documentclass[aps, prl, letterpaper, twocolumn, superscriptaddress, notitlepage, 10pt]{revtex4-1}
-%\documentclass[aps, prl, letterpaper, twocolumn, superscriptaddress, notitlepage, 10pt]{revtex4}
 \usepackage{times}
 
 % use these settings for a more reader-friendly version
@@ -15,11 +14,7 @@
 \usepackage[caption=false]{subfig}
 \usepackage{enumerate}
 
-%\usepackage{tikz}
-%\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit}
-
-\usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
-%\usepackage{bm}  % Define \bm{} to use bold math fonts
+%\usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
 
 \usepackage[pdfpagelabels,pdftex,bookmarks,breaklinks]{hyperref}
 \definecolor{darkblue}{RGB}{0,0,127} % choose colors
@@ -158,45 +153,6 @@ be successful when applied to a universal topological quantum computer.
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Topological model.}
 
-%The topological features of a physical anyon model are abstractly described by a unitary 
-%modular tensor category~\cite{Wang2010b}. This object contains the data describing the 
-%types of anyonic particles, as well as the results of topological operations such as braiding and 
-%fusion of these anyons. The Fibonacci anyon model consists of only one non-trivial particle 
-%type, conventionally labelled $\tau$. Denoting the vacuum by $\vac$, we can describe 
-%the possible fusion outcomes of Fibonacci anyons as $\tau\times\tau=\vac+\tau$, 
-%i.e.~two $\tau$ particles can either fuse to vacuum or to a $\tau$ particle.
-%
-%Associated with each set of fusion outcomes for a fixed number of $\tau$ particles is a basis 
-%vector for a Hilbert space, the \emph{fusion} space. For $n$ particles of type $\tau$, the 
-%dimension of this space grows asymptotically as $\varphi^n$ for $\varphi=\frac{1+\sqrt{5}}{2}$ 
-%the golden ratio. Additionally, there is a global degeneracy associated with the topology of the 
-%manifold on which the anyons reside. We will consider systems with the topology of a torus, 
-%which for the Fibonacci anyons gives rise to a 2-fold degeneracy. For convenience 
-%(in particular to minimize finite-size effects in our numerical computations~\cite{Brell2013}), 
-%this global space is the one in which we will encode, and demonstrate protection of, quantum 
-%information.
-%
-%The fusion outcome of any particular experiment depends on the history of the particles, in 
-%particular how they have braided around one another. Braiding operations are treated as 
-%unitary actions on the fusion space. Pair-creation events should be considered isometries 
-%that enlarge the fusion space, while fusion events correspond to projective measurements 
-%of combined charge of some number of particles. For detailed description of these 
-%processes in Fibonacci anyons, see e.g.~Ref.~\cite{Nayak2008} and references therein. 
-%Braiding of Fibonacci anyons and measurements of fusion outcomes is known to be 
-%sufficient to implement universal quantum computation~\cite{Freedman2002, Nayak2008}.
-
-
-% From Picture TQFTs paper:
-%Within physics, TQFTs are referred to as “anyonic systems” [Wil][DFNSS]. These are
-%2-dimensional quantum mechanical systems with point like excitations (variously
-%called “quas-particle” or just “particle”, anyon, or perhaps “nonabelion”) which
-%under exchange exhibit exotic statistics: a nontrival representation of the braid
-%groups acting on a finite dimensional Hilbert space V consisting of “internal de-
-%grees of freedom”. Since these “internal degrees of freedom” sound mysterious,
-%we note that this information is accessed by fusion: fuse pairs of anyons along
-%a well defined trajectory and observe the outcome.
-%Statistics of anyons is described by unitary representations of the braid groups
-
 We consider a 
 2-dimensional system with
 point-like anyonic quasiparticle excitations, which exhibit exotic statistics under exchange.
@@ -205,12 +161,11 @@ in (2+1)-dimensions
 which act unitarily on the Hilbert space of degrees of freedom known as the \emph{fusion space}.
 To access this space we define
 the topological observables of the system: these
-are total charge measurements within regions bounded by %\dude{directed} 
+are total charge measurements within regions bounded by 
 closed loops (Wilson loops).
 The possible results of such a charge measurement correspond to different anyon particle types in the model.
-%The algebraic properties of these processes
 These dynamics and observables obey algebraic rules
-given by a unitary modular tensor category~\cite{Wang2010b}. % (UMTC). 
+given by a unitary modular tensor category~\cite{Wang2010b}. 
 However, from the perspective of
 \emph{topological quantum field theory}
 anyons are modeled
@@ -219,29 +174,13 @@ the anyons themselves that braid,
 but the manifold in which the anyons reside 
 that becomes deformed (twisted) by these braid moves.
 This is the perspective we adopt (see \Fref{f:braidloop}).
-%\dude{Fig or FIG ?}
-%In particular, this shows the action of braiding
-%on arbitrary observables (Wilson loops) as
-%these deform with the manifold.
-
-
-%As was noted in~\cite{Pfeifer2014}, when dealing with two-dimensional 
-%anyon dynamics, it is not sufficient to consider only
-%the algebraic (fusion/braiding) properties of the anyons,
-%one must also account for the algebra of observables. \cggb{This sentence seems odd here. Consider moving?}
 
 \begin{figure}[t!]
 \begin{center}
     \includegraphics[]{pic-braid-loop.pdf}
 \caption{
-%The perspective of TQFT.
 The deformation of observables corresponding to the implementation of a braid process on three anyons is shown. The configurations before and after are connected by world lines shown in red, while the observable Wilson loops are shown in black.
-%Here we show the world lines of a braid.
-%This braid relates two different ways of observing the same charges.
-%In this case, we see how it relates two different ways of observing (or fusing) the top two charges.
 This process relates two different ways of observing (or fusing) the top two charges.
-%This braid relates two different ways of observing the same charges.
-%We are free to draw these loops around charges,
 In general, braiding will twist these loops in different ways following
 the deformation of the manifold itself.
 \label{f:braidloop}
@@ -250,14 +189,9 @@ the deformation of the manifold itself.
 \vspace{-10pt}
 \end{figure}
 
-%The state \dude{space?} of a collection of anyons
-%can be described by the observables of the system.
-The defining %\dude{key?} 
-difference between abelian and nonabelian
+The defining difference between abelian and nonabelian
 anyon theories is that in an abelian theory particle content alone uniquely determines the outcome of total charge measurements.
 In contrast, outcomes for nonabelian charge measurements depend on the history of the particles as well as their type.
-%The defining characteristic of a \emph{nonabelian}
-%anyon theory is that ...
 That is, the fusion space is one-dimensional for abelian anyons, and generally larger for nonabelian anyons.
 In particular, we consider a system supporting (nonabelian) Fibonacci
 anyon excitations, denoted by $\tau$.
@@ -300,9 +234,6 @@ which $F$-moves occur. A clockwise braiding process, or \emph{half-twist}, is ef
 \label{e:rmove}
 \includegraphics[]{pic-rmove.pdf}
 \end{align}
-%This is meant to show a \emph{half-twist} of the space
-%inside the observable with value $c$
-%holding two anyons (punctures) with charges $a$ and $b$. \cggb{This statement isn't quite true. I suggest just deleting.}
 
 These diagrams can be composed (glued)
 by regarding the outermost observable
@@ -311,22 +242,6 @@ This operation distributes multiplicatively
 over superpositions, and it also respects the $R$ and $F$-moves.
 Conversely, \emph{fusion} of anyons corresponds to 
 replacing the interior of a loop by a single charge.
-%and conversely, the fusion operation acts by replacing the 
-%interior of a loop by a single charge.
-
-%Abstracted from the quantum context,
-%these \emph{curve diagrams} are used in
-%the study of braid groups \cite{Dehornoy2002}.
-%In general, such a curve diagram is 
-%a continuous embedding of a line that passes through 
-%each puncture once. 
-%Remarkably, any two such linear orderings are related by
-%braiding (half-twists).
-%\dude{optional paragraph..}
-
-%Pair-creation events should be considered isometries 
-%that enlarge the fusion space, while fusion events correspond to projective measurements 
-%of combined charge of some number of particles.
 
 For Fibonacci anyons, the non-trivial $R$ and $F$ moves are 
 \begin{equation*}
@@ -337,49 +252,25 @@ For Fibonacci anyons, the non-trivial $R$ and $F$ moves are
 	F_{\tau}^{\tau\tau\tau} = \begin{pmatrix}\varphi^{-1}&\varphi^{-\frac{1}{2}}\\\varphi^{-\frac{1}{2}}&-\varphi^{-1}\end{pmatrix} \,,
 \end{equation*}
 where the matrix is given in a basis labelled $(\vac,\tau)$. For more details of the Fibonacci anyon theory, see e.g.\ Ref.~\cite{Nayak2008} and references therein. 
-%Braiding of Fibonacci anyons and measurements of fusion outcomes is known to be 
-%sufficient to implement universal quantum computation~\cite{Freedman2002, Nayak2008}.
-% -- we already said this in the intro and we're pressed for space, so I cut this sentence 
 
 In addition to the fusion space there is also a global degeneracy associated with the topology of the 
 manifold on which the anyons reside. We consider systems with the topology of a torus, 
 which for the Fibonacci anyons gives rise to a 2-fold degeneracy.
-%This global space is the one in which we will encode, and demonstrate protection of, quantum information. 
-% -- we say this again in the paragraph after next.
-
-%\dude{but how do we relate to discrete models: toric code, string nets, etc.
-%microscopic lattice models.}
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Noise and error-correction.}
-
-%We model the system on a periodic $L\times L$ square lattice $\Lambda$ of \emph{tiles} on which anyons can reside. 
-%This treatment applies equally well to lattice models, where anyons 
-%can only be located at a discrete set of points, 
-%or continuum models, where a discretization of the manifold must 
-%be chosen in order to perform charge measurements. 
-%In the former case, each tile of $\Lambda$ represents a 
-%lattice site, while in the latter case each tile represents 
-%a measurement region. 
-%For more details of an analogous model, see~\cite{Brell2013}.
-%\cggb{I would consider restoring the sentence that refers the reader to our previous paper for details of the phenomenological model.}
 
 We consider encoding a qubit of quantum information in the global degeneracy associated 
 with the topology of the manifold of our system.
 We endow this manifold with a finite set of $L\times L$ Wilson loops arranged in
 a square lattice tiling $\Lambda$.
-%We tile the manifold with a finite set of $L\times L$ Wilson loops arranged in
 These \emph{tiles} will be the observables accessible to the error-correction procedure (\emph{decoder}).
 We can use these observables to construct an idealized Hamiltonian for this system of the form
-%\begin{align}
-	$H=-\sum_{t\in \Lambda}\proj{\vac}_t\;,$
-%\end{align}
+ $H=-\sum_{t\in \Lambda}\proj{\vac}_t\;,$ 
 with $\proj{\vac}_t$ the projector to charge $\vac$ at tile $t$, i.e.~the ground 
 space of the model has vacuum total charge in each tile.
 Given the toroidal boundary 
 conditions, this space contains the two-fold degenerate codespace.
-%\cggb{Subtlety in that there could be anyons around in the ground space.}
-%We identify this ground space as the codespace of our model. 
 
 Typical noise processes in this kind of system are 
 pair-creation, hopping, exchange etc.~of anyons. Such a model was analyzed in detail for Ising anyons in Ref.~\cite{Brell2013}.
@@ -497,39 +388,15 @@ it is reasonable to expect that the simulation is efficient.
 However, with strong enough noise the state in the fusion space will
 no longer decompose at all and computing dynamics will
 become exponentially difficult in the system size.
-Despite this, we use heuristics %for finite lattice size, we use heuristics
+Despite this, we use heuristics 
 that minimize braid moves, which helps to
 track the state beyond the
 sub-percolated regime.
 This enables simulation of error correction in
 the regime around the error-correction threshold for linear lattice sizes up to $L=128$.
 
-%However, recall that logical errors in our system correspond to 
-%processes that act over a non-trivial loop of the torus. 
-%Below the point at which the decoder begins to create 
-%such nontrivial loops, our simulation remains efficient
-%while it begins to declare failure whenever non-trivial logical 
-%operations occur. This allows us to simulate large lattice sizes 
-%in the successful error-correction (sub-percolated) regime, including up to $L=128$.
-
 %------------------------------------------------------------------------------------------------------------%	
 \paragraph{Simulation algorithm.}
-
-%Our concrete simulation proceeds by associating a tile with each site of the 
-%$L\times L$ periodic square lattice $\Lambda$.
-
-%In order to keep track of the state of the system we maintain a set of disjoint curves, 
-%\cggb{do they need to be directed, or is that just for the figure?} 
-%representing the history of anyons on the lattice.
-%These curves can also be thought of as a top-down view of the fusion tree:
-%the anyons comprising the fusion tree are here displayed as points along each curve. 
-%In general, the curves wind around our two 
-%dimensional manifold in a haphazard way determined by the progress of the simulation.
-%This creates a dynamically generated basis for the fusion space 
-%that easily allows for tensor factorization of disjoint components. 
-%For comparison, previous work used a single fixed basis for 
-%the fusion space determined by row-major ordering of sites~\cite{Brell2013}.
-%\cggb{I would be an advocate for restoring the sentences that compare the dynamically generated basis here to our previous work's fixed fusion basis.}
 
 In order to track the state of the system we maintain 
 a set of disjoint directed curves, 
@@ -539,8 +406,7 @@ that allows for tensor factorization of disjoint components.
 The application of a pair-creation noise process corresponds to the 
 addition of an extra curve to the lattice, supporting
 two new anyons.
-%along with two preferred points on it denoting the anyon locations. 
-Following the noise processes, our simulation must %proceed to 
+Following the noise processes, our simulation must 
 measure the total charge within each tile; the results of 
 these measurements will form the error syndrome. 
 This requires joining (arbitrarily) any curves that intersect that tile, 
@@ -548,22 +414,13 @@ and then performing $R$- and $F$-moves on the resulting
 curve so that 
 all anyons within the tile have been 
 localized within a contiguous region of the curve. 
-%\dude{Heisenberg picture?}
-%The observable corresponding to the tile is then
-%represented in the state \dude{polish}.
-%The total charge is then (probabilistically) read off the 
-%relevant section of the fusion tree. 
 An example of this 
 procedure for a simple noise process is shown in \Fref{f:syndrome}.
-%and the corresponding braid moves are shown in \Fref{f:syndrome}(e).
 The details of the algorithm and data structures used for 
 this procedure will be discussed elsewhere.
 Braiding processes that encircle 
 a non-trivial loop of our (toric) manifold can also be 
 treated in an analogous way, following e.g.~\cite{Pfeifer2012}.
-%\cggb{what does the combinatorial comment mean?}
-%\cggb{why did the Pfeifer ref get commented? it should certainly go somewhere.}
-%\cggb{This paragraph and the next still needs another look.}
 
 \begin{figure}[t!]
 \begin{center}
@@ -635,8 +492,6 @@ Though we have chosen several properties of our model and
 simulation in a convenient way for simplicity,
 Ref.~\cite{Brell2013} presents good evidence that it is
 unlikely these choices will affect our results qualitatively.
-%it seems highly
-%unlikely that they will affect the qualitative results, similarly to the results of Ref.~\cite{Brell2013}. 
 In particular, although we have modeled our logical qubit as 
 encoded in the global topological degrees of freedom of our 
 system, we could have encoded it in the fusion space of several preferred anyons. 
@@ -655,9 +510,6 @@ microscopic spin models or models with non-topological features would give
 direct insight into practical error rates needed for topological quantum memories in nonabelian systems. 
 It would also be interesting to find \emph{classical} spin models 
 whose phase diagram encodes the threshold for error correction in these systems~\cite{Dennis2002}.
-%Another potential direction is to incorporate tensor network methods for 
-%simulating anyons~\cite{Pfeifer2012, Singh2014} to improve the speed and scale of the simulations. 
-%Finally, perhaps the most important open question is whether 
 Finally, an important extension of this work would be to the simulation of \emph{fault-tolerant} error-correction protocols for nonabelian anyon codes. 
 
 
