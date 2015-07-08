@@ -1,0 +1,16 @@
+Dear Editor,
+
+We are pleased to submit our manuscript entitled “Classical Simulation of Quantum Error Correction in a Fibonacci Anyon Code” for consideration for publication in Physical Review Letters. This paper makes a substantial and surprising contribution to the theory of topological quantum computing, and we feel it will be of broad interest to condensed matter physicists, quantum information researchers, and even some computer scientists. 
+
+Exotic particles called anyons are conjectured to exist as low-energy quasiparticles in certain condensed matter systems. Anyons can have exchange statistics that are more general than those of bosons and fermions. Some anyons, such as the Fibonacci anyons considered in our work, can be used to efficiently generate arbitrary quantum computations. This makes them potentially extremely useful since the topological nature of exchange statistics provides some natural protection against errors, which are the main difficulty in building a scalable quantum computer. 
+
+However, any physical system that can support anyons will, if put in contact with a noisy environment such as a thermal bath, generate stray quasiparticles from fluctuations. It is known that it is possible to deal with this noise source if it is sufficiently weak. But all known calculation methods for the threshold value of the noise rate cannot cope with anyons such as Fibonacci for the simple reason that simulating the dynamics of these anyons is, in general, equivalent to simulating any quantum computation! Thus, there appears to be a chicken-and-egg problem: we cannot understand Fibonacci anyons enough to build quantum computers with them unless we have quantum computers to simulate them. 
+
+Our new result circumvents this challenge by exploiting the special structure of thermal noise in quantum systems to do a full-scale simulation of error correction in a Fibonacci anyon code. We specifically show that typical dynamical processes are indeed simulable efficiently using an algorithm that generalizes to arbitrary anyon models, and we give a specific estimate of the threshold value for Fibonacci anyons. The fact that a threshold value *exists* is not surprising, though it is new. That we can calculate it efficiently for large systems is, however, very nontrivial and indeed quite surprising. 
+
+We look forward to hearing back from you with hopefully a positive decision on our manuscript.
+
+
+Best wishes,
+
+  Simon Burton, Courtney Brell, and Steven Flammia
