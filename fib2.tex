@@ -132,6 +132,7 @@ expected excitations of the $\nu=\frac{12}{5}$ fractional quantum Hall
 states~\cite{Slingerland2001}, and can be realized in several spin 
 models~\cite{Levin2005, Bonesteel2012, Kapit2013, Palumbo2014} and composite 
 heterostructures~\cite{Mong2014}.
+Any of these kinds of physical systems could be used to perform universal topological quantum computation \cggb{citations?}. Natural sources of noise from thermal fluctuations or external perturbations will be suppressed by the energy gap but must still be corrected to allow for scalable computation.
 
 We use a flexible phenomenological model of dynamics and thermal 
 noise to describe a system with Fibonacci anyon excitations. Within 
@@ -142,6 +143,8 @@ typically implicitly assume the existence of an error-correction protocol to
 correct for diffusion or unwanted creation of anyons. Our results 
 are the first explicit demonstration that such a scheme will 
 be successful when applied to a universal topological quantum computer.
+Although it is not surprising that the standard topological error-correction techniques we use successfully correct errors in universal nonabelian anyon systems, the ability to simulate the precise details of how and when these techniques succeed on finite system sizes has not previously been available. \cggb{Would a comment about the importance of locality in topological codes (compared to abstract QEC) maybe help Ref.~B's confusion about why we don't use ``conventional'' QEC? I'm not totally sure what he wants.}
+
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Topological model.}
@@ -228,6 +231,8 @@ which $F$-moves occur. A clockwise braiding process, or \emph{half-twist}, is ef
 \includegraphics[]{pic-rmove.pdf}
 \end{align}
 
+\cggb{I don't know how to address Ref.~B's comment here.}
+
 These diagrams can be composed (glued)
 by regarding the outermost observable
 as a charge in another diagram.
@@ -249,6 +254,7 @@ where the matrix is given in a basis labelled $(\vac,\tau)$. For more details of
 In addition to the fusion space there is also a global degeneracy associated with the topology of the 
 manifold on which the anyons reside. We consider systems with the topology of a torus, 
 which for the Fibonacci anyons gives rise to a 2-fold degeneracy.
+This extra degree of freedom can be thought of being associated with the total anyonic charge (or flux) running through the torus itself. Since there are two different possible charges in the Fibonacci anyon model, the global degeneracy is 2.
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Noise and error-correction.}
@@ -272,11 +278,9 @@ is sufficient to capture the qualitative features of an error-correction simulat
 will restrict to pair-creation noise processes in the numerical results presented in this study. 
 
 Pair-creation events acting within a single tile do not affect the corresponding observable, and so the only pair-creation events we need explicitly consider act between neighboring pairs of tiles. These are then each associated with an edge of the lattice $\Lambda$, chosen 
-uniformly at random to model high-temperature, short timescale thermalizing dynamics. The simulation time, and thus the 
-error-correction threshold, will be measured in terms of average number of noise processes 
-per edge, as opposed to an iid noise probability per edge. The latter measure is not 
-appropriate for error processes in nonabelian anyon models, but the two coincide in the limit 
-of low error rates in those cases where they are comparable (see Ref.~\cite{Brell2013}).
+uniformly at random to model high-temperature, short timescale thermalizing dynamics.
+In studies of codes based on abelian anyon models, the error correction threshold or memory lifetime is typically quoted in terms of an iid noise strength per edge. This measure is not appropriate in a nonabelian anyon setting, where noise processes on neighbouring edges do not commute. We thus measure the error correction threshold and memory lifetime in terms of the average number of noise processes per edge. 
+It is easy to see that, in those cases where they are both appropriate, these two methods coincide in the limit of low error rates (see Ref.~\cite{Brell2013} for more details). The thresholds we consider in this paper are on the order of $0.1$ noise processes per edge. In models where both noise strength measures are appropriate, such as the toric code under bit-flip errors, the discrepancy between the two values is around $10%$ at these strengths.
 
 We consider this treatment of anyon dynamics to be a phenomenological model in that
 it neglects any microscopic details of the system.
@@ -363,9 +367,7 @@ a tensor product over components.
 Since each 
 component has size only $O(\log(n))$, we can typically simulate these dynamics efficiently 
 because the resulting fusion space has dimension $O(\mathrm{poly}(n))$. 
-There are 
-random processes that violate this reasoning, but these are suppressed 
-exponentially in the lattice size $L$~\cite{Grimmett1989}. 
+Of course, this is only a probabilistic statement, and so there may be cases where there exist components with size larger than $O(\log(n))$. However, the likelihood of this is suppressed exponentially in the lattice size $L$~\cite{Grimmett1989}. 
 
 However, random noise processes are not the only dynamics that we need to consider. We 
 must also consider the effect of the error-correction routine itself. This acts iteratively to fuse 
@@ -473,8 +475,8 @@ that our threshold estimate will be a lower bound for
 the true threshold that may be found if all events 
 (including those that have percolated) were simulated. 
 However, calculations of homologically nontrivial operations for small lattice sizes suggest that almost all such 
-processes will indeed result in a logical or leakage error.
-As such it is likely that neglecting the full simulation of 
+processes will indeed either cause a logical error or a complete failure to return to the codespace.
+As such we expect that neglecting the full simulation of 
 these events does not significantly affect our observed threshold value.
 
 %------------------------------------------------------------------------------------------------------------%
