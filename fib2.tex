@@ -42,6 +42,7 @@
 \newcommand{\braket}[2]{\langle{#1}|{#2}\rangle}
 \newcommand{\proj}[1]{\ketbra{#1}{#1}}
 
+\newcommand{\cggb}[1]{\textcolor{blue}{#1}}
 
 %------------------------------------------------------------------------------------------------------------%
 \begin{document}
@@ -109,10 +110,10 @@ Standard algorithms are specifically tailored to exploit the abelian nature
 of these particles, particularly that abelian anyons cannot be used for quantum computation. 
 
 Recent investigations have begun to explore quantum error correction for nonabelian anyon 
-models~\cite{Brell2013, Wootton2013, Hutter2014, Wootton2015b}. Nonabelian anyon models are especially interesting 
+models~\cite{Brell2013, Wootton2013, Hutter2014, Wootton2015b, Hutter2015continuous}. Nonabelian anyon models are especially interesting 
 because braiding and fusion of these anyons in general allows for the implementation of universal quantum 
 computation. However, the initial studies of error-correction in nonabelian anyon systems have focused on specific models, such as the Ising 
-anyons~\cite{Brell2013} and the so-called $\Phi$-$\Lambda$ 
+anyons~\cite{Brell2013, Hutter2015continuous} and the so-called $\Phi$-$\Lambda$ 
 model~\cite{Wootton2013, Hutter2014} that, while nonabelian, are not universal for quantum computation. The general dynamics of these particular anyon models is known to be efficiently classically simulable, a fact
 that was exploited to enable efficient simulation of error correction 
 in these systems. When considering more general anyon models, their 
@@ -278,7 +279,7 @@ For convenience, in the numerical results presented in this study we will restri
 Pair-creation events acting within a single tile do not affect the corresponding observable, and so the only pair-creation events we need explicitly consider act between neighboring pairs of tiles. These are then each associated with an edge of the lattice $\Lambda$, chosen 
 uniformly at random to model high-temperature, short timescale thermalizing dynamics.
 In studies of codes based on abelian anyon models, the error correction threshold or memory lifetime is typically quoted in terms of an iid noise strength per edge. This measure is not appropriate in a nonabelian anyon setting, where noise processes on neighbouring edges do not commute. We thus measure the error correction threshold and memory lifetime in terms of the average number of noise processes per edge. 
-It is easy to see that, in those cases where they are both appropriate, these two methods coincide in the limit of low error rates (see Ref.~\cite{Brell2013} for more details). The thresholds we consider in this paper are on the order of $0.1$ noise processes per edge. In models where both noise strength measures are appropriate, such as the toric code under bit-flip errors, the discrepancy between the two values is around $10%$ at these strengths.
+It is easy to see that, in those cases where they are both appropriate, these two methods coincide in the limit of low error rates (see Ref.~\cite{Brell2013} for more details). The thresholds we consider in this paper are on the order of $0.1$ noise processes per edge. In models where both noise strength measures are appropriate, such as the toric code under bit-flip errors, the discrepancy between the two values is around $10\%$ at these strengths.
 
 We consider this treatment of anyon dynamics to be a phenomenological model in that
 it neglects any microscopic details of the system.
