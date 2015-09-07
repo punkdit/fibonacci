@@ -273,9 +273,7 @@ conditions, this space contains the two-fold degenerate codespace.
 
 Typical thermal noise processes in this kind of system are 
 pair-creation, hopping, exchange etc.~of anyons. Such a model was analyzed in detail for Ising anyons in Ref.~\cite{Brell2013}.
-It was seen that a simplified noise model consisting of pair-creation events only 
-is sufficient to capture the qualitative features of an error-correction simulation, and so for convenience we 
-will restrict to pair-creation noise processes in the numerical results presented in this study. 
+For convenience, in the numerical results presented in this study we will restrict to a simplified noise model consisting of pair-creation events only, though all of our simulation techniques could be applied directly to the more general families of noise models considered in Ref.~\cite{Brell2013} as desired. It was seen in Ref.~\cite{Brell2013} that the pair-creation-only setting was sufficient to capture the qualitative features of an error-correction simulation for the Ising anyons and we have no reason to expect that this would change when considering the Fibonacci anyon model. 
 
 Pair-creation events acting within a single tile do not affect the corresponding observable, and so the only pair-creation events we need explicitly consider act between neighboring pairs of tiles. These are then each associated with an edge of the lattice $\Lambda$, chosen 
 uniformly at random to model high-temperature, short timescale thermalizing dynamics.
@@ -458,8 +456,8 @@ certainty as the system size increases at $t_{\mathrm{sim}}\simeq 0.125 \pm 0.00
 \begin{center}
 	\includegraphics[width=\columnwidth]{anyons-kyle.pdf}
 \caption{The decoder failure rate (a lower bound on the logical error probability) is shown as a function of simulation time for linear lattice sizes from $L=16$ to $128$. 
-This exhibits threshold behavior at a critical memory lifetime of $t_{\mathrm{sim}}^*\simeq 0.125$. 
-This implies the Fibonacci anyon code simulated here is able to perfectly reliably store quantum information for times less than $t_{\mathrm{sim}}^*$ in the $L\to \infty$ limit.}
+This provides strong evidence of threshold behavior at a critical memory lifetime of $t_{\mathrm{sim}}^*\simeq 0.125$. 
+The existence of such a threshold implies that the Fibonacci anyon code simulated here is able to perfectly reliably store quantum information for times less than $t_{\mathrm{sim}}^*$ in the $L\to \infty$ limit. \cggb{Is this hedged enough? Maybe replace ``implies'' with ``would imply''?}}
 \label{f:threshold}
 \end{center}
 \vspace{-10pt}
@@ -476,6 +474,7 @@ the true threshold that may be found if all events
 (including those that have percolated) were simulated. 
 However, calculations of homologically nontrivial operations for small lattice sizes suggest that almost all such 
 processes will indeed either cause a logical error or a complete failure to return to the codespace.
+\cggb{Some kind of graph here to address Ref.~A's comment 3?}
 As such we expect that neglecting the full simulation of 
 these events does not significantly affect our observed threshold value.
 
