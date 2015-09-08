@@ -57,22 +57,25 @@ x, y = 0., 0.
 dx = 1.2*w
 
 
+st_tau = [style.linewidth.Thick, green, style.linecap.round]
+st_vac = [style.linewidth.thick, green]+st_dotted
+
 def frame():
     extra = [style.linewidth.thick]
     c.stroke(path.line(x, y, x, y+h), extra)
     c.stroke(path.line(x+w, y, x+w, y+h), extra)
 
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 c = canvas.canvas()
 
 frame()
 
-st_tau = [style.linewidth.Thick, green, style.linecap.round]
-st_vac = [style.linewidth.thick, green]+st_dotted
-
 c.stroke(path.line(x, y+0.3*h, x+w, y+0.4*h), st_tau)
 c.stroke(path.line(x, y+0.7*h, x+w, y+0.8*h), st_tau)
 
-c.stroke(path.line(x+0.3*w, y+0.05*h, x+0.4*w, y+0.35*h), st_vac)
+#c.stroke(path.line(x+0.3*w, y+0.05*h, x+0.4*w, y+0.35*h), st_vac)
 c.stroke(path.line(x+0.7*w, y+0.4*h, x+0.6*w, y+0.75*h), st_vac)
 
 x += 1.1*w
@@ -80,11 +83,14 @@ c.text(x, y+0.5*h, r"$= \phi^{-1}$", west)
 
 x += 0.7*w
 frame()
-c.stroke(path.line(x,   y+0.2*h, x+0.3*w, y+0.5*h), st_tau)
-c.stroke(path.line(x,   y+0.8*h, x+0.3*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+w, y+0.2*h, x+0.7*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+w, y+0.8*h, x+0.7*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+0.3*w, y+0.5*h, x+0.7*w, y+0.5*h), st_vac)
+#c.stroke(path.line(x,   y+0.2*h, x+0.3*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x,   y+0.8*h, x+0.3*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+w, y+0.2*h, x+0.7*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+w, y+0.8*h, x+0.7*w, y+0.5*h), st_tau)
+#c.stroke(path.circle(x+0.0*w, y+0.5*h, 0.3*w), st_tau)
+c.stroke(path.path(path.arc(x+0.0*w, y+0.5*h, 0.2*w, -90, 90)), st_tau)
+c.stroke(path.path(path.arc(x+1.0*w, y+0.5*h, 0.2*w, 90, -90)), st_tau)
+c.stroke(path.line(x+0.2*w, y+0.5*h, x+0.8*w, y+0.5*h), st_vac)
 
 
 x += 1.1*w
@@ -92,11 +98,15 @@ c.text(x, y+0.5*h, r"$+ \phi^{-\frac{1}{2}}$", west)
 
 x += 0.7*w
 frame()
-c.stroke(path.line(x,   y+0.2*h, x+0.3*w, y+0.5*h), st_tau)
-c.stroke(path.line(x,   y+0.8*h, x+0.3*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+w, y+0.2*h, x+0.7*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+w, y+0.8*h, x+0.7*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+0.3*w, y+0.5*h, x+0.7*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x,   y+0.2*h, x+0.3*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x,   y+0.8*h, x+0.3*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+w, y+0.2*h, x+0.7*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+w, y+0.8*h, x+0.7*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+0.3*w, y+0.5*h, x+0.7*w, y+0.5*h), st_tau)
+
+c.stroke(path.path(path.arc(x+0.0*w, y+0.5*h, 0.2*w, -90, 90)), st_tau)
+c.stroke(path.path(path.arc(x+1.0*w, y+0.5*h, 0.2*w, 90, -90)), st_tau)
+c.stroke(path.line(x+0.2*w, y+0.5*h, x+0.8*w, y+0.5*h), st_tau)
 
 y -= 1.2*h
 x = 1.1*w
@@ -105,26 +115,28 @@ c.text(x, y+0.5*h, r"$= \phi^{-1}$", west)
 
 x += 0.7*w
 frame()
-c.stroke(path.line(x+0.5*w, y+0.2*h, x+0.8*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+0.5*w, y+0.8*h, x+0.8*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+0.5*w, y+0.2*h, x+0.2*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+0.5*w, y+0.8*h, x+0.2*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+0.5*w, y+0.2*h, x+0.8*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+0.5*w, y+0.8*h, x+0.8*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+0.5*w, y+0.2*h, x+0.2*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+0.5*w, y+0.8*h, x+0.2*w, y+0.5*h), st_tau)
+c.stroke(path.circle(x+0.5*w, y+0.5*h, 0.2*w), st_tau)
 
-c.stroke(path.line(x+0.0*w, y+0.5*h, x+0.2*w, y+0.5*h), st_vac)
-c.stroke(path.line(x+0.8*w, y+0.5*h, x+1.0*w, y+0.5*h), st_vac)
+c.stroke(path.line(x+0.0*w, y+0.5*h, x+0.3*w, y+0.5*h), st_vac)
+c.stroke(path.line(x+0.7*w, y+0.5*h, x+1.0*w, y+0.5*h), st_vac)
 
 x += 1.1*w
 c.text(x, y+0.5*h, r"$+ \phi^{-\frac{1}{2}}$", west)
 
 x += 0.7*w
 frame()
-c.stroke(path.line(x+0.5*w, y+0.2*h, x+0.8*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+0.5*w, y+0.8*h, x+0.8*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+0.5*w, y+0.2*h, x+0.2*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+0.5*w, y+0.8*h, x+0.2*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+0.5*w, y+0.2*h, x+0.8*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+0.5*w, y+0.8*h, x+0.8*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+0.5*w, y+0.2*h, x+0.2*w, y+0.5*h), st_tau)
+#c.stroke(path.line(x+0.5*w, y+0.8*h, x+0.2*w, y+0.5*h), st_tau)
+c.stroke(path.circle(x+0.5*w, y+0.5*h, 0.2*w), st_tau)
 
-c.stroke(path.line(x+0.0*w, y+0.5*h, x+0.2*w, y+0.5*h), st_tau)
-c.stroke(path.line(x+0.8*w, y+0.5*h, x+1.0*w, y+0.5*h), st_tau)
+c.stroke(path.line(x+0.0*w, y+0.5*h, x+0.3*w, y+0.5*h), st_tau)
+c.stroke(path.line(x+0.7*w, y+0.5*h, x+1.0*w, y+0.5*h), st_tau)
 
 
 y -= 1.2*h
