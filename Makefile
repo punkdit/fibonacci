@@ -1,7 +1,7 @@
 
 
-out2: fib2
-	open fib2.pdf 
+#out2: fib2
+#	open fib2.pdf 
 
 fib2: fib2.tex refs2.bib
 	pdflatex fib2.tex

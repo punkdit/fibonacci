@@ -57,8 +57,8 @@ x, y = 0., 0.
 dx = 1.2*w
 
 
-st_tau = [style.linewidth.Thick, green, style.linecap.round]
-st_vac = [style.linewidth.thick, green]+st_dotted
+st_tau = [style.linewidth.Thick, red, style.linecap.round]
+st_vac = [style.linewidth.thick, red]+st_dotted
 
 def frame():
     extra = [style.linewidth.thick]
@@ -72,11 +72,11 @@ c = canvas.canvas()
 
 frame()
 
-c.stroke(path.line(x, y+0.3*h, x+w, y+0.4*h), st_tau)
-c.stroke(path.line(x, y+0.7*h, x+w, y+0.8*h), st_tau)
+c.stroke(path.line(x, y+0.3*h, x+w, y+0.3*h), st_tau)
+c.stroke(path.line(x, y+0.7*h, x+w, y+0.7*h), st_tau)
 
 #c.stroke(path.line(x+0.3*w, y+0.05*h, x+0.4*w, y+0.35*h), st_vac)
-c.stroke(path.line(x+0.7*w, y+0.4*h, x+0.6*w, y+0.75*h), st_vac)
+c.stroke(path.line(x+0.5*w, y+0.3*h, x+0.5*w, y+0.7*h), st_vac)
 
 x += 1.1*w
 c.text(x, y+0.5*h, r"$= \phi^{-1}$", west)
@@ -171,18 +171,18 @@ x, y = 0., 0.
 frame()
 
 for i in range(3):
-    a = 0.1*i+0.2
-    c.stroke(path.line(x, y+a*h, x+w, y+(a+0.1)*h), st_tau)
+    a = 0.1*i+0.3
+    c.stroke(path.line(x, y+a*h, x+w, y+(a+0.0)*h), st_tau)
 
 
 dx = 0.2*w
 for i in range(3, 6):
-    a = 0.1*i+0.25
-    c.stroke(path.line(x+0.18*w+dx, y+a*h, x+0.20*w+dx, y+(a+0.01)*h), st_tau)
+    a = 0.1*i+0.3
+    c.stroke(path.line(x+0.18*w+dx, y+a*h, x+0.20*w+dx, y+(a+0.00)*h), st_tau)
 
 c.fill(path.rect(x+0.2*w+dx, y, x+0.25*w+dx, y+h), [white])
 
-c.text(x+0.2*w+dx, y+0.5*h, r"$\Big\} k$", west)
+c.text(x+0.2*w+dx, y+0.55*h, r"$\Big\} k$", west)
 
 
 x += 1.1*w
