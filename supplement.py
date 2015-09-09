@@ -194,7 +194,7 @@ frame()
 
 c.stroke(path.line(x, y+0.5*h, x+w, y+0.5*h), st_vac)
 
-x += 1.2*w
+x += 1.1*w
 c.text(x, y+0.5*h, r"$+ f_k$", west)
 
 x += 0.5*w
@@ -205,6 +205,203 @@ c.stroke(path.line(x, y+0.5*h, x+w, y+0.5*h), st_tau)
 
 c.writePDFfile("pic-kfold.pdf")
 
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+c = canvas.canvas()
+
+x, y = 0., 0.
+dx = 1.0
+dy = 1.0
+
+
+#        90
+#         ^
+#         |
+#         |
+# 180<--- . ----> 0
+#         |
+#         |
+#         v
+#       -90
+#
+# Arcs go anti-clockwise
+#
+
+d = 2.4
+
+r = 0.2*d
+r2 = 2**0.5*r
+
+c.stroke(path.path(path.arc(x+0.5*d, y+r2, r, -135, -45)), st_tau)
+c.stroke(path.path(path.arc(x+0.5*d, y-r2, r, +45, +135)), st_tau)
+c.stroke(path.line(x+0.5*d, y-r2+r, x+0.5*d, y+r2-r), st_vac)
+
+x += 1.0*d
+c.text(x, y-0.1*d, "$= \phi^{-1}$", south)
+
+x += 0.5*d
+
+c.stroke(path.path(path.arc(x-r2, y+0.0*d, r, -45, +45)), st_tau)
+c.stroke(path.path(path.arc(x+r2, y+0.0*d, r, +135, -135)), st_tau)
+c.stroke(path.line(x-r2+r, y+0.0*d, x+r2-r, y+0.0*d), st_vac)
+
+x += 0.5*d
+c.text(x, y-0.1*d, r"$+ \phi^{-\frac{1}{2}}$", south)
+
+x += 0.5*d
+
+c.stroke(path.path(path.arc(x-r2, y+0.0*d, r, -45, +45)), st_tau)
+c.stroke(path.path(path.arc(x+r2, y+0.0*d, r, +135, -135)), st_tau)
+c.stroke(path.line(x-r2+r, y+0.0*d, x+r2-r, y+0.0*d), st_tau)
+
+
+x = 0.
+y -= 0.5*d
+
+c.stroke(path.path(path.arc(x+0.5*d, y+r2, r, -135, -45)), st_tau)
+c.stroke(path.path(path.arc(x+0.5*d, y-r2, r, +45, +135)), st_tau)
+c.stroke(path.line(x+0.5*d, y-r2+r, x+0.5*d, y+r2-r), st_tau)
+
+x += 1.0*d
+c.text(x, y-0.1*d, r"$= \phi^{-\frac{1}{2}}$", south)
+
+x += 0.5*d
+
+c.stroke(path.path(path.arc(x-r2, y+0.0*d, r, -45, +45)), st_tau)
+c.stroke(path.path(path.arc(x+r2, y+0.0*d, r, +135, -135)), st_tau)
+c.stroke(path.line(x-r2+r, y+0.0*d, x+r2-r, y+0.0*d), st_vac)
+
+x += 0.5*d
+c.text(x, y-0.1*d, "$- \phi^{-1}$", south)
+
+x += 0.5*d
+
+c.stroke(path.path(path.arc(x-r2, y+0.0*d, r, -45, +45)), st_tau)
+c.stroke(path.path(path.arc(x+r2, y+0.0*d, r, +135, -135)), st_tau)
+c.stroke(path.line(x-r2+r, y+0.0*d, x+r2-r, y+0.0*d), st_tau)
+
+
+c.writePDFfile("pic-skein1.pdf")
+
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# R-moves
+
+c = canvas.canvas()
+
+x, y = 0., 0.
+d = 0.6
+
+r = 0.4*d
+r12 = r/(2**0.5)
+
+c.stroke(path.path(path.arc(x, y+1.0*d, r, +135, +45)), st_tau)
+c.stroke(path.line(x+r12, y+1.0*d+r12, x+r12-1.5*r, y+1.0*d+r12+1.5*r), st_tau)
+c.fill(path.circle(x, y+1.0*d+(2**0.5)*r, 0.08), [white])
+c.stroke(path.line(x-r12, y+1.0*d+r12, x-r12+1.5*r, y+1.0*d+r12+1.5*r), st_tau)
+c.stroke(path.line(x, y-0.0*d, x, y+1.0*d-r), st_vac)
+
+x += 1.8*d
+c.text(x, y+0.8*d, r"$= R_{\mathbb{I}^{\tau\tau}}$", south)
+
+x += 1.6*d
+c.stroke(path.path(path.arc(x, y+1.8*d, r, -155, -25)), st_tau)
+c.stroke(path.line(x, y+0.3*d, x, y+1.8*d-r), st_vac)
+
+c.text(x+0.7*d, y+0.6*d, r",", south)
+
+x += 2.4*d
+
+c.stroke(path.path(path.arc(x, y+1.0*d, r, +135, +45)), st_tau)
+c.stroke(path.line(x+r12, y+1.0*d+r12, x+r12-1.5*r, y+1.0*d+r12+1.5*r), st_tau)
+c.fill(path.circle(x, y+1.0*d+(2**0.5)*r, 0.08), [white])
+c.stroke(path.line(x-r12, y+1.0*d+r12, x-r12+1.5*r, y+1.0*d+r12+1.5*r), st_tau)
+c.stroke(path.line(x, y-0.0*d, x, y+1.0*d-r), st_tau)
+
+x += 1.8*d
+c.text(x, y+0.8*d, r"$= R_{\tau}^{\tau\tau}$", south)
+
+x += 1.6*d
+c.stroke(path.path(path.arc(x, y+1.8*d, r, -155, -25)), st_tau)
+c.stroke(path.line(x, y+0.3*d, x, y+1.8*d-r), st_tau)
+
+
+c.writePDFfile("pic-skein2.pdf")
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+c = canvas.canvas()
+
+x, y = 0., 0.
+
+d = 0.6
+r = 0.4*d
+
+def bubble(st_1, st_2, st_3):
+    c.stroke(path.line(x, y-3*r, x, y-r), st_1)
+    c.stroke(path.circle(x, y, r), st_2)
+    c.stroke(path.line(x, y+3*r, x, y+r), st_3)
+
+
+bubble(st_vac, st_tau, st_vac)
+x += 0.7*d
+c.text(x, y-0.7*r, "$= \phi$", southwest)
+x += 1.6*d
+c.stroke(path.line(x, y-3*r, x, y+3*r), st_vac)
+c.text(x+0.7*d, y-0.7*r, r",", southwest)
+
+
+x += 2.0*d
+
+bubble(st_tau, st_tau, st_tau)
+x += 0.7*d
+c.text(x, y-0.7*r, r"$= \phi^{\frac{1}{2}}$", southwest)
+x += 1.7*d
+c.stroke(path.line(x, y-3*r, x, y+3*r), st_tau)
+c.text(x+0.7*d, y-0.7*r, r",", southwest)
+
+
+x += 2.0*d
+
+bubble(st_tau, st_tau, st_vac)
+x += 0.7*d
+c.text(x, y-0.5*r, "$=$", southwest)
+x += 1.4*d
+bubble(st_vac, st_tau, st_tau)
+x += 0.7*d
+c.text(x, y-0.5*r, "$=0.$", southwest)
+
+
+
+c.writePDFfile("pic-bubble.pdf")
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+c = canvas.canvas()
+
+x, y = 0., 0.
+
+
+
+
+#c.writePDFfile("pic-skein3.pdf")
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+c = canvas.canvas()
+
+x, y = 0., 0.
+
+
+
+
+#c.writePDFfile("pic-skein3.pdf")
 
 
 
