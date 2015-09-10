@@ -305,7 +305,7 @@ c.stroke(path.line(x-r12, y+1.0*d+r12, x-r12+1.5*r, y+1.0*d+r12+1.5*r), st_tau)
 c.stroke(path.line(x, y-0.0*d, x, y+1.0*d-r), st_vac)
 
 x += 1.8*d
-c.text(x, y+0.8*d, r"$= R_{\mathbb{I}^{\tau\tau}}$", south)
+c.text(x, y+0.8*d, r"$= R_{\mathbb{I}}^{\tau\tau}$", south)
 
 x += 1.6*d
 c.stroke(path.path(path.arc(x, y+1.8*d, r, -155, -25)), st_tau)
