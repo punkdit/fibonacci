@@ -10,6 +10,21 @@ from pyx import canvas, path, deco, trafo, style, text, color, unit, epsfile, de
 
 from PIL import Image
 
+north = [text.halign.boxcenter, text.valign.top]
+northeast = [text.halign.boxright, text.valign.top]
+northwest = [text.halign.boxleft, text.valign.top]
+south = [text.halign.boxcenter, text.valign.bottom]
+southeast = [text.halign.boxright, text.valign.bottom]
+southwest = [text.halign.boxleft, text.valign.bottom]
+east = [text.halign.boxright, text.valign.middle]
+west = [text.halign.boxleft, text.valign.middle]
+center = [text.halign.boxcenter, text.valign.middle]
+
+
+st_dashed = [style.linestyle.dashed]
+st_dotted = [style.linestyle.dotted]
+
+
 
 text.set(mode="latex")
 text.set(docopt="12pt")
@@ -42,6 +57,8 @@ light_shade = rgb(0.85, 0.65, 0.1)
 #shade = brown
 #shade = orange
 shade = grey
+
+
 
 
 st_tau = [style.linewidth.Thick, red, style.linecap.round]
@@ -124,65 +141,137 @@ class Tracer(object):
     def dopath(self, *args, **kw):
         dopath(self.ps, *args, **kw)
 
-c = canvas.canvas()
+
+
+
+stack = []
+def push():
+    global c
+    stack.append(c)
+    c = canvas.canvas()
+
+def pop(*args):
+    global c
+    c1 = stack.pop()
+    c1.insert(c, *args)
+    c = c1
 
 r = 0.5
 w = 2.0
 
-ellipse(w, 0., 1.0*r, 1.8*r)
+c = canvas.canvas()
 
-tracer = Tracer(w, r, 0.4*r, -0.8*pi)
-tracer(21.5, 0.4*r)
-tracer(8, 2.2*r)
-tracer(15.5, 0.6*r)
-tracer(5, 1.7*r)
-tracer(22, 0.3*r)
-#tracer(2., 2*r)
-tracer(5.1, -1*r)
-tracer(17.5, -0.3*r)
-tracer(10.4, -1.28*r)
+push()
 
-tracer.dopath(closepath=True)
+for count in range(2):
+    push()
+    
+    ellipse(w, 0., 1.0*r, 1.8*r)
+    
+    tracer = Tracer(w, r, 0.4*r, -0.8*pi)
+    tracer(21.5, 0.4*r)
+    tracer(8, 2.2*r)
+    tracer(15.5, 0.6*r)
+    tracer(5, 1.7*r)
+    tracer(22, 0.3*r)
+    #tracer(2., 2*r)
+    tracer(5.1, -1*r)
+    tracer(17.5, -0.3*r)
+    tracer(10.4, -1.28*r)
+    
+    if count==1:
+        tracer.dopath(closepath=True)
+    
+    if count==0:
+        c.stroke(path.line(0., r, w, r), [style.linewidth.thick, red])
+    
+    N = 60
+    ps1, ps2 = [], []
+    
+    x = 0.
+    y = 1.
+    dx = 1./(N-1)
+    
+    dys = [0.]*N
+    N0 = 18
+    N1 = 30
+    N2 = 42
+    N01 = (N0+N1)//2
+    N12 = (N1+N2)//2
+    
+    for i in range(N0):
+        x, y = 1.*i/(N-1), 1.
+        ps1.append((w*x, 0.5*r*y-0.5*r))
+        ps2.append((w*x, -0.5*r*y-0.5*r))
+    
+    for i in range(N0, N2):
+        x = 1.*i/(N-1)
+        t = 1.*(i-N0)/((N2-N0)-1)
+        theta = 2*pi*t
+        y = cos(theta)
+        ps1.append((w*x, 0.5*r*y-0.5*r))
+        ps2.append((w*x, -0.5*r*y-0.5*r))
+    
+    
+    for i in range(N2, N):
+        x, y = 1.*i/(N-1), 1.
+        ps1.append((w*x, 0.5*r*y-0.5*r))
+        ps2.append((w*x, -0.5*r*y-0.5*r))
+    
+    
+    if count==0:
+        for ps in (ps1[:N12-1], ps1[N12+1:]):
+            dopath(ps, [style.linewidth.thick, red], closepath=False)
+        
+        for ps in (ps2[:N01-1], ps2[N01+1:]):
+            dopath(ps, [style.linewidth.thick, red], closepath=False)
+    
+    ellipse(0., 0.,    1.0*r, 1.8*r, [white], fill=True)
+    ellipse(0., 0.,    1.0*r, 1.8*r)
 
-c.stroke(path.line(0., r, w, r), [style.linewidth.thick, red])
+    if count==1:
+        ellipse(0., 0.5*r, 0.7*r, 1.0*r)
+    
+    anyon(0., r)
+    anyon(0., 0.)
+    anyon(0., -r)
+    
+    anyon(w, r)
+    anyon(w, 0.)
+    anyon(w, -r)
 
-N = 60
-ps1, ps2 = [], []
-for i in range(N):
-    t = 1.*i/(N-1)
-    theta = 2*pi*t
-    x = (t-0.5)**3 * (0.5 / (0.5**3)) + 0.5
-    #print t, x
-    x *= w
-    y = 0.5*r*cos(theta)
-    ps1.append((x, y-0.5*r))
-    ps2.append((x, -y-0.5*r))
-
-for ps in (ps1[:3*N/4-1], ps1[3*N/4+1:]):
-    dopath(ps, [style.linewidth.thick, red], closepath=False)
-
-for ps in (ps2[:N/4-1], ps2[N/4+1:]):
-    dopath(ps, [style.linewidth.thick, red], closepath=False)
-
-ellipse(0., 0.,    1.0*r, 1.8*r, [white], fill=True)
-ellipse(0., 0.,    1.0*r, 1.8*r)
-ellipse(0., 0.5*r, 0.7*r, 1.0*r)
-
-anyon(0., r)
-anyon(0., 0.)
-anyon(0., -r)
-
-anyon(w, r)
-anyon(w, 0.)
-anyon(w, -r)
+    if count==0:
+        pop()
+    else:
+        pop([trafo.translate(0., 8*r)])
 
 
+pop([trafo.rotate(-90)])
 
-c1 = canvas.canvas()
 
-c1.insert(c, [trafo.rotate(-90)])
+x = -3.0*r
+y = 0.0*r
 
-c = c1
+c.text(x, y, r"$\sigma_1^{2}\ket{\psi}$", center)
+
+y -= 4.0*r
+c.text(x, y, r"$\ket{\psi}$", center)
+c.stroke(path.line(x, y+r, x, -r), [deco.earrow(size=0.2)])
+c.stroke(path.line(x-0.1, y+r, x+0.1, y+r))
+ 
+
+x = +5.0*r
+y = 0.0*r
+
+c.text(x, y, r"$D_3$", center)
+
+c.text(x-0.5*r, y-2.0*r, r"$f$", east)
+
+y -= 4.0*r
+c.text(x, y, r"$D_3$", center)
+c.stroke(path.line(x, -r, x, y+r), [deco.earrow(size=0.2)])
+ 
+
 
 c.writePDFfile("pic-interaction.pdf")
 
@@ -244,9 +333,9 @@ xs = [0.0, 0.4, 1.0, 1.8]
 for x in xs:
     hole(x, 0, 0.1)
 
-dy = 0.5
+dy = 0.3
 
-y = -1.4*dy
+y = -2.0*dy
 x0, x1, x2, x3 = xs
 x01 = (x0+x1)/2.0
 x012 = (x0+x1+x2)/3.0
@@ -289,7 +378,7 @@ for x in xs:
     hole(x, 0, 0.1)
 
 
-y = -1.4*dy
+y = -2.0*dy
 x0, x1, x2, x3 = xs
 x01 = (x0+x1)/2.0
 x23 = (x2+x3)/2.0
