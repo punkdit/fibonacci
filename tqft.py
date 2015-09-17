@@ -60,6 +60,7 @@ shade = grey
 
 
 
+g_arrow = [green, style.linewidth.THick]
 
 st_tau = [style.linewidth.Thick, red, style.linecap.round]
 #st_vac = [style.linewidth.thick, red]+st_dotted
@@ -73,16 +74,16 @@ def anyon(x, y, r=0.07):
 
 N = 20
 
-def dopath(ps, extra=[], fill=False, closepath=True):
+def dopath(ps, extra=[], fill=[], closepath=True, smooth=0.3):
     ps = [path.moveto(*ps[0])]+[path.lineto(*p) for p in ps[1:]]
     if closepath:
         ps.append(path.closepath())
     p = path.path(*ps)
     if fill:
-        c.fill(p, [deformer.smoothed(0.3)]+extra+[color.rgb.white])
-    c.stroke(p, [deformer.smoothed(0.3)]+extra)
+        c.fill(p, [deformer.smoothed(smooth)]+extra+fill)
+    c.stroke(p, [deformer.smoothed(smooth)]+extra)
 
-def ellipse(x0, y0, rx, ry, extra=[], fill=False):
+def ellipse(x0, y0, rx, ry, extra=[], fill=[]):
     ps = []
     for i in range(N):
         theta = 2*pi*i / (N-1)
@@ -90,9 +91,224 @@ def ellipse(x0, y0, rx, ry, extra=[], fill=False):
     dopath(ps, extra, fill)
 
 
+
+stack = []
+def push():
+    global c
+    stack.append(c)
+    c = canvas.canvas()
+
+def pop(*args):
+    global c
+    c1 = stack.pop()
+    c1.insert(c, *args)
+    c = c1
+
+
+
 #############################################################################
 #
 #
+
+w = 1.5
+h = 1.5
+
+c = canvas.canvas()
+
+
+x = 0.
+y = 0.
+m = 0.1*w
+m0 = m/2
+r = 0.3*w
+
+c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
+c.stroke(path.rect(x, y, w, h))
+
+p = path.path(
+    path.moveto(x+r, y-m), 
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x-m, y+r), 
+)
+c.stroke(p, g_arrow+[trafo.scale(1.0, 1.3, x=x, y=y-m)])
+
+c.stroke(path.line(x+0.5*w, y-m, x+0.5*w, y+h+m), g_arrow)
+
+r = 0.2*w
+p = path.path(
+    path.moveto(x+w+m, y+0.5*h+r), 
+    path.lineto(x+w, y+0.5*h+r), 
+    path.arc(x+w, y+0.5*h, r, 90, 270),
+    path.lineto(x+w+m, y+0.5*h-r), 
+)
+c.stroke(p, g_arrow+[trafo.scale(1.4, 1.0, x=x+1.*w+m, y=y+0.5*h)])
+
+
+x += w + 6*m
+
+c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
+c.stroke(path.rect(x, y, w, h))
+
+r = 0.2*w
+p = path.path(
+    path.moveto(x+0.4*w, y+1.0*h+m), 
+    path.lineto(x+0.4*w, y+1.0*h), 
+    path.arc(x+0.6*w, y+1.0*h, r, 180, 0),
+    path.lineto(x+0.8*w, y+1.0*h+m), 
+)
+c.stroke(p, g_arrow+[trafo.scale(1.0, 1.5, x=x+0.3*w, y=y+1.0*h+m)])
+
+c.stroke(path.line(x+w+m, y+0.5*h, x+w-1.6*r, y+0.5*h), g_arrow) #+[deco.earrow(size=0.2)])
+
+r = 0.7*h
+p = path.path(
+    path.moveto(x+r, y-m),
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x-m, y+r),
+)
+c.stroke(p, g_arrow)
+
+r = 0.3*h
+p = path.path(
+    path.moveto(x+r, y-m),
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x-m, y+r),
+)
+c.stroke(p, g_arrow)
+
+c.writePDFfile("pic-cells.pdf")
+
+
+
+#############################################################################
+#
+#
+
+
+class Turtle(object):
+    def __init__(self, x, y, theta):
+        self.x = x
+        self.y = y
+        self.theta = theta
+        self.ps = [(x, y)]
+
+    def fwd(self, d):
+        self.x += d*sin(self.theta)
+        self.y += d*cos(self.theta)
+        self.ps.append((self.x, self.y))
+        return self
+
+    def reverse(self, d):
+        self.fwd(-d)
+        return self
+
+    def right(self, dtheta, r=0.):
+        theta = self.theta
+        self.theta += dtheta
+        if r==0.:
+            return
+        N = 20
+        x, y = self.x, self.y
+        x0 = x - r*sin(theta-pi/2)
+        y0 = y - r*cos(theta-pi/2)
+        for i in range(N):
+            theta += (1./(N))*dtheta
+            x = x0 - r*sin(theta+pi/2)
+            y = y0 - r*cos(theta+pi/2)
+            self.ps.append((x, y))
+        self.x = x
+        self.y = y
+        return self
+
+    def left(self, dtheta, r=0.):
+        self.right(-dtheta, -r)
+        return self
+
+    def stroke(self, extra=[], fill=[], closepath=False):
+        dopath(self.ps, extra, fill, closepath, smooth=0.)
+        return self
+
+
+w = 1.0
+h = 1.0
+r = 0.3*h
+
+c = canvas.canvas()
+
+x = 0.
+y = 0.
+
+#c.fill(path.circle(0, 0, 0.1))
+#c.fill(path.circle(-w, 0, 0.1))
+
+g = g_arrow+[deco.earrow(size=0.2)]
+a = st_tau+[deco.earrow(size=0.2)]
+Turtle(x, y, -pi/2).fwd(w).left(pi, r).fwd(w).stroke(g)
+Turtle(x-0.5, y, pi).fwd(2*r).stroke(a)
+anyon(x-0.5*w, y)
+c.text(x-2.2*w, y-r, r"$-2$", east)
+
+Turtle(x+5*w, y, -pi/2).fwd(3*w).stroke(g)
+Turtle(x+4.5*w, y, 7*pi/6).right(2./3*pi, 1.1*w).stroke(a)
+anyon(x+4.5*w, y)
+
+y -= 4*r
+Turtle(x, y, -pi/2).fwd(w).left(pi, 2*r).fwd(w).left(pi, r).fwd(w).stroke(g)
+Turtle(x-0.5, y, pi).fwd(2*r).stroke(a)
+anyon(x-0.5*w, y)
+c.text(x-2.2*w, y-2*r, r"$-4$", east)
+
+Turtle(x+5*w, y, -pi/2).fwd(3*w).stroke(g)
+Turtle(x+4.5*w, y, 5*pi/4)\
+    .right(0.35*pi, 2.2*w)\
+    .right(0.20*pi, 0.8*w)\
+    .right(0.20*pi, 0.5*w)\
+    .right(pi, 0.45*w).stroke(a)
+anyon(x+4.5*w, y)
+
+y -= 8*r
+Turtle(x, y, -pi/2).fwd(w).right(pi, r).fwd(w).right(pi, 2*r).fwd(w).stroke(g)
+Turtle(x-0.5, y, pi).fwd(2*r).stroke(a)
+anyon(x-0.5*w, y)
+c.text(x-2.2*w, y, r"$+4$", east)
+
+Turtle(x+5*w, y, -pi/2).fwd(3*w).stroke(g)
+Turtle(x+4.5*w, y, pi)\
+    .left(pi, 0.45*w)\
+    .left(0.20*pi, 0.5*w)\
+    .left(0.20*pi, 0.8*w)\
+    .left(0.35*pi, 2.2*w)\
+.stroke(a)
+anyon(x+4.5*w, y)
+
+y -= 6*r
+Turtle(x, y, -pi/2).fwd(w).right(pi, r).fwd(w).right(pi, 3*r).fwd(w).right(pi, r).fwd(w).stroke(g)
+Turtle(x-0.5, y, pi).fwd(2*r).stroke(a)
+anyon(x-0.5*w, y)
+c.text(x-2.2*w, y-r, r"$+6$", east)
+
+Turtle(x+5*w, y, -pi/2).fwd(3*w).stroke(g)
+Turtle(x+4.5*w, y, pi)\
+    .left(1.35*pi, 0.45*w)\
+    .left(0.30*pi, 3.4*w)\
+    .left(1.35*pi, 0.45*w)\
+.stroke(a)
+anyon(x+4.5*w, y)
+
+
+c.writePDFfile("pic-paperclip.pdf")
+
+
+sys.exit(0)
+
+
+#############################################################################
+#
+#
+
 
 class Tracer(object):
     def __init__(self, x0, y0, r, theta):
@@ -142,20 +358,6 @@ class Tracer(object):
         dopath(self.ps, *args, **kw)
 
 
-
-
-stack = []
-def push():
-    global c
-    stack.append(c)
-    c = canvas.canvas()
-
-def pop(*args):
-    global c
-    c1 = stack.pop()
-    c1.insert(c, *args)
-    c = c1
-
 r = 0.5
 w = 2.0
 
@@ -166,7 +368,7 @@ push()
 for count in range(2):
     push()
     
-    ellipse(w, 0., 1.0*r, 1.8*r)
+    ellipse(w, 0., 1.0*r, 1.8*r, fill=[shade])
     
     tracer = Tracer(w, r, 0.4*r, -0.8*pi)
     tracer(21.5, 0.4*r)
@@ -226,7 +428,7 @@ for count in range(2):
         for ps in (ps2[:N01-1], ps2[N01+1:]):
             dopath(ps, [style.linewidth.thick, red], closepath=False)
     
-    ellipse(0., 0.,    1.0*r, 1.8*r, [white], fill=True)
+    ellipse(0., 0.,    1.0*r, 1.8*r, [white], fill=[shade])
     ellipse(0., 0.,    1.0*r, 1.8*r)
 
     if count==1:
@@ -409,7 +611,6 @@ t = trafo.translate(-0.8, 0.)
 ellipse(-0.5, 0., 0.5, 2.0, 2., shade, [t])
 
 #g_arrow = [green, deco.earrow(size=0.1)]
-g_arrow = [green, style.linewidth.THick]
 c.stroke(path.line(-2., 0., 0., 0.), [t]+g_arrow) 
 
 
