@@ -31,6 +31,7 @@
 
 \newcommand{\Eref}[1]{Eq.~(\ref{#1})}
 \newcommand{\Fref}[1]{Fig.~\ref{#1}}
+\newcommand{\Aref}[1]{Appendix~\ref{#1}}
 
 \newcommand{\e}{\mathrm{e}}
 \newcommand{\vac}{\mathbb{I}}
@@ -133,7 +134,7 @@ expected excitations of the $\nu=\frac{12}{5}$ fractional quantum Hall
 states~\cite{Slingerland2001}, and can be realized in several spin 
 models~\cite{Levin2005, Bonesteel2012, Kapit2013, Palumbo2014} and composite 
 heterostructures~\cite{Mong2014}.
-Any of these kinds of physical systems could be used to perform universal topological quantum computation \cggb{citations?}. Natural sources of noise from thermal fluctuations or external perturbations will be suppressed by the energy gap but must still be corrected to allow for scalable computation.
+Any of these kinds of physical systems could be used to perform universal topological quantum computation \cggb{citations?}, and can be modelled by our simulations. Natural sources of noise from thermal fluctuations or external perturbations will be suppressed by the energy gap but must still be corrected to allow for scalable computation.
 
 We use a flexible phenomenological model of dynamics and thermal 
 noise to describe a system with Fibonacci anyon excitations. Within 
@@ -141,10 +142,8 @@ this model, we apply existing general topological error-correction protocols, an
 simulate the successful preservation of quantum information encoded in topological 
 degrees of freedom. Topological quantum computation protocols using nonabelian anyons 
 typically implicitly assume the existence of an error-correction protocol to 
-correct for diffusion or unwanted creation of anyons. Our results 
-are the first explicit demonstration that such a scheme will 
-be successful when applied to a universal topological quantum computer.
-Although it is not surprising that the standard topological error-correction techniques we use successfully correct errors in universal nonabelian anyon systems, the ability to simulate the precise details of how and when these techniques succeed on finite system sizes has not previously been available. \cggb{Would a comment about the importance of locality in topological codes (compared to abstract QEC) maybe help Ref.~B's confusion about why we don't use ``conventional'' QEC? I'm not totally sure what he wants.}
+correct for diffusion or unwanted creation of anyons. 
+The ability to simulate the details of how and when these techniques succeed on finite system sizes has not previously been available, and so our results are the first explicit demonstration that such a scheme will be successful when applied to a universal topological quantum computer.
 
 
 %------------------------------------------------------------------------------------------------------------%
@@ -232,8 +231,6 @@ which $F$-moves occur. A clockwise braiding process, or \emph{half-twist}, is ef
 \includegraphics[]{pic-rmove.pdf}
 \end{align}
 
-\cggb{I don't know how to address Ref.~B's comment here.}
-
 These diagrams can be composed (glued)
 by regarding the outermost observable
 as a charge in another diagram.
@@ -294,21 +291,19 @@ a homologically nontrivial region of the manifold.
 These correspond to processes in which anyonic charge is transported around a non-trivial loop before 
 annihilating to vacuum.
 
-Our error-correction algorithm is
-based on a hierarchical clustering algorithm~\cite{Hastie2009, Wootton2015b},
-and follows a similar strategy to the hard-decision renormalization group decoder~\cite{Bravyi2011}. 
-The decoder proceeds by measuring the charge on 
+Our error-correction algorithm begins by measuring the charge on 
 each tile of the lattice, producing a \emph{syndrome} 
-of occupied sites. Following this, it forms clusters of nearby occupied tiles and 
-measures the total charge within each cluster.
-Clusters with trivial charge are discarded, and
-the rest are joined (agglomeratively~\cite{Hastie2009})
-at linearly increasing length scales. This iterative process concludes when 
+of occupied sites. Following this, it joins nearby occupied tiles into clusters, and measures the total charge within each cluster.
+Clusters with trivial charge are discarded, and then nearby clusters are merged (agglomeratively~\cite{Hastie2009}).
+The merging process iterates at linearly increasing length scales, at each step measuring total charge and discarding trivial clusters, before concluding when 
 there is at most a single cluster remaining (see \Fref{f:decode}).
+This decoder is based on a hierarchical clustering algorithm~\cite{Hastie2009, Wootton2015b},
+and follows a similar strategy to the hard-decision renormalization group decoder~\cite{Bravyi2011}. 
 
 Note that unlike the case of abelian anyons, the decoder
 cannot determine the charge of each cluster given only the syndrome information (as in \cite{Bravyi2011}),
-and so will query the system by measuring these charges.
+and so must repeatedly physically query the system to measure these charges.
+This is also in contrast to abstract quantum codes, where syndrome extraction can typically be performed in one step.
 Our simulation proceeds in this way as a dialogue between decoder
 and system, terminating when either the decoder itself terminates or 
 when it performs a homologically nontrivial operation, thereby altering the 
@@ -458,7 +453,7 @@ certainty as the system size increases at $t_{\mathrm{sim}}\simeq 0.125 \pm 0.00
 	\includegraphics[width=\columnwidth]{anyons-kyle.pdf}
 \caption{The decoder failure rate (a lower bound on the logical error probability) is shown as a function of simulation time for linear lattice sizes from $L=16$ to $128$. 
 This provides strong evidence of threshold behavior at a critical memory lifetime of $t_{\mathrm{sim}}^*\simeq 0.125$. 
-The existence of such a threshold implies that the Fibonacci anyon code simulated here is able to perfectly reliably store quantum information for times less than $t_{\mathrm{sim}}^*$ in the $L\to \infty$ limit. \cggb{Is this hedged enough? Maybe replace ``implies'' with ``would imply''?}}
+The existence of such a threshold implies that the Fibonacci anyon code simulated here is able to perfectly reliably store quantum information for times less than $t_{\mathrm{sim}}^*$ in the $L\to \infty$ limit.}
 \label{f:threshold}
 \end{center}
 \vspace{-10pt}
@@ -472,12 +467,10 @@ The connection between the percolation threshold and the error-correction thresh
 is not well understood in general~\cite{Hastings2014}, though it is clear 
 that our threshold estimate will be a lower bound for 
 the true threshold that may be found if all events 
-(including those that have percolated) were simulated. 
-However, calculations of homologically nontrivial operations for small lattice sizes suggest that almost all such 
-processes will indeed either cause a logical error or a complete failure to return to the codespace.
-\cggb{Some kind of graph here to address Ref.~A's comment 3?}
-As such we expect that neglecting the full simulation of 
+(including those that have percolated) were simulated.
+However, naively computing the effect of the simplest possible homologically nontrivial operations consistently yields either a logical error or a complete failure to return to the codespace (see \Aref{s:homnontrivial}). As such it seems reasonable to suggest that neglecting the full simulation of 
 these events does not significantly affect our observed threshold value.
+
 
 %------------------------------------------------------------------------------------------------------------%
 \paragraph{Discussion.}
@@ -653,7 +646,7 @@ Paperclip algorithm:
 \includegraphics[]{pic-paperclip.pdf}
 \end{center}
 
-\section{Computation of homologically non-trivial operators}
+\section{Computation of homologically non-trivial operators}\label{s:homnontrivial}
 
 Specializing to the Fibonacci case,
 we write the non-trivial $F$-moves as the following
