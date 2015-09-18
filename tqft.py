@@ -182,6 +182,32 @@ c.stroke(p, g_arrow)
 c.writePDFfile("pic-cells.pdf")
 
 
+c = canvas.canvas()
+
+
+x = 0.
+y = 0.
+m = 0.1*w
+m0 = m/2
+r = 0.3*w
+
+
+c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
+c.stroke(path.rect(x, y, w, h))
+
+c.stroke(path.line(x+1.3*w, y+0.6*h, x+w+m, y+0.6*h), g_arrow+st_dotted)
+c.stroke(path.line(x+w+m, y+0.6*h, x+0.5*w, y+0.6*h), g_arrow) #+[deco.earrow(size=0.2)])
+c.stroke(path.line(x+w+m, y+0.6*h, x+0.6*w, y+0.6*h), g_arrow+[deco.earrow(size=0.2)])
+c.stroke(path.line(x+0.5*w, y+0.6*h, x+0.2*w, y+0.6*h), g_arrow+st_dotted)
+c.stroke(path.line(x+w-m, y+0.6*h, x+w-m, 0.2*h), st_tau+[deco.earrow(size=0.2)])
+anyon(x+w-m, y+0.6*h)
+
+c.stroke(path.line(x+1.3*w, y+0.2*h, x+w+m, y+0.2*h), g_arrow+st_dotted)
+c.stroke(path.line(x+w+m, y+0.2*h, x+0.5*w, y+0.2*h), g_arrow) #+[deco.earrow(size=0.2)])
+c.stroke(path.line(x+w+m, y+0.2*h, x+0.6*w, y+0.2*h), g_arrow)
+c.stroke(path.line(x+0.5*w, y+0.2*h, x+0.2*w, y+0.2*h), g_arrow+st_dotted)
+
+c.writePDFfile("pic-move-anyon.pdf")
 
 #############################################################################
 #

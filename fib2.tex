@@ -641,10 +641,19 @@ two cells are $(())()$ and $()*(()).$
 
 \section{Simulation algorithm}
 
-Paperclip algorithm:
+Transport of an anyon can be decomposed into
+moves between adjacent components of the curve
+diagram,
+\begin{center}
+\includegraphics[]{pic-move-anyon.pdf}
+\end{center}
+This move is (homotopic to) equivalent to one of the following:
 \begin{center}
 \includegraphics[]{pic-paperclip.pdf}
 \end{center}
+which can be distinguished between using the
+winding number. We count the number of right-hand
+turns made on the curve diagram (a left-hand turn counts as $-1$).
 
 \section{Computation of homologically non-trivial operators}\label{s:homnontrivial}
 
