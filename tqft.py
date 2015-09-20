@@ -275,8 +275,9 @@ a = st_tau+[deco.earrow(size=0.2)]
 Turtle(x, y, -pi/2).fwd(w).left(pi, r).fwd(w).stroke(g)
 Turtle(x-0.5, y, pi).fwd(2*r).stroke(a)
 anyon(x-0.5*w, y)
-c.text(x-2.2*w, y-r, r"$-2$", east)
+c.text(x-2.2*w, y-r, r"$-2:$", east)
 
+c.text(x+1.2*w, y, r"$=$", center)
 Turtle(x+5*w, y, -pi/2).fwd(3*w).stroke(g)
 Turtle(x+4.5*w, y, 7*pi/6).right(2./3*pi, 1.1*w).stroke(a)
 anyon(x+4.5*w, y)
@@ -285,8 +286,10 @@ y -= 4*r
 Turtle(x, y, -pi/2).fwd(w).left(pi, 2*r).fwd(w).left(pi, r).fwd(w).stroke(g)
 Turtle(x-0.5, y, pi).fwd(2*r).stroke(a)
 anyon(x-0.5*w, y)
-c.text(x-2.2*w, y-2*r, r"$-4$", east)
+c.text(x-2.2*w, y-2*r, r"$-4:$", east)
 
+y -= 2*r
+c.text(x+1.2*w, y, r"$=$", center)
 Turtle(x+5*w, y, -pi/2).fwd(3*w).stroke(g)
 Turtle(x+4.5*w, y, 5*pi/4)\
     .right(0.35*pi, 2.2*w)\
@@ -295,11 +298,12 @@ Turtle(x+4.5*w, y, 5*pi/4)\
     .right(pi, 0.45*w).stroke(a)
 anyon(x+4.5*w, y)
 
-y -= 8*r
+y -= 6*r
 Turtle(x, y, -pi/2).fwd(w).right(pi, r).fwd(w).right(pi, 2*r).fwd(w).stroke(g)
 Turtle(x-0.5, y, pi).fwd(2*r).stroke(a)
 anyon(x-0.5*w, y)
-c.text(x-2.2*w, y, r"$+4$", east)
+c.text(x-2.2*w, y, r"$+4:$", east)
+c.text(x+1.2*w, y, r"$=$", center)
 
 Turtle(x+5*w, y, -pi/2).fwd(3*w).stroke(g)
 Turtle(x+4.5*w, y, pi)\
@@ -314,7 +318,8 @@ y -= 6*r
 Turtle(x, y, -pi/2).fwd(w).right(pi, r).fwd(w).right(pi, 3*r).fwd(w).right(pi, r).fwd(w).stroke(g)
 Turtle(x-0.5, y, pi).fwd(2*r).stroke(a)
 anyon(x-0.5*w, y)
-c.text(x-2.2*w, y-r, r"$+6$", east)
+c.text(x-2.2*w, y-r, r"$+6:$", east)
+c.text(x+1.2*w, y, r"$=$", center)
 
 Turtle(x+5*w, y, -pi/2).fwd(3*w).stroke(g)
 Turtle(x+4.5*w, y, pi)\

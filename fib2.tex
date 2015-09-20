@@ -612,7 +612,8 @@ connecting the holes:
 \end{center}
 
 Such an embedding $c : [0, 1] \to D$ with $c(0), c(1) \in \partial D$
-and touching all holes in $D_n$ we call a \emph{curve diagram}~\cite{Dehornoy2002}.
+and touching all holes in $D_n$ we call a \emph{curve diagram}~\cite{Dehornoy2002},
+(or just a \emph{curve} when the context is clear).
 
 We can think of braids acting on states in a Schrodinger picture,
 or alternatively, elements of the mapping class group acting on
@@ -632,28 +633,124 @@ until we are back at the original curve $c.$
 
 \section{Combinatorial curve diagrams}
 
-Combinatorial formulation... \cite{Abramsky2007}
+The basic data structure involved in the
+simulation we term a \emph{combinatorial curve
+diagram.}
+For each cell in the lattice,
+we store a combinatorial
+description of the curve intersected with that cell.
+This will be insensitive to any continuous deformation of the interior of the cell,
+but the simulation does not need to track any of these degrees of freedom.
 \begin{center}
 \includegraphics[]{pic-cells.pdf}
 \end{center}
-Reading from the top-left corner, the words for these
-two cells are $(())()$ and $()*(()).$
+We follow essentially the same approach as taken in \cite{Abramsky2007} 
+to describe elements of a Temperley-Leib algebra, but
+with some extra decorations.
+The key idea is to store a \emph{word} for each cell, comprised of
+the letters $<$ and $>$.
+When these brackets are balanced,
+each such word will correspond one-to-one with an intersection
+of a curve in a cell (up to any continuous deformation of the interior of the cell).
+The encoding works as follows.
+Reading in a clockwise direction around the edge of
+the cell from the top-left corner,
+we record our encouters with each piece of curve diagram,
+writing a $<$ for the first encounter, and $>$ for the
+second. We may also encounter a dangling piece of curve
+diagram (the head or the tail), so we use another symbol $*$ for this.
+The words for the above two cells will then be $<<>><>$ and $<>*<<>>.$
+Getting more elaborate, we will also need to record the direction
+of each piece of curve,
+and we allow anyons to reside on the curve
+close to the edge. (This means we cannot have more than two anyons
+per piece, but if that is needed we will have added another curve diagram.)
+We will also record,
+for each intersection with the cell edge, which side the
+intersection occurs on.
 
-\section{Simulation algorithm}
+Various other consistency relations are enforced on a combinatorial curve diagram,
+such as requiring two
+adjacent cells to agree on their boundaries, and every curve diagram
+having two ends.
+(Note that in general we will have many disjoint curve diagrams.)
+We also require every curve diagram to intersect 
+the edges of cells transversally.
+This will mean in particular that a curve will not touch a cell corner.
 
-Transport of an anyon can be decomposed into
-moves between adjacent components of the curve
-diagram,
+Two disjoint curves can be joined by...
+
+Curves can be simplified along sections without any anyons, ...
+
+% Each piece will have +1, +2, 0, -1, -2 right-hand turns...
+
+% mention Jones' planar algebras ?
+
+\section{The paperclip algorithm}
+
+Anyons are transported around the lattice
+by moving them along cell edges.
+In general, such a transport will intersect with a
+curve diagram in many places.
+Each such intersection is transverse,
+and we use each intersection point to cut
+the entire transport into smaller paths each of
+which touch the curve diagram twice.
+%Each intersection with a curve diagram
+%will then be transverse, and we
+%decompose the entire path into a sequence of
+%paths each of which 
+%join consecutive intersections.
+%Transport of an anyon can be decomposed into
+%moves between adjacent components of a curve
+%diagram.
+The origin and destination of such an anyon path
+now splits the curve diagram $c:[0, 1]\to D_n$ 
+into three disjoint pieces which we term
+\emph{head}, \emph{body} and \emph{tail}, where
+the head contains the point $c(1)$, the tail
+contains $c(0)$ and the body is the third piece.
+These arise with various arrangements, but here
+we focus on one instructive case, the
+other cases are similar:
+%We look at the particular case of moving along
+%one edge of a cell,
+transporting along one edge of a cell \emph{forwards} 
+(from tail to head) along a curve diagram:
 \begin{center}
 \includegraphics[]{pic-move-anyon.pdf}
 \end{center}
-This move is (homotopic to) equivalent to one of the following:
+
+This arrangement is equivalent (homotopic) to one of four 
+``paperclips'', which we distinguish between by counting how
+many \emph{right-hand turns} are made along the body of the curve diagram.
+We also show an equivalent (homotopic) picture where the
+curve diagram has been straightened, and the resulting distortion
+in the anyon path:
 \begin{center}
 \includegraphics[]{pic-paperclip.pdf}
 \end{center}
-which can be distinguished between using the
-winding number. We count the number of right-hand
-turns made on the curve diagram (a left-hand turn counts as $-1$).
+The sequence of anyons along the head, body and tail, we denote as $H, B$ and $T,$
+respectively.
+These sequences have the same order as the underlying curve diagram, and 
+we use
+$H^r, B^r$ and $T^r$ to denote the same anyons with the reversed order.
+Using the above diagram, we can now read off the $R$-moves for each
+of the four paperclips:
+\begin{align*}
+-2:&\ R[B] \\
+-4:&\ R[H^r] R[H] R[B] \\
++4:&\ R[B] R[T] R[T^r] \\
++6:&\ R[H^r] R[H] R[B] R[T] R[T^r] \\
+\end{align*}
+where notation such as $R[B]$ is understood as sequentially clockwise braiding around
+each anyon in $B$.
+
+That these four paperclips exhaust all possibilities can be seen by
+considering the winding number of the simple closed curve made
+by combining the body of the curve diagram with the path followed by
+the anyon (appropriately reversing direction as needed).
+
 
 \section{Computation of homologically non-trivial operators}\label{s:homnontrivial}
 
