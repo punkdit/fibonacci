@@ -512,15 +512,26 @@ This work was supported by the ARC via EQuS project number CE11001013, by the US
 
 \section*{Supplementary Material}
 
+The goal here is to describe the algorithm for
+computing charge contained regions built from 
+arbitrary collection of tiles.
+To do this we first describe our approach
+to topological quantum field theory,
+then we discuss the data structure 
+(combinatorial curve diagrams) and the algorithm
+that operates on these structures.
+
 We give an informal introduction to
-the easy (picture) topological quantum
+anyonic topological quantum
 field theory in $(2+1)$-dimensions.
+See \cite{beverland2014} for a similar treatment.
 Note that these theories give rise to
 \emph{doubled} anyonic charges, and so
-the example in the main text only simulates
-one half of such a system...
+the Fibonacci example in the main text simulates
+one half of such a system.
 
-\section{Interaction picture}
+%\section{Interaction picture}
+\section{Topological quantum field theory}
 
 In two spacial dimensions, particle exchange is
 captured by the braid group.
@@ -543,7 +554,7 @@ multiplication works, for example:
 \includegraphics[]{pic-braid-relation.pdf}
 \end{center}
 
-Braid group acts (naturally) on states.
+%Braid group acts (naturally) on states.
 
 These diagrams are to be understood up to
 continuous deformation of the ambient space.
@@ -630,6 +641,19 @@ homeomorphism in $MCG(D_n).$ Going the other direction,
 given $f\in MCG(D_n)$ and a curve diagram $c,$ we think of
 pulling the ends of $f\circ c$, thereby moving (braiding) the holes,
 until we are back at the original curve $c.$
+
+%This discussion makes it clear we have picked out a
+%specific curve $c$ that we use as a reference point for
+%other curves. 
+
+The importance of this isomorphism: the simulation
+algorithm calculates outcomes of observations. This
+boils down to a change of basis, to one that includes
+the required observable.
+$F$-moves allow us to re-assocate observables along
+a curve diagram. The mapping class group acts
+transitively on curve diagrams (\emph{why??}).
+
 
 \section{Combinatorial curve diagrams}
 
