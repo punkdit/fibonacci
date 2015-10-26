@@ -662,76 +662,120 @@ transitively on curve diagrams (\emph{why??}).
 The basic data structure involved in the
 simulation we term a \emph{combinatorial curve
 diagram.}
-For each cell in the lattice,
+For each tile in the lattice,
 we store a combinatorial
-description of the curve(s) intersected with that cell.
-This data structure 
-will be insensitive to any continuous deformation of the interior of the cell,
-but the simulation does not need to track any of these degrees of freedom.
+description of the curve(s) intersected with that tile.
+To this end, we will require each such curve to intersect 
+the edges of tiles transversally,
+and in particular a curve will not touch a tile corner.
 \begin{center}
 \includegraphics[]{pic-cells.pdf}
 \end{center}
+
 We follow essentially the same approach as taken in \cite{Abramsky2007} 
 to describe elements of a Temperley-Leib algebra, but
 with some extra decorations.
-The key idea is to store a \emph{word} for each cell, comprised of
+The key idea is to store a \emph{word} for each tile, comprised of
 the letters $\bigl<$ and $\bigr>$.
-When these brackets are balanced,
-each such word will correspond one-to-one with an intersection
-of a curve in a cell (up to any continuous deformation of the interior of the cell).
-The encoding works as follows.
+%The encoding works as follows.
 Reading in a clockwise direction around the edge of
-the cell from the top-left corner,
+the tile from the top-left corner,
 we record our encounters with each piece of curve diagram,
 writing~$\bigl<$ for the first encounter, and~$\bigr>$ for the
-second. We may also encounter a dangling piece of curve
+second.
+We may also encounter a dangling piece of curve
 diagram (the head or the tail), so we use another symbol $*$ for this.
-The words for the above two cells will then be 
+The words for the above two tiles will then be 
 $\bigl<\bigl<\bigr>\bigr>\bigl<\bigr>$ and $\bigl<\bigr>*\bigl<\bigl<\bigr>\bigr>.$
+When the brackets are balanced,
+each such word will correspond one-to-one with an intersection
+of a curve in a tile, up to a continuous deformation of the interior of the tile.
+Ie. the data structure 
+will be insensitive to any continuous deformation of the interior of the tile,
+but the simulation does not need to track any of these degrees of freedom.
+
+\begin{center}
+\includegraphics[]{pic-cells-0.pdf}
+\end{center}
 
 We will also need to record
 various other attributes of these curves,
 and to do this we make this notation more elaborate
 in the paragraphs {\bf (I)}, {\bf(II)} and {\bf(III)} below.
 Each symbol in the word describes an intersection of
-the curve with the cell boundary,
+the curve with the tile boundary,
 and so as we decorate these symbols these decorations will
 apply to such intersection points.
 
+\begin{center}
+\includegraphics[]{pic-cells-1.pdf}
+\end{center}
+
 {\bf (I)} We will record the direction of each piece of curve,
 this will be either an {\tt in} or {\tt out} decoration for each symbol.
-Such decorations need to balance according to the brackets,
-eg. $\bigl<_{\mbox{\tt in}}\bigl<_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}\bigr>_{\mbox{\tt out}}\bigl<_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}$.
-Similarly, the decorated symbols $*_{\mbox{\tt in}}$ and 
+Such decorations need to balance according to the brackets.
+The decorated symbols $*_{\mbox{\tt in}}$ and 
 $*_{\mbox{\tt out}}$ 
 will denote respectively either
-the head, $c(1)$ or the tail $c(0)$ of a curve.
+%the head, $c(1)$ or the tail $c(0)$ of a curve.
+the head or the tail of a curve.
+The words for these diagrams now read as
+$ \bigl<_{\mbox{\tt in}}\bigl<_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}
+    \bigr>_{\mbox{\tt out}}\bigl<_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}$
+and
+$ \bigl<_{\mbox{\tt in}}\bigl>_{\mbox{\tt out}}*_{\mbox{\tt in}}
+    \bigr<_{\mbox{\tt out}}
+    \bigr<_{\mbox{\tt in}}\bigl>_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}.
+$
 
 {\bf (II)} We will record,
-for each intersection with the cell edge, which of the four
-sides of the cell the
+for each intersection with the tile edge, which of the four
+sides of the tile the
 intersection occurs on.
 Numbering these clockwise from the top as $1, 2, 3, 4$ we have for the above curves: 
 $\bigl<_1\bigl<_2\bigr>_2\bigr>_3\bigl<_3\bigr>_4$ 
 and $\bigl<_1\bigr>_1*_2\bigl<_3\bigl<_3\bigr>_4\bigr>_4.$
-This will require every curve diagram to intersect 
-the edges of cells transversally,
-and in particular a curve will not touch a cell corner.
 
 {\bf (III)} Finally, we will also decorate these symbols with anyons.
 This will be an index to a leaf of a (sum of) fusion tree(s).
 This means that anyons only reside on the curve close
-to the cell boundary,
+to the tile boundary,
 and so we cannot have more than two anyons
 for each piece of curve. 
 The number of such pieces is arbitrary, and so this
 is no restriction on generality.
 
-Various other consistency relations are enforced on such a combinatorial curve diagram,
-such as requiring two
-adjacent cells to agree on their boundaries, and every curve diagram
-having two ends.
-(Note that in general we will have many disjoint curve diagrams.)
+\begin{center}
+\includegraphics[]{pic-cells-2.pdf}
+\end{center}
+
+In joining tiles together to make a tiling we will
+require adjacent tiles to agree on their shared boundary.
+This will entail sequentially pairing symbols in the
+words for adjacent tiles
+and requiring that 
+the {\tt in} and {\tt out} decorations are matched.
+Because the word for a tile proceeds conter-clockwise
+around the tile, this pairing will always reverse the
+sequential order of the symbols of adjacent tiles.
+For example, given the above two tiles we sequentially pair the 
+$\bigl<_{\mbox{\tt out},2}\bigr>_{\mbox{\tt in},2}$ 
+and $\bigr>_{\mbox{\tt out},4}\bigr>_{\mbox{\tt in},4}$
+symbols with opposite order so that
+$\bigl<_{\mbox{\tt out},2}\sim\bigr>_{\mbox{\tt in},4}$
+and $\bigr>_{\mbox{\tt in},2} \sim \bigr>_{\mbox{\tt out},4}.$ 
+
+%Two other consistency relations are enforced on such a combinatorial curve diagram:
+%we require adjacent tiles to agree on their boundaries, 
+%and every curve diagram
+%must have two ends.
+%One final consistency
+%relation is enforced by requiring 
+%We require every curve diagram to have two ends, this means
+%that there are no loops.
+
+Note that in general we will have many disjoint curve diagrams
+$c_i:[0,1]\to D_{n_i}$ within a disc $D_m$ where $\sum n_i = m.$
 
 %Two disjoint curves can be joined by...
 %
@@ -744,7 +788,7 @@ having two ends.
 \section{The paperclip algorithm}
 
 Anyons are transported around the lattice
-by moving them along cell edges.
+by moving them along tile edges.
 In general, such a transport will intersect with a
 curve diagram in many places.
 Each such intersection is transverse,
@@ -769,8 +813,8 @@ These arise with various arrangements, but here
 we focus on one instructive case, the
 other cases are similar:
 %We look at the particular case of moving along
-%one edge of a cell,
-transporting along one edge of a cell \emph{forwards} 
+%one edge of a tile,
+transporting along one edge of a tile \emph{forwards} 
 (from tail to head) along a curve diagram:
 \begin{center}
 \includegraphics[]{pic-move-anyon.pdf}

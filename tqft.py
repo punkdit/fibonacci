@@ -60,7 +60,7 @@ shade = grey
 
 
 
-g_arrow = [green, style.linewidth.THick]
+g_curve = [green, style.linewidth.THick]
 
 st_tau = [style.linewidth.Thick, red, style.linecap.round]
 #st_vac = [style.linewidth.thick, red]+st_dotted
@@ -131,9 +131,9 @@ p = path.path(
     path.arc(x, y, r, 0, 90),
     path.lineto(x-m, y+r), 
 )
-c.stroke(p, g_arrow+[trafo.scale(1.0, 1.3, x=x, y=y-m)])
+c.stroke(p, g_curve+[trafo.scale(1.0, 1.3, x=x, y=y-m)])
 
-c.stroke(path.line(x+0.5*w, y-m, x+0.5*w, y+h+m), g_arrow)
+c.stroke(path.line(x+0.5*w, y-m, x+0.5*w, y+h+m), g_curve)
 
 r = 0.2*w
 p = path.path(
@@ -142,7 +142,7 @@ p = path.path(
     path.arc(x+w, y+0.5*h, r, 90, 270),
     path.lineto(x+w+m, y+0.5*h-r), 
 )
-c.stroke(p, g_arrow+[trafo.scale(1.4, 1.0, x=x+1.*w+m, y=y+0.5*h)])
+c.stroke(p, g_curve+[trafo.scale(1.4, 1.0, x=x+1.*w+m, y=y+0.5*h)])
 
 
 x += w + 6*m
@@ -157,9 +157,9 @@ p = path.path(
     path.arc(x+0.6*w, y+1.0*h, r, 180, 0),
     path.lineto(x+0.8*w, y+1.0*h+m), 
 )
-c.stroke(p, g_arrow+[trafo.scale(1.0, 1.5, x=x+0.3*w, y=y+1.0*h+m)])
+c.stroke(p, g_curve+[trafo.scale(1.0, 1.5, x=x+0.3*w, y=y+1.0*h+m)])
 
-c.stroke(path.line(x+w+m, y+0.5*h, x+w-1.6*r, y+0.5*h), g_arrow) #+[deco.earrow(size=0.2)])
+c.stroke(path.line(x+w+m, y+0.5*h, x+w-1.6*r, y+0.5*h), g_curve) #+[deco.earrow(size=0.2)])
 
 r = 0.7*h
 p = path.path(
@@ -168,7 +168,7 @@ p = path.path(
     path.arc(x, y, r, 0, 90),
     path.lineto(x-m, y+r),
 )
-c.stroke(p, g_arrow)
+c.stroke(p, g_curve)
 
 r = 0.3*h
 p = path.path(
@@ -177,10 +177,337 @@ p = path.path(
     path.arc(x, y, r, 0, 90),
     path.lineto(x-m, y+r),
 )
-c.stroke(p, g_arrow)
+c.stroke(p, g_curve)
 
 c.writePDFfile("pic-cells.pdf")
 
+
+#############################################################################
+#
+#
+
+w = 1.5
+h = 1.5
+
+c = canvas.canvas()
+
+
+x = 0.
+y = 0.
+m = 0.1*w
+m0 = m/2
+
+c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
+c.stroke(path.rect(x, y, w, h))
+
+r = 0.3*w
+p = path.path(
+    path.moveto(x+r, y-m), 
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x-m, y+r), 
+)
+c.stroke(p, g_curve+[trafo.scale(1.0, 1.3, x=x, y=y-m)])
+
+c.stroke(path.line(x+0.5*w, y-m, x+0.5*w, y+h+m), g_curve)
+
+r = 0.2*w
+p = path.path(
+    path.moveto(x+w+m, y+0.5*h+r), 
+    path.lineto(x+w, y+0.5*h+r), 
+    path.arc(x+w, y+0.5*h, r, 90, 270),
+    path.lineto(x+w+m, y+0.5*h-r), 
+)
+c.stroke(p, g_curve+[trafo.scale(1.4, 1.0, x=x+1.*w+m, y=y+0.5*h)])
+
+
+x += w + 5*m
+
+c.text(x, y+0.5*h, "$=$", center)
+
+
+x += 5*m
+
+N = 50
+
+from twist import twist
+#pts = [twist(x, y, pi, 0.25, 0.8, 0.25) for (x, y) in pts]
+
+def warp(u, v):
+    u = (u-x)/w
+    v = (v-y)/h
+    assert 0<=u<=1., u
+    assert 0<=v<=1., v
+    #u, v = u**0.9, v**1.1
+    r = ((u-0.5)**2 + (v-0.5)**2)**0.5
+    if r < 0.4:
+        print r, 2**(-5*r)
+        u += 0.1 * 2**(-5*r)
+    u, v = w*u+x, h*v+y
+    return u, v
+
+def warp(u, v):
+    u = (u-x)/w
+    v = (v-y)/h
+    assert 0<=u<=1., u
+    assert 0<=v<=1., v
+    u, v = twist(u, v, 1.2*pi, 0.0, 0.48, x0=0.5, y0=0.5)
+    u, v = w*u+x, h*v+y
+    return u, v
+
+
+
+sm = [deformer.smoothed(2.0)]
+
+c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
+c.stroke(path.rect(x, y, w, h))
+r = 0.3*w
+
+ps = [ path.moveto(x+r, y-m), path.lineto(x+r, y)]
+#path.arc(x, y, r, 0, 90),
+for i in range(N):
+    theta = 0.5*pi*i/(N-1)
+    u = x+r*cos(theta)
+    v = y+1.3*r*sin(theta)
+    u, v = warp(u, v)
+    ps.append(path.lineto(u, v))
+ps.append(path.lineto(x-m, y+1.3*r))
+p = path.path(*ps)
+c.stroke(p, g_curve+sm) #+[trafo.scale(1.0, 1.3, x=x, y=y-m)])
+
+#c.stroke(path.line(x+0.5*w, y-m, x+0.5*w, y+h+m), g_curve)
+ps = [path.moveto(x+0.5*w, y-m), path.lineto(x+0.5*w, y)]
+for i in range(N):
+    u = x+0.5*w
+    v = 1.*h*i/(N-1)
+    u, v = warp(u, v)
+    ps.append(path.lineto(u, v))
+ps.append(path.lineto(x+0.5*w, y+h+m))
+p = path.path(*ps)
+c.stroke(p, g_curve+sm)
+
+
+r = 0.2*w
+ps = [ path.moveto(x+w+m, y+0.5*h+r), path.lineto(x+w, y+0.5*h+r)]
+#path.arc(x+w, y+0.5*h, r, 90, 270),
+for i in range(N):
+    theta = 0.5*pi + pi*i/(N-1)
+    u = x+w+1.3*r*cos(theta)
+    v = y+0.5*h+r*sin(theta)
+    u, v = warp(u, v)
+    ps.append(path.lineto(u, v))
+ps.append(path.lineto(x+w+m, y+0.5*h-r))
+p = path.path(*ps)
+c.stroke(p, g_curve+sm) #+[trafo.scale(1.4, 1.0, x=x+1.*w+m, y=y+0.5*h)])
+
+
+
+c.writePDFfile("pic-cells-0.pdf")
+
+
+#############################################################################
+#
+#
+
+g_arrow = g_curve + [deco.earrow(size=0.3)]
+
+w = 1.5
+h = 1.5
+
+c = canvas.canvas()
+
+
+x = 0.
+y = 0.
+m = 0.1*w
+m0 = m/2
+r = 0.3*w
+
+def up_arrow(x, y):
+    c.stroke(path.line(x, y-m0, x, y+m0), g_arrow)
+def dn_arrow(x, y):
+    c.stroke(path.line(x, y+m0, x, y-m0), g_arrow)
+def le_arrow(x, y):
+    c.stroke(path.line(x+m0, y, x-m0, y), g_arrow)
+def ri_arrow(x, y):
+    c.stroke(path.line(x-m0, y, x+m0, y), g_arrow)
+
+c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
+c.stroke(path.rect(x, y, w, h))
+
+p = path.path(
+    path.moveto(x+r, y), 
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x, y+r), 
+)
+c.stroke(p, g_curve+[trafo.scale(1.0, 1.3, x=x, y=y)])
+
+dn_arrow(x+r, y)
+dn_arrow(x+0.5*w, y+h)
+dn_arrow(x+0.5*w, y)
+ri_arrow(x, y+0.4*h)
+ri_arrow(x+w, y+0.7*h)
+le_arrow(x+w, y+r)
+
+c.stroke(path.line(x+0.5*w, y, x+0.5*w, y+h), g_curve)
+
+r = 0.2*w
+p = path.path(
+    path.moveto(x+w, y+0.5*h+r), 
+    path.lineto(x+w, y+0.5*h+r), 
+    path.arc(x+w, y+0.5*h, r, 90, 270),
+    path.lineto(x+w, y+0.5*h-r), 
+)
+c.stroke(p, g_curve+[trafo.scale(1.4, 1.0, x=x+1.*w, y=y+0.5*h)])
+
+# ~~~~~~~~~~~~~
+
+x += w + 6*m
+
+c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
+c.stroke(path.rect(x, y, w, h))
+
+r = 0.2*w
+p = path.path(
+    path.moveto(x+0.4*w, y+1.0*h), 
+    path.lineto(x+0.4*w, y+1.0*h), 
+    path.arc(x+0.6*w, y+1.0*h, r, 180, 0),
+    path.lineto(x+0.8*w, y+1.0*h), 
+)
+c.stroke(p, g_curve+[trafo.scale(1.0, 1.5, x=x+0.3*w, y=y+1.0*h)])
+
+c.stroke(path.line(x+w, y+0.5*h, x+w-1.6*r, y+0.5*h), g_curve) #+[deco.earrow(size=0.2)])
+
+r = 0.7*h
+p = path.path(
+    path.moveto(x+r, y),
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x, y+r),
+)
+c.stroke(p, g_curve)
+
+r = 0.3*h
+p = path.path(
+    path.moveto(x+r, y),
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x, y+r),
+)
+c.stroke(p, g_curve)
+
+dn_arrow(x+0.4*w, y+h)
+up_arrow(x+0.8*w, y+h)
+
+le_arrow(x+w, y+0.5*h)
+
+r = 0.3*h
+le_arrow(x, y+r)
+up_arrow(x+r, y)
+r = 0.7*h
+ri_arrow(x, y+r)
+dn_arrow(x+r, y)
+
+c.writePDFfile("pic-cells-1.pdf")
+
+
+#############################################################################
+#
+#
+
+w = 1.5
+h = 1.5
+
+c = canvas.canvas()
+
+
+x = 0.
+y = 0.
+m = 0.1*w
+m0 = m/2
+r = 0.3*w
+
+c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
+c.stroke(path.rect(x, y, w, h))
+
+p = path.path(
+    path.moveto(x+r, y-m), 
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x-m, y+r), 
+)
+c.stroke(p, g_curve+[trafo.scale(1.0, 1.3, x=x, y=y-m)])
+
+c.stroke(path.line(x+0.5*w, y-m, x+0.5*w, y+h+m), g_curve)
+
+r = 0.2*w
+p = path.path(
+    path.moveto(x+w+m, y+0.5*h+r), 
+    path.lineto(x+w, y+0.5*h+r), 
+    path.arc(x+w, y+0.5*h, r, 90, 270),
+    path.lineto(x+w+m, y+0.5*h-r), 
+)
+c.stroke(p, g_curve+[trafo.scale(1.4, 1.0, x=x+1.*w+m, y=y+0.5*h)])
+
+#anyon(x+r, y+m0)
+anyon(x+0.5*w, y+h-m0)
+anyon(x+0.5*w, y+m0)
+#anyon(x+m0, y+0.4*h)
+#anyon(x+w-m0, y+0.7*h)
+anyon(x+w-m0, y+0.3*w)
+
+
+x += w + 6*m
+
+c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
+c.stroke(path.rect(x, y, w, h))
+
+r = 0.2*w
+p = path.path(
+    path.moveto(x+0.4*w, y+1.0*h+m), 
+    path.lineto(x+0.4*w, y+1.0*h), 
+    path.arc(x+0.6*w, y+1.0*h, r, 180, 0),
+    path.lineto(x+0.8*w, y+1.0*h+m), 
+)
+c.stroke(p, g_curve+[trafo.scale(1.0, 1.5, x=x+0.3*w, y=y+1.0*h+m)])
+
+c.stroke(path.line(x+w+m, y+0.5*h, x+w-1.6*r, y+0.5*h), g_curve) #+[deco.earrow(size=0.2)])
+
+r = 0.7*h
+p = path.path(
+    path.moveto(x+r, y-m),
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x-m, y+r),
+)
+c.stroke(p, g_curve)
+
+r = 0.3*h
+p = path.path(
+    path.moveto(x+r, y-m),
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x-m, y+r),
+)
+c.stroke(p, g_curve)
+
+anyon(x+0.4*w, y+h-m0)
+anyon(x+0.8*w, y+h-m0)
+anyon(x+w-m0, y+0.5*h)
+r = 0.3*h
+anyon(x+m0, y+r)
+#anyon(x+r, y+m0)
+r = 0.7*h
+#anyon(x+m0, y+r)
+anyon(x+r, y+m0)
+
+c.writePDFfile("pic-cells-2.pdf")
+
+
+#############################################################################
+#
+#
 
 c = canvas.canvas()
 
@@ -195,17 +522,17 @@ r = 0.3*w
 c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
 c.stroke(path.rect(x, y, w, h))
 
-c.stroke(path.line(x+1.3*w, y+0.6*h, x+w+m, y+0.6*h), g_arrow+st_dotted)
-c.stroke(path.line(x+w+m, y+0.6*h, x+0.5*w, y+0.6*h), g_arrow) #+[deco.earrow(size=0.2)])
-c.stroke(path.line(x+w+m, y+0.6*h, x+0.6*w, y+0.6*h), g_arrow+[deco.earrow(size=0.2)])
-c.stroke(path.line(x+0.5*w, y+0.6*h, x+0.2*w, y+0.6*h), g_arrow+st_dotted)
+c.stroke(path.line(x+1.3*w, y+0.6*h, x+w+m, y+0.6*h), g_curve+st_dotted)
+c.stroke(path.line(x+w+m, y+0.6*h, x+0.5*w, y+0.6*h), g_curve) #+[deco.earrow(size=0.2)])
+c.stroke(path.line(x+w+m, y+0.6*h, x+0.6*w, y+0.6*h), g_curve+[deco.earrow(size=0.2)])
+c.stroke(path.line(x+0.5*w, y+0.6*h, x+0.2*w, y+0.6*h), g_curve+st_dotted)
 c.stroke(path.line(x+w-m, y+0.6*h, x+w-m, 0.2*h), st_tau+[deco.earrow(size=0.2)])
 anyon(x+w-m, y+0.6*h)
 
-c.stroke(path.line(x+1.3*w, y+0.2*h, x+w+m, y+0.2*h), g_arrow+st_dotted)
-c.stroke(path.line(x+w+m, y+0.2*h, x+0.5*w, y+0.2*h), g_arrow) #+[deco.earrow(size=0.2)])
-c.stroke(path.line(x+w+m, y+0.2*h, x+0.6*w, y+0.2*h), g_arrow)
-c.stroke(path.line(x+0.5*w, y+0.2*h, x+0.2*w, y+0.2*h), g_arrow+st_dotted)
+c.stroke(path.line(x+1.3*w, y+0.2*h, x+w+m, y+0.2*h), g_curve+st_dotted)
+c.stroke(path.line(x+w+m, y+0.2*h, x+0.5*w, y+0.2*h), g_curve) #+[deco.earrow(size=0.2)])
+c.stroke(path.line(x+w+m, y+0.2*h, x+0.6*w, y+0.2*h), g_curve)
+c.stroke(path.line(x+0.5*w, y+0.2*h, x+0.2*w, y+0.2*h), g_curve+st_dotted)
 
 c.writePDFfile("pic-move-anyon.pdf")
 
@@ -270,7 +597,7 @@ y = 0.
 #c.fill(path.circle(0, 0, 0.1))
 #c.fill(path.circle(-w, 0, 0.1))
 
-g = g_arrow+[deco.earrow(size=0.2)]
+g = g_curve+[deco.earrow(size=0.2)]
 a = st_tau+[deco.earrow(size=0.2)]
 Turtle(x, y, -pi/2).fwd(w).left(pi, r).fwd(w).stroke(g)
 Turtle(x-0.5, y, pi).fwd(2*r).stroke(a)
@@ -641,8 +968,7 @@ t = trafo.translate(-0.8, 0.)
 #ellipse(-0.5, 0., 0.5, 2.0, 1., shade, [t])
 ellipse(-0.5, 0., 0.5, 2.0, 2., shade, [t])
 
-#g_arrow = [green, deco.earrow(size=0.1)]
-c.stroke(path.line(-2., 0., 0., 0.), [t]+g_arrow) 
+c.stroke(path.line(-2., 0., 0., 0.), [t]+g_curve) 
 
 
 t = trafo.translate(+1.8, 0.)
@@ -664,7 +990,7 @@ pts = [twist(x, y, -pi, 0.25, 0.8, -0.25) for (x, y) in pts]
 
 pts = [path.moveto(*pts[0])] + [path.lineto(*p) for p in pts[1:]]
 
-c.stroke(path.path(*pts), [deformer.smoothed(2.0), t]+g_arrow)
+c.stroke(path.path(*pts), [deformer.smoothed(2.0), t]+g_curve)
 
 c1 = canvas.canvas() # [canvas.clip(p)])
 c1.insert(c, [trafo.scale(1., 0.6)])
