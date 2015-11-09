@@ -13,6 +13,8 @@
 \usepackage{graphicx}
 \usepackage[caption=false]{subfig}
 \usepackage{enumerate}
+\usepackage{mathrsfs}
+
 
 %\usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
 
@@ -521,14 +523,14 @@ then we discuss the data structure
 (combinatorial curve diagrams) and the algorithm
 that operates on these structures.
 
-We give an informal introduction to
-anyonic topological quantum
-field theory in $(2+1)$-dimensions.
-See \cite{beverland2014} for a similar treatment.
-Note that these theories give rise to
-\emph{doubled} anyonic charges, and so
-the Fibonacci example in the main text simulates
-one half of such a system.
+%We give an informal introduction to
+%anyonic topological quantum
+%field theory in $(2+1)$-dimensions.
+%See \cite{beverland2014} for a similar treatment.
+%Note that these theories give rise to
+%\emph{doubled} anyonic charges, and so
+%the Fibonacci example in the main text simulates
+%one half of such a system. % MEH!
 
 \section{Modular Functors}
 
@@ -537,9 +539,58 @@ algebraic information about topological objects.
 This can be viewed as a kind of representation theory
 of topological objects: homeomorphisms of surfaces.
 
-We list the axioms for a \emph{2-dimensional unitary modular functor}
-\cite{Turaev1994}, \cite{Walker1991}.
+We list the axioms for a \emph{2-dimensional unitary topological modular functor}.
+ % abbreviated as \emph{MF}.
+For the details of this construction, see
+\cite{Turaev1994}, \cite{Walker1991} or \cite{Bakalov2000}.
+For a more pedestrian treatment, see \cite{Freedman2002simulation} or \cite{Beverland2004.}
 
+For our purposes a \emph{surface} will be an
+oriented $2$-dimensional manifold with boundary.
+Each boundary component is labelled with
+an element from a finite set $\mathbb{A}=\{1, a, b, c ...\}.$
+This is the set of ``anyon labels'', and comes
+equiped with an involution $\hat{}$ such that $\hat{1}=1.$
+Each boundary component is oriented (either explicitly or
+otherwise by using the orientation of the manifold)
+and contains a distinguished point.
+
+We will mostly be concerned with \emph{planar} such
+surfaces, ie. a disc with zero or more holes.
+
+\newcommand{\F}{\mathscr{H}} % H or F ?
+
+A modular functor $\F$ associates to every
+surface $M$ a finite dimensional complex
+vector space $\F(M)$, called the \emph{fusion space} of $M$.
+A map of surfaces $f:M\to N$ will be understood to be
+a topological homeomorphism that preserves boundary
+labels and orientation, and
+the modular functor assocates such an $f$ to a
+unitary transformation $\F(f) : \F(M)\to\F(N).$
+Functoriality requires that $\F$
+respect composition of homeomorphisms.
+
+We have the following axioms for $\F.$
+
+{\bf Axiom I.}
+The disjoint union of two surfaces $M$ and $N$ 
+is assocated with
+the tensor product of fusion spaces:
+$$
+    \F(M\amalg N) = \F(M)\otimes \F(N).
+$$
+This is natural from the point of view of quantum
+physics, where the Hilbert space of two disjoint
+systems is the tensor product of the space for
+each system.
+
+{\bf Axiom II.}
+The fusion space of an empty surface is one dimensional: 
+$\F(\phi) \cong \mathbb{C}.$
+
+{\bf Axiom III.}
+Gluing.
 
 %\section{Interaction picture}
 \section{Topological quantum field theory}
