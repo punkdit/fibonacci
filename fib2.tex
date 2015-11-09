@@ -667,18 +667,24 @@ $F$-moves allow us to re-assocate observables along
 a curve diagram. The mapping class group acts
 transitively on curve diagrams (\emph{why??}).
 
+%
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%
 
 \section{Combinatorial curve diagrams}
 
 The basic data structure involved in the
 simulation we term a \emph{combinatorial curve
 diagram.}
+% XXX define "piece of curve"
+Firstly, we will require each curve to intersect 
+the edges of tiles transversally,
+and in particular a curve will not touch a tile corner.
+
 For each tile in the lattice,
 we store a combinatorial
 description of the curve(s) intersected with that tile.
-To this end, we will require each such curve to intersect 
-the edges of tiles transversally,
-and in particular a curve will not touch a tile corner.
+Each component of such an intersection we call a \emph{piece-of-curve.}
 \begin{center}
 \includegraphics[]{pic-cells.pdf}
 \end{center}
@@ -691,11 +697,11 @@ the letters $\bigl<$ and $\bigr>$.
 %The encoding works as follows.
 Reading in a clockwise direction around the edge of
 the tile from the top-left corner,
-we record our encounters with each piece of curve diagram,
+we record our encounters with each piece-of-curve,
 writing~$\bigl<$ for the first encounter, and~$\bigr>$ for the
 second.
-We may also encounter a dangling piece of curve
-diagram (the head or the tail), so we use another symbol $*$ for this.
+We may also encounter a dangling piece-of-curve
+(the head or the tail), so we use another symbol $*$ for this.
 The words for the above two tiles will then be 
 $\bigl<\bigl<\bigr>\bigr>\bigl<\bigr>$ and $\bigl<\bigr>*\bigl<\bigl<\bigr>\bigr>.$
 When the brackets are balanced,
@@ -722,7 +728,7 @@ apply to such intersection points.
 \includegraphics[]{pic-cells-1.pdf}
 \end{center}
 
-{\bf (I)} We will record the direction of each piece of curve,
+{\bf (I)} We will record the direction of each piece-of-curve,
 this will be either an {\tt in} or {\tt out} decoration for each symbol.
 Such decorations need to balance according to the brackets.
 The decorated symbols $*_{\mbox{\tt in}}$ and 
@@ -730,7 +736,7 @@ $*_{\mbox{\tt out}}$
 will denote respectively either
 %the head, $c(1)$ or the tail $c(0)$ of a curve.
 the head or the tail of a curve.
-The words for these diagrams now read as
+The words for the diagrams above now read as
 $ \bigl<_{\mbox{\tt in}}\bigl<_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}
     \bigr>_{\mbox{\tt out}}\bigl<_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}$
 and
@@ -740,7 +746,8 @@ $ \bigl<_{\mbox{\tt in}}\bigl>_{\mbox{\tt out}}*_{\mbox{\tt in}}
 $
 
 {\bf (II)} We will record,
-for each intersection with the tile edge, which of the four
+for each intersection with the tile edge, 
+a numeral indicating which of the four
 sides of the tile the
 intersection occurs on.
 Numbering these clockwise from the top as $1, 2, 3, 4$ we have for the above curves: 
@@ -752,7 +759,7 @@ This will be an index to a leaf of a (sum of) fusion tree(s).
 This means that anyons only reside on the curve close
 to the tile boundary,
 and so we cannot have more than two anyons
-for each piece of curve. 
+for each piece-of-curve. 
 The number of such pieces is arbitrary, and so this
 is no restriction on generality.
 
@@ -785,8 +792,29 @@ and $\bigr>_{\mbox{\tt in},2} \sim \bigr>_{\mbox{\tt out},4}.$
 %We require every curve diagram to have two ends, this means
 %that there are no loops.
 
-Note that in general we will have many disjoint curve diagrams
+Note that in general this data structure will store many disjoint curve diagrams
 $c_i:[0,1]\to D_{n_i}$ within a disc $D_m$ where $\sum n_i = m.$
+
+%For a given piece-of-curve, we can subtract the numeral with
+%the {\tt in} label from the numeral with the {\tt out} label
+%to get an integer in $\{ \}$ WRONG
+%We can also just use the numerals of the boundary edges
+%that the piece-of-curve intersects with, subtracting the
+%``exit'' boundary numeral from the ``entry'' boundary numeral. WRONG
+
+For each piece-of-curve, apart from a head or tail, there is an associated 
+number we call the \emph{turn number}. This counts the number
+of ``right-hand turns'' the piece-of-curve makes as it
+traverses the tile, with a ``left-hand turn'' counting as $-1.$
+(To be more rigorous, we would define this number using the
+winding number of the simple closed curve formed by the
+piece-of-curve adjoined to a segment of the boundary of the tile 
+traversed in a clockwise direction.)
+This number will take one of the values $-2, -1, 0, 1, 2:$
+\begin{center}
+\includegraphics[]{pic-cells-3.pdf}
+\end{center}
+
 
 %Two disjoint curves can be joined by...
 %
@@ -795,6 +823,10 @@ $c_i:[0,1]\to D_{n_i}$ within a disc $D_m$ where $\sum n_i = m.$
 % Each piece will have +1, +2, 0, -1, -2 right-hand turns...
 
 % mention Jones' planar algebras ?
+
+%
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%
 
 \section{The paperclip algorithm}
 

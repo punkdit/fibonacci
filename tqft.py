@@ -311,6 +311,16 @@ c.writePDFfile("pic-cells-0.pdf")
 
 g_arrow = g_curve + [deco.earrow(size=0.3)]
 
+def up_arrow(x, y):
+    c.stroke(path.line(x, y-m0, x, y+m0), g_arrow)
+def dn_arrow(x, y):
+    c.stroke(path.line(x, y+m0, x, y-m0), g_arrow)
+def le_arrow(x, y):
+    c.stroke(path.line(x+m0, y, x-m0, y), g_arrow)
+def ri_arrow(x, y):
+    c.stroke(path.line(x-m0, y, x+m0, y), g_arrow)
+
+
 w = 1.5
 h = 1.5
 
@@ -322,15 +332,6 @@ y = 0.
 m = 0.1*w
 m0 = m/2
 r = 0.3*w
-
-def up_arrow(x, y):
-    c.stroke(path.line(x, y-m0, x, y+m0), g_arrow)
-def dn_arrow(x, y):
-    c.stroke(path.line(x, y+m0, x, y-m0), g_arrow)
-def le_arrow(x, y):
-    c.stroke(path.line(x+m0, y, x-m0, y), g_arrow)
-def ri_arrow(x, y):
-    c.stroke(path.line(x-m0, y, x+m0, y), g_arrow)
 
 c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
 c.stroke(path.rect(x, y, w, h))
@@ -410,6 +411,111 @@ ri_arrow(x, y+r)
 dn_arrow(x+r, y)
 
 c.writePDFfile("pic-cells-1.pdf")
+
+
+#############################################################################
+#
+#
+
+
+w = 1.5
+h = 1.5
+
+c = canvas.canvas()
+
+
+x = 0.
+y = 0.
+m = 0.1*w
+m0 = m/2
+r = 0.3*w
+
+c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
+c.stroke(path.rect(x, y, w, h))
+
+p = path.path(
+    path.moveto(x+r, y), 
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x, y+r), 
+)
+c.stroke(p, g_curve+[trafo.scale(1.0, 1.3, x=x, y=y)])
+
+dn_arrow(x+r, y)
+dn_arrow(x+0.5*w, y+h)
+dn_arrow(x+0.5*w, y)
+ri_arrow(x, y+0.4*h)
+ri_arrow(x+w, y+0.7*h)
+le_arrow(x+w, y+r)
+
+c.stroke(path.line(x+0.5*w, y, x+0.5*w, y+h), g_curve)
+
+r = 0.2*w
+p = path.path(
+    path.moveto(x+w, y+0.5*h+r), 
+    path.lineto(x+w, y+0.5*h+r), 
+    path.arc(x+w, y+0.5*h, r, 90, 270),
+    path.lineto(x+w, y+0.5*h-r), 
+)
+c.stroke(p, g_curve+[trafo.scale(1.4, 1.0, x=x+1.*w, y=y+0.5*h)])
+
+c.text(x+0.15*w, y-1*m, "$+1$", north)
+c.text(x+0.6*w, y-1*m, "$0$", north)
+c.text(x+w+m, y+0.7*h, "$+2$", west)
+
+# ~~~~~~~~~~~~~
+
+x += w + 10*m
+
+c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
+c.stroke(path.rect(x, y, w, h))
+
+r = 0.2*w
+p = path.path(
+    path.moveto(x+0.4*w, y+1.0*h), 
+    path.lineto(x+0.4*w, y+1.0*h), 
+    path.arc(x+0.6*w, y+1.0*h, r, 180, 0),
+    path.lineto(x+0.8*w, y+1.0*h), 
+)
+c.stroke(p, g_curve+[trafo.scale(1.0, 1.5, x=x+0.3*w, y=y+1.0*h)])
+
+c.stroke(path.line(x+w, y+0.5*h, x+w-1.6*r, y+0.5*h), g_curve) #+[deco.earrow(size=0.2)])
+
+r = 0.7*h
+p = path.path(
+    path.moveto(x+r, y),
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x, y+r),
+)
+c.stroke(p, g_curve)
+
+r = 0.3*h
+p = path.path(
+    path.moveto(x+r, y),
+    path.lineto(x+r, y),
+    path.arc(x, y, r, 0, 90),
+    path.lineto(x, y+r),
+)
+c.stroke(p, g_curve)
+
+dn_arrow(x+0.4*w, y+h)
+up_arrow(x+0.8*w, y+h)
+
+le_arrow(x+w, y+0.5*h)
+
+r = 0.3*h
+le_arrow(x, y+r)
+up_arrow(x+r, y)
+r = 0.7*h
+ri_arrow(x, y+r)
+dn_arrow(x+r, y)
+
+c.text(x-1*m, y+0.3*h, "$-1$", east)
+c.text(x+0.7*w, y-1*m, "$+1$", north)
+c.text(x+0.8*w, y+h+1*m, "$-2$", south)
+
+c.writePDFfile("pic-cells-3.pdf")
 
 
 #############################################################################
