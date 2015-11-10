@@ -551,14 +551,17 @@ Each boundary component is labelled with
 an element from a finite set $\mathbb{A}=\{1, a, b, c ...\}.$
 This is the set of ``anyon labels'', and comes
 equiped with an involution $\hat{}$ such that $\hat{1}=1.$
-Each boundary component is oriented (either explicitly or
-otherwise by using the orientation of the manifold)
+%Each boundary component is oriented (either explicitly or
+%otherwise by using the orientation of the manifold)
+Each boundary component inherits the manifold orientation 
 and contains a distinguished point.
 
 We will mostly be concerned with \emph{planar} such
-surfaces, ie. a disc with zero or more holes.
+surfaces, ie. disc(s) with zero or more holes.
+Note that we will not require surfaces themselves to be connected.
 
 \newcommand{\F}{\mathscr{H}} % H or F ?
+\newcommand{\C}{\mathbb{C}}
 
 A modular functor $\F$ associates to every
 surface $M$ a finite dimensional complex
@@ -574,23 +577,46 @@ respect composition of homeomorphisms.
 We have the following axioms for $\F.$
 
 {\bf Axiom I.}
+The fusion space of an empty surface is one dimensional, 
+$\F(\phi) \cong \C.$
+For $M_a$ a disc with boundary label $a$ we have
+$\F(M_1)\cong \C$ and 
+$\F(M_a)\cong 0$ for $a\ne 1.$
+For annulus $M_{a,b}$ with boundary labels
+$a, b$ we have
+$\F(M_{a,\hat{a}})\cong \C$ and 
+$\F(M_{a,b})\cong 0$ for $a\ne \hat{b}.$
+
+{\bf Axiom II.}
 The disjoint union of two surfaces $M$ and $N$ 
 is assocated with
 the tensor product of fusion spaces:
 $$
-    \F(M\amalg N) = \F(M)\otimes \F(N).
+    \F(M\amalg N) \cong \F(M)\otimes \F(N).
 $$
 This is natural from the point of view of quantum
 physics, where the Hilbert space of two disjoint
 systems is the tensor product of the space for
 each system.
 
-{\bf Axiom II.}
-The fusion space of an empty surface is one dimensional: 
-$\F(\phi) \cong \mathbb{C}.$
-
 {\bf Axiom III.}
-Gluing.
+%Gluing.
+Denote a surface $M$ with (at least) two boundary
+components labelled $a, b$ as $M_{a,b}$. 
+Let $N$ be the surface obtained from $M$ by gluing
+these two boundary components together.
+If we constrain $b=\hat{a}$ then the fusion space
+of $M_{a,\hat{a}}$ embedds unitarily in the fusion
+space of $N.$ Moreover, there is a unitary map
+$$
+    \bigoplus_{a\in\mathbb{A}} \F(M_{a,\hat{a}}) \to \F(N).
+$$
+A common operation is to glue two separate surfaces.
+We can do this by first taking disjoint union (tensoring
+the fusion spaces)
+and then gluing.
+
+
 
 %\section{Interaction picture}
 \section{Topological quantum field theory}
