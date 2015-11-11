@@ -130,16 +130,19 @@ x += 0.0*w
 p = path.circle(x+r, y+0.5*h, r)
 c.fill(p, [shade])
 c.stroke(p)
+c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
 
 x += 0.3*w
 p = path.circle(x+0.1*w, y+0.5*h, 0.4*r)
 c.fill(p, [white])
 c.stroke(p)
+p = path.circle(x+0.1*w+0.4*r, y+0.5*h, 0.06)
+c.fill(p)
 
 c.text(x+0.6*w, y+0.5*h, "...")
 
 #c.text(x+0.1*w, y+0.0*h, "$M_a$", west)
-c.text(x+0.1*w, y+0.0*h, "$M$", west)
+c.text(x+0.2*w, y+0.0*h, "$M$", west)
 
 c.text(x+0.3*w, y+0.7*h, "$a$", southwest)
 
@@ -149,6 +152,8 @@ r = 0.7
 p = path.circle(x+r, y+0.5*h, r)
 c.fill(p, [shade])
 c.stroke(p)
+p = path.circle(x+2*r, y+0.5*h, 0.06)
+c.fill(p)
 
 x += 0.3*w
 
@@ -174,11 +179,17 @@ r = 1.0
 p = path.circle(x+r, y+0.5*h, r)
 c.fill(p, [shade])
 c.stroke(p)
+c.stroke(p)
+c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
 
 x += 0.3*w
 p = path.circle(x+0.1*w, y+0.5*h, 0.4*r)
 c.stroke(p, st_dashed)
+p = path.circle(x+0.1*w+0.4*r, y+0.5*h, 0.06)
+c.stroke(p, st_dashed)
+
 c.text(x+0.1*w, y+0.5*h, r"$N$", center)
+#c.text(x+0.2*w, y+0.5*h, r"$...$", center)
 
 c.text(x+0.6*w, y+0.5*h, "...")
 
@@ -189,5 +200,84 @@ c.text(x, y+0.5*h, r"$\Bigr)$", east)
 
 
 c.writePDFfile("pic-glue.pdf")
+
+
+#############################################################################
+#
+#
+
+w = 1.5
+h = 1.5
+
+x = 0
+y = 0
+
+c = canvas.canvas()
+
+
+def surface(x, y, r, fill=shade, mark=False):
+    p = path.circle(x, y, r)
+    if fill is not None:
+        c.fill(p, [fill])
+    c.stroke(p)
+    if mark:
+        p = path.circle(x+r, y, 0.06)
+        c.fill(p)
+
+r = 1.0
+
+surface(x+0, y, r)
+surface(x-0.6*r, y, 0.1*r, fill=white)
+surface(x+0.0*r, y, 0.1*r, fill=white)
+surface(x+0.6*r, y, 0.1*r, fill=white)
+
+c.text(x-0.6*r, y+0.2, "$a$", south)
+c.text(x,       y+0.2, "$b$", south)
+c.text(x+0.6*r, y+0.2, "$c$", south)
+
+c.stroke(path.circle(x-0.3*r, y, 0.6*r), st_dashed+[trafo.scale(1., 1.1, x, y)])
+c.stroke(path.circle(x+0.3*r, y, 0.6*r), st_dashed+[trafo.scale(1., 1.1, x, y)])
+
+c.text(x-1.5*r, y, r"$\H\Bigl($", center)
+c.text(x+1.3*r, y, r"$\Bigr)$", center)
+
+x -= 3.0*r
+y -= 3.0*r
+
+surface(x-0.7*r, y, 0.6*r)
+surface(x+0.7*r, y, 0.6*r)
+labels = "adbc"
+for i, x0 in enumerate([x-0.9*r, x-0.5*r, x+0.5*r, x+0.9*r]):
+    surface(x0, y, 0.1*r, fill=white)
+    c.text(x0, y+0.2, "$%s$"%labels[i], south)
+c.text(x+1.1*r, y+0.7, "$\widehat{d}$", west)
+
+c.text(x-1.5*r, y, r"$\bigoplus_d\H\Bigl($", east)
+c.text(x+1.7*r, y, r"$\Bigr)$", center)
+
+
+c.text(0, y+0.1, r"$F$", south)
+c.stroke(path.line(-1.0*r, y, +0.8*r, y), [deco.earrow()])
+
+x += 7*r
+
+surface(x-0.7*r, y, 0.6*r)
+surface(x+0.7*r, y, 0.6*r)
+labels = "abec"
+for i, x0 in enumerate([x-0.9*r, x-0.5*r, x+0.5*r, x+0.9*r]):
+    surface(x0, y, 0.1*r, fill=white)
+    c.text(x0, y+0.2, "$%s$"%labels[i], south)
+c.text(x-1.1*r, y+0.7, "$\widehat{e}$", east)
+
+c.text(x-1.5*r, y, r"$\bigoplus_e\H\Bigl($", east)
+c.text(x+1.7*r, y, r"$\Bigl)$", center)
+
+c.stroke(path.line(-3.0*r, -2.0*r, -1.5*r, -0.8*r), [deco.earrow()])
+c.text(-2.6*r, -1.4*r, "$\cong$", center)
+
+c.stroke(path.line(+3.4*r, -2.0*r, +1.9*r, -0.8*r), [deco.earrow()])
+c.text(+3.0*r, -1.4*r, "$\cong$", center)
+
+c.writePDFfile("pic-glue-fmove.pdf")
 
 
