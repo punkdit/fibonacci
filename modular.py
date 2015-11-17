@@ -162,7 +162,7 @@ c.text(x+0.0*w, y+0.5*h, "...")
 #c.text(x+0.0*w, y+0.2*h, "$N_{\hat{a}}$", west)
 c.text(x+0.0*w, y+0.2*h, "$N$", west)
 
-c.text(x+0.1*w, y+0.7*h, "$\hat{a}$", southwest)
+c.text(x+0.5*w, y+0.9*h, "$\widehat{a}$", southwest)
 
 x += 1.8*r
 c.text(x, y+0.5*h, r"$\Bigr)$", east)
@@ -171,7 +171,12 @@ x -= 0*r
 y -= 3*r
 
 #c.text(x, y+0.5*h, r"$\to\H\Bigl($", east)
-c.text(x, y+0.5*h, r"$\xrightarrow{\cong}\H\Bigl($", east)
+#c.text(x, y+0.5*h, r"$\xrightarrow{\cong}\H\Bigl($", east)
+c.text(x-0.8, y+0.5*h, r"$\H\Bigl($", west)
+c.stroke(path.line(x-2.0, y+0.5*h, x-0.9, y+0.5*h), [deco.arrow()])
+c.text(x-1.5, y+0.6*h, r"$\cong$", south)
+
+print dir(deco)
 
 r = 1.0
 #x += 0.5*w
@@ -279,5 +284,154 @@ c.stroke(path.line(+3.4*r, -2.0*r, +1.9*r, -0.8*r), [deco.earrow()])
 c.text(+3.0*r, -1.4*r, "$\cong$", center)
 
 c.writePDFfile("pic-glue-fmove.pdf")
+
+
+#############################################################################
+#
+#
+
+
+
+class Turtle(object):
+    def __init__(self, x, y, theta):
+        self.x = x
+        self.y = y
+        self.theta = theta
+        self.ps = [(x, y)]
+
+    def fwd(self, d):
+        self.x += d*sin(self.theta)
+        self.y += d*cos(self.theta)
+        self.ps.append((self.x, self.y))
+        return self
+
+    def reverse(self, d):
+        self.fwd(-d)
+        return self
+
+    def right(self, dtheta, r=0.):
+        theta = self.theta
+        self.theta += dtheta
+        if r==0.:
+            return
+        N = 20
+        x, y = self.x, self.y
+        x0 = x - r*sin(theta-pi/2)
+        y0 = y - r*cos(theta-pi/2)
+        for i in range(N):
+            theta += (1./(N))*dtheta
+            x = x0 - r*sin(theta+pi/2)
+            y = y0 - r*cos(theta+pi/2)
+            self.ps.append((x, y))
+        self.x = x
+        self.y = y
+        return self
+
+    def left(self, dtheta, r=0.):
+        self.right(-dtheta, -r)
+        return self
+
+    def stroke(self, extra=[], fill=[], closepath=False):
+        dopath(self.ps, extra, fill, closepath, smooth=0.)
+        return self
+
+
+
+w = 1.5
+h = 1.5
+
+x = 0
+y = 0
+
+c = canvas.canvas()
+
+
+r0 = 1.3
+#surface(x, y, r0)
+#c.fill(path.circle(x, y+r0, 0.04))
+c.fill(path.circle(x, y, r0), [shade])
+
+
+r = 0.15
+dx = 4*r
+x1 = x-1.5*dx
+
+t = Turtle(x1, y, 0.*pi)
+t.right(pi, 1.5*dx)
+t.stroke(g_curve+[style.linecap.round])
+
+t = Turtle(x1-0.4*dx, y, 0.*pi)
+t.right(pi, 1.9*dx)
+t.right(pi, 0.4*dx)
+t.left(pi, 1.1*dx)
+t.right(pi, 0.4*dx)
+t.stroke(st_dashed)
+
+c.stroke(path.circle(x, y, dx), st_dashed+[trafo.scale(0.9, 0.7)])
+
+r = 0.14
+
+t = Turtle(x1+1*dx, y+r, pi/2)
+t.fwd(dx)
+t.stroke(g_curve+[style.linecap.round])
+
+for i in range(4):
+    surface(x1, y, r, white)
+    c.fill(path.circle(x1, y+r, 0.04))
+    x1 += dx
+
+
+c.writePDFfile("pic-2-curve.pdf")
+
+
+#############################################################################
+#
+#
+
+c = canvas.canvas()
+
+
+r0 = 1.3
+
+c.fill(path.circle(x, y, r0), [shade, trafo.scale(1.4, 0.7)])
+
+
+r = 0.15
+dx = 4*r
+x1 = x-1.5*dx
+
+
+r = 0.14
+
+t = Turtle(x1-1.0*dx, y+r, pi/2)
+t.fwd(5*dx)
+#t.stroke(g_curve+st_dotted)
+t.stroke(g_curve)
+
+for i in range(3):
+    t = Turtle(x1, y+r, pi/2)
+    t.fwd(dx)
+    t.stroke(g_curve+[style.linecap.round])
+
+    surface(x1, y, r, white)
+    c.fill(path.circle(x1, y+r, 0.04))
+
+    c.stroke(path.circle(x1+0.5*dx, y, dx), st_dashed+[trafo.scale(0.9, 0.6, x=x1+0.5*dx, y=0)])
+    x1 += dx
+
+surface(x1, y, r, white)
+c.fill(path.circle(x1, y+r, 0.04))
+
+
+c.text(x-2.2*dx, y-r, "...", north)
+c.text(x+2.2*dx, y-r, "...", north)
+
+c.writePDFfile("pic-chain.pdf")
+
+
+#############################################################################
+#
+#
+
 
 

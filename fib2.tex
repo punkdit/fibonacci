@@ -562,7 +562,7 @@ We will not require surfaces to be connected.
 %Each boundary component is oriented (either explicitly or
 %otherwise by using the orientation of the manifold)
 Each boundary component will inherit the manifold orientation,
-contain a distinguished point,
+contain a distinguished \emph{base point},
 and be labelled with
 %an element from a finite set $\mathbb{A}=\{1, a, b, c ...\}.$
 an element from a finite set $\A.$
@@ -578,7 +578,7 @@ surface $M$ a finite dimensional complex
 vector space $\F(M)$, called the \emph{fusion space} of $M$.
 A map of surfaces $f:M\to N$ will be understood to be
 a topological homeomorphism that preserves boundary
-labels, orientation, and distinguished points.
+labels, orientation, and base points.
 The modular functor associates such an $f$ to a
 unitary transformation $\F(f) : \F(M)\to\F(N)$
 that only depends on the isotopy class of $f.$
@@ -617,39 +617,46 @@ components labelled $a, b$ as $M_{a,b}$.
 Let $N$ be the surface obtained from $M$ by gluing
 these two boundary components together.
 Glueing must respect the orientation of the two boundary
-components as well as identifying their distinguished points.
+components as well as identifying their base points.
 If we constrain $b=\widehat{a}$ then the fusion space
 of $M_{a,\widehat{a}}$ embedds unitarily in the fusion
-space of $N.$ Moreover, there is a unitary map
+space of $N.$ Moreover, there is an isomorphism called
+a \emph{gluing map}:
 $$
     \bigoplus_{a\in\A} \F(M_{a,\widehat{a}}) \xrightarrow{\cong} \F(N).
 $$
+The seam along which gluing occurs can be associated
+with an observable as follows.
+We take a gluing map $g$. Projectors $P_a$ onto the
+summands in the above direct sum:
+$$
+    P_a: \bigoplus_{b\in\A} \F(M_{b,\widehat{b}}) \to \F(M_{a,\widehat{a}}).
+$$
+then the observable will be the set of operators $\{P_a g^{-1}\}_{a\in\A}.$
+
 A common operation is to glue two separate surfaces.
 We can do this by first taking disjoint union (tensoring
 the fusion spaces)
 and then gluing.
-
 Here we show this process applied to two surfaces $M$ and $N$. 
 \begin{center}
 \includegraphics[]{pic-glue.pdf}
 \end{center}
 We display the surface $N$ with the $\widehat{a}$
 boundary on the outside, 
-to show more clearly how it fits into $M$.
+to show more clearly how $N$ fits into $M$.
 In the glued manifold we
 indicate the placement of $M$ and $N$ and the seam
 along which glueing occured,
-as well as the identification of distinguished points.
+as well as the identification of base points.
 
-%\emph{XXX show marked point on boundaries ?}
-
-\emph{XXX show orientation of boundaries ?}
-\emph{XXX displaymath direct sum}
-\emph{XXX $N...$ show ellipses?}
+%\emph{XXX show orientation of boundaries ?}
+%\emph{XXX displaymath direct sum}
+%\emph{XXX $N...$ show ellipses?}
 
 A most important linear map, called an $F-$move,
-is constructed from two applications of the
-gluing isomorphism as follows.
+is constructed from two applications of a
+gluing map as follows.
 
 \begin{widetext}
 \begin{center}
@@ -661,10 +668,16 @@ Here we have shown a manifold $M_{abc}$ with
 three labelled boundaries, as well as two separate
 ways of gluing pairs-of-pants to get $M.$
 
-Any oriented simple closed path contained in the interior of $M$ we will
-call an \emph{observable}.
+
+As we have seen, an oriented simple closed path 
+ contained in the interior of $M$ can serve as
+the seam along which gluing occurs and so we call
+these paths \emph{observables}.
+%Any oriented simple closed path contained in the interior of $M$ we will
+%call an \emph{observable}.
 Such a path that encloses two boundary components 
 we call a \emph{2-observable}.
+\emph{(what does enclose mean exactly?)}
 A function $c:[0,1]\to M$ such that $c(0)\in \partial M$ and $c(1)\in \partial M$
 are two separate components of the boundary we call a \emph{2-curve.}
 The following important fact will be used extensively
@@ -672,6 +685,37 @@ in the combinatorial formulation of a modular functor below:
 up to isotopy (not preserving $\partial M$),
 there is a (natural) bijection between
 $2$-observables and $2$-curves.
+\emph{(restrict to $M$ a disc with at least two holes?)}
+Here we show two such instances of this
+bijection:
+\begin{center}
+\includegraphics[]{pic-2-curve.pdf}
+\end{center}
+The bijections works as follows.
+To construct a $2$-observable from a $2$-curve $c$ that
+joins two boundary components $M_1$ and $M_2$,
+take a small neighbourhood of
+the union $c([0,1])\cup M_1 \cup M_2.$
+This neighbourhood will have boundary a simple closed
+curve that encloses $M_1$ and $M_2.$
+\emph{(check the orientation of the $2$-observable has the correct interior)}
+\emph{(the $2$-observable forgets the direction of the $2$-curve)}
+Going the other direction...
+
+The end points of $2$-curves are free to terminate anywhere
+on the boundary component, but we can fix the endpoints using
+the base points.
+A simple way to do this is to just require the
+$2$-curve to begin and end on base points.
+
+By a \emph{hole} of $M$ we mean a component of $\partial M$.
+
+A single $F$-move is seen to relate a pair of $2$-curves
+that share a hole.
+Continuing in this way, we can chain these $2$-curves together:
+\begin{center}
+\includegraphics[]{pic-chain.pdf}
+\end{center}
 
 %
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
