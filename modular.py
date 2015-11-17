@@ -393,18 +393,18 @@ c = canvas.canvas()
 
 r0 = 1.3
 
-c.fill(path.circle(x, y, r0), [shade, trafo.scale(1.4, 0.7)])
 
-
-r = 0.15
+r = 0.2
 dx = 4*r
 x1 = x-1.5*dx
 
+c.fill(path.circle(x+0.3*dx, y, r0), [shade, trafo.scale(1.6, 0.7)])
 
-r = 0.14
 
-t = Turtle(x1-1.0*dx, y+r, pi/2)
-t.fwd(5*dx)
+r = 0.20
+
+t = Turtle(x1-0.0*dx, y+r, pi/2)
+t.fwd(4*dx)
 #t.stroke(g_curve+st_dotted)
 t.stroke(g_curve)
 
@@ -423,8 +423,8 @@ surface(x1, y, r, white)
 c.fill(path.circle(x1, y+r, 0.04))
 
 
-c.text(x-2.2*dx, y-r, "...", north)
-c.text(x+2.2*dx, y-r, "...", north)
+#c.text(x-2.2*dx, y-r, "...", north)
+c.text(x+2.4*dx, y-2*r, "...", north)
 
 c.writePDFfile("pic-chain.pdf")
 
