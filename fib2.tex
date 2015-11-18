@@ -556,16 +556,17 @@ For a more pedestrian treatment, see \cite{Freedman2002simulation} or \cite{Beve
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\A}{\mathcal{A}}
 
-For our purposes a \emph{surface} will be an
+For our purposes a \emph{surface} will be a compact
 oriented $2$-dimensional manifold with boundary.
 We will not require surfaces to be connected.
 %Each boundary component is oriented (either explicitly or
 %otherwise by using the orientation of the manifold)
-Each boundary component will inherit the manifold orientation,
+By a \emph{hole} of $M$ we mean a component of its boundary. % $\partial M$.
+Each hole will inherit the manifold orientation,
 contain a distinguished \emph{base point},
 and be labelled with
 %an element from a finite set $\mathbb{A}=\{1, a, b, c ...\}.$
-an element from a finite set $\A.$
+an element from a (fixed) finite set $\A.$
 This is the set of ``anyon labels'', and comes
 equiped with a vacuum element $\vac$ 
 and an involution $\ \widehat{}\ $ such that $\widehat{\vac}=\vac.$
@@ -573,17 +574,19 @@ and an involution $\ \widehat{}\ $ such that $\widehat{\vac}=\vac.$
 We will mostly be concerned with \emph{planar} such
 surfaces, ie. disc(s) with zero or more holes.
 
+A map of surfaces $f:M\to N$ will be understood to be
+a topological homeomorphism that preserves
+manifold orientation, hole labels, and base points.
+
 A modular functor $\F$ associates to every
 surface $M$ a finite dimensional complex
 vector space $\F(M)$, called the \emph{fusion space} of $M$.
-A map of surfaces $f:M\to N$ will be understood to be
-a topological homeomorphism that preserves boundary
-labels, orientation, and base points.
-The modular functor associates such an $f$ to a
+For each map $f:M\to N$
+The modular functor associates a
 unitary transformation $\F(f) : \F(M)\to\F(N)$
 that only depends on the isotopy class of $f.$
 Functoriality requires that $\F$
-respect composition of homeomorphisms.
+respect composition of maps.
 
 We have the following axioms for $\F.$
 
@@ -612,12 +615,12 @@ each system.
 
 {\bf Axiom III.}
 %Gluing.
-Denote a surface $M$ with (at least) two boundary
-components labelled $a, b$ as $M_{a,b}$. 
+Denote a surface $M$ with (at least) two holes
+labelled $a, b$ as $M_{a,b}$. 
 Let $N$ be the surface obtained from $M$ by gluing
-these two boundary components together.
-Glueing must respect the orientation of the two boundary
-components as well as identifying their base points.
+these two holes together.
+Gluing must respect the orientation of the two holes
+as well as identifying their base points.
 If we constrain $b=\widehat{a}$ then the fusion space
 of $M_{a,\widehat{a}}$ embedds unitarily in the fusion
 space of $N.$ Moreover, there is an isomorphism called
@@ -647,7 +650,7 @@ boundary on the outside,
 to show more clearly how $N$ fits into $M$.
 In the glued manifold we
 indicate the placement of $M$ and $N$ and the seam
-along which glueing occured,
+along which gluing occured,
 as well as the identification of base points.
 
 %\emph{XXX show orientation of boundaries ?}
@@ -667,25 +670,28 @@ gluing map as follows.
 Here we have shown a manifold $M_{abc}$ with 
 three labelled boundaries, as well as two separate
 ways of gluing pairs-of-pants to get $M.$
-
+\emph{XXX define pair-of-pants}
 
 As we have seen, an oriented simple closed path 
- contained in the interior of $M$ can serve as
-the seam along which gluing occurs and so we call
+contained in the interior of $M$ can serve as
+the seam along which gluing occurs and we call
 these paths \emph{observables}.
 %Any oriented simple closed path contained in the interior of $M$ we will
 %call an \emph{observable}.
-Such a path that encloses two boundary components 
+Such a path that encloses two holes
 we call a \emph{2-observable}.
 \emph{(what does enclose mean exactly?)}
-A function $c:[0,1]\to M$ such that $c(0)\in \partial M$ and $c(1)\in \partial M$
-are two separate components of the boundary we call a \emph{2-curve.}
-The following important fact will be used extensively
-in the combinatorial formulation of a modular functor below:
-up to isotopy (not preserving $\partial M$),
+A function $c:[0,1]\to M$ such that 
+$c(0)\in \partial M$ and $c(1)\in \partial M$
+are distinct basepoints (of two holes)
+we call a \emph{2-curve.}
+%The following important fact will be used extensively
+%in the combinatorial formulation of a modular functor below:
+Up to isotopy, % (not preserving $\partial M$),
 there is a (natural) bijection between
 $2$-observables and $2$-curves.
-\emph{(restrict to $M$ a disc with at least two holes?)}
+\emph{(XXX we really need undirected $2$-curves)}
+%\emph{(restrict to $M$ a disc with at least two holes?)}
 Here we show two such instances of this
 bijection:
 \begin{center}
@@ -693,22 +699,23 @@ bijection:
 \end{center}
 The bijections works as follows.
 To construct a $2$-observable from a $2$-curve $c$ that
-joins two boundary components $M_1$ and $M_2$,
+joins two holes $M_1$ and $M_2$,
 take a small neighbourhood of
 the union $c([0,1])\cup M_1 \cup M_2.$
 This neighbourhood will have boundary a simple closed
 curve that encloses $M_1$ and $M_2.$
+\emph{(is this really how to prove this? do we care?)}
 \emph{(check the orientation of the $2$-observable has the correct interior)}
-\emph{(the $2$-observable forgets the direction of the $2$-curve)}
-Going the other direction...
+Going the other direction we can take
+any $2$-curve contained within the interior of a $2$-observable,
+\emph{but how do we show these are all isotopic?}
 
-The end points of $2$-curves are free to terminate anywhere
-on the boundary component, but we can fix the endpoints using
-the base points.
-A simple way to do this is to just require the
-$2$-curve to begin and end on base points.
+%The end points of $2$-curves are free to terminate anywhere
+%on the hole, but we can fix the endpoints using
+%the base points.
+%A simple way to do this is to just require the
+%$2$-curve to begin and end on base points.
 
-By a \emph{hole} of $M$ we mean a component of $\partial M$.
 
 A single $F$-move is seen to relate a pair of $2$-curves
 that share a hole.
