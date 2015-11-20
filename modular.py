@@ -112,6 +112,13 @@ def pop(*args):
 #
 #
 
+def mathtext(x, y, text, *extra):
+    if text[0]=='$':
+        text = text[1:]
+    if text[-1]=='$':
+        text = text[:-1]
+    c.text(x, y, r"$\displaystyle %s$"%text, *extra)
+
 w = 1.5
 h = 1.5
 
@@ -121,8 +128,7 @@ y = 0
 c = canvas.canvas()
 
 #c.text(x+0.5*h, y, r"\bigoplus_a \H\bigl(", text.mathmode) #east)
-c.text(x, y+0.5*h, r"$\bigoplus_a \H\Bigl($", east)
-# XXX fix display math XXX
+mathtext(x, y+0.4*h, r"$\bigoplus_a \H\Bigl($", east)
 
 r = 1.0
 x += 0.0*w
@@ -165,7 +171,7 @@ c.text(x+0.0*w, y+0.2*h, "$N$", west)
 c.text(x+0.5*w, y+0.9*h, "$\widehat{a}$", southwest)
 
 x += 1.8*r
-c.text(x, y+0.5*h, r"$\Bigr)$", east)
+mathtext(x, y+0.5*h, r"$\Bigr)$", east)
 
 x -= 0*r
 y -= 3*r
@@ -257,7 +263,7 @@ for i, x0 in enumerate([x-0.9*r, x-0.5*r, x+0.5*r, x+0.9*r]):
     c.text(x0, y+0.2, "$%s$"%labels[i], south)
 c.text(x+1.1*r, y+0.7, "$\widehat{d}$", west)
 
-c.text(x-1.5*r, y, r"$\bigoplus_d\H\Bigl($", east)
+mathtext(x-1.5*r, y-0.13, r"$\bigoplus_d\H\Bigl($", east)
 c.text(x+1.7*r, y, r"$\Bigr)$", center)
 
 
@@ -274,7 +280,7 @@ for i, x0 in enumerate([x-0.9*r, x-0.5*r, x+0.5*r, x+0.9*r]):
     c.text(x0, y+0.2, "$%s$"%labels[i], south)
 c.text(x-1.1*r, y+0.7, "$\widehat{e}$", east)
 
-c.text(x-1.5*r, y, r"$\bigoplus_e\H\Bigl($", east)
+mathtext(x-1.5*r, y-0.13, r"$\bigoplus_e\H\Bigl($", east)
 c.text(x+1.7*r, y, r"$\Bigl)$", center)
 
 c.stroke(path.line(-3.0*r, -2.0*r, -1.5*r, -0.8*r), [deco.earrow()])
