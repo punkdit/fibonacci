@@ -106,6 +106,7 @@ def pop(*args):
     c1.insert(c, *args)
     c = c1
 
+SINGLE_COLUMN = False
 
 
 #############################################################################
@@ -173,8 +174,12 @@ c.text(x+0.5*w, y+0.9*h, "$\widehat{a}$", southwest)
 x += 1.8*r
 mathtext(x, y+0.5*h, r"$\Bigr)$", east)
 
-x -= 0*r
-y -= 3*r
+if SINGLE_COLUMN:
+    x -= 0*r
+    y -= 3*r
+else:
+    x += 3*r
+
 
 #c.text(x, y+0.5*h, r"$\to\H\Bigl($", east)
 #c.text(x, y+0.5*h, r"$\xrightarrow{\cong}\H\Bigl($", east)
