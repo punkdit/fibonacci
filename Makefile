@@ -1,5 +1,13 @@
 
 
+supplement: supplement.tex refs2.bib
+	pdflatex supplement.tex
+	bibtex supplement
+	pdflatex supplement.tex
+	pdflatex supplement.tex
+
+
+
 #out2: fib2
 #	open fib2.pdf 
 

@@ -109,6 +109,53 @@ def pop(*args):
 SINGLE_COLUMN = False
 
 
+
+
+class Turtle(object):
+    def __init__(self, x, y, theta):
+        self.x = x
+        self.y = y
+        self.theta = theta
+        self.ps = [(x, y)]
+
+    def fwd(self, d):
+        self.x += d*sin(self.theta)
+        self.y += d*cos(self.theta)
+        self.ps.append((self.x, self.y))
+        return self
+
+    def reverse(self, d):
+        self.fwd(-d)
+        return self
+
+    def right(self, dtheta, r=0.):
+        theta = self.theta
+        self.theta += dtheta
+        if r==0.:
+            return
+        N = 20
+        x, y = self.x, self.y
+        x0 = x - r*sin(theta-pi/2)
+        y0 = y - r*cos(theta-pi/2)
+        for i in range(N):
+            theta += (1./(N))*dtheta
+            x = x0 - r*sin(theta+pi/2)
+            y = y0 - r*cos(theta+pi/2)
+            self.ps.append((x, y))
+        self.x = x
+        self.y = y
+        return self
+
+    def left(self, dtheta, r=0.):
+        self.right(-dtheta, -r)
+        return self
+
+    def stroke(self, extra=[], fill=[], closepath=False):
+        dopath(self.ps, extra, fill, closepath, smooth=0.)
+        return self
+
+
+
 #############################################################################
 #
 #
@@ -301,53 +348,6 @@ c.writePDFfile("pic-glue-fmove.pdf")
 #
 #
 
-
-
-class Turtle(object):
-    def __init__(self, x, y, theta):
-        self.x = x
-        self.y = y
-        self.theta = theta
-        self.ps = [(x, y)]
-
-    def fwd(self, d):
-        self.x += d*sin(self.theta)
-        self.y += d*cos(self.theta)
-        self.ps.append((self.x, self.y))
-        return self
-
-    def reverse(self, d):
-        self.fwd(-d)
-        return self
-
-    def right(self, dtheta, r=0.):
-        theta = self.theta
-        self.theta += dtheta
-        if r==0.:
-            return
-        N = 20
-        x, y = self.x, self.y
-        x0 = x - r*sin(theta-pi/2)
-        y0 = y - r*cos(theta-pi/2)
-        for i in range(N):
-            theta += (1./(N))*dtheta
-            x = x0 - r*sin(theta+pi/2)
-            y = y0 - r*cos(theta+pi/2)
-            self.ps.append((x, y))
-        self.x = x
-        self.y = y
-        return self
-
-    def left(self, dtheta, r=0.):
-        self.right(-dtheta, -r)
-        return self
-
-    def stroke(self, extra=[], fill=[], closepath=False):
-        dopath(self.ps, extra, fill, closepath, smooth=0.)
-        return self
-
-
-
 w = 1.5
 h = 1.5
 
@@ -380,15 +380,15 @@ t.stroke(st_dashed)
 
 c.stroke(path.circle(x, y, dx), st_dashed+[trafo.scale(0.9, 0.7)])
 
-r = 0.14
+r = 0.12
 
-t = Turtle(x1+1*dx, y+r, pi/2)
+t = Turtle(x1+1*dx, y, pi/2)
 t.fwd(dx)
 t.stroke(g_curve+[style.linecap.round])
 
 for i in range(4):
     surface(x1, y, r, white)
-    c.fill(path.circle(x1, y+r, 0.04))
+    #c.fill(path.circle(x1, y+r, 0.04))
     x1 += dx
 
 
@@ -409,29 +409,29 @@ r = 0.2
 dx = 4*r
 x1 = x-1.5*dx
 
-c.fill(path.circle(x+0.3*dx, y, r0), [shade, trafo.scale(1.6, 0.7)])
+c.fill(path.circle(x+0.2*dx, y, r0), [shade, trafo.scale(1.8, 0.7)])
 
 
-r = 0.20
+r = 0.12
 
-t = Turtle(x1-0.0*dx, y+r, pi/2)
-t.fwd(4*dx)
+t = Turtle(x1-0.8*dx, y, pi/2)
+t.fwd(4.8*dx)
 #t.stroke(g_curve+st_dotted)
 t.stroke(g_curve)
 
 for i in range(3):
-    t = Turtle(x1, y+r, pi/2)
+    t = Turtle(x1, y, pi/2)
     t.fwd(dx)
     t.stroke(g_curve+[style.linecap.round])
 
     surface(x1, y, r, white)
-    c.fill(path.circle(x1, y+r, 0.04))
+    #c.fill(path.circle(x1, y+r, 0.04))
 
     c.stroke(path.circle(x1+0.5*dx, y, dx), st_dashed+[trafo.scale(0.9, 0.6, x=x1+0.5*dx, y=0)])
     x1 += dx
 
 surface(x1, y, r, white)
-c.fill(path.circle(x1, y+r, 0.04))
+#c.fill(path.circle(x1, y+r, 0.04))
 
 
 #c.text(x-2.2*dx, y-r, "...", north)
