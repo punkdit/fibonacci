@@ -47,6 +47,11 @@
 
 \newcommand{\cggb}[1]{\textcolor{blue}{#1}}
 
+\newcommand{\F}{\mathscr{H}} % H or F ?
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\A}{\mathcal{A}}
+
 %------------------------------------------------------------------------------------------------------------%
 \begin{document}
 
@@ -110,10 +115,6 @@ There are quite alot of details that we leave out,
 see
 \cite{Turaev1994}, \cite{Walker1991} or \cite{Bakalov2000}.
 For a more pedestrian treatment, see \cite{Freedman2002simulation} or \cite{Beverland2014}.
-
-\newcommand{\F}{\mathscr{H}} % H or F ?
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\A}{\mathcal{A}}
 
 For our purposes a \emph{surface} will be a compact
 oriented $2$-dimensional manifold with boundary. % smooth or topological ?
@@ -220,6 +221,18 @@ as well as the identification of base points.
 %\emph{XXX show orientation of boundaries ?}
 %\emph{XXX displaymath direct sum}
 %\emph{XXX $N...$ show ellipses?}
+
+The reverse process of cutting a surface up
+into pair-of-pants induces a direct sum decomposition
+of the fusion space.
+The pair-of-pants can be found using
+Morse theory: a (generic) ``height'' function $h:M\to\R$
+cuts the manifold into pieces $f^{-1}[a,b]$.
+Note that we need $M$ to be a differentiable manifold for
+this theory to work.
+\begin{center}
+\includegraphics[]{pic-pants.pdf}
+\end{center}
 
 A most important linear map, called an $F-$move,
 is constructed from two applications of a
