@@ -25,10 +25,12 @@ blue = rgb(0., 0., 0.8)
 lred = rgb(1., 0.4, 0.4)
 white = rgb(1., 1., 1.) 
 
-shade0 = rgb(0.75, 0.55, 0)
-shade1 = rgb(0.70, 0.55, 0)
-shade2 = rgb(0.65, 0.50, 0)
+shade = rgb(0.75, 0.55, 0)
+
 grey = rgb(0.75, 0.75, 0.75)
+shade0 = rgb(0.75, 0.75, 0.75)
+shade1 = rgb(0.80, 0.80, 0.80)
+shade2 = rgb(0.85, 0.85, 0.85)
 
 light_shade = rgb(0.85, 0.65, 0.1)
 light_shade = rgb(0.9, 0.75, 0.4)
