@@ -291,40 +291,43 @@ def getlevelset(x, y, length=None):
 #   pick a coordinate system:
 #
 
-c = canvas.canvas()
-dx = 0.1
-dy = 0.1
+dx = 0.08
+dy = 0.08
 
-def transform(x, y, z):
-    x1 = x + 0.3*y
-    y1 = 0.5*y + 4*H*z
 
-    return x1*dx, y1*dy
+#def transform(x, y, z):
+#    x1 = 1.0*x + 0.3*y + 0.0*z
+#    y1 = 0.0*x + 0.5*y + 4*H*z
+#    return x1*dx, y1*dy
 
 #def transform(x, y, z):
 #    return x*dx, y*dy
 
+def transform(x, y, z):
+    x1 = A[0][0]*x + A[0][1]*y + A[0][2]*z
+    y1 = A[1][0]*x + A[1][1]*y + A[1][2]*z
+    return x1*dx, y1*dy
 
-for y in range(H-2,0,-1):
-  for x in range(W-1):
-    z00 = v[y, x]
-    z01 = v[y+1, x]
-    z10 = v[y, x+1]
-    z11 = v[y+1, x+1]
-    if max(z00,z01,z10,z11)>0.5:
-        continue
-    r = 2*z00
-    cl = rgb(r,r,r)
-    #c.fill(path.rect(x*dx, y*dy, 1.2*dx, 1.2*dy), [cl])
 
-    ps = [
-        path.moveto(*transform(x, y, z00)),
-        path.lineto(*transform(x+1.2, y, z10)),
-        path.lineto(*transform(x+1.2, y+1.2, z11)),
-        path.lineto(*transform(x, y+1.2, z01)),
-        path.closepath()]
-
-    #c.fill(path.path(*ps), [cl])
+def plot_scalar_field():
+    for y in range(H-2,0,-1): # paint back to front
+      for x in range(W-1):
+        z00 = v[y, x]
+        z01 = v[y+1, x]
+        z10 = v[y, x+1]
+        z11 = v[y+1, x+1]
+        if max(z00,z01,z10,z11)>0.5:
+            continue
+        r = 2*z00
+        cl = rgb(r,r,r)
+        ps = [
+            path.moveto(*transform(x, y, z00)),
+            path.lineto(*transform(x+1.2, y, z10)),
+            path.lineto(*transform(x+1.2, y+1.2, z11)),
+            path.lineto(*transform(x, y+1.2, z01)),
+            path.closepath()]
+    
+        c.fill(path.path(*ps), [cl])
 
 
 def plotpts(pts, deco, closed=False, fill=False):
@@ -346,6 +349,12 @@ coords = [0.05*W, 0.10*W, 0.15*W, 0.32*W, 0.70*W]
 levelsets = [list(getlevelset(coord, H/2.)) for coord in coords]
 
 rev = lambda items : list(reversed(items))
+
+A = [[1.0, 0.3, 0.0],
+     [0.0, 0.5, 4.0*H]]
+
+
+c = canvas.canvas()
 
 edge = (
     getline(coords[0], H/2., coords[1], H/2.) +\
@@ -393,8 +402,38 @@ plotpts(back+front, [shade2]+st_thick, closed=True, fill=True)
 plotpts(back+front, [black]+st_thick, closed=True)
 
 
-
 c.writePDFfile("pic-pants.pdf")
+
+
+# Top down perspective
+A = [[1.0, 0.0, 0.0],
+     [0.0, 1.0, 0.0*H]]
+
+c = canvas.canvas()
+
+
+back, front = getlevelset(coords[0], H/2.)
+plotpts(back+front, [shade0]+st_thick, closed=True, fill=True)
+plotpts(back+front, [black]+st_thick, closed=True)
+
+back, front = getlevelset(coords[1], H/2.)
+plotpts(back+front, [shade0]+st_thick, closed=True, fill=True)
+plotpts(back+front, [black]+st_thick, closed=True)
+
+back, front = getlevelset(coords[2], H/2.)
+plotpts(back+front, [white]+st_thick, closed=True, fill=True)
+plotpts(back+front, [black]+st_thick, closed=True)
+
+back, front = getlevelset(coords[3], H/2.)
+plotpts(back+front, [white]+st_thick, closed=True, fill=True)
+plotpts(back+front, [black]+st_thick, closed=True)
+
+back, front = getlevelset(coords[4], H/2.)
+plotpts(back+front, [white]+st_thick, closed=True, fill=True)
+plotpts(back+front, [black]+st_thick, closed=True)
+
+
+c.writePDFfile("pic-pants-1.pdf")
 
 
 

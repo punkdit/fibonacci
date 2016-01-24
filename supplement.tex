@@ -197,11 +197,6 @@ $$
 $$
 then the observable will be the set of operators $\{P_a g^{-1}\}_{a\in\A}.$
 
-Pair-of-pants decomposition corresponds to a direct sum decomposition of
-the fusion space.
-The projectors associated to each cuff commute.
-Non-overlapping observables commute.
-
 A common operation is to glue two separate surfaces.
 We can do this by first taking disjoint union (tensoring
 the fusion spaces)
@@ -232,7 +227,13 @@ Note that we need $M$ to be a differentiable manifold for
 this theory to work.
 \begin{center}
 \includegraphics[]{pic-pants.pdf}
+\includegraphics[]{pic-pants-1.pdf}
 \end{center}
+
+Pair-of-pants decomposition corresponds to a direct sum decomposition of
+the fusion space.
+The projectors associated to each cuff commute.
+Non-overlapping observables commute.
 
 A most important linear map, called an $F-$move,
 is constructed from two applications of a
@@ -295,20 +296,38 @@ any $2$-curve contained within the interior of a $2$-observable,
 %$2$-curve to begin and end on base points.
 
 
-A single $F$-move is seen to relate a pair of $2$-curves
+A single $F-$move is seen to relate a pair of $2$-curves
 that share a hole.
 Continuing in this way, we can chain these $2$-curves together:
 \begin{center}
 \includegraphics[]{pic-chain.pdf}
 \end{center}
 
-We call such a chain a ``linear order''...
+We call such a chain a ``linear order''.
+Unique up to Dehn-twists around holes.
 
 Clearly there are many ways to do this, up to isotopy.
 Remarkably, we can generate (switch between)
 all possible linear orders using 
-the R-move.
+a single linear map (and extension under gluing)
+called the $R-$move.
 This move acts on linear orders as follows:
+\begin{center}
+\includegraphics[]{pic-rmove-1.pdf}
+\end{center}
+The following commutative triangle shows the simplest
+relation among possible $F-$moves on a 3-punctured
+disc:
+\begin{center}
+\includegraphics[]{pic-fmove-relation.pdf}
+\end{center}
+The $R-$move maps between each of these
+three $F-$moves, and so can be found as the (a?)
+solution to the
+following hexagonal commutative diagram:
+\begin{center}
+\includegraphics[]{pic-hexagon.pdf}
+\end{center}
 
 
 %
