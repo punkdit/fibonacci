@@ -217,21 +217,47 @@ as well as the identification of base points.
 %\emph{XXX displaymath direct sum}
 %\emph{XXX $N...$ show ellipses?}
 
-The reverse process of cutting a surface up
-into pair-of-pants induces a direct sum decomposition
-of the fusion space.
-The pair-of-pants can be found using
-Morse theory: a (generic) ``height'' function $h:M\to\R$
-cuts the manifold into pieces $f^{-1}[a,b]$.
+The fusion space of the disc and annulus are
+specified by the axioms, and we define the fusion
+space of the disc with two holes, or ``pair-of-pants''
+as:
+\begin{center}
+\includegraphics[]{pic-pop.pdf}
+\end{center}
+
+%The reverse process of cutting a surface up
+%into pair-of-pants induces a direct sum decomposition
+%of the fusion space.
+Given a manifold $M$ which is
+a disc with at least two holes, 
+we now show how to present $M$ as the glueing of various
+pair-of-pants.
+This will yield a decomposition of $\F(M)$ into a direct
+sum of fusion spaces of pair-of-pants. % $V_{ab}^c$'s.
+%The pair-of-pants can be found using Morse theory.
+We proceed using Morse theory.
 Note that we need $M$ to be a differentiable manifold for
-this theory to work.
+this to work.
+Choose a generic ``height'' function $h:M\to\R$
+such that $h$ is constant on $\partial M,$
+and the values of $h$ at different critical points are different.
+Now choose a sequence of non-critical values $a_1<a_2<...<a_n$ in $\R$
+such that every interval $[a_{i-1}, a_i]$ 
+contains exactly one critical value of $h$ and the image
+of $h$ lies within $[a_1, a_n].$
+%cuts the manifold into pieces $f^{-1}[a,b]$.
+Each component of $h^{-1}([a_{i-1}, a_i])$ is then either
+an annulus, a disc, or a pair-of-pants depending on the index of (any)
+critical point it contains.
+We then ``re-glue'' any annuli or discs until there are no more of these
+and we have only pair-of-pants.
 \begin{center}
 \includegraphics[]{pic-pants.pdf}
 \includegraphics[]{pic-pants-1.pdf}
 \end{center}
 
-Pair-of-pants decomposition corresponds to a direct sum decomposition of
-the fusion space.
+%Pair-of-pants decomposition corresponds to a direct sum decomposition of
+%the fusion space.
 The projectors associated to each cuff commute.
 Non-overlapping observables commute.
 
@@ -249,6 +275,7 @@ Here we have shown a manifold $M_{abc}$ with
 three labelled boundaries, as well as two separate
 ways of gluing pairs-of-pants to get $M.$
 \emph{XXX define pair-of-pants}
+\emph{XXX do we label with $d$ or $\widehat{d}$ ?}
 
 As we have seen, an oriented simple closed path 
 contained in the interior of $M$ can serve as
@@ -258,7 +285,7 @@ these paths \emph{observables}.
 %call an \emph{observable}.
 Such a path that encloses two holes
 we call a \emph{2-observable}.
-\emph{(what does enclose mean exactly?)}
+\emph{XXX define enclose exactly}
 A function $c:[0,1]\to M$ such that 
 $c(0)\in \partial M$ and $c(1)\in \partial M$
 %are distinct basepoints (of two holes)

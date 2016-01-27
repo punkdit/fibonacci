@@ -33,6 +33,7 @@ text.preamble(r'\usepackage{mathrsfs}')
 #text.preamble(r"\def\I{\mathbb{I}}")
 text.preamble(r"\def\ket #1{|#1\rangle}")
 text.preamble(r"\def\H{\mathscr{H}}")
+text.preamble(r"\def\A{\mathcal{A}}")
 
 
 rgb = color.rgb
@@ -184,19 +185,21 @@ x += 0.0*w
 p = path.circle(x+r, y+0.5*h, r)
 c.fill(p, [shade])
 c.stroke(p)
-c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
+#c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
+c.fill(path.circle(x+r, y+0.5*h-r, 0.06))
 
 x += 0.3*w
 p = path.circle(x+0.1*w, y+0.5*h, 0.4*r)
 c.fill(p, [white])
 c.stroke(p)
-p = path.circle(x+0.1*w+0.4*r, y+0.5*h, 0.06)
+#p = path.circle(x+0.1*w+0.4*r, y+0.5*h, 0.06)
+p = path.circle(x+0.1*w, y+0.5*h-0.4*r, 0.06)
 c.fill(p)
 
 c.text(x+0.6*w, y+0.5*h, "...")
 
 #c.text(x+0.1*w, y+0.0*h, "$M_a$", west)
-c.text(x+0.2*w, y+0.0*h, "$M$", west)
+c.text(x+0.3*w, y+0.1*h, "$M$", west)
 
 c.text(x+0.3*w, y+0.7*h, "$a$", southwest)
 
@@ -206,7 +209,8 @@ r = 0.7
 p = path.circle(x+r, y+0.5*h, r)
 c.fill(p, [shade])
 c.stroke(p)
-p = path.circle(x+2*r, y+0.5*h, 0.06)
+#p = path.circle(x+2*r, y+0.5*h, 0.06)
+p = path.circle(x+r, y+0.5*h-r, 0.06)
 c.fill(p)
 
 x += 0.3*w
@@ -214,7 +218,7 @@ x += 0.3*w
 c.text(x+0.0*w, y+0.5*h, "...")
 
 #c.text(x+0.0*w, y+0.2*h, "$N_{\hat{a}}$", west)
-c.text(x+0.0*w, y+0.2*h, "$N$", west)
+c.text(x+0.1*w, y+0.3*h, "$N$", west)
 
 c.text(x+0.5*w, y+0.9*h, "$\widehat{a}$", southwest)
 
@@ -243,12 +247,14 @@ p = path.circle(x+r, y+0.5*h, r)
 c.fill(p, [shade])
 c.stroke(p)
 c.stroke(p)
-c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
+#c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
+c.fill(path.circle(x+r, y+0.5*h-r, 0.06))
 
 x += 0.3*w
 p = path.circle(x+0.1*w, y+0.5*h, 0.4*r)
 c.stroke(p, st_dashed)
-p = path.circle(x+0.1*w+0.4*r, y+0.5*h, 0.06)
+#p = path.circle(x+0.1*w+0.4*r, y+0.5*h, 0.06)
+p = path.circle(x+0.1*w, y+0.5*h-0.4*r, 0.06)
 c.stroke(p, st_dashed)
 
 c.text(x+0.1*w, y+0.5*h, r"$N$", center)
@@ -256,7 +262,7 @@ c.text(x+0.1*w, y+0.5*h, r"$N$", center)
 
 c.text(x+0.6*w, y+0.5*h, "...")
 
-c.text(x+0.2*w, y+0.0*h, "$M$", west)
+c.text(x+0.3*w, y+0.1*h, "$M$", west)
 
 x += 1.8*r
 c.text(x, y+0.5*h, r"$\Bigr)$", east)
@@ -284,7 +290,7 @@ def surface(x, y, r, fill=shade, mark=False):
         c.fill(p, [fill])
     c.stroke(p)
     if mark:
-        p = path.circle(x+r, y, 0.06)
+        p = path.circle(x, y-r, 0.06)
         c.fill(p)
 
 r = 1.0
@@ -297,6 +303,7 @@ surface(x+0.6*r, y, 0.1*r, fill=white)
 c.text(x-0.6*r, y+0.2, "$a$", south)
 c.text(x,       y+0.2, "$b$", south)
 c.text(x+0.6*r, y+0.2, "$c$", south)
+c.text(x+0.9*r, y-0.6, "$\widehat{d}$", northwest)
 
 c.stroke(path.circle(x-0.3*r, y, 0.6*r), st_dashed+[trafo.scale(1., 1.1, x, y)])
 c.stroke(path.circle(x+0.3*r, y, 0.6*r), st_dashed+[trafo.scale(1., 1.1, x, y)])
@@ -304,35 +311,37 @@ c.stroke(path.circle(x+0.3*r, y, 0.6*r), st_dashed+[trafo.scale(1., 1.1, x, y)])
 c.text(x-1.5*r, y, r"$\H\Bigl($", center)
 c.text(x+1.3*r, y, r"$\Bigr)$", center)
 
-x -= 3.0*r
+x += 4.0*r
 y -= 3.0*r
 
 surface(x-0.7*r, y, 0.6*r)
 surface(x+0.7*r, y, 0.6*r)
-labels = "adbc"
+labels = "aybc"
 for i, x0 in enumerate([x-0.9*r, x-0.5*r, x+0.5*r, x+0.9*r]):
     surface(x0, y, 0.1*r, fill=white)
     c.text(x0, y+0.2, "$%s$"%labels[i], south)
-c.text(x+1.1*r, y+0.7, "$\widehat{d}$", west)
+c.text(x+1.1*r, y+0.7, "$\widehat{y}$", west)
+c.text(x-1.1*r, y+0.7, "$\widehat{d}$", east)
 
-mathtext(x-1.5*r, y-0.13, r"$\bigoplus_d\H\Bigl($", east)
+mathtext(x-1.5*r, y-0.13, r"$\bigoplus_{y\in\A}\H\Bigl($", east)
 c.text(x+1.7*r, y, r"$\Bigr)$", center)
 
 
-c.text(0, y+0.1, r"$F$", south)
+c.text(-0.15, y+0.2, r"$F^{abc}_d$", south)
 c.stroke(path.line(-1.0*r, y, +0.8*r, y), [deco.earrow()])
 
-x += 7*r
+x -= 7*r
 
 surface(x-0.7*r, y, 0.6*r)
 surface(x+0.7*r, y, 0.6*r)
-labels = "abec"
+labels = "abxc"
 for i, x0 in enumerate([x-0.9*r, x-0.5*r, x+0.5*r, x+0.9*r]):
     surface(x0, y, 0.1*r, fill=white)
     c.text(x0, y+0.2, "$%s$"%labels[i], south)
-c.text(x-1.1*r, y+0.7, "$\widehat{e}$", east)
+c.text(x-1.1*r, y+0.7, "$\widehat{x}$", east)
+c.text(x+1.1*r, y+0.7, "$\widehat{d}$", west)
 
-mathtext(x-1.5*r, y-0.13, r"$\bigoplus_e\H\Bigl($", east)
+mathtext(x-1.5*r, y-0.13, r"$\bigoplus_{x\in\A}\H\Bigl($", east)
 c.text(x+1.7*r, y, r"$\Bigl)$", center)
 
 c.stroke(path.line(-3.0*r, -2.0*r, -1.5*r, -0.8*r), [deco.earrow()])
@@ -443,6 +452,48 @@ c.writePDFfile("pic-chain.pdf")
 #############################################################################
 #
 #
+
+
+w = 1.5
+h = 1.5
+
+x = 0
+y = 0
+
+c = canvas.canvas()
+
+c.text(x, y+0.5*h, r"$V^{ab}_{c} = \H\Bigl($", east)
+
+r = 1.0
+x += 0.0*w
+
+surface(x+r, y+0.5*h, r, mark=True)
+#c.fill(p, [shade])
+#c.stroke(p)
+
+x += 0.3*w
+surface(x+0.1*w, y+0.5*h, 0.3*r, white, mark=True)
+#c.fill(p, [white])
+#c.stroke(p)
+
+c.text(x+0.1*w, y+0.75*h, "$a$", south)
+
+x += 0.6*w
+surface(x+0.1*w, y+0.5*h, 0.3*r, white, mark=True)
+#c.fill(p, [white])
+#c.stroke(p)
+
+c.text(x+0.1*w, y+0.75*h, "$b$", south)
+
+
+c.text(x+0.3*w, y+1.0*h, "$\widehat{c}$", southwest)
+
+x += 1.0*r
+mathtext(x, y+0.5*h, r"$\Bigr)$", east)
+
+
+c.writePDFfile("pic-pop.pdf")
+
 
 
 
