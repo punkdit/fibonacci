@@ -217,6 +217,22 @@ as well as the identification of base points.
 %\emph{XXX displaymath direct sum}
 %\emph{XXX $N...$ show ellipses?}
 
+%A most important linear map, called an $F-$move,
+%As a slightly more complicated example of glueing
+%we consider the following two arr
+The $F-$move
+is constructed from two applications of a
+gluing map as follows:
+
+\begin{center}
+\includegraphics[]{pic-glue-fmove.pdf}
+\end{center}
+
+Here we have shown a manifold $M_{abc}$ with 
+three labelled boundaries, as well as two separate
+ways of gluing pairs-of-pants to get $M.$
+%\emph{XXX do we label with $d$ or $\widehat{d}$ ?}
+
 The fusion space of the disc and annulus are
 specified by the axioms, and we define the fusion
 space of the disc with two holes, or ``pair-of-pants''
@@ -224,6 +240,12 @@ as:
 \begin{center}
 \includegraphics[]{pic-pop.pdf}
 \end{center}
+Using this notation, the above $F-$move
+is a linear map
+$$
+    F^{abc}_d : \bigoplus_{x\in\A} V^{ab}_x\otimes V^{xc}_d 
+        \to \bigoplus_{y\in\A} V^{ay}_d\otimes V^{bc}_y.
+$$
 
 %The reverse process of cutting a surface up
 %into pair-of-pants induces a direct sum decomposition
@@ -238,7 +260,7 @@ sum of fusion spaces of pair-of-pants. % $V_{ab}^c$'s.
 We proceed using Morse theory.
 Note that we need $M$ to be a differentiable manifold for
 this to work.
-Choose a generic ``height'' function $h:M\to\R$
+Choose a Morse function (a generic ``height'' function) $h:M\to\R$
 such that $h$ is constant on $\partial M,$
 and the values of $h$ at different critical points are different.
 Now choose a sequence of non-critical values $a_1<a_2<...<a_n$ in $\R$
@@ -256,30 +278,20 @@ and we have only pair-of-pants.
 \includegraphics[]{pic-pants-1.pdf}
 \end{center}
 
-%Pair-of-pants decomposition corresponds to a direct sum decomposition of
-%the fusion space.
-The projectors associated to each cuff commute.
-Non-overlapping observables commute.
-
 Clearly such a pair-of-pants decomposition is not unique,
 and the goal here is to switch between decompositions,
 and in particular, given an observable $\gamma$,
 and a given pair-of-pants decomposition, find a sequence
 of ``moves'' such that $\gamma$ is in the resulting pair-of-pants
 decomposition.
-%A most important linear map, called an $F-$move,
-The simplest such move, an $F-$move,
-is constructed from two applications of a
-gluing map as follows:
-
 \begin{center}
-\includegraphics[]{pic-glue-fmove.pdf}
+\emph{XXX PICTURE}
 \end{center}
 
-Here we have shown a manifold $M_{abc}$ with 
-three labelled boundaries, as well as two separate
-ways of gluing pairs-of-pants to get $M.$
-%\emph{XXX do we label with $d$ or $\widehat{d}$ ?}
+%Pair-of-pants decomposition corresponds to a direct sum decomposition of
+%the fusion space.
+The projectors associated to each cuff commute.
+Non-overlapping observables commute.
 
 As we have seen, an oriented simple closed path 
 contained in the interior of $M$ can serve as
@@ -335,7 +347,9 @@ Continuing in this way, we can chain these $2$-curves together:
 \end{center}
 
 We call such a chain a ``linear order''.
-Unique up to Dehn-twists around holes.
+This will be unique up to Dehn-twists around holes.
+Also, the curve is directed according to the direction
+of the constituent $F-$moves.
 
 Clearly there are many ways to do this, up to isotopy.
 Remarkably, we can generate (switch between)
@@ -346,12 +360,19 @@ This move acts on linear orders as follows:
 \begin{center}
 \includegraphics[]{pic-rmove-1.pdf}
 \end{center}
+
+At this point we can show the relation to skein theory:
+\begin{center}
+\includegraphics[]{pic-rmove-skein.pdf}
+\end{center}
+
 The following commutative triangle shows the simplest
 relation among possible $F-$moves on a 3-punctured
 disc:
 \begin{center}
 \includegraphics[]{pic-fmove-relation.pdf}
 \end{center}
+
 The $R-$move maps between each of these
 three $F-$moves, and so can be found as the (a?)
 solution to the
@@ -359,6 +380,13 @@ following hexagonal commutative diagram:
 \begin{center}
 \includegraphics[]{pic-hexagon.pdf}
 \end{center}
+Note that we don't fix the framing.
+Also, the $R-$move on the left side occurs in the exterior
+of the inner observable.
+The symmetry of this equation becomes evident when
+the four holes are arranged at the vertices of a regular
+tetrahedron.
+\emph{XXX explain the other hexagon equation...}
 
 
 %%
