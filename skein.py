@@ -59,59 +59,16 @@ st_tau = [style.linewidth.Thick, red, style.linecap.round]
 st_vac = [style.linewidth.thick, red]+st_dotted
 
 
-def dopath(ps, extra=[], fill=[], closepath=False, smooth=0.3):
+def dopath(ps, extra=[], fill=[], closepath=False, smooth=0.3, stroke=True):
     ps = [path.moveto(*ps[0])]+[path.lineto(*p) for p in ps[1:]]
     if closepath:
         ps.append(path.closepath())
     p = path.path(*ps)
     if fill:
         c.fill(p, [deformer.smoothed(smooth)]+extra+fill)
-    c.stroke(p, [deformer.smoothed(smooth)]+extra)
+    if stroke:
+        c.stroke(p, [deformer.smoothed(smooth)]+extra)
 
-
-
-class Turtle(object):
-    def __init__(self, x, y, theta):
-        self.x = x
-        self.y = y
-        self.theta = theta
-        self.ps = [(x, y)]
-
-    def fwd(self, d):
-        self.x += d*sin(self.theta)
-        self.y += d*cos(self.theta)
-        self.ps.append((self.x, self.y))
-        return self
-
-    def reverse(self, d):
-        self.fwd(-d)
-        return self
-
-    def right(self, dtheta, r=0.):
-        theta = self.theta
-        self.theta += dtheta
-        if r==0.:
-            return
-        N = 20
-        x, y = self.x, self.y
-        x0 = x - r*sin(theta-pi/2)
-        y0 = y - r*cos(theta-pi/2)
-        for i in range(N):
-            theta += (1./(N))*dtheta
-            x = x0 - r*sin(theta+pi/2)
-            y = y0 - r*cos(theta+pi/2)
-            self.ps.append((x, y))
-        self.x = x
-        self.y = y
-        return self
-
-    def left(self, dtheta, r=0.):
-        self.right(-dtheta, -r)
-        return self
-
-    def stroke(self, extra=[], fill=[], closepath=False):
-        dopath(self.ps, extra, fill, closepath, smooth=0.)
-        return self
 
 
 
@@ -135,12 +92,7 @@ def circle(x, y, r, shade, deco=[], mark=False):
 c = canvas.canvas()
 
 
-#Turtle(x, y, pi/4).fwd(r).left(pi/2.).fwd(r).right(pi/2, r).\
-#    fwd(r).\
-#    stroke(st_curve)
-
-
-def function(x, y, r, h, h0=0., deco=[], offset=0., dtheta=3*pi/2):
+def getpoints(x, y, r, h, h0=0., offset=0., dtheta=3*pi/2, reverse=False):
     N = 80
     theta = 0.
     
@@ -151,7 +103,16 @@ def function(x, y, r, h, h0=0., deco=[], offset=0., dtheta=3*pi/2):
         if y1>=h0:
             pts.append((x1, y1))
         theta += dtheta / N
+    if reverse:
+        pts = list(reversed(pts))
+
+    return pts
+
+
+def function(x, y, r, h, h0=0., deco=[], offset=0., dtheta=3*pi/2):
+    pts = getpoints(x, y, r, h, h0, offset, dtheta)
     dopath(pts, deco)
+
 
 sy = 0.2
 dx = 1.2
@@ -159,7 +120,7 @@ dx = 1.2
 def circ(x, y, txt):
     p = path.circle(x, y, 0.5*r0)
     st_scale = [trafo.scale(x=x, y=y, sx=1., sy=sy)]
-    c.fill(p, st_scale+[white])
+    c.fill(p, st_scale+[shade2])
     c.stroke(p, st_scale)
     c.fill(path.circle(x, y-sy*0.5*r0, 0.05))
     c.text(x-0.5*r0, y+0.5*r0, txt, center)
@@ -167,6 +128,8 @@ def circ(x, y, txt):
 def ucirc():
     x1, y1 = x-dx*r, y-r
     st_scale = [trafo.scale(x=x1, y=y1, sx=1., sy=sy)]
+
+    c.fill(path.circle(x1, y1, 0.5*r0), st_scale+[shade0])
     c.stroke(path.path(path.arc(x1, y1, 0.5*r0, 180., 0.)), st_scale)
     x2, y2 = x1-0.5*dx*sy*r0, y1-0.5*sy*r0
     c.stroke(path.line(x, y, x2, y2))
@@ -180,61 +143,92 @@ x, y = 0., 0.
 r = 0.3*h # length of ribbon segment
 r0 = 0.4*w # width of ribbon
 
-function(x-0.5*r0, y, -0.4*w, h, deco=st_curve)
-function(x, y, -0.4*w, h)
-function(x+0.5*r0, y, -0.4*w, h, 0.102*h, deco=st_curve+st_round)
 
-r1 = 0.8*r0
-y0 = 2.*h/3
-p = path.path(
-    path.moveto(x,     y0+r1),
-    path.lineto(x+r1,  y0),
-    path.lineto(x,     y0-r1),
-    path.lineto(x+-r1, y0),
-    path.closepath())
-c.fill(p, [white])
+pts00 = [(x-dx*r-0.5*r0, y-r), (x-0.5*r0, y)]
+pts0 = getpoints(x-0.5*r0, y, -0.4*w, h)
+pts1 = getpoints(x, y, -0.4*w, h)
+pts2 = getpoints(x+0.5*r0, y, -0.4*w, h, 0.102*h, reverse=True)
+pts20 = [(x+0.5*r0, y), (x-dx*r+0.5*r0, y-r)]
 
-function(x-0.5*r0, y, 0.4*w, h, 0.102*h, deco=st_curve+st_round)
-function(x, y, 0.4*w, h)
-function(x+0.5*r0, y, 0.4*w, h, deco=st_curve)
+dopath(pts00+pts0+pts2+pts20, fill=[shade0], closepath=True, stroke=False, smooth=0.)
+#dopath(pts0+pts2, fill=[shade0], closepath=True, stroke=False)
+
+ucirc()
+
+dopath(pts00+pts0, st_curve+st_round)
+dopath(pts1)
+dopath(pts2, st_curve+st_round)
+
+#r1 = 0.7*r0
+#y0 = 2.*h/3
+#p = path.path(
+#    path.moveto(x,     y0+r1),
+#    path.lineto(x+r1,  y0),
+#    path.lineto(x,     y0-r1),
+#    path.lineto(x+-r1, y0),
+#    path.closepath())
+#c.fill(p, [white])
+
+pts0 = getpoints(x-0.5*r0, y, 0.4*w, h, 0.102*h)
+pts1 = getpoints(x, y, 0.4*w, h)
+pts2 = getpoints(x+0.5*r0, y, 0.4*w, h, reverse=True)
+dopath(pts0+pts2, fill=[shade0], closepath=True, stroke=False, smooth=0.)
+dopath(pts0+pts2, [shade0]+st_thick, closepath=True, smooth=0.) # cover a seam
+
+dopath(pts0, st_curve+st_round)
+dopath(pts1)
+dopath(pts2+pts20, st_curve_arrow+st_round)
 
 circ(x-0.4*w, h, "$b$")
 circ(x+0.4*w, h, "$a$")
 
-c.stroke(path.line(x-0.5*r0, y, x-dx*r-0.5*r0, y-r), st_curve+st_round)
-c.stroke(path.line(x+0.5*r0, y, x-dx*r+0.5*r0, y-r), st_curve_arrow+st_round)
 
+#c.stroke(path.line(x-0.5*r0, y, x-dx*r-0.5*r0, y-r), st_curve+st_round)
+#c.stroke(path.line(x+0.5*r0, y, x-dx*r+0.5*r0, y-r),  st_curve_arrow+st_round)
 
-ucirc()
+#dopath(pts00, st_curve+st_round)
+#dopath(pts20, st_curve_arrow+st_round)
 
 ####### >>>>
 
 c.stroke(path.line(x+2*r0, y+r0, x+3*w-2*r0, y+r0), [deco.earrow()])
-c.text(x+1.5*w, y+1.5*r0, "$R^{ab}_c$", center)
+c.text(x+1.5*w, y+1.8*r0, "$R^{ab}_c$", center)
 
 x += 3*w
 y += 0.3*h
-
 h1 = 0.7*h
+r = 0.6*h
+dx = 0.6
 
-function(x-0.5*r0, y, -0.4*w, h1, deco=st_curve, dtheta=pi/2.)
-function(x, y, -0.4*w, h1, dtheta=pi/2.)
-function(x+0.5*r0, y, -0.4*w, h1, 0.77*h1, deco=st_curve+st_round, dtheta=pi/2.)
+pts00 = [(x-dx*r-0.5*r0, y-r), (x-0.5*r0, y)]
+pts0 = getpoints(x-0.5*r0, y, -0.4*w, h1, dtheta=pi/2.)
+pts1 = getpoints(x+0.5*r0, y, -0.4*w, h1, 0.77*h1, dtheta=pi/2., reverse=True)
+pts2 = getpoints(x-0.5*r0, y, 0.4*w, h1, 0.77*h1, dtheta=pi/2.)
+pts3 = getpoints(x+0.5*r0, y, 0.4*w, h1, dtheta=pi/2., reverse=True)
+pts30 = [(x+0.5*r0, y), (x-1.03*dx*r+0.5*r0, y-1.03*r)]
 
-function(x-0.5*r0, y, 0.4*w, h1, 0.77*h1, deco=st_curve+st_round, dtheta=pi/2.)
-function(x, y, 0.4*w, h1, dtheta=pi/2.)
-function(x+0.5*r0, y, 0.4*w, h1, deco=st_curve, dtheta=pi/2.)
+dopath(pts00+pts0+pts1+pts2+pts3+pts30, fill=[shade0], closepath=True, stroke=False)
+
+ucirc()
+
+#c.stroke(path.line(x-0.5*r0, y, x-dx*r-0.5*r0, y-r), st_curve+st_round)
+#c.stroke(path.line(x+0.5*r0, y, x-dx*r+0.5*r0, y-r), st_curve_arrow+st_round)
+
+dopath(pts00+pts0, st_curve+st_round)
+dopath(pts1+pts2, st_curve+st_round)
+dopath(pts3+pts30, st_curve_arrow+st_round)
+
 
 circ(x-0.4*w, h, "$b$")
 circ(x+0.4*w, h, "$a$")
 
-r = 0.6*h
-dx = 0.6
-c.stroke(path.line(x-0.5*r0, y, x-dx*r-0.5*r0, y-r), st_curve+st_round)
-c.stroke(path.line(x+0.5*r0, y, x-dx*r+0.5*r0, y-r), st_curve_arrow+st_round)
 
+pts = getpoints(x, y, -0.4*w, h1, dtheta=pi/2.)
+dopath(pts)
 
-ucirc()
+pts = getpoints(x, y, 0.4*w, h1, dtheta=pi/2.)
+dopath(pts)
+
 
 
 
