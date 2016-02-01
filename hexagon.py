@@ -290,4 +290,45 @@ for i in range(6):
 c.writePDFfile("pic-hexagon.pdf")
 
 
+###############################################################################
+#
+#
+
+c = canvas.canvas()
+
+x, y = 0., 0.
+
+w, h = 1.5, 1.5
+
+r0 = 0.8*w
+r1 = 0.4*r0
+r2 = 0.1*r0
+
+
+circle(x, y, 1.2*r0, shade)
+
+circle(x+r1, y+r1, r2, white)
+circle(x-r1, y+r1, r2, white)
+circle(x-r1, y-r1, r2, white)
+circle(x+r1, y-r1, r2, white)
+
+
+r3 = 2*r2
+Turtle(x-r1, y+r1+r3, pi/2).fwd(2*r1).right(pi, r3).fwd(2*r1).right(pi, r3).stroke()
+
+r3 = 2.8*r2
+Turtle(x-r1, y+r1+r3, pi/2).fwd(2*r1).right(3*pi/4, r3).\
+    fwd(1.42*2*r1).right(3*pi/4, r3).fwd(2*r1).right(pi/2, r3).stroke(closepath=True)
+
+
+r3 = 3.4*r2
+Turtle(x+r1+r3, y+r1, pi).fwd(2*r1).right(pi, r3)\
+    .fwd(2*r1).right(pi, r3).stroke(st_dashed)
+
+
+c.text(x+1.9*r1, y, "$\gamma$", west)
+
+c.writePDFfile("pic-refactor.pdf")
+
+
 
