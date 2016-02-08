@@ -46,6 +46,7 @@
 \newcommand{\proj}[1]{\ketbra{#1}{#1}}
 
 \newcommand{\cggb}[1]{\textcolor{blue}{#1}}
+\newcommand{\simon}[1]{\textcolor{red}{#1}}
 
 \newcommand{\F}{\mathscr{H}} % H or F ?
 \newcommand{\C}{\mathbb{C}}
@@ -133,12 +134,19 @@ and an involution $\ \widehat{}\ $ such that $\widehat{\vac}=\vac.$
 
 We will mostly be concerned with \emph{planar} such
 surfaces, ie. disc(s) with zero or more holes.
+Such surfaces will be given a counterclockwise 
+orientation, which induces a clockwise orientation on
+any \emph{interior} hole and a counterclockwise orientation
+on the \emph{exterior} hole.
+\begin{center}
+\includegraphics[]{pic-disc.pdf}
+\end{center}
 
 A map of surfaces $f:M\to N$ will be understood to be
 a topological homeomorphism that preserves
 manifold orientation, hole labels, and base points.
 
-A modular functor $\F$ associates to every
+A \emph{modular functor} $\F$ associates to every
 surface $M$ a finite dimensional complex
 vector space $\F(M)$, called the \emph{fusion space} of $M$.
 For each map $f:M\to N$
@@ -177,13 +185,22 @@ each system.
 %Gluing.
 Denote a surface $M$ with (at least) two holes
 labelled $a, b$ as $M_{a,b}$. 
-Let $N$ be the surface obtained from $M$ by gluing
-these two holes together.
-Gluing must respect the orientation of the two holes
-as well as identifying their base points.
-If we constrain $b=\widehat{a}$ then the fusion space
-of $M_{a,\widehat{a}}$ embedds unitarily in the fusion
-space of $N.$ Moreover, there is an isomorphism called
+If we constrain $b=\widehat{a}$ 
+then we may \emph{glue} these two holes together
+to form a new surface $N.$
+%Let $N$ be the surface obtained from $M$ by gluing
+%these two holes together.
+%By this we mean there is a homeomorphisms from one
+To construct $N$ we choose a homeomorphisms from one
+hole to the other that maps base point to base point 
+and reverses orientation.
+Identifying the two holes along this homeomorphism
+gives the glued manifold $N.$
+%Gluing must reverse the orientation of the two holes
+%as well as identifying their base points.
+The fusion space of $M_{a,\widehat{a}}$ then embedds unitarily in the fusion
+space of $N.$
+Moreover, there is an isomorphism called
 a \emph{gluing map}:
 $$
     \bigoplus_{a\in\A} \F(M_{a,\widehat{a}}) \xrightarrow{\cong} \F(N).
@@ -292,7 +309,7 @@ of how one may deform Morse functions into other Morse functions
 and the kind of transitions involved in their critical point structure.
 This was the approach used in \cite{Freedman2002simulation}.
 In this work we use a simpler method,
-which is essentially \emph{skein theory.}
+which is essentially the same as \emph{skein theory.}
 Read on to find out how this works!
 
 %Pair-of-pants decomposition corresponds to a direct sum decomposition of
@@ -388,7 +405,7 @@ disc:
 \end{center}
 
 The $R-$move maps between each of these
-three $F-$moves, and so can be found as the (a?)
+three $F-$moves, and so can be found as a
 solution to the
 following hexagonal commutative diagram:
 \begin{center}
@@ -401,6 +418,12 @@ The symmetry of this equation becomes evident when
 the four holes are arranged at the vertices of a regular
 tetrahedron.
 \emph{XXX explain the other hexagon equation...}
+\simon{I don't see why this gives unique $R-$moves.
+Do we regard the solutions as being equivalent up to ``gauge transformation''?
+We can get full-twists directly out of the modular functor,
+these include the $\theta$ twists, which give more constraints for
+the $R-$moves to satisfy. Do they?
+}
 
 
 %%

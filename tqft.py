@@ -27,7 +27,7 @@ st_dotted = [style.linestyle.dotted]
 
 
 text.set(mode="latex")
-text.set(docopt="12pt")
+text.set(docopt="10pt")
 text.preamble(r'\usepackage{amsmath,amsfonts,amssymb}')
 #text.preamble(r"\def\I{\mathbb{I}}")
 text.preamble(r"\def\ket #1{|#1\rangle}")

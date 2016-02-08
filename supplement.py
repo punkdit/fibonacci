@@ -8,7 +8,7 @@ import numpy
 from pyx import canvas, path, deco, trafo, style, text, color, deformer
 
 text.set(mode="latex") 
-text.set(docopt="12pt")
+text.set(docopt="10pt")
 text.preamble(r"\usepackage{amsmath,amsfonts,amssymb}")
 
 rgb = color.rgb

@@ -27,7 +27,7 @@ st_dotted = [style.linestyle.dotted]
 
 
 text.set(mode="latex")
-text.set(docopt="12pt")
+text.set(docopt="10pt")
 text.preamble(r'\usepackage{amsmath,amsfonts,amssymb}')
 text.preamble(r'\usepackage{mathrsfs}')
 #text.preamble(r"\def\I{\mathbb{I}}")
@@ -284,11 +284,15 @@ y = 0
 c = canvas.canvas()
 
 
-def surface(x, y, r, fill=shade, mark=False):
+def surface(x, y, r, fill=shade, mark=False, orient=None):
     p = path.circle(x, y, r)
     if fill is not None:
         c.fill(p, [fill])
     c.stroke(p)
+    if orient == True:
+        c.stroke(p, [deco.earrow()])
+    elif orient == False:
+        c.stroke(p, [deco.earrow(), trafo.scale(x=x, y=y, sx=1, sy=-1)])
     if mark:
         p = path.circle(x, y-r, 0.06)
         c.fill(p)
@@ -351,6 +355,35 @@ c.stroke(path.line(+3.4*r, -2.0*r, +1.9*r, -0.8*r), [deco.earrow()])
 c.text(+3.0*r, -1.4*r, "$\cong$", center)
 
 c.writePDFfile("pic-glue-fmove.pdf")
+
+
+#############################################################################
+#
+#
+
+w = 1.5
+h = 1.5
+
+x = 0
+y = 0
+
+c = canvas.canvas()
+
+
+r = 1.4
+
+surface(x+0, y, r, mark=True, orient=True)
+surface(x-0.6*r, y, 0.2*r, fill=white, mark=True, orient=False)
+c.text(x-0.6*r, y+0.3*r, "$a_1$", south)
+#surface(x+0.0*r, y, 0.2*r, fill=white, mark=True, orient=False)
+c.text(x, y, "...", center)
+surface(x+0.6*r, y, 0.2*r, fill=white, mark=True, orient=False)
+c.text(x+0.6*r, y+0.3*r, "$a_n$", south)
+c.text(x+0.9*r, y-0.7*r, "$b$", north)
+
+c.stroke(path.path(path.arc(x+0.2*r, y-0.5*r, 0.15*r, 20, 330)), [deco.earrow()])
+
+c.writePDFfile("pic-disc.pdf")
 
 
 #############################################################################
