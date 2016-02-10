@@ -190,7 +190,7 @@ c.writePDFfile("pic-rmove-1.pdf")
 #
 #
 
-def tetra(x, y, count=None, subcount=None, rev=1, back=True, front=True):
+def tetra(x, y, count=None, subcount=None, rev=1, back=True, front=True, reflect=False):
 
     if back:
         circle(x, y, r, shade)
@@ -229,10 +229,18 @@ def tetra(x, y, count=None, subcount=None, rev=1, back=True, front=True):
 
     if count is not None:
 
+        assert 0<=count<=2
         s = 0.86*r
         r1 = 3*r0
-        Turtle(x1, y1-r1, -pi/2).right(pi, r1).fwd(s).right(pi, r1).fwd(s).\
-            stroke([trafo.rotate(-count*120, x=x, y=y)])
+        extra = []
+        #c.text(x, y, count)
+        if reflect:
+            #count = [0, 1, 2][count]
+            extra.append(trafo.scale(x=x, y=y, sx=-1, sy=1))
+        extra += [trafo.rotate(-count*120, x=x, y=y)]
+        t = Turtle(x1, y1-r1, -pi/2).right(pi, r1).fwd(s).right(pi, r1).fwd(s)
+        t.stroke(extra)
+        t.stroke(extra+[deco.earrow()])
 
 
 c = canvas.canvas()
@@ -242,7 +250,7 @@ R = 1.7*r
 for i in range(3):
     theta = 2*i*pi/3
     x, y = R*sin(theta), R*cos(theta)
-    tetra(x, y, [1, 0, 2][i])
+    tetra(x, y, [1, 0, 2][i], reflect=(i in [0,1]))
 
     w = 30 + 120*i
     c.stroke(path.path(path.arc(0., 0., 1.1*R, w-20, w+20)), [deco.earrow()])
@@ -252,6 +260,26 @@ for i in range(3):
     c.text(x, y, "$F$", center)
 
 c.writePDFfile("pic-fmove-relation.pdf")
+
+
+c = canvas.canvas()
+
+R = 1.7*r
+
+for i in range(3):
+    theta = 2*i*pi/3
+    x, y = R*sin(theta), R*cos(theta)
+    tetra(x, y, [2, 1, 0][i], reflect=(i in [0,2]))
+
+    w = 30 + 120*i
+    c.stroke(path.path(path.arc(0., 0., 1.1*R, w-20, w+20)), [deco.earrow()])
+    c.stroke(path.path(path.arcn(0., 0., 1.1*R, w+20, w-20)), [deco.earrow()])
+    theta = 2*(i+0.5)*pi/3
+    x, y = 1.3*R*sin(theta), 1.3*R*cos(theta)
+    c.text(x, y, "$F$", center)
+
+c.writePDFfile("pic-fmove-relation-r.pdf")
+
 
 
 c = canvas.canvas()
@@ -269,6 +297,7 @@ for i in range(6):
         [1, 0, 2][i//2],
         [2, 3, 3, 3, 3, 5][i],
         [1, -1, -1, 1, 1, 1][i], # reverse arrow
+        reflect=[True, True, False][i//2],
     )
     #c.text(x, y, str(i), center) # debug numbering
 
@@ -281,12 +310,50 @@ for i in range(6):
 
     # Arrow labels
     theta = (i+0.5)*pi/3
-    x, y = 1.3*R*sin(theta), 1.3*R*cos(theta)
-    labels = "R F R F^{-1} R F^{-1}".split()
+    x, y = 1.25*R*sin(theta), 1.25*R*cos(theta)
+    labels = "R^{-1} F R^{-1} F R F".split()
     c.text(x, y, "$%s$"%labels[i], center)
 
 
 c.writePDFfile("pic-hexagon.pdf")
+
+
+c = canvas.canvas()
+
+x, y = 0., 0.
+
+R = 3*r
+
+
+for i in range(6):
+    theta = i*pi/3
+    x, y = R*sin(theta), R*cos(theta)
+
+    tetra(x, y, 
+        [2, 1, 0][(i+1)//2%3],
+        [ 2,  2,  3,  3,  3,  3][i],
+        [-1, -1, -1, -1,  1,  1][i], # reverse arrow
+        reflect=[True, False, True][(i+1)//2%3],
+    )
+    #c.text(x, y, str(i), center) # debug numbering
+
+    # Arrows
+    w = 60*i
+    if i != 0:
+        c.stroke(path.path(path.arc(0., 0., 1.1*R, w-10, w+10)), [deco.earrow()])
+    else:
+        c.stroke(path.path(path.arcn(0., 0., 1.1*R, w+10, w-10)), [deco.earrow()])
+
+    # Arrow labels
+    theta = (i+0.5)*pi/3
+    x, y = 1.25*R*sin(theta), 1.25*R*cos(theta)
+    labels = "F R^{-1} F R F R".split()
+    c.text(x, y, "$%s$"%labels[i], center)
+
+
+c.writePDFfile("pic-hexagon-r.pdf")
+
+
 
 
 ###############################################################################
