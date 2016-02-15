@@ -14,6 +14,7 @@ text.preamble(r'\usepackage{mathrsfs}')
 #text.preamble(r"\def\I{\mathbb{I}}")
 text.preamble(r"\def\ket #1{|#1\rangle}")
 text.preamble(r"\def\H{\mathscr{H}}")
+text.preamble(r"\def\F{\mathscr{H}}")
 text.preamble(r"\def\A{\mathcal{A}}")
 
 
@@ -246,6 +247,112 @@ manifold(x + w, y, "abc")
 
 
 c.writePDFfile("pic-refactoring.pdf")
+
+
+
+###############################################################################
+#
+#
+
+w, h = 2.2, 2.4
+
+c = canvas.canvas()
+
+r0 = 0.4*w # second hole
+
+count = 0
+
+def manifold(x, y, labels):
+
+    global count
+
+    p = path.circle(x+r0/2, y, r0)
+    extra = [trafo.scale(x=x+r0/2, y=y, sx=1.0, sy=0.8)]
+    c.fill(p, extra+[shade])
+    c.stroke(p, extra)
+
+    if count in [0, 2]:
+        c.stroke(path.line(x-0.5*r0, y, x+r0+0.5*r0, y), st_curve)
+    else:
+        extra = list(st_curve)
+        if count==3:
+            extra.append(trafo.scale(x=x, y=y, sx=1, sy=-1))
+        Turtle(x-0.85*r0+0.3, y, pi/2).\
+            right(0.25*pi, 0.4).left(0.50*pi, 0.73).left(0.88*pi, 0.15).\
+            fwd(0.55).\
+            right(0.88*pi, 0.15).right(0.50*pi, 0.73).left(0.25*pi, 0.4).\
+            stroke(extra)
+
+    for i in range(2):
+        _x = [x, x+r0][i]
+        p = path.circle(_x, y, 0.08)
+        c.fill(p, [white])
+        c.stroke(p)
+        ydelta = 0.25
+        xdelta = 0.00
+        if count==1  and labels[i]=="a":
+            ydelta = -0.35
+            xdelta = +0.1
+        if count==3  and labels[i]=="a":
+            ydelta = -0.35
+            xdelta = -0.1
+        c.text(_x+xdelta, y+ydelta, r"$\scriptstyle %s$"%labels[i], south)
+
+    c.text(x+1.5*r0, y-0.6, r"$\scriptstyle \hat{c}$", center)
+    c.text(x+1.7*r0, y, r"$\bigr)$", center)
+    c.text(x-0.9*r0, y, r"$\H\bigl($", center)
+
+    count += 1
+
+
+x, y = 0., 4*h
+
+dy = 1.2*h
+
+# top right
+manifold(x, y, "ab")
+
+x0, y0 = x+0.5*r0, y-0.5*dy
+c.stroke(path.line(x0, y0+0.2*dy, x0, y0-0.2*dy), [deco.earrow()])
+c.text(x0+0.3, y0, r"$\H(f)$", west)
+
+
+# ~~~~~~~~~~~~
+
+y -= dy
+
+# bottom right
+manifold(x, y, "ba")
+
+# ~~~~~~~~~~~~
+
+x -= 2*w
+
+# bottom left
+manifold(x, y, "ba")
+
+x0, y0 = x+0.5*r0+1.0*w, y
+c.stroke(path.line(x0-0.3*w, y0, x0+0.2*w, y0), [deco.earrow()])
+c.text(x0, y0+0.4, "$R^{ba}_c$", center)
+
+# ~~~~~~~~~~~~
+
+
+y += dy
+
+# top left
+manifold(x, y, "ab")
+
+x0, y0 = x+0.5*r0+1.0*w, y
+c.stroke(path.line(x0-0.3*w, y0, x0+0.2*w, y0), [deco.earrow()])
+c.text(x0, y0+0.4, "$R^{ab}_c$", center)
+
+x0, y0 = x+0.5*r0, y-0.5*dy
+c.stroke(path.line(x0, y0+0.2*dy, x0, y0-0.2*dy), [deco.earrow()])
+c.text(x0-0.3, y0, r"$\H(f)$", east)
+
+c.writePDFfile("pic-natural.pdf")
+
 
 
 

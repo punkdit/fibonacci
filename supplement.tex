@@ -232,6 +232,18 @@ transitively on curve diagrams (\emph{why??}).
 
 \section{Modular Functors}
 
+The definition of a Modular functor appears to
+be well motivated physically....
+Unfortunately, there are many such definitions
+in the literature, and little work has been done
+on the connection between these different axiomatizations
+(\cite{Bartlett2015} section 1.2 and 1.3).
+In particular, what physicists call Anyon theory,
+and mathematicians call a Modular Tensor Category,
+has not been established to correspond exactly
+(bijectively) to any of these modular functor
+variants.
+
 As in algebraic topology, we wish to extract
 algebraic information about topological objects.
 This can be viewed as a kind of representation theory
@@ -362,6 +374,13 @@ as well as the identification of base points.
 %\emph{XXX show orientation of boundaries ?}
 %\emph{XXX displaymath direct sum}
 %\emph{XXX $N...$ show ellipses?}
+
+It follows that:
+1) a vacuum boundary component may be ``filled-in''
+replaced with a disk by gluing.
+2) the dimensionality of the fusion space of a torus is the
+cardinality of $\A.$ This follows by gluing one end
+of an anulus (cylindar) to the other.
 
 %A most important linear map, called an $F-$move,
 %As a slightly more complicated example of glueing
@@ -509,7 +528,9 @@ Remarkably, we can generate (switch between)
 all possible linear orders using 
 a single linear map (and extension under gluing)
 called the $R-$move.
-This move acts on linear orders as follows:
+This is a (collection of) linear operator(s)
+$R^{ab}_c:V^{ab}_c\to V^{ab}_c$
+whose action on linear orders is depicted as follows:
 \begin{center}
 \includegraphics[]{pic-rmove-1.pdf}
 \end{center}
@@ -526,33 +547,61 @@ The black lines do not add any extra structure, they can
 be seen as a part of the dual of the ``hexagon'' cut out by
 the green line and boundary components.
 
+We can try to pluck the linear
+operator $R^{ab}_c:V^{ab}_c\to V^{ab}_c$
+directly out of the
+modular functor by considering a half twist
+$\sigma$ that swaps the $a$ and $b$ component.
+This is a diffeomorphism $\sigma:M^{ab}_c\to M^{ba}_c$
+which the functor sends to a 
+linear map $\F(\sigma):V^{ab}_c\to V^{ba}_c.$
+Therefore, unless $a=b$ (or $a=\vac$ or $b=\vac$)
+this fails to give the $R-$move we sought.
+
+We can get monodromy operators, and theta operators...
+
+Digging a bit deeper in looking for $R-$moves,
+we seek something that
+appears to be a collection of natural transformations of $\F,$
+one $R^{ab}_c$ for each pair of pants $M^{ab}_c.$
+The naturality requirement says that
+the $R-$moves commute with diffeomorphisms.
+In more detail,
+given any diffeomorphism
+$f:M^{ab}_c\to M^{\tilde{a}\tilde{b}}_{\tilde{c}}$
+we have $\F(f)R^{ab}_c=R^{\tilde{a}\tilde{b}}_{\tilde{c}}\F(f).$
+We show an example of this, with $f$ a counter-clockwise half twist
+$f:M^{ab}_c\to M^{ba}_c:$
+\begin{center}
+\includegraphics[]{pic-natural.pdf}
+\end{center}
+Category theorists would write this as
+$ R^{ab}_c : \F\to\F,$
+and perhaps this is good because natural transformations
+can be thought of as $2-$morphisms (a morphism of morphisms) and we
+do expect the braiding to be somehow one level up
+in the $n-$categorical sense.
+
 The following commutative triangles show two
 relations among possible $F-$moves on a 3-punctured
 disc:
 \begin{center}
-\includegraphics[]{pic-fmove-relation.pdf}
-\ \ \ \ \ \includegraphics[]{pic-fmove-relation-r.pdf}
+\includegraphics[width=0.2\columnwidth]{pic-fmove-relation.pdf}
+\ \ \ \ \ \includegraphics[width=0.2\columnwidth]{pic-fmove-relation-r.pdf}
+%\includegraphics[width=0.4\columnwidth]{pic-abelian.pdf}
 \end{center}
 
 The $R-$move maps between each of these
-three $F-$moves, and so can be found as a
-solution to the
-following hexagonal commutative diagram:
+three $F-$moves, and so the
+following hexagonal diagrams must commute:
 \begin{center}
-\includegraphics[]{pic-hexagon.pdf}
-\ \ \ \ \includegraphics[]{pic-hexagon-r.pdf}
+\includegraphics[width=0.4\columnwidth]{pic-hexagon.pdf}
+\ \ \ \ \includegraphics[width=0.4\columnwidth]{pic-hexagon-r.pdf}
 \end{center}
 Note that we don't fix the framing.
 The symmetry of this equation becomes evident when
 the four holes are arranged at the vertices of a regular
 tetrahedron.
-%\emph{XXX explain the other hexagon equation...}
-\simon{I don't see why this gives unique $R-$moves.
-Do we regard the solutions as being equivalent up to ``gauge transformation''?
-We can get full-twists directly out of the modular functor,
-these include the $\theta$ twists, which give more constraints for
-the $R-$moves to satisfy. Do they?
-}
 
 What we have done here is show how the skein theory of
 braided tensor categories arises from a modular functor.
@@ -571,12 +620,13 @@ but do not seem to say much about going in the other direction.
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %
 
-\section{The refactoring theorem}
-
-
-\begin{center}
-\includegraphics[]{pic-refactoring.pdf}
-\end{center}
+%\section{The refactoring theorem}
+%
+%
+%  XXX useless
+%\begin{center}
+%\includegraphics[]{pic-refactoring.pdf}
+%\end{center}
 
 %
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
