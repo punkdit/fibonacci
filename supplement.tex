@@ -275,9 +275,13 @@ and an involution $\ \widehat{}\ $ such that $\widehat{\vac}=\vac.$
 
 We will mostly be concerned with \emph{planar} such
 surfaces, ie. disc(s) with zero or more holes.
-Such surfaces will be given a counterclockwise 
-orientation, which induces a clockwise orientation on
-any \emph{interior} hole and a counterclockwise orientation
+%Such surfaces will be given a counterclockwise 
+%orientation, which induces a clockwise orientation on
+%any \emph{interior} hole and a counterclockwise orientation
+%on the \emph{exterior} hole.
+Such surfaces will be given a clockwise 
+orientation, which induces a counterclockwise orientation on
+any \emph{interior} hole and a clockwise orientation
 on the \emph{exterior} hole.
 \begin{center}
 \includegraphics[]{pic-disc.pdf}
@@ -348,12 +352,21 @@ $$
 $$
 The seam along which gluing occurs can be associated
 with an observable as follows.
-We take a gluing map $g$. Projectors $P_a$ onto the
+We take a gluing map $g$ and projectors $P_a$ onto the
 summands in the above direct sum:
 $$
     P_a: \bigoplus_{b\in\A} \F(M_{b,\widehat{b}}) \to \F(M_{a,\widehat{a}}).
 $$
 then the observable will be the set of operators $\{P_a g^{-1}\}_{a\in\A}.$
+Note that in the glued manifold $N$ the seam has no
+preferred orientation. If we choose an orientation 
+for the seam this corresponds to choosing one of the
+two boundary components in the original manifold $M_{a,\widehat{a}}.$
+If these boundary components come from disconnected components of 
+$M_{a,\widehat{a}}$ the seam cuts $N$ into two pieces and the
+orientation chooses an \emph{interior:}
+following the orientation around the seam presents
+the interior to the left.
 
 A common operation is to glue two separate surfaces.
 We can do this by first taking disjoint union (tensoring
@@ -471,41 +484,47 @@ As we have seen, an oriented simple closed path
 contained in the interior of $M$ can serve as
 the seam along which gluing occurs and we call
 these paths \emph{observables}.
-%Any oriented simple closed path contained in the interior of $M$ we will
-%call an \emph{observable}.
-%Such a path has no orientation because it 
-%lies withing the interior of $M.$
 Such a path that encloses two holes
-we call a \emph{2-observable}.
-A function $c:[0,1]\to M$ such that 
+will have as interior a pair-of-pants $M_{ab}.$
+From this pair-of-pants we choose 
+a non-trivial 1-cycle representative 
+for the
+relative homology group $H_1(M, \partial M).$
+%we call a \emph{2-observable}.
+Such a 1-cycle is 
+a function $c:[0,1]\to M$ such that 
 $c(0)\in \partial M$ and $c(1)\in \partial M$
 %are distinct basepoints (of two holes)
-are contained in distinct holes
-we call a \emph{2-curve.}
+are contained in distinct holes and the image of $c$
+lies within $M_{ab}.$
+All such 1-cycles are isotopic, since they are homologous.
+In this way we associate observables that enclose two
+holes with 1-cycles.
+%we call a \emph{2-curve.}
 %The following important fact will be used extensively
 %in the combinatorial formulation of a modular functor below:
-Up to isotopy, % (not preserving $\partial M$),
-there is a (natural) bijection between
-$2$-observables and $2$-curves.
-\emph{(XXX we really need undirected $2$-curves)}
+%Up to isotopy, % (not preserving $\partial M$),
+%there is a (natural) bijection between
+%$2$-observables and $2$-curves.
+%\emph{(XXX we really need undirected $2$-curves)}
 %\emph{(restrict to $M$ a disc with at least two holes?)}
-Here we show two such instances of this
-bijection:
+Here we show two such instances of this:
 \begin{center}
 \includegraphics[]{pic-2-curve.pdf}
 \end{center}
-The bijections works as follows.
-To construct a $2$-observable from a $2$-curve $c$ that
-joins two holes $M_1$ and $M_2$,
-take a small neighbourhood of
-the union $c([0,1])\cup M_1 \cup M_2.$
-This neighbourhood will have boundary a simple closed
-curve that encloses $M_1$ and $M_2.$
-\emph{(is this really how to prove this? do we care?)}
-\emph{(check the orientation of the $2$-observable has the correct interior)}
-Going the other direction we can take
-any $2$-curve contained within the interior of a $2$-observable,
-\emph{but how do we show these are all isotopic?}
+
+%The bijections works as follows.
+%To construct a $2$-observable from a $2$-curve $c$ that
+%joins two holes $M_1$ and $M_2$,
+%take a small neighbourhood of
+%the union $c([0,1])\cup M_1 \cup M_2.$
+%This neighbourhood will have boundary a simple closed
+%curve that encloses $M_1$ and $M_2.$
+%\emph{(is this really how to prove this? do we care?)}
+%\emph{(check the orientation of the $2$-observable has the correct interior)}
+%Going the other direction we can take
+%any $2$-curve contained within the interior of a $2$-observable,
+%\emph{but how do we show these are all isotopic?}
 
 %The end points of $2$-curves are free to terminate anywhere
 %on the hole, but we can fix the endpoints using
@@ -513,17 +532,16 @@ any $2$-curve contained within the interior of a $2$-observable,
 %A simple way to do this is to just require the
 %$2$-curve to begin and end on base points.
 
-
-A single $F-$move is seen to relate a pair of $2$-curves
+A single $F-$move is seen to relate a pair of $1$-cycles % $2$-curves
 that share a hole.
-Continuing in this way, we can chain these $2$-curves together:
+Continuing in this way, we can chain these $1$-cycles together: % $2$-curves together:
 \begin{center}
 \includegraphics[]{pic-chain.pdf}
 \end{center}
 
-We call such a chain a ``linear order''.
+We call such a chain a \emph{linear order}.
 This will be unique up to Dehn-twists around holes.
-Also, the curve is directed according to the direction
+The linear order is directed according to the direction
 of the constituent $F-$moves.
 
 Clearly there are many ways to do this, up to isotopy.

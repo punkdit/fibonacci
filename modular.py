@@ -252,10 +252,10 @@ c.fill(path.circle(x+r, y+0.5*h-r, 0.06))
 
 x += 0.3*w
 p = path.circle(x+0.1*w, y+0.5*h, 0.4*r)
-c.stroke(p, st_dashed)
+c.stroke(p)
 #p = path.circle(x+0.1*w+0.4*r, y+0.5*h, 0.06)
 p = path.circle(x+0.1*w, y+0.5*h-0.4*r, 0.06)
-c.stroke(p, st_dashed)
+c.fill(p)
 
 c.text(x+0.1*w, y+0.5*h, r"$N$", center)
 #c.text(x+0.2*w, y+0.5*h, r"$...$", center)
@@ -309,8 +309,8 @@ c.text(x,       y+0.2, "$b$", south)
 c.text(x+0.6*r, y+0.2, "$c$", south)
 c.text(x+0.9*r, y-0.6, "$\widehat{d}$", northwest)
 
-c.stroke(path.circle(x-0.3*r, y, 0.6*r), st_dashed+[trafo.scale(1., 1.1, x, y)])
-c.stroke(path.circle(x+0.3*r, y, 0.6*r), st_dashed+[trafo.scale(1., 1.1, x, y)])
+c.stroke(path.circle(x-0.3*r, y, 0.6*r), [trafo.scale(1., 1.1, x, y)])
+c.stroke(path.circle(x+0.3*r, y, 0.6*r), [trafo.scale(1., 1.1, x, y)])
 
 c.text(x-1.5*r, y, r"$\H\Bigl($", center)
 c.text(x+1.3*r, y, r"$\Bigr)$", center)
@@ -372,16 +372,23 @@ c = canvas.canvas()
 
 r = 1.4
 
-surface(x+0, y, r, mark=True, orient=True)
-surface(x-0.6*r, y, 0.2*r, fill=white, mark=True, orient=False)
+ccw = False # counter clockwise
+
+surface(x+0, y, r, mark=True, orient=ccw)
+surface(x-0.6*r, y, 0.2*r, fill=white, mark=True, orient=not ccw)
+surface(x+0.6*r, y, 0.2*r, fill=white, mark=True, orient=not ccw)
+
+
 c.text(x-0.6*r, y+0.3*r, "$a_1$", south)
-#surface(x+0.0*r, y, 0.2*r, fill=white, mark=True, orient=False)
 c.text(x, y, "...", center)
-surface(x+0.6*r, y, 0.2*r, fill=white, mark=True, orient=False)
 c.text(x+0.6*r, y+0.3*r, "$a_n$", south)
 c.text(x+0.9*r, y-0.7*r, "$b$", north)
 
-c.stroke(path.path(path.arc(x+0.2*r, y-0.5*r, 0.15*r, 20, 330)), [deco.earrow()])
+if ccw:
+    c.stroke(path.path(path.arc(x+0.2*r, y-0.5*r, 0.15*r, 20, 330)), [deco.earrow()])
+else:
+    c.stroke(path.path(path.arc(x+0.2*r, y-0.5*r, 0.15*r, 20, 330)),
+        [deco.earrow(), trafo.scale(x=x+0.2*r, y=y-0.5*r, sx=-1,sy=1)])
 
 c.writePDFfile("pic-disc.pdf")
 
