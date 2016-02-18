@@ -390,6 +390,8 @@ c.writePDFfile("pic-disc.pdf")
 #
 #
 
+st_arrow = [deco.earrow()]
+
 w = 1.5
 h = 1.5
 
@@ -418,9 +420,14 @@ t.right(pi, 1.9*dx)
 t.right(pi, 0.4*dx)
 t.left(pi, 1.1*dx)
 t.right(pi, 0.4*dx)
-t.stroke(st_dashed)
+t.stroke()
 
-c.stroke(path.circle(x, y, dx), st_dashed+[trafo.scale(0.9, 0.7)])
+t = Turtle(x1-0.4*dx, y, pi)
+t.fwd(0.01)
+t.stroke(st_arrow)
+
+c.stroke(path.circle(x, y, dx), [trafo.scale(0.9, 0.7)])
+c.stroke(path.circle(x, y, dx), st_arrow+[trafo.scale(0.9, 0.7)])
 
 r = 0.12
 
@@ -464,12 +471,13 @@ t.stroke(g_curve)
 for i in range(3):
     t = Turtle(x1, y, pi/2)
     t.fwd(dx)
-    t.stroke(g_curve+[style.linecap.round])
+    #t.stroke(g_curve+[style.linecap.round])
 
     surface(x1, y, r, white)
     #c.fill(path.circle(x1, y+r, 0.04))
 
-    c.stroke(path.circle(x1+0.5*dx, y, dx), st_dashed+[trafo.scale(0.9, 0.6, x=x1+0.5*dx, y=0)])
+    c.stroke(path.circle(x1+0.5*dx, y, dx), [trafo.scale(0.9, 0.6, x=x1+0.5*dx, y=0)])
+    c.stroke(path.circle(x1+0.5*dx, y, dx), st_arrow+[trafo.scale(0.9, 0.6, x=x1+0.5*dx, y=0)])
     x1 += dx
 
 surface(x1, y, r, white)

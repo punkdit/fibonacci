@@ -417,8 +417,10 @@ $$
 %of the fusion space.
 Given a manifold $M$ which is
 a disc with at least two holes, 
-we now show how to present $M$ as the glueing of various
-pair-of-pants.
+we show how to present $M$ as the glueing of various
+pair-of-pants 
+(See \cite{Ivanov2001} for more details on this construction,
+and \cite{Ghrist2014} for more about Morse theory).
 This will yield a decomposition of $\F(M)$ into a direct
 sum of fusion spaces of pair-of-pants. % $V_{ab}^c$'s.
 %The pair-of-pants can be found using Morse theory.
@@ -471,9 +473,10 @@ the seam along which gluing occurs and we call
 these paths \emph{observables}.
 %Any oriented simple closed path contained in the interior of $M$ we will
 %call an \emph{observable}.
+%Such a path has no orientation because it 
+%lies withing the interior of $M.$
 Such a path that encloses two holes
 we call a \emph{2-observable}.
-\emph{XXX define enclose exactly}
 A function $c:[0,1]\to M$ such that 
 $c(0)\in \partial M$ and $c(1)\in \partial M$
 %are distinct basepoints (of two holes)
@@ -565,19 +568,24 @@ we seek something that
 appears to be a collection of natural transformations of $\F,$
 one $R^{ab}_c$ for each pair of pants $M^{ab}_c.$
 The naturality requirement says that
-the $R-$moves commute with diffeomorphisms.
+the $R-$moves commute with (linear maps induced by) diffeomorphisms.
 In more detail,
 given any diffeomorphism
 $f:M^{ab}_c\to M^{\tilde{a}\tilde{b}}_{\tilde{c}}$
 we have $\F(f)R^{ab}_c=R^{\tilde{a}\tilde{b}}_{\tilde{c}}\F(f).$
-We show an example of this, with $f$ a counter-clockwise half twist
+Here is an example of this, with $f$ a counter-clockwise half twist
 $f:M^{ab}_c\to M^{ba}_c:$
 \begin{center}
 \includegraphics[]{pic-natural.pdf}
 \end{center}
-Category theorists would write this as
+It is not clear how to extend this to
+a collection of maps for all possible surfaces, as is
+required to be an actual
+natural transform of $\F.$
+However, such a natural transform would be notated as 
+%category theorists would write this as
 $ R^{ab}_c : \F\to\F,$
-and perhaps this is good because natural transformations
+and this looks good because natural transformations
 can be thought of as $2-$morphisms (a morphism of morphisms) and we
 do expect the braiding to be somehow one level up
 in the $n-$categorical sense.
@@ -595,8 +603,8 @@ The $R-$move maps between each of these
 three $F-$moves, and so the
 following hexagonal diagrams must commute:
 \begin{center}
-\includegraphics[width=0.4\columnwidth]{pic-hexagon.pdf}
-\ \ \ \ \includegraphics[width=0.4\columnwidth]{pic-hexagon-r.pdf}
+\includegraphics[width=0.3\columnwidth]{pic-hexagon.pdf}
+\ \ \ \ \includegraphics[width=0.3\columnwidth]{pic-hexagon-r.pdf}
 \end{center}
 Note that we don't fix the framing.
 The symmetry of this equation becomes evident when
