@@ -52,6 +52,9 @@
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\A}{\mathcal{A}}
+\newcommand{\Hom}{{\mathrm{Hom}}}
+
+\newcommand{\subsub}[1]{{\bf #1}}
 
 %------------------------------------------------------------------------------------------------------------%
 \begin{document}
@@ -246,6 +249,18 @@ space can be built from joining smaller (simpler) pieces together.
 That these two approaches meet is one of the great
 miracles of modern mathematics and physics.
 
+Modular functors can be constructed from skein theory.
+In the physics literature, 
+this appears as skeins magically growing out of manifolds
+\cite{Pfeifer2012}.
+But the physics motivation is this: if skein theory
+is supposed to correspond to examining the $(2+1)-$dimensional
+world-lines of particals
+as in the Schrodinger picture,
+modular functors would
+correspond to the algebra of observables, as in
+a Heisenberg picture.
+
 The definition of a Modular functor appears to
 be well motivated physically....
 Unfortunately, there are many such definitions
@@ -366,6 +381,28 @@ a \emph{gluing map}:
 $$
     \bigoplus_{a\in\A} \F(M_{a,\widehat{a}}) \xrightarrow{\cong} \F(N).
 $$
+
+{\bf Axiom IV.}
+Unitarity: reversing the orientation of the surface $M$
+to form $\overline{M}$ we get the dual of the fusion space:
+$\F(\overline{M})=\F(M)^*.$
+\simon{i don't think we use this for anything}
+
+\subsub{Compatibility of axioms.}
+We have left out various compatibility requirements of the axioms.
+These axioms state that the obove operations play nicely together,
+and commute with diffeomorphisms of the manifolds.
+For example,
+a sequence of gluing operations can
+be performed regardless of the order (gluing is associative)
+when applied to a manifold, and $\F$ must respect this.
+Similarly we require $\F$ to respect that gluing
+commutes with disjoint union.
+%performing a gluing on $M$ and then forming $M\amalg N$
+%produces the same manifold as forming the disjoint union and
+%then gluing the 
+
+\subsub{Observables.}
 The seam along which gluing occurs can be associated
 with an observable as follows.
 We take a gluing map $g$ and projectors $P_a$ onto the
@@ -383,7 +420,10 @@ $M_{a,\widehat{a}}$ the seam cuts $N$ into two pieces and the
 orientation chooses an \emph{interior:}
 following the orientation around the seam presents
 the interior to the left.
+%The projectors associated to each cuff commute.
+%Non-overlapping observables commute.
 
+\subsub{Consequences of axioms.}
 A common operation is to glue two separate surfaces.
 We can do this by first taking disjoint union (tensoring
 the fusion spaces)
@@ -405,12 +445,13 @@ as well as the identification of base points.
 %\emph{XXX $N...$ show ellipses?}
 
 It follows that:
-1) a vacuum boundary component may be ``filled-in''
-replaced with a disk by gluing.
-2) the dimensionality of the fusion space of a torus is the
+(1) a vacuum boundary component may be ``filled-in''
+ie., replaced with a disk by gluing, and
+(2) the dimensionality of the fusion space of a torus is the
 cardinality of $\A.$ This follows by gluing one end
-of an anulus (cylindar) to the other.
+of an annulus (cylindar) to the other.
 
+\subsub{F-move.}
 %A most important linear map, called an $F-$move,
 %As a slightly more complicated example of glueing
 %we consider the following two arr
@@ -440,7 +481,9 @@ $$
     F^{abc}_d : \bigoplus_{x\in\A} V^{ab}_x\otimes V^{xc}_d 
         \to \bigoplus_{y\in\A} V^{ay}_d\otimes V^{bc}_y.
 $$
+\simon{tensor with identity to extend this map under gluing}
 
+\subsub{POP decomposition.}
 %The reverse process of cutting a surface up
 %into pair-of-pants induces a direct sum decomposition
 %of the fusion space.
@@ -493,8 +536,6 @@ Read on to find out how this works!
 
 %Pair-of-pants decomposition corresponds to a direct sum decomposition of
 %the fusion space.
-%The projectors associated to each cuff commute.
-%Non-overlapping observables commute.
 
 %As we have seen, an oriented simple closed path 
 %contained in the interior of $M$ can serve as
@@ -560,17 +601,107 @@ Read on to find out how this works!
 %The linear order is directed according to the direction
 %of the constituent $F-$moves.
 
-Clearly there are many ways to do this, up to isotopy.
-Remarkably, we can generate (switch between)
-all possible linear orders using 
-a single linear map (and extension under gluing)
-called the $R-$move.
-This is a (collection of) linear operator(s)
-$R^{ab}_c:V^{ab}_c\to V^{ba}_c$
-whose action on linear orders is depicted as follows:
+%Clearly there are many ways to do this, up to isotopy.
+%Remarkably, we can generate (switch between)
+%all possible linear orders using 
+%a single linear map (and extension under gluing)
+%called the $R-$move.
+
+\newcommand{\StdM}{M^{a_1...a_n}_{b}}
+
+\subsub{Standard basis.}
+For each $n=0,1,...$ and every ordered sequence of
+anyon labels $a_1,...,a_n,b$ we choose a \emph{standard surface}.
+This is a surface with
+$n$ holes labelled $a_1,...,a_n,\widehat{b}$ 
+which we denote $M^{a_1...a_n}_{b}.$ 
+For concreteness, we 
+let this surface be the subset of
+the complex plane defined by
+$\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{1}{2}|\le \frac{1}{2}\bigr\}$
+with $n$ discs
+$\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{2i-1}{2n}|< \frac{1}{4n}\bigr\}_{i=1,...n}$
+removed.
+We then label the interior holes $a_1,...,a_n$ in order of
+increasing real coordinate, and the exterior hole is labelled $\widehat{b}.$
+As a notational convenience we highlight the \emph{equator}
+of the surface %$M^{a_1...a_n}_{b}$ 
+which is the intersection of
+the real axis with the surface:
+\begin{center}
+\includegraphics[]{pic-disc-standard.pdf}
+\end{center}
+
+Each standard surface comes with a collection of
+\emph{standard POP decompositions}:
+these will be POP decompositions where we require each
+observable to cross the
+equator twice and have counterclockwise orientation.
+On a standard surface with three
+interior holes there are two standard decompositions,
+and one $F-$move that relates these.
+On a standard surface with four interior holes there are five 
+standard decompositions and five $F-$moves that relate these.
+In this case the $F-$moves themselves satisfy an equation
+that is enforced by the axioms of the modular functor.
+This is known as the pentagon equation, which we depict as
+the following commutative diagram:
+\begin{center}
+\includegraphics[]{pic-pentagon.pdf}
+\end{center}
+
+We define the vector space 
+$ V^{a_1...a_n}_{b} := \F(M^{a_1...a_n}_{b}).$ 
+We choose a standard basis for $V^{ab}_c$ to be $\{v^{ab}_{c,\mu}\}_{\mu}.$
+For every standard POP decomposition of $M^{a_1...a_n}_{b},$
+we get a decomposition of 
+$V^{a_1...a_n}_{b}$ into direct sums of various $V^{ab}_c.$
+This then gives a \emph{standard basis} of $V^{a_1...a_n}_{b}$
+relative to the chosen standard POP decomposition
+using the corresponding standard basis for each of the $V^{ab}_c.$
+\simon{fix notation.}
+
+Note that for any standard surface $M^{a_1...a_n}_{b}$ 
+and any choice of $k$ contiguous holes $a_j,...,a_{j+k-1}$
+we can find an observable that encloses exactly these holes
+in at least one of the standard POP decompositions of $M^{a_1...a_n}_{b}.$ 
+
+\subsub{Linear order.}
+We next study maps from standard surfaces to arbitrary surfaces.
+The set of all maps from $M^{a_1...a_n}_{b}$ 
+to a surface $N$ will be denoted as $\Hom(M^{a_1...a_n}_{b}, N),$ 
+and we call each such map a \emph{linear order}.
+The reason for this terminology is that we can reconstruct (up to isotopy)
+any map $f:M^{a_1...a_n}_{b}\to N$ from
+the restriction of $f$ to the equator of $M^{a_1...a_n}_{b}.$ 
+In other words, we can uniquely specify any map
+$f:M^{a_1...a_n}_{b}\to N$ by indicating the action of
+$f$ on the equator. We take full advantage of this
+fact in our notation: any diagram of a surface
+with a ``green curve'' drawn therein is actually notating a 
+diffeomorphism, not a surface!
+
+Any linear order will also map standard POP decompositions
+of $\StdM$ to POP decompositions of $N,$ and therefore
+(via $\F$) standard basis aswell.
+
+\subsub{R-move.}
+%This is a (collection of) linear operator(s)
+Given anyon labels $a, b$ and $c$, and arbitrary
+surface $N,$
+we define the following map on linear orders 
+$$R^{ab}_c: \Hom(M^{ab}_c, N)\to \Hom(M^{ba}_c, N).$$
+This works by taking a linear order 
+$f:M^{ab}_c\to N$ to the composition $f\sigma$ where
+$\sigma:M^{ba}_c\to M^{ab}_c$
+is a counterclockwise half-twist that exchanges
+the $a$ and $b$ holes.
+Here we show the action of $R^{ab}_c$ on one particular linear order:
 \begin{center}
 \includegraphics[]{pic-rmove-1.pdf}
 \end{center}
+Such an application of $R^{ab}_c$ to a particular
+linear order we call an \emph{R-move.}
 
 At this point we can show the relation to skein theory:
 \begin{center}
@@ -584,66 +715,82 @@ The black lines do not add any extra structure, they can
 be seen as a part of the dual of the ``hexagon'' cut out by
 the green line and boundary components.
 
-We can try to pluck the linear
-operator $R^{ab}_c:V^{ab}_c\to V^{ab}_c$
-directly out of the
-modular functor by considering a half twist
-$\sigma$ that swaps the $a$ and $b$ component.
-This is a diffeomorphism $\sigma:M^{ab}_c\to M^{ba}_c$
-which the functor sends to a 
-linear map $\F(\sigma):V^{ab}_c\to V^{ba}_c.$
-Therefore, unless $a=b$ (or $a=\vac$ or $b=\vac$)
-this fails to give the $R-$move we sought.
+\simon{extend $R-$move under gluing}
 
-We can get monodromy operators, and theta operators...
+%We can try to pluck the linear
+%operator $R^{ab}_c:V^{ab}_c\to V^{ab}_c$
+%directly out of the
+%modular functor by considering a half twist
+%$\sigma$ that swaps the $a$ and $b$ component.
+%This is a diffeomorphism $\sigma:M^{ab}_c\to M^{ba}_c$
+%which the functor sends to a 
+%linear map $\F(\sigma):V^{ab}_c\to V^{ba}_c.$
+%Therefore, unless $a=b$ (or $a=\vac$ or $b=\vac$)
+%this fails to give the $R-$move we sought.
+%
+%We can get monodromy operators, and theta operators...
+%
+%Digging a bit deeper in looking for $R-$moves,
+%we seek something that
+%appears to be a collection of natural transformations of $\F,$
+%one $R^{ab}_c$ for each pair of pants $M^{ab}_c.$
+%The naturality requirement says that
+%the $R-$moves commute with (linear maps induced by) diffeomorphisms.
+%In more detail,
+%given any diffeomorphism
+%$f:M^{ab}_c\to M^{\tilde{a}\tilde{b}}_{\tilde{c}}$
+%we have $\F(f)R^{ab}_c=R^{\tilde{a}\tilde{b}}_{\tilde{c}}\F(f).$
+%Here is an example of this, with $f$ a counter-clockwise half twist
+%$f:M^{ab}_c\to M^{ba}_c:$
+%\begin{center}
+%\includegraphics[]{pic-natural.pdf}
+%\end{center}
+%It is not clear how to extend this to
+%a collection of maps for all possible surfaces, as is
+%required to be an actual
+%natural transform of $\F.$
+%However, such a natural transform would be notated as 
+%%category theorists would write this as
+%$ R^{ab}_c : \F\to\F,$
+%and this looks good because natural transformations
+%can be thought of as $2-$morphisms (a morphism of morphisms) and we
+%do expect the braiding to be somehow one level up
+%in the $n-$categorical sense.
 
-Digging a bit deeper in looking for $R-$moves,
-we seek something that
-appears to be a collection of natural transformations of $\F,$
-one $R^{ab}_c$ for each pair of pants $M^{ab}_c.$
-The naturality requirement says that
-the $R-$moves commute with (linear maps induced by) diffeomorphisms.
-In more detail,
-given any diffeomorphism
-$f:M^{ab}_c\to M^{\tilde{a}\tilde{b}}_{\tilde{c}}$
-we have $\F(f)R^{ab}_c=R^{\tilde{a}\tilde{b}}_{\tilde{c}}\F(f).$
-Here is an example of this, with $f$ a counter-clockwise half twist
-$f:M^{ab}_c\to M^{ba}_c:$
+\subsub{Hexagon equation.}
+For a surface with three interior holes there are
+(infinitely) many POP decompositions.
+These are all made by choosing an observable 
+that encloses two holes.
+The $F-$moves allow us to switch between 
+these POP decompositions,
+and the axioms for the modular
+functor make these consistent.
+Here we show two such triangle consistency requirements
+(they are reflections of each other):
 \begin{center}
-\includegraphics[]{pic-natural.pdf}
+\includegraphics[width=0.25\columnwidth]{pic-fmove-relation.pdf}
+\ \ \ \ \ \ \ \ \ \ \ \ \ 
+\includegraphics[width=0.25\columnwidth]{pic-fmove-relation-r.pdf}
 \end{center}
-It is not clear how to extend this to
-a collection of maps for all possible surfaces, as is
-required to be an actual
-natural transform of $\F.$
-However, such a natural transform would be notated as 
-%category theorists would write this as
-$ R^{ab}_c : \F\to\F,$
-and this looks good because natural transformations
-can be thought of as $2-$morphisms (a morphism of morphisms) and we
-do expect the braiding to be somehow one level up
-in the $n-$categorical sense.
-
-The following commutative triangles show two
-relations among possible $F-$moves on a 3-punctured
-disc:
+Given a POP decomposition of a surface $N$
+there are various linear orders on $N$ that
+produce said POP decomposition from 
+a standard POP decomposition, and certain $R-$moves
+will map between these.
+Once again, these operations must be consistent, and
+here we note the two ``hexagon equations'' 
+%for linear orders corresponding to the above triangles:
+corresponding to the above two triangles:
 \begin{center}
-\includegraphics[width=0.2\columnwidth]{pic-fmove-relation.pdf}
-\ \ \ \ \ \includegraphics[width=0.2\columnwidth]{pic-fmove-relation-r.pdf}
-%\includegraphics[width=0.4\columnwidth]{pic-abelian.pdf}
+\includegraphics[width=0.4\columnwidth]{pic-hexagon.pdf}
+\ \ \ \ \ \ \ \ \ \ \ \ 
+\includegraphics[width=0.4\columnwidth]{pic-hexagon-r.pdf}
 \end{center}
-
-The $R-$move maps between each of these
-three $F-$moves, and so the
-following hexagonal diagrams must commute:
-\begin{center}
-\includegraphics[width=0.3\columnwidth]{pic-hexagon.pdf}
-\ \ \ \ \includegraphics[width=0.3\columnwidth]{pic-hexagon-r.pdf}
-\end{center}
-Note that we don't fix the framing.
-The symmetry of this equation becomes evident when
-the four holes are arranged at the vertices of a regular
-tetrahedron.
+\simon{where are the marked points?}
+%The symmetry of this equation becomes evident when
+%the four holes are arranged at the vertices of a regular
+%tetrahedron.
 
 What we have done here is show how the skein theory of
 braided tensor categories arises from a modular functor.

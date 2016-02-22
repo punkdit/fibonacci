@@ -63,10 +63,12 @@ shade = grey
 
 
 
-g_curve = [green, style.linewidth.THick]
+st_curve = g_curve = [green, style.linewidth.THick]
 
 st_tau = [style.linewidth.Thick, red, style.linecap.round]
 #st_vac = [style.linewidth.thick, red]+st_dotted
+
+st_arrow = [deco.earrow()]
 
 
 
@@ -177,7 +179,7 @@ y = 0
 c = canvas.canvas()
 
 #c.text(x+0.5*h, y, r"\bigoplus_a \H\bigl(", text.mathmode) #east)
-mathtext(x, y+0.4*h, r"$\bigoplus_a \H\Bigl($", east)
+mathtext(x-0.1*w, y+0.4*h, r"$\bigoplus_a \H\Bigl($", east)
 
 r = 1.0
 x += 0.0*w
@@ -203,7 +205,9 @@ c.text(x+0.3*w, y+0.1*h, "$M$", west)
 
 c.text(x+0.3*w, y+0.7*h, "$a$", southwest)
 
-x += 1.8*r
+c.text(x+1.33*w, y+0.5*h, r"$\amalg$", center)
+
+x += 2.4*r
 
 r = 0.7
 p = path.circle(x+r, y+0.5*h, r)
@@ -323,7 +327,10 @@ surface(x+0.7*r, y, 0.6*r)
 labels = "aybc"
 for i, x0 in enumerate([x-0.9*r, x-0.5*r, x+0.5*r, x+0.9*r]):
     surface(x0, y, 0.1*r, fill=white)
-    c.text(x0, y+0.2, "$%s$"%labels[i], south)
+    if i==1:
+        c.text(x0, y+0.13, "$%s$"%labels[i], south)
+    else:
+        c.text(x0, y+0.2, "$%s$"%labels[i], south)
 c.text(x+1.1*r, y+0.7, "$\widehat{y}$", west)
 c.text(x-1.1*r, y+0.7, "$\widehat{d}$", east)
 
@@ -379,10 +386,10 @@ surface(x-0.6*r, y, 0.2*r, fill=white, mark=True, orient=not ccw)
 surface(x+0.6*r, y, 0.2*r, fill=white, mark=True, orient=not ccw)
 
 
-c.text(x-0.6*r, y+0.3*r, "$a_1$", south)
+#c.text(x-0.6*r, y+0.3*r, "$a_1$", south)
 c.text(x, y, "...", center)
-c.text(x+0.6*r, y+0.3*r, "$a_n$", south)
-c.text(x+0.9*r, y-0.7*r, "$b$", north)
+#c.text(x+0.6*r, y+0.3*r, "$a_n$", south)
+#c.text(x+0.9*r, y-0.7*r, "$b$", north)
 
 if ccw:
     c.stroke(path.path(path.arc(x+0.2*r, y-0.5*r, 0.15*r, 20, 330)), [deco.earrow()])
@@ -397,7 +404,43 @@ c.writePDFfile("pic-disc.pdf")
 #
 #
 
-st_arrow = [deco.earrow()]
+w = 1.5
+h = 1.5
+
+x = 0
+y = 0
+
+c = canvas.canvas()
+
+
+r = 1.4
+
+surface(x+0, y, r, mark=True)
+
+#c.stroke(path.line(x-r, y, x+r, y), st_curve+st_arrow)
+r0 = 0.28*r
+c.stroke(path.line(x-r, y, x-r0, y), st_curve)
+c.stroke(path.line(x-r0, y, x+r0, y), st_curve+st_dotted)
+c.stroke(path.line(x+r0, y, x+r, y), st_curve+st_arrow)
+
+r1 = 0.15*r
+surface(x-0.6*r, y, r1, fill=white, mark=True)
+surface(x+0.6*r, y, r1, fill=white, mark=True)
+
+
+c.text(x-0.6*r, y+0.2*r, "$a_1$", south)
+#c.text(x, y-r1, "...", center)
+c.text(x, y+0.2*r, "...", south)
+c.text(x+0.6*r, y+0.2*r, "$a_n$", south)
+c.text(x+0.9*r, y-0.7*r, r"$\widehat{b}$", north)
+
+
+c.writePDFfile("pic-disc-standard.pdf")
+
+
+#############################################################################
+#
+#
 
 w = 1.5
 h = 1.5

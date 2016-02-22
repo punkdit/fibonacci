@@ -85,7 +85,7 @@ class Turtle(object):
         self.fwd(-d)
         return self
 
-    def right(self, dtheta, r=0.):
+    def right(self, dtheta, r=0., penup=False):
         theta = self.theta
         self.theta += dtheta
         if r==0.:
@@ -98,13 +98,16 @@ class Turtle(object):
             theta += (1./(N))*dtheta
             x = x0 - r*sin(theta+pi/2)
             y = y0 - r*cos(theta+pi/2)
-            self.ps.append((x, y))
+            if not penup:
+                self.ps.append((x, y))
         self.x = x
         self.y = y
+        if penup:
+            self.ps = [(x, y)] # HACK
         return self
 
-    def left(self, dtheta, r=0.):
-        self.right(-dtheta, -r)
+    def left(self, dtheta, r=0., penup=False):
+        self.right(-dtheta, -r, penup=penup)
         return self
 
     def stroke(self, extra=[], fill=[], closepath=False):
@@ -150,10 +153,11 @@ theta1 = 1.05*pi
 r2 = 0.09*w
 theta2 = 0.2*pi
 r3 = 0.6*w
-Turtle(x-1.2*r, y, 1*pi/2).\
-    fwd(0.1*r).left(0.2*theta, r1).right(+0.4*theta, r1).left(0.2*theta, r1).\
+Turtle(x-1.1*r, y, 1*pi/2).\
+    left(0.05*theta, r1, penup=True).\
+    left(0.15*theta, r1).right(+0.4*theta, r1).left(0.2*theta, r1).\
     fwd(0.1*r).right(theta1, r2).right(theta2, r3).left(theta2, r3).left(theta1, r2).fwd(0.1*r).\
-    right(0.2*theta, r1).left(0.4*theta, r1).right(0.2*theta, r1).fwd(0.2*r).\
+    right(0.2*theta, r1).left(0.4*theta, r1).right(0.15*theta, r1).\
     stroke(st_curve)
 
 circle(x-0.5*r, y, r0, white, mark=True)
@@ -173,7 +177,7 @@ x += 1.5*w
 
 circle(x, y, r, shade, mark=True)
 
-c.stroke(path.line(x-1.2*r, y, x+1.3*r, y), st_curve)
+c.stroke(path.line(x-1.0*r, y, x+1.0*r, y), st_curve)
 
 circle(x-0.5*r, y, r0, white, mark=True)
 circle(x+0.5*r, y, r0, white, mark=True)
@@ -195,7 +199,7 @@ def tetra(x, y, count=None, subcount=None, rev=1, back=True, front=True, reflect
     if back:
         circle(x, y, r, shade)
 
-    rr = 1.2*r
+    rr = 1.0*r
     if subcount is not None:
         ps = []
         for i in range(3):
@@ -212,7 +216,7 @@ def tetra(x, y, count=None, subcount=None, rev=1, back=True, front=True, reflect
                 ps.append((x1, y1))
             if i==2:
                 # end of curve
-                x1, y1 = x+1.1*rr*sin(theta1), y+1.1*rr*cos(theta1)
+                x1, y1 = x+1.0*rr*sin(theta1), y+1.0*rr*cos(theta1)
                 ps.append((x1, y1))
         c.stroke(path.path(
             path.moveto(*ps[0]),
@@ -231,7 +235,7 @@ def tetra(x, y, count=None, subcount=None, rev=1, back=True, front=True, reflect
 
         assert 0<=count<=2
         s = 0.86*r
-        r1 = 3*r0
+        r1 = 2.4*r0
         extra = []
         #c.text(x, y, count)
         if reflect:
