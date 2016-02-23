@@ -232,29 +232,39 @@ that operates on these structures.
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %
 
-There is somewhat of a gap between the algebraic/skein-theoretic
-approach (\cite{Kitaev2006} appendix E, etc.) and the
-topological approach (\cite{Freedman2002simulation}).
+In the theory of anyonic systems 
+there are two main approaches to definining these,
+one being more algebraic and the other more topological.
 
-The algebraic side is known as the study of braided
+The algebraic side is known to mathematicians as the study of braided
 tensor categories, or more specifically, modular tensor categories.
+This algebraic approach appears to be most commonly used 
+approach in the physics literature \cite{Kitaev2006}, \cite{Pfeifer2012}, etc.
 Such algebraic calculations can be interpreted as
-manipulations of string diagrams, which hints at
+manipulations of string diagrams~\cite{Baez2010},
+or \emph{skeins},
+and this begins to hint at
 how knot theory and topology comes into play.
 Coming from the other direction, one starts with
 a topological space (of low dimension) and attempts
 to extract a combinatorial or algebraic description of how this
 space can be built from joining smaller (simpler) pieces together.
+This is perhaps more difficult to graple with, 
+These animals are known as modular functors, 
+or topological quantum field theories (TQFT's).
 That these two approaches meet is one of the great
 miracles of modern mathematics and physics.
+
+%There is somewhat of a gap between the algebraic/skein-theoretic
+%approach and the topological approach
 
 Modular functors can be constructed from skein theory.
 In the physics literature, 
 this appears as skeins mysteriously
 growing out of manifolds \cite{Pfeifer2012},
 or as motivated by renormalization group considerations \cite{Levin2005}.
-But the physics motivation is this: if skein theory
-is supposed to correspond to examining the $(2+1)-$dimensional
+A further physical motivation is this: if a skein 
+is supposed to correspond to the $(2+1)-$dimensional
 world-lines of particals
 as in the Schrodinger picture,
 modular functors would
@@ -262,21 +272,23 @@ correspond to the algebra of observables, as in
 a Heisenberg picture.
 
 In the physics literature, modular functors are
-used in \cite{Freedman2002, Freedman2002simulation} .
-\cite{Beverland2014} uses them but calls them TQFT's.
-See \cite{Kitaev2006topo} also.
-
+explicitly used in \cite{Freedman2002, Freedman2002simulation}.
+Also, \cite{Beverland2014} and \cite{Kitaev2006topo}
+use the language of modular functors but they call them TQFT's.
+This is in fact reasonable because a modular functor can be
+seen as (part of) a TQFT.
 
 The definition of a Modular functor appears to
-be well motivated physically....
+be well motivated physically.
 Unfortunately, there are many such definitions
-in the literature 
-(\cite{Walker1991}, \cite{Turaev1994}, \cite{Bakalov2001}, \cite{Tillmann1998})
-and little work has been done
-on the connection between these different axiomatizations
-(\cite{Bartlett2015} section 1.2 and 1.3).
-In particular, what physicists call Anyon theory,
-and mathematicians call a Modular Tensor Category,
+in the mathematical literature 
+\cite{Walker1991}, \cite{Turaev1994}, \cite{Bakalov2001}, \cite{Tillmann1998}.
+According to
+\cite{Bartlett2015} section 1.2 and 1.3,
+little has been achieved 
+towards rigorously establishing the connection between these different axiomatizations.
+In particular, what physicists call anyon theory,
+and mathematicians call a modular tensor category,
 has not been established to correspond exactly
 (bijectively) to any of these modular functor
 variants.
@@ -294,10 +306,10 @@ difficult task of deriving a modular functor from
 algebraic data (braided tensor category, etc.)
 but do not seem to say much about going in the other direction.
 
-As in algebraic topology, we wish to extract
-algebraic information about topological objects.
-This can be viewed as a kind of representation theory
-of topological objects: diffeomorphisms of surfaces.
+%As in algebraic topology, we wish to extract
+%algebraic information about topological objects.
+%This can be viewed as a kind of representation theory
+%of topological objects: diffeomorphisms of surfaces.
 
 \begin{quotation}
 ``People these days have a tendancy 
@@ -438,6 +450,7 @@ a \emph{gluing map}:
 $$
     \bigoplus_{a\in\A} \F(M_{a,\widehat{a}}) \xrightarrow{\cong} \F(N).
 $$
+\simon{say something about isotopy of gluing}
 
 {\bf Unitarity axiom.}
 Reversing the orientation of the surface $M$
@@ -543,7 +556,7 @@ $$
 %of the fusion space.
 Given a manifold $M$ which is
 a disc with at two or more holes, 
-we show how to present $M$ as the glueing of various
+we show how to present $M$ as the gluing of various
 pair-of-pants. Such an arangement will be termed a \emph{POP decomposition.}
 (We refer to \cite{Ivanov2001} for more details on this construction,
 and \cite{Ghrist2014} for a leisurely description of Morse theory.)
@@ -731,53 +744,64 @@ and any choice of $k$ contiguous holes $a_j,...,a_{j+k-1}$
 we can find an observable that encloses exactly these holes
 in at least one of the standard POP decompositions of $M^{a_1...a_n}_{b}.$ 
 
-\subsub{Linear order.}
+\subsub{Curve diagram.}
 We next study maps from standard surfaces to arbitrary surfaces.
 The set of all maps from $M^{a_1...a_n}_{b}$ 
 to a surface $N$ will be denoted as $\Hom(M^{a_1...a_n}_{b}, N).$ 
-We call each such map a \emph{linear order},
-or more specifically, a linear order on $N$.
+We call each such map a \emph{curve diagram},
+or more specifically, a curve diagram on $N$.
 The reason for this terminology is that we can reconstruct (up to isotopy)
 any map $f:M^{a_1...a_n}_{b}\to N$ from
 the restriction of $f$ to the equator of $M^{a_1...a_n}_{b}.$ 
 In other words, we can uniquely specify any map
 $f:M^{a_1...a_n}_{b}\to N$ by indicating the action of
 $f$ on the equator. We take full advantage of this
-fact in our notation: any diagram of a surface
-with a ``green curve'' drawn therein is actually notating a 
+fact in our notation: any figure of a surface
+with a ``green line'' drawn therein is actually notating a 
 diffeomorphism, not a surface!
 
-Any linear order will also map standard POP decompositions
+Any curve diagram will also map standard POP decompositions
 of $\StdM$ to POP decompositions of $N,$ and therefore
 (via $\F$) standard basis aswell.
 
-\simon{XXX below we decide to call linear orders as ``curve diagrams'' instead}
+We note in passing two connections to the mathematical literature.
+Such curve diagrams have been 
+used in the study of braid groups \cite{Dehornoy2002}, and this
+is where the name comes from, although our
+curve diagrams respect the marked points and so could be further
+qualified as ``framed'' curve diagrams.
+And, we note the similarity of curve diagrams and associated
+modular functor 
+to the definition of a planar algebra \cite{Jones1999},
+the only modification being that planar algebras allow for 
+not just two but any even number of curves intersecting with holes.
+
+%\simon{XXX below we decide to call linear orders as ``curve diagrams'' instead}
 
 \subsub{R-move.}
 %This is a (collection of) linear operator(s)
 Given anyon labels $a, b$ and $c$, and arbitrary
 surface $N,$
-we now define the following map of linear orders on $N:$
+we now define the following map of curve diagrams on $N:$
 $$R^{ab}_c: \Hom(M^{ab}_c, N)\to \Hom(M^{ba}_c, N).$$
 %\simon{do we need to restrict the term ``map'' as only applying to maps of surfaces?}
-This map works by taking a linear order 
+This map works by taking a curve diagram 
 $f:M^{ab}_c\to N$ to the composition $f\sigma$ where
 $\sigma:M^{ba}_c\to M^{ab}_c$
-is a counterclockwise half-twist that exchanges
+is a counterclockwise ``half-twist'' map that exchanges
 the $a$ and $b$ holes.
-Here we show the action of $R^{ab}_c$ on one particular linear order:
+Here we show the action of $R^{ab}_c$ on one particular curve diagram:
 \begin{center}
 \includegraphics[]{pic-rmove-1.pdf}
 \end{center}
 Such an application of $R^{ab}_c$ to a particular
-linear order we call an \emph{R-move.}
+curve diagram we call an \emph{R-move.}
 
 At this point we can show the relation to skein theory:
 \begin{center}
 \includegraphics[]{pic-rmove-skein.pdf}
 \end{center}
-This diagram is intended to be the same as the previous flat
-diagram,
+This figure is intended to be the same as the previous flat figure,
 with the addition of a third dimension, and also thin black lines
 connecting the marked points.
 The black lines do not add any extra structure, they can
@@ -843,13 +867,13 @@ Here we show two such triangle consistency requirements
 \includegraphics[width=0.25\columnwidth]{pic-fmove-relation-r.pdf}
 \end{center}
 Given a POP decomposition of a surface $N$
-there are various linear orders on $N$ that
+there are various curve diagrams on $N$ that
 produce this decomposition from 
 a standard POP decomposition, and there are certain $R-$moves
 will map between these.
 Once again, these moves must be consistent, and
 here we note the two ``hexagon equations'' 
-%for linear orders corresponding to the above triangles:
+%for curve diagrams corresponding to the above triangles:
 corresponding to the above two triangles:
 \begin{center}
 \includegraphics[width=0.4\columnwidth]{pic-hexagon.pdf}
