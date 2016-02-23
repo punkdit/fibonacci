@@ -545,7 +545,7 @@ c.writePDFfile("pic-chain.pdf")
 #
 
 
-w = 1.5
+w = 1.2
 h = 1.5
 
 x = 0
@@ -553,31 +553,25 @@ y = 0
 
 c = canvas.canvas()
 
-c.text(x, y+0.5*h, r"$V^{ab}_{c} = \H\Bigl($", east)
+c.text(x, y+0.5*h, r"$V^{ab}_{c} := \H\Bigl($", east)
 
-r = 1.0
+r = 2*w/3.
 x += 0.0*w
 
 surface(x+r, y+0.5*h, r, mark=True)
-#c.fill(p, [shade])
-#c.stroke(p)
 
 x += 0.3*w
-surface(x+0.1*w, y+0.5*h, 0.3*r, white, mark=True)
-#c.fill(p, [white])
-#c.stroke(p)
+surface(x+0.1*w, y+0.5*h, 0.2*r, white, mark=True)
 
-c.text(x+0.1*w, y+0.75*h, "$a$", south)
+c.text(x+0.1*w, y+0.65*h, "$a$", south)
 
 x += 0.6*w
-surface(x+0.1*w, y+0.5*h, 0.3*r, white, mark=True)
-#c.fill(p, [white])
-#c.stroke(p)
+surface(x+0.1*w, y+0.5*h, 0.2*r, white, mark=True)
 
-c.text(x+0.1*w, y+0.75*h, "$b$", south)
+c.text(x+0.1*w, y+0.65*h, "$b$", south)
 
 
-c.text(x+0.3*w, y+1.0*h, "$\widehat{c}$", southwest)
+c.text(x+0.25*w, y+1.0*h, "$\widehat{c}$", southwest)
 
 x += 1.0*r
 mathtext(x, y+0.5*h, r"$\Bigr)$", east)

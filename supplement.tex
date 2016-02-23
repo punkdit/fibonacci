@@ -232,11 +232,10 @@ that operates on these structures.
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %
 
-\section{Modular Functors}
-
 There is somewhat of a gap between the algebraic/skein-theoretic
 approach (\cite{Kitaev2006} appendix E, etc.) and the
 topological approach (\cite{Freedman2002simulation}).
+
 The algebraic side is known as the study of braided
 tensor categories, or more specifically, modular tensor categories.
 Such algebraic calculations can be interpreted as
@@ -244,15 +243,16 @@ manipulations of string diagrams, which hints at
 how knot theory and topology comes into play.
 Coming from the other direction, one starts with
 a topological space (of low dimension) and attempts
-to extract an algebraic description of how this
+to extract a combinatorial or algebraic description of how this
 space can be built from joining smaller (simpler) pieces together.
 That these two approaches meet is one of the great
 miracles of modern mathematics and physics.
 
 Modular functors can be constructed from skein theory.
 In the physics literature, 
-this appears as skeins magically growing out of manifolds \cite{Pfeifer2012},
-or magically justified by the renormalization group \cite{Levin2005}.
+this appears as skeins mysteriously
+growing out of manifolds \cite{Pfeifer2012},
+or as motivated by renormalization group considerations \cite{Levin2005}.
 But the physics motivation is this: if skein theory
 is supposed to correspond to examining the $(2+1)-$dimensional
 world-lines of particals
@@ -281,10 +281,36 @@ has not been established to correspond exactly
 (bijectively) to any of these modular functor
 variants.
 
+What we do here is show how the skein theory of
+braided tensor categories arises from a modular functor.
+This does not seem to be written down anywhere in any
+detail: Turaev \cite{Turaev1994} derives a ribbon category
+from his definition of a modular functor, but this
+definition is different to the one given here, which is
+based on \cite{Walker1991}, and is not known to be equivalent.
+Walker \cite{Walker1991}
+(and others \cite{Bakalov2001}) perform the much more
+difficult task of deriving a modular functor from
+algebraic data (braided tensor category, etc.)
+but do not seem to say much about going in the other direction.
+
 As in algebraic topology, we wish to extract
 algebraic information about topological objects.
 This can be viewed as a kind of representation theory
-of topological objects: homeomorphisms of surfaces.
+of topological objects: diffeomorphisms of surfaces.
+
+\begin{quotation}
+``People these days have a tendancy 
+to actually define a subfactor as being some kind of
+tensor category.
+But these guys [subfactors] are the algebras of observables
+of your physical system, and if you want to
+ignore them and throw them out then you strongly
+risk throwing out the baby with the bathwater.''
+- Vaughan Jones~\cite{Jones2015}
+\end{quotation}
+
+\section{Modular Functors}
 
 We list the axioms for a 
 \emph{2-dimensional unitary topological modular functor}.
@@ -292,11 +318,11 @@ We list the axioms for a
 There are quite alot of details that we leave out,
 %For the details of this construction, see
 see
-\cite{Turaev1994}, \cite{Walker1991} or \cite{Bakalov2000}.
+\cite{Turaev1994}, \cite{Walker1991} or \cite{Bakalov2001}.
 For a more pedestrian treatment, see \cite{Freedman2002simulation} or \cite{Beverland2014}.
 
 For our purposes a \emph{surface} will be a compact
-oriented $2$-dimensional manifold with boundary. % smooth or topological ?
+oriented $2$-dimensional differentiable manifold with boundary. % smooth or topological ?
 We will not require surfaces to be connected.
 %Each boundary component is oriented (either explicitly or
 %otherwise by using the orientation of the manifold)
@@ -309,9 +335,11 @@ an element from a (fixed) finite set $\A.$
 This is the set of ``anyon labels'', and comes
 equiped with a vacuum element $\vac$ 
 and an involution $\ \widehat{}\ $ such that $\widehat{\vac}=\vac.$
+The involution maps an anyon label to the ''antiparticle'' label.
 
-We will mostly be concerned with \emph{planar} such
-surfaces, ie. disc(s) with zero or more holes.
+We will mostly be concerned with planar such
+surfaces, that is, a \emph{disc} with holes removed from the
+interior.
 %Such surfaces will be given a counterclockwise 
 %orientation, which induces a clockwise orientation on
 %any \emph{interior} hole and a counterclockwise orientation
@@ -324,9 +352,33 @@ on the \emph{exterior} hole.
 \includegraphics[]{pic-disc.pdf}
 \end{center}
 
-A map of surfaces $f:M\to N$ will be understood to be
-a topological homeomorphism that preserves
+By a \emph{map of surfaces} $f:M\to N$ we mean 
+a diffeomorphism that preserves
 manifold orientation, hole labels, and base points.
+Note that we also deal with maps of various other objects
+(vector spaces, sets, etc.)
+but a map of surfaces will have these specific
+requirements.
+
+%By an \emph{isotopy} of $f:M\to N$ we mean a 
+%map $g:M\to N$
+%that is a continuos deformation of $f.$
+Two maps $f:M\to N$ and $f':M\to N$
+will be called \emph{isotopic}
+when one is a continuous deformation of the other.
+In detail,
+we have a continuosly
+parametrized family of maps $f_t:M\to N$ for $t\in [0, 1]$
+such that $f_0=f,\ f_1=f'$
+and the restriction of $f_t$ to the 
+set of marked points $X\subset\partial M$ is constant:
+$f_t|_{X} = f|_{X}$ for $t\in [0, 1].$
+%and the restriction of $f_t$ to the boundary is constant:
+%$f_t|_{\partial M} = f|_{\partial M}$ for $t\in [0, 1].$
+Such a family $\{f_t\}_{t\in [0,1]}$ is called an \emph{isotopy}
+of $f.$
+This is an equivalence relation on maps $M\to N$, and the equivelance
+class of $f$ under isotopy is called the \emph{isotopy class} of $f.$
 
 A \emph{modular functor} $\F$ associates to every
 surface $M$ a finite dimensional complex
@@ -340,7 +392,7 @@ respect composition of maps.
 
 We have the following axioms for $\F.$
 
-{\bf Axiom I.}
+{\bf Unit axioms.}
 The fusion space of an empty surface is one dimensional, 
 $\F(\phi) \cong \C.$ % preserves the identity of tensor
 For $M_a$ a disc with boundary label $a$ we have
@@ -351,7 +403,7 @@ $a, b$ we have
 $\F(M_{a,\widehat{a}})\cong \C$ and 
 $\F(M_{a,b})\cong 0$ for $a\ne \widehat{b}.$
 
-{\bf Axiom II.}
+{\bf Monoidal axiom.}
 The disjoint union of two surfaces $M$ and $N$ 
 is associated with
 the tensor product of fusion spaces:
@@ -363,8 +415,7 @@ physics, where the Hilbert space of two disjoint
 systems is the tensor product of the space for
 each system.
 
-{\bf Axiom III.}
-%Gluing.
+{\bf Gluing axiom.}
 Denote a surface $M$ with (at least) two holes
 labelled $a, b$ as $M_{a,b}$. 
 If we constrain $b=\widehat{a}$ 
@@ -377,7 +428,7 @@ To construct $N$ we choose a homeomorphism from one
 hole to the other that maps base point to base point 
 and reverses orientation.
 Identifying the two holes along this homeomorphism
-gives the glued manifold $N.$
+gives the glued surface $N.$
 %Gluing must reverse the orientation of the two holes
 %as well as identifying their base points.
 The fusion space of $M_{a,\widehat{a}}$ then embedds unitarily in the fusion
@@ -388,24 +439,25 @@ $$
     \bigoplus_{a\in\A} \F(M_{a,\widehat{a}}) \xrightarrow{\cong} \F(N).
 $$
 
-{\bf Axiom IV.}
-Unitarity: reversing the orientation of the surface $M$
+{\bf Unitarity axiom.}
+Reversing the orientation of the surface $M$
 to form $\overline{M}$ we get the dual of the fusion space:
 $\F(\overline{M})=\F(M)^*.$
 \simon{i don't think we use this for anything}
 
-\subsub{Compatibility of axioms.}
-We have left out various compatibility requirements of the axioms.
-These axioms state that the obove operations play nicely together,
-and commute with diffeomorphisms of the manifolds.
+\subsub{Compatibility axioms.}
+%We have left out various compatibility requirements of the axioms.
+Loosely put, we require that the obove operations play nicely together,
+and commute with maps of surfaces.
 For example,
-a sequence of gluing operations can
+a sequence of gluing operations 
+applied to a surface can
 be performed regardless of the order (gluing is associative)
-when applied to a manifold, and $\F$ must respect this.
-Similarly we require $\F$ to respect that gluing
+and we require the various gluing maps for these operations to similarly agree.
+For another example, we require $\F$ to respect that gluing
 commutes with disjoint union.
 %performing a gluing on $M$ and then forming $M\amalg N$
-%produces the same manifold as forming the disjoint union and
+%produces the same surface as forming the disjoint union and
 %then gluing the 
 
 \subsub{Observables.}
@@ -417,10 +469,10 @@ $$
     P_a: \bigoplus_{b\in\A} \F(M_{b,\widehat{b}}) \to \F(M_{a,\widehat{a}}).
 $$
 then the observable will be the set of operators $\{P_a g^{-1}\}_{a\in\A}.$
-Note that in the glued manifold $N$ the seam has no
+Note that in the glued surface $N$ the seam has no
 preferred orientation. If we choose an orientation 
 for the seam this corresponds to choosing one of the
-two boundary components in the original manifold $M_{a,\widehat{a}}.$
+two boundary components in the original surface $M_{a,\widehat{a}}.$
 If these boundary components come from disconnected components of 
 $M_{a,\widehat{a}}$ the seam cuts $N$ into two pieces and the
 orientation chooses an \emph{interior:}
@@ -441,26 +493,32 @@ Here we show this process applied to two surfaces $M$ and $N$.
 We display the surface $N$ with the $\widehat{a}$
 boundary on the outside, 
 to show more clearly how $N$ fits into $M$.
-In the glued manifold we
+In the glued surface we
 indicate the placement of $M$ and $N$ and the seam
 along which gluing occured,
 as well as the identification of base points.
 
 %\emph{XXX show orientation of boundaries ?}
-%\emph{XXX displaymath direct sum}
 %\emph{XXX $N...$ show ellipses?}
 
-It follows that:
-(1) a vacuum boundary component may be ``filled-in''
-ie., replaced with a disk by gluing, and
-(2) the dimensionality of the fusion space of a torus is the
-cardinality of $\A.$ This follows by gluing one end
-of an annulus (cylindar) to the other.
+We note two other consequences of the axioms.
+A hole of $M$ labelled with $\vac$ can be replaced with a disk (by gluing)
+and this does not change the fusion space of $M.$
+That is, a hole that carries no charge can be ``filled-in''.
+And, the dimensionality of the fusion space of a torus is the
+cardinality of $\A.$
+This can be seen by gluing one end
+of an annulus (cylinder) to the other.
+
+\subsub{Pair-of-pants.}
+The fusion space of the disc and annulus are
+specified by the axioms, and we define the fusion
+space of the disc with two holes, or \emph{pair-of-pants} as:
+\begin{center}
+\includegraphics[]{pic-pop.pdf}
+\end{center}
 
 \subsub{F-move.}
-%A most important linear map, called an $F-$move,
-%As a slightly more complicated example of glueing
-%we consider the following two arr
 The $F-$move
 is constructed from two applications of a
 gluing map as follows:
@@ -469,20 +527,10 @@ gluing map as follows:
 \includegraphics[]{pic-glue-fmove.pdf}
 \end{center}
 
-Here we have shown a manifold $M_{abc}$ with 
-three labelled boundaries, as well as two separate
-ways of gluing pairs-of-pants to get $M.$
-%\emph{XXX do we label with $d$ or $\widehat{d}$ ?}
-
-The fusion space of the disc and annulus are
-specified by the axioms, and we define the fusion
-space of the disc with two holes, or ``pair-of-pants''
-as:
-\begin{center}
-\includegraphics[]{pic-pop.pdf}
-\end{center}
-Using this notation, the above $F-$move
-is a linear map
+Here we have shown a surface $M^{abc}_d$ with 
+four labelled boundary components, as well as two separate
+ways of gluing pairs-of-pants to get $M^{abc}_d.$
+We can also write this out in terms of the fusion spaces defined above:
 $$
     F^{abc}_d : \bigoplus_{x\in\A} V^{ab}_x\otimes V^{xc}_d 
         \to \bigoplus_{y\in\A} V^{ay}_d\otimes V^{bc}_y.
@@ -494,20 +542,25 @@ $$
 %into pair-of-pants induces a direct sum decomposition
 %of the fusion space.
 Given a manifold $M$ which is
-a disc with at least two holes, 
+a disc with at two or more holes, 
 we show how to present $M$ as the glueing of various
-pair-of-pants 
-(See \cite{Ivanov2001} for more details on this construction,
-and \cite{Ghrist2014} for more about Morse theory).
+pair-of-pants. Such an arangement will be termed a \emph{POP decomposition.}
+(We refer to \cite{Ivanov2001} for more details on this construction,
+and \cite{Ghrist2014} for a leisurely description of Morse theory.)
 This will yield a decomposition of $\F(M)$ into a direct
 sum of fusion spaces of pair-of-pants. % $V_{ab}^c$'s.
 %The pair-of-pants can be found using Morse theory.
-We proceed using Morse theory.
-Note that we need $M$ to be a differentiable manifold for
-this to work.
-Choose a Morse function (a generic ``height'' function) $h:M\to\R$
-such that $h$ is constant on $\partial M,$
-and the values of $h$ at different critical points are different.
+%We proceed using Morse theory.
+%Note that we need $M$ to be a differentiable manifold for
+%this to work.
+The key idea is to choose a ``height'' function $h:M\to\R$
+with some specific properties that allow us to
+cut the manifold up along level sets of $h.$
+First, we need that critical points of $h$ are isolated.
+This is the defining condition for $h$ to be a \emph{Morse function}.
+%Choose a Morse function (a generic ``height'' function) $h:M\to\R$
+Also, we need that $h$ is constant on $\partial M,$
+and the values of $h$ at different critical points are distinct.
 Now choose a sequence of non-critical values $a_1<a_2<...<a_n$ in $\R$
 such that every interval $[a_{i-1}, a_i]$ 
 contains exactly one critical value of $h$ and the image
@@ -516,14 +569,14 @@ of $h$ lies within $[a_1, a_n].$
 Each component of $h^{-1}([a_{i-1}, a_i])$ is then either
 an annulus, a disc, or a pair-of-pants depending on the index of (any)
 critical point it contains.
-We then ``re-glue'' any annuli or discs until there are no more of these
-and we have only pair-of-pants.
+We then re-glue any annuli or discs until there are no more of these
+and we have only pair-of-pants. \simon{XXX why do we get annuli?}
 \begin{center}
 \includegraphics[]{pic-pants.pdf}\ \ \ \ \ \ \ \ \includegraphics[]{pic-pants-1.pdf}
 \end{center}
 
 Clearly such a pair-of-pants decomposition is not unique,
-and the goal here is to switch between decompositions,
+and the goal here is to understand how to switch between decompositions,
 and in particular, given an observable $\gamma$,
 and a given pair-of-pants decomposition, find a sequence
 of ``moves'' such that $\gamma$ is in the resulting pair-of-pants
@@ -643,11 +696,12 @@ Each standard surface comes with a collection of
 these will be POP decompositions where we require each
 observable to cross the
 equator twice and have counterclockwise orientation.
+Up to isotopy, a given standard surface will have only finitely many of these.
 On a standard surface with three
-interior holes there are two standard decompositions,
+interior holes there are two standard POP decompositions,
 and one $F-$move that relates these.
 On a standard surface with four interior holes there are five 
-standard decompositions and five $F-$moves that relate these.
+standard POP decompositions and five $F-$moves that relate these.
 In this case the $F-$moves themselves satisfy an equation
 that is enforced by the axioms of the modular functor.
 This is known as the pentagon equation, which we depict as
@@ -656,16 +710,21 @@ the following commutative diagram:
 \includegraphics[]{pic-pentagon.pdf}
 \end{center}
 
-We define the vector space 
+We define the vector spaces 
 $ V^{a_1...a_n}_{b} := \F(M^{a_1...a_n}_{b}).$ 
-We choose a standard basis for $V^{ab}_c$ to be $\{v^{ab}_{c,\mu}\}_{\mu}.$
+We now choose a basis for each of the
+%$V^{ab}_c$ to be $\{v^{ab}_{c,\mu}\}_{\mu}.$
+%$V^{a'_1a'_2}_{b'}$ to be $\{v^{a'_1a'_2}_{b',\mu}\}_{\mu}.$
+$V^{a_1a_2}_{b}$ to be $\{v^{a_1a_2}_{b,\mu}\}_{\mu}.$
 For every standard POP decomposition of $M^{a_1...a_n}_{b},$
 we get a decomposition of 
-$V^{a_1...a_n}_{b}$ into direct sums of various $V^{ab}_c.$
+$V^{a_1...a_n}_{b}$ into direct sums of various %$V^{a'b'}_{c'}.$
+$V^{a'_1a'_2}_{b'}.$ 
 This then gives a \emph{standard basis} of $V^{a_1...a_n}_{b}$
-relative to the chosen standard POP decomposition
-using the corresponding standard basis for each of the $V^{ab}_c.$
-\simon{fix notation.}
+relative to this standard POP decomposition
+using the corresponding  $\{v^{a'_1a'_2}_{b',\mu}\}_{\mu}$
+for each of the $V^{a'_1a'_2}_{b'}.$ % $V^{a'b'}_{c'}.$
+\simon{...ugh}
 
 Note that for any standard surface $M^{a_1...a_n}_{b}$ 
 and any choice of $k$ contiguous holes $a_j,...,a_{j+k-1}$
@@ -675,8 +734,9 @@ in at least one of the standard POP decompositions of $M^{a_1...a_n}_{b}.$
 \subsub{Linear order.}
 We next study maps from standard surfaces to arbitrary surfaces.
 The set of all maps from $M^{a_1...a_n}_{b}$ 
-to a surface $N$ will be denoted as $\Hom(M^{a_1...a_n}_{b}, N),$ 
-and we call each such map a \emph{linear order}.
+to a surface $N$ will be denoted as $\Hom(M^{a_1...a_n}_{b}, N).$ 
+We call each such map a \emph{linear order},
+or more specifically, a linear order on $N$.
 The reason for this terminology is that we can reconstruct (up to isotopy)
 any map $f:M^{a_1...a_n}_{b}\to N$ from
 the restriction of $f$ to the equator of $M^{a_1...a_n}_{b}.$ 
@@ -691,13 +751,16 @@ Any linear order will also map standard POP decompositions
 of $\StdM$ to POP decompositions of $N,$ and therefore
 (via $\F$) standard basis aswell.
 
+\simon{XXX below we decide to call linear orders as ``curve diagrams'' instead}
+
 \subsub{R-move.}
 %This is a (collection of) linear operator(s)
 Given anyon labels $a, b$ and $c$, and arbitrary
 surface $N,$
-we define the following map on linear orders 
+we now define the following map of linear orders on $N:$
 $$R^{ab}_c: \Hom(M^{ab}_c, N)\to \Hom(M^{ba}_c, N).$$
-This works by taking a linear order 
+%\simon{do we need to restrict the term ``map'' as only applying to maps of surfaces?}
+This map works by taking a linear order 
 $f:M^{ab}_c\to N$ to the composition $f\sigma$ where
 $\sigma:M^{ba}_c\to M^{ab}_c$
 is a counterclockwise half-twist that exchanges
@@ -765,7 +828,7 @@ the green line and boundary components.
 
 \subsub{Hexagon equation.}
 For a surface with three interior holes there are
-(infinitely) many POP decompositions.
+infinitely many POP decompositions (up to isotopy).
 These are all made by choosing an observable 
 that encloses two holes.
 The $F-$moves allow us to switch between 
@@ -781,10 +844,10 @@ Here we show two such triangle consistency requirements
 \end{center}
 Given a POP decomposition of a surface $N$
 there are various linear orders on $N$ that
-produce said POP decomposition from 
-a standard POP decomposition, and certain $R-$moves
+produce this decomposition from 
+a standard POP decomposition, and there are certain $R-$moves
 will map between these.
-Once again, these operations must be consistent, and
+Once again, these moves must be consistent, and
 here we note the two ``hexagon equations'' 
 %for linear orders corresponding to the above triangles:
 corresponding to the above two triangles:
@@ -797,19 +860,6 @@ corresponding to the above two triangles:
 %The symmetry of this equation becomes evident when
 %the four holes are arranged at the vertices of a regular
 %tetrahedron.
-
-What we have done here is show how the skein theory of
-braided tensor categories arises from a modular functor.
-This does not seem to be written down anywhere in any
-detail: Turaev \cite{Turaev1994} derives a Ribbon category
-from his definition of a modular functor, but this
-definition is different to the one given here, which is
-based on \cite{Walker1991}, and is not known to be equivalent.
-Walker \cite{Walker1991}
-(and others \cite{Bakalov2000}) perform the much more
-difficult task of deriving a modular functor from
-algebraic data (braided tensor category, etc.)
-but do not seem to say much about going in the other direction.
 
 %
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
