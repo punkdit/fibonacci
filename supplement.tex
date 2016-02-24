@@ -83,8 +83,8 @@ The University of Sydney, Sydney, Australia}
 
 
 The goal here is to describe the algorithm for
-computing charge contained regions built from 
-arbitrary collection of tiles.
+computing charge contained in regions built from 
+arbitrary collections of tiles.
 To do this we first describe our approach
 to topological quantum field theory,
 then we discuss the data structure 
@@ -436,11 +436,13 @@ to form a new surface $N.$
 %Let $N$ be the surface obtained from $M$ by gluing
 %these two holes together.
 %By this we mean there is a homeomorphism from one
-To construct $N$ we choose a homeomorphism from one
+To construct $N$ we choose a diffeomorphism from one
 hole to the other that maps base point to base point 
 and reverses orientation.
-Identifying the two holes along this homeomorphism
+Identifying the two holes along this diffeomorphism
 gives the glued surface $N.$
+(There is a slight technicality in ensuring that $N$ is
+then differentiable, but we will gloss over this detail.)
 %Gluing must reverse the orientation of the two holes
 %as well as identifying their base points.
 The fusion space of $M_{a,\widehat{a}}$ then embedds unitarily in the fusion
