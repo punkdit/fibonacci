@@ -170,7 +170,9 @@ c.text(x+r, y-r, r"$\widehat{c}$", southeast)
 x += 1.5*w
 
 #c.text(x, y, r"$\to$", center)
-c.stroke(path.line(x-0.4*w, y, x+0.4*w, y), [deco.earrow()])
+x0 = x-0.4*w
+c.stroke(path.line(x0, y, x+0.4*w, y), [deco.earrow()])
+c.stroke(path.line(x0, y-0.1, x0, y+0.1))
 c.text(x, y+0.3*h, r"$R_c^{ab}$", center)
 
 x += 1.5*w

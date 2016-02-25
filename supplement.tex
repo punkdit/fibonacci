@@ -683,12 +683,12 @@ Read on to find out how this works!
 
 \newcommand{\StdM}{M^{a_1...a_n}_{b}}
 
-\subsub{Standard basis.}
+\subsub{Standard surfaces.}
 For each $n=0,1,...$ and every ordered sequence of
 anyon labels $a_1,...,a_n,b$ we choose a \emph{standard surface}.
 This is a surface with
-$n$ holes labelled $a_1,...,a_n,\widehat{b}$ 
-which we denote $M^{a_1...a_n}_{b}.$ 
+$n+1$ boundary components labelled $a_1,...,a_n,\widehat{b}$ 
+which we denote $\StdM.$ 
 For concreteness, we 
 let this surface be the subset of
 the complex plane defined by
@@ -698,8 +698,9 @@ $\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{2i-1}{2n}|< \frac{1}{4n}\bigr\}_{i=1,..
 removed.
 We then label the interior holes $a_1,...,a_n$ in order of
 increasing real coordinate, and the exterior hole is labelled $\widehat{b}.$
+The marked points are placed in the direction of the negative imaginary axis.
 As a notational convenience we highlight the \emph{equator}
-of the surface %$M^{a_1...a_n}_{b}$ 
+of the surface %$\StdM$ 
 which is the intersection of
 the real axis with the surface:
 \begin{center}
@@ -726,12 +727,12 @@ the following commutative diagram:
 \end{center}
 
 We define the vector spaces 
-$ V^{a_1...a_n}_{b} := \F(M^{a_1...a_n}_{b}).$ 
+$ V^{a_1...a_n}_{b} := \F(\StdM).$ 
 We now choose a basis for each of the
 %$V^{ab}_c$ to be $\{v^{ab}_{c,\mu}\}_{\mu}.$
 %$V^{a'_1a'_2}_{b'}$ to be $\{v^{a'_1a'_2}_{b',\mu}\}_{\mu}.$
 $V^{a_1a_2}_{b}$ to be $\{v^{a_1a_2}_{b,\mu}\}_{\mu}.$
-For every standard POP decomposition of $M^{a_1...a_n}_{b},$
+For every standard POP decomposition of $\StdM,$
 we get a decomposition of 
 $V^{a_1...a_n}_{b}$ into direct sums of various %$V^{a'b'}_{c'}.$
 $V^{a'_1a'_2}_{b'}.$ 
@@ -741,30 +742,49 @@ using the corresponding  $\{v^{a'_1a'_2}_{b',\mu}\}_{\mu}$
 for each of the $V^{a'_1a'_2}_{b'}.$ % $V^{a'b'}_{c'}.$
 \simon{...ugh}
 
-Note that for any standard surface $M^{a_1...a_n}_{b}$ 
+Note that for any standard surface $\StdM$ 
 and any choice of $k$ contiguous holes $a_j,...,a_{j+k-1}$
 we can find an observable that encloses exactly these holes
-in at least one of the standard POP decompositions of $M^{a_1...a_n}_{b}.$ 
+in at least one of the standard POP decompositions of $\StdM.$ 
+
+Gluing of two standard surfaces is not in general going to
+produce another standard surface. However, we can ... \simon{fix this}
 
 \subsub{Curve diagram.}
 We next study maps from standard surfaces to arbitrary surfaces.
-The set of all maps from $M^{a_1...a_n}_{b}$ 
-to a surface $N$ will be denoted as $\Hom(M^{a_1...a_n}_{b}, N).$ 
+The set of all maps from $\StdM$ 
+to a surface $N$ will be denoted as $\Hom(\StdM, N).$ 
 We call each such map a \emph{curve diagram},
 or more specifically, a curve diagram on $N$.
 The reason for this terminology is that we can reconstruct (up to isotopy)
-any map $f:M^{a_1...a_n}_{b}\to N$ from
-the restriction of $f$ to the equator of $M^{a_1...a_n}_{b}.$ 
+any map $f:\StdM\to N$ from
+the restriction of $f$ to the equator of $\StdM.$ 
 In other words, we can uniquely specify any map
-$f:M^{a_1...a_n}_{b}\to N$ by indicating the action of
+$f:\StdM\to N$ by indicating the action of
 $f$ on the equator. We take full advantage of this
 fact in our notation: any figure of a surface
 with a ``green line'' drawn therein is actually notating a 
 diffeomorphism, not a surface!
 
-Any curve diagram will also map standard POP decompositions
-of $\StdM$ to POP decompositions of $N,$ and therefore
-(via $\F$) standard basis aswell.
+Any curve diagram will act on a standard POP decomposition
+of $\StdM$ sending it to a POP decomposition of $N.$
+Surprisingly, the converse of this statement also holds:
+any POP decomposition of $N$ comes from some curve diagram
+acting on a standard POP decomposition.
+The proof of this is constructive and forms the heart of
+our algorithm below.
+
+\simon{show how to glue two curve diagrams together to get another
+curve diagram}
+
+%Any curve diagram will send a standard POP decomposition
+%of $\StdM$ to a POP decompositions of $N,$ and therefore
+%(via $\F$) will also send the standard basis to a basis
+%of $\F(N).$
+%This is how to understand the sense in which a curve diagram 
+%(together with a standard POP decomposition) 
+%``picks out'' a basis of $\F(N).$
+%Remarkably, the converse of this result also obtains
 
 We note in passing two connections to the mathematical literature.
 Such curve diagrams have been 
@@ -775,10 +795,8 @@ qualified as ``framed'' curve diagrams.
 And, we note the similarity of curve diagrams and associated
 modular functor 
 to the definition of a planar algebra \cite{Jones1999},
-the only modification being that planar algebras allow for 
-not just two but any even number of curves intersecting with holes.
-
-%\simon{XXX below we decide to call linear orders as ``curve diagrams'' instead}
+the main difference being that planar algebras allow for 
+not just two but any even number of curve intersections at each hole.
 
 \subsub{R-move.}
 %This is a (collection of) linear operator(s)
@@ -799,51 +817,31 @@ Here we show the action of $R^{ab}_c$ on one particular curve diagram:
 Such an application of $R^{ab}_c$ to a particular
 curve diagram we call an \emph{R-move.}
 
-At this point we can show the relation to skein theory:
+\simon{extend $R-$move under gluing}
+
+\subsub{Skeins.}
+The preivious figure can be seen as a ``top-down'' view of the
+following three dimensional arrangement:
+%At this point we can show the relation to skein theory:
 \begin{center}
 \includegraphics[]{pic-rmove-skein.pdf}
 \end{center}
-This figure is intended to be the same as the previous flat figure,
-with the addition of a third dimension, and also thin black lines
+This figure is intended to be topologically
+the same as the previous flat figure,
+with the addition of a third dimension,
+and the $\widehat{c}$ boundary has been shrunk.
+Also note thin black lines
 connecting the marked points.
 The black lines do not add any extra structure, they can
-be seen as a part of the dual of the ``hexagon'' cut out by
+be seen as a part of the hexagon cut out by
 the green line and boundary components.
+But notice this: the black lines are ``framed'' by the green lines. 
+These are the ribbons used in skein theory!
 
-\simon{extend $R-$move under gluing}
-
-%We can try to pluck the linear
-%operator $R^{ab}_c:V^{ab}_c\to V^{ab}_c$
-%directly out of the
-%modular functor by considering a half twist
-%$\sigma$ that swaps the $a$ and $b$ component.
-%This is a diffeomorphism $\sigma:M^{ab}_c\to M^{ba}_c$
-%which the functor sends to a 
-%linear map $\F(\sigma):V^{ab}_c\to V^{ba}_c.$
-%Therefore, unless $a=b$ (or $a=\vac$ or $b=\vac$)
-%this fails to give the $R-$move we sought.
-%
 %We can get monodromy operators, and theta operators...
-%
-%Digging a bit deeper in looking for $R-$moves,
-%we seek something that
-%appears to be a collection of natural transformations of $\F,$
-%one $R^{ab}_c$ for each pair of pants $M^{ab}_c.$
-%The naturality requirement says that
-%the $R-$moves commute with (linear maps induced by) diffeomorphisms.
-%In more detail,
-%given any diffeomorphism
-%$f:M^{ab}_c\to M^{\tilde{a}\tilde{b}}_{\tilde{c}}$
-%we have $\F(f)R^{ab}_c=R^{\tilde{a}\tilde{b}}_{\tilde{c}}\F(f).$
-%Here is an example of this, with $f$ a counter-clockwise half twist
-%$f:M^{ab}_c\to M^{ba}_c:$
 %\begin{center}
 %\includegraphics[]{pic-natural.pdf}
 %\end{center}
-%It is not clear how to extend this to
-%a collection of maps for all possible surfaces, as is
-%required to be an actual
-%natural transform of $\F.$
 %However, such a natural transform would be notated as 
 %%category theorists would write this as
 %$ R^{ab}_c : \F\to\F,$
@@ -891,6 +889,60 @@ corresponding to the above two triangles:
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %
 
+\section{Physical model}
+
+The manifold underlying our system is a torus.
+We endow this with a $L\times L$ square lattice of observables:
+$$
+    \Lambda := \bigl\{ \gamma_{ij} \bigr\}_{i,j=1,...,L}
+$$
+These observables are the physically accessible observables of
+the noise reduction procedure we call the \emph{decoder.}
+We call each such $\gamma_{ij}$ a \emph{tile.}
+We show a small gap between the tiles but this is not meant
+to reflect an actual physical gap.
+
+The noise process acts to populate the manifold with
+a randomly distributed set of pair creation processes,
+whose size is much smaller than the resolution of the lattice.
+We model this as a random distribution of pair-of-pants:
+\begin{center}
+\includegraphics[]{pic-pair-create.pdf}
+\end{center}
+
+Each such pair will have vacuum total charge and so the observables
+$\gamma_{ij}$ will only see pairs that intersect, ie. we
+need only consider distributing these pairs
+transversally along edges of the tiles.
+
+In order to compute measurement outcomes for the $\gamma_{ij}$
+we first need to concatenate any two curve diagrams that 
+participate in the same $\gamma_{ij}.$
+Because each curve has vacuum total charge this can be
+done in an arbitrary way:
+\begin{center}
+\includegraphics[]{pic-join-pairs.pdf}
+\end{center}
+
+Working in the basis picked out by the resulting curve
+diagrams, we can calculate measurement outcomes for each tile,
+the result of which is recorded on the original curve:
+\begin{center}
+\includegraphics[]{pic-curve-uniq.pdf}
+\end{center}
+
+%The details of how this is implemented computationally,
+%the data structures and algorithm, we have not yet described
+%and this is what we turn to next.
+
+%
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%
+
+%
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%
+
 %\section{The refactoring theorem}
 %
 %
@@ -906,8 +958,7 @@ corresponding to the above two triangles:
 \section{Combinatorial curve diagrams}
 
 The basic data structure involved in the
-simulation we term a \emph{combinatorial curve
-diagram.}
+simulation we term a \emph{combinatorial curve diagram.}
 % XXX define "piece of curve"
 Firstly, we will require each curve to intersect 
 the edges of tiles transversally,

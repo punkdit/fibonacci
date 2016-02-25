@@ -190,7 +190,9 @@ circ(x+0.4*w, h, "$a$")
 
 ####### >>>>
 
-c.stroke(path.line(x+2*r0, y+r0, x+3*w-2*r0, y+r0), [deco.earrow()])
+x0 = x+2*r0
+c.stroke(path.line(x0, y+r0, x+3*w-2*r0, y+r0), [deco.earrow()])
+c.stroke(path.line(x0, y+r0-0.1, x0, y+r0+0.1))
 c.text(x+1.5*w, y+1.8*r0, "$R^{ab}_c$", center)
 
 x += 3*w
