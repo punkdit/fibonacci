@@ -69,7 +69,7 @@ st_tau = [style.linewidth.Thick, red, style.linecap.round]
 
 def anyon(x, y, r=0.07):
     c.fill(path.circle(x, y, r), [white])
-    c.stroke(path.circle(x, y, r), [red, style.linewidth.thick])
+    c.stroke(path.circle(x, y, r), [style.linewidth.thick])
 
 
 N = 20

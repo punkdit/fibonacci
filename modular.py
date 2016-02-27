@@ -580,5 +580,54 @@ mathtext(x, y+0.5*h, r"$\Bigr)$", east)
 c.writePDFfile("pic-pop.pdf")
 
 
+#############################################################################
+#
+#
+
+
+w = 1.2
+h = 1.5
+
+x = 0
+y = 0
+
+c = canvas.canvas()
+
+
+r = 1.0
+r1 = 0.4*r
+
+surface(x, y, r, shade, mark=True)
+surface(x, y, r1, white, mark=True)
+
+c.stroke(path.line(x, y-r, x, y-r1))
+
+c.text(x-r, y+r, "$\widehat{a}$", northwest)
+c.text(x-r1, y+r1, "${a}$")
+
+c.stroke(path.line(x+1.4*r, y, x+2.6*r, y), [deco.earrow()])
+c.text(x+2.0*r, y+0.4*r, "$f_a$", center)
+
+x += 4*r
+
+surface(x, y, r, shade, mark=True)
+surface(x, y, r1, white, mark=True)
+
+t = Turtle(x, y-r, -0.45*pi)
+
+dr = 0.15
+r0 = 0.9*r
+for i in range(4):
+    t.right(0.53*pi, r0)
+    r0 -= dr
+t.stroke()
+
+c.text(x-r, y+r, "$\widehat{a}$", northwest)
+c.text(x-0.8*r1, y-r1, "${a}$", north)
+
+c.writePDFfile("pic-dehn-twist.pdf")
+
+
+
 
 

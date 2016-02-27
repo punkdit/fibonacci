@@ -483,9 +483,11 @@ summands in the above direct sum:
 $$
     P_a: \bigoplus_{b\in\A} \F(M_{b,\widehat{b}}) \to \F(M_{a,\widehat{a}}).
 $$
-then the observable will be the set of operators $\{P_a g^{-1}\}_{a\in\A}.$
+then the observable will be the set of operators 
+$\{P_a g^{-1}\}_{a\in\A}.$
 Note that in the glued surface $N$ the seam has no
-preferred orientation. If we choose an orientation 
+preferred orientation (or base point).
+If we choose an orientation 
 for the seam this corresponds to choosing one of the
 two boundary components in the original surface $M_{a,\widehat{a}}.$
 If these boundary components come from disconnected components of 
@@ -495,6 +497,21 @@ following the orientation around the seam presents
 the interior to the left.
 %The projectors associated to each cuff commute.
 %Non-overlapping observables commute.
+
+%We intentionally confuse the definition of an observable as
+%a set of operators 
+%%$\{P_a g^{-1}\}_{a\in\A}$
+%and the associated seam along which gluing occurs.
+%%observable as the simple closed curve 
+We intentionally confuse the distinction between an
+observable as a set of operators,
+and the associated seam along which gluing occurs.
+Any simple closed curve within the interior of $M$
+can serve as the seam along which gluing occurs...
+If we now take $M$ to be an arbitrary surface, and $\gamma$ an
+observable on $M,$
+we can write $M$ as the gluing of another surface $N$...
+\simon{XXX}
 
 \subsub{Consequences of axioms.}
 A common operation is to glue two separate surfaces.
@@ -585,16 +602,17 @@ Each component of $h^{-1}([a_{i-1}, a_i])$ is then either
 an annulus, a disc, or a pair-of-pants depending on the index of (any)
 critical point it contains.
 We then re-glue any annuli or discs until there are no more of these
-and we have only pair-of-pants. \simon{XXX why do we get annuli?}
+and we have only pair-of-pants. 
+% note: we may still get annuli in a *component* of the pre-image.
 \begin{center}
 \includegraphics[]{pic-pants.pdf}\ \ \ \ \ \ \ \ \includegraphics[]{pic-pants-1.pdf}
 \end{center}
 
-Clearly such a pair-of-pants decomposition is not unique,
+Clearly such a POP decomposition is not unique,
 and the goal here is to understand how to switch between decompositions,
 and in particular, given an observable $\gamma$,
-and a given pair-of-pants decomposition, find a sequence
-of ``moves'' such that $\gamma$ is in the resulting pair-of-pants
+and a given POP decomposition, find a sequence
+of ``moves'' such that $\gamma$ is in the resulting POP
 decomposition:
 \begin{center}
 \includegraphics[]{pic-refactor.pdf}
@@ -608,78 +626,25 @@ In this work we use a simpler method,
 which is essentially the same as \emph{skein theory.}
 Read on to find out how this works!
 
-%Pair-of-pants decomposition corresponds to a direct sum decomposition of
-%the fusion space.
+\subsub{Dehn twist.}
+Consider a surface $M_{a,\widehat{a}}$
+with two boundary components, $a$ and $\widehat{a}.$
+Let $f_a$ be a map $M_{a,\widehat{a}}\to M_{a,\widehat{a}}$
+which performs a clockwise $2\pi$ full-twist or \emph{Dehn twist}.
+Here we show the action of $f_a$ by drawing a line
+between the base points:
+\begin{center}
+\includegraphics[]{pic-dehn-twist.pdf}
+\end{center}
+We define the 
+induced map on fusion spaces as $\theta_a := \F(f_a).$
+Because $\F(M_{a,\widehat{a}})$ is one-dimensional
+this will be multiplication by a complex number which we also
+write as $\theta_a.$
 
-%As we have seen, an oriented simple closed path 
-%contained in the interior of $M$ can serve as
-%the seam along which gluing occurs and we call
-%these paths \emph{observables}.
-%Such a path that encloses two holes
-%will have as interior a pair-of-pants $M_{ab}.$
-%From this pair-of-pants we choose 
-%a non-trivial 1-cycle representative 
-%for the
-%relative homology group $H_1(M, \partial M).$
-%%we call a \emph{2-observable}.
-%Such a 1-cycle is 
-%a function $c:[0,1]\to M$ such that 
-%$c(0)\in \partial M$ and $c(1)\in \partial M$
-%%are distinct basepoints (of two holes)
-%are contained in distinct holes and the image of $c$
-%lies within $M_{ab}.$
-%All such 1-cycles are isotopic, since they are homologous.
-%In this way we associate observables that enclose two
-%holes with 1-cycles.
-%%we call a \emph{2-curve.}
-%%The following important fact will be used extensively
-%%in the combinatorial formulation of a modular functor below:
-%%Up to isotopy, % (not preserving $\partial M$),
-%%there is a (natural) bijection between
-%%$2$-observables and $2$-curves.
-%%\emph{(XXX we really need undirected $2$-curves)}
-%%\emph{(restrict to $M$ a disc with at least two holes?)}
-%Here we show two such instances of this:
-%\begin{center}
-%\includegraphics[]{pic-2-curve.pdf}
-%\end{center}
-%
-%%The bijections works as follows.
-%%To construct a $2$-observable from a $2$-curve $c$ that
-%%joins two holes $M_1$ and $M_2$,
-%%take a small neighbourhood of
-%%the union $c([0,1])\cup M_1 \cup M_2.$
-%%This neighbourhood will have boundary a simple closed
-%%curve that encloses $M_1$ and $M_2.$
-%%\emph{(is this really how to prove this? do we care?)}
-%%\emph{(check the orientation of the $2$-observable has the correct interior)}
-%%Going the other direction we can take
-%%any $2$-curve contained within the interior of a $2$-observable,
-%%\emph{but how do we show these are all isotopic?}
-%
-%%The end points of $2$-curves are free to terminate anywhere
-%%on the hole, but we can fix the endpoints using
-%%the base points.
-%%A simple way to do this is to just require the
-%%$2$-curve to begin and end on base points.
-%
-%A single $F-$move is seen to relate a pair of $1$-cycles % $2$-curves
-%that share a hole.
-%Continuing in this way, we can chain these $1$-cycles together: % $2$-curves together:
-%\begin{center}
-%\includegraphics[]{pic-chain.pdf}
-%\end{center}
-%
-%We call such a chain a \emph{linear order}.
-%This will be unique up to Dehn-twists around holes.
-%The linear order is directed according to the direction
-%of the constituent $F-$moves.
-
-%Clearly there are many ways to do this, up to isotopy.
-%Remarkably, we can generate (switch between)
-%all possible linear orders using 
-%a single linear map (and extension under gluing)
-%called the $R-$move.
+If we now take $M$ to be an arbitrary surface, and $\gamma$ an
+observable on $M,$ we can consider a neighbourhood of $\gamma$
+which will be an annulus, and perform a Dehn twist there.
 
 \newcommand{\StdM}{M^{a_1...a_n}_{b}}
 
@@ -698,7 +663,7 @@ $\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{2i-1}{2n}|< \frac{1}{4n}\bigr\}_{i=1,..
 removed.
 We then label the interior holes $a_1,...,a_n$ in order of
 increasing real coordinate, and the exterior hole is labelled $\widehat{b}.$
-The marked points are placed in the direction of the negative imaginary axis.
+The base points are placed in the direction of the negative imaginary axis.
 As a notational convenience we highlight the \emph{equator}
 of the surface %$\StdM$ 
 which is the intersection of
@@ -790,7 +755,7 @@ We note in passing two connections to the mathematical literature.
 Such curve diagrams have been 
 used in the study of braid groups \cite{Dehornoy2002}, and this
 is where the name comes from, although our
-curve diagrams respect the marked points and so could be further
+curve diagrams respect the base points and so could be further
 qualified as ``framed'' curve diagrams.
 And, we note the similarity of curve diagrams and associated
 modular functor 
@@ -831,7 +796,7 @@ the same as the previous flat figure,
 with the addition of a third dimension,
 and the $\widehat{c}$ boundary has been shrunk.
 Also note thin black lines
-connecting the marked points.
+connecting the base points.
 The black lines do not add any extra structure, they can
 be seen as a part of the hexagon cut out by
 the green line and boundary components.
@@ -880,7 +845,7 @@ corresponding to the above two triangles:
 \ \ \ \ \ \ \ \ \ \ \ \ 
 \includegraphics[width=0.4\columnwidth]{pic-hexagon-r.pdf}
 \end{center}
-\simon{where are the marked points?}
+\simon{where are the base points?}
 %The symmetry of this equation becomes evident when
 %the four holes are arranged at the vertices of a regular
 %tetrahedron.
@@ -1146,10 +1111,10 @@ transporting along one edge of a tile \emph{forwards}
 \includegraphics[]{pic-move-anyon.pdf}
 \end{center}
 
-This arrangement is equivalent (homotopic) to one of four 
+This arrangement is equivalent (isotopic) to one of four 
 ``paperclips'', which we distinguish between by counting how
 many \emph{right-hand turns} are made along the body of the curve diagram.
-We also show an equivalent (homotopic) picture where the
+We also show an equivalent (isotopic) picture where the
 curve diagram has been straightened, and the resulting distortion
 in the anyon path:
 \begin{center}
