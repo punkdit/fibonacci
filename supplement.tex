@@ -530,9 +530,6 @@ indicate the placement of $M$ and $N$ and the seam
 along which gluing occured,
 as well as the identification of base points.
 
-%\emph{XXX show orientation of boundaries ?}
-%\emph{XXX $N...$ show ellipses?}
-
 We note two other consequences of the axioms.
 A hole of $M$ labelled with $\vac$ can be replaced with a disk (by gluing)
 and this does not change the fusion space of $M.$
@@ -542,7 +539,8 @@ cardinality of $\A.$
 This can be seen by gluing one end
 of an annulus (cylinder) to the other.
 
-\subsub{Pair-of-pants.}
+%\subsub{Pair-of-pants.}
+\subsub{F-move.}
 The fusion space of the disc and annulus are
 specified by the axioms, and we define the fusion
 space of the disc with two holes, or \emph{pair-of-pants} as:
@@ -550,19 +548,16 @@ space of the disc with two holes, or \emph{pair-of-pants} as:
 \includegraphics[]{pic-pop.pdf}
 \end{center}
 
-\subsub{F-move.}
-The $F-$move
+The \emph{$F-$move}
 is constructed from two applications of a
 gluing map as follows:
-
 \begin{center}
 \includegraphics[]{pic-glue-fmove.pdf}
 \end{center}
-
 Here we have shown a surface $M^{abc}_d$ with 
 four labelled boundary components, as well as two separate
 ways of gluing pairs-of-pants to get $M^{abc}_d.$
-We can also write this out in terms of the fusion spaces defined above:
+We can also write this out in terms of the fusion spaces of pair-of-pants:
 $$
     F^{abc}_d : \bigoplus_{x\in\A} V^{ab}_x\otimes V^{xc}_d 
         \to \bigoplus_{y\in\A} V^{ay}_d\otimes V^{bc}_y.
@@ -624,7 +619,8 @@ and the kind of transitions involved in their critical point structure.
 This was the approach used in \cite{Freedman2002simulation}.
 In this work we use a simpler method,
 which is essentially the same as \emph{skein theory.}
-Read on to find out how this works!
+%Read on to find out how this works!
+This is the \emph{refactoring theorem}.
 
 \subsub{Dehn twist.}
 Consider a surface $M_{a,\widehat{a}}$
@@ -849,6 +845,16 @@ corresponding to the above two triangles:
 %The symmetry of this equation becomes evident when
 %the four holes are arranged at the vertices of a regular
 %tetrahedron.
+
+\subsub{Refactoring theorem.}
+The main theorem we are building towards shows that
+the $R-$moves act transitively on curve diagrams.
+That is, given two curve diagrams $f$ and $f'$ on $N$ we can find
+a sequence of $R-$moves that transforms $f$ to $f'.$
+\begin{center}
+\includegraphics[]{pic-theorem.pdf}
+\end{center}
+
 
 %
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -614,13 +614,13 @@ surface(x, y, r, shade, mark=True)
 surface(x, y, r1, white, mark=True)
 
 t = Turtle(x, y-r, -0.45*pi)
-
 dr = 0.15
 r0 = 0.9*r
 for i in range(4):
     t.right(0.53*pi, r0)
     r0 -= dr
 t.stroke()
+#t.stroke(st_curve + [trafo.rotate(90, x=x, y=y), deco+earrow()])
 
 c.text(x-r, y+r, "$\widehat{a}$", northwest)
 c.text(x-0.8*r1, y-r1, "${a}$", north)

@@ -354,5 +354,102 @@ c.text(x0-0.3, y0, r"$\H(f)$", east)
 c.writePDFfile("pic-natural.pdf")
 
 
+###############################################################################
+#
+#
+
+w, h = 2.2, 2.4
+
+c = canvas.canvas()
+
+r0 = 0.4*w # second hole
+r1 = 1.4*w # last hole
+
+#st_target = st_curve+st_dashed
+#st_target = [red, style.linewidth.THick, deco.earrow(size=0.2)]
+st_target = st_curve+st_dashed
+
+def manifold(x, y, labels, count):
+
+    if count in [0, 2]:
+        c.stroke(path.line(x-r0, y, x+r1+r0, y), st_curve)
+    else:
+        extra = list(st_curve)
+        #if count==3:
+        #    extra.append(trafo.scale(x=x, y=y, sx=1, sy=-1))
+        Turtle(x-0.85*r0, y, pi/2).\
+            fwd(0.3).\
+            right(0.25*pi, 0.4).left(0.50*pi, 0.73).left(0.88*pi, 0.15).\
+            fwd(0.55).\
+            right(0.88*pi, 0.15).right(0.50*pi, 0.73).\
+            left(0.25*pi, 0.52).goto(x+r1+r0, y).\
+            stroke(extra)
+
+    if count==0:
+        c.text(x+r1+r0, y-0.2, "$f$", northwest)
+    else:
+        c.text(x+r1+r0, y-0.2, "$R^{a_1a_2}_bf$", northwest)
+
+    c.text(x+(r0+r1)/2, y+0.7, "$f'$", southwest)
+
+    if count == 0:
+        Turtle(x, y, 3*pi/4).left(0.95*pi/2, 2**0.5/2*r1).stroke(st_target+[trafo.scale(x=x, y=y, sx=1, sy=-1)])
+    elif count == 3:
+        Turtle(x-0.05, y, 0.90*pi).left(0.30*pi, 0.8).left(0.3*pi, 2.8).\
+            stroke(st_target+[trafo.scale(x=x, y=y, sx=1, sy=-1)])
+    else:
+        Turtle(x+r0, y, 3*pi/4).left(0.95*pi/2, 2**0.5/2*(r1-r0)).stroke(st_target)
+
+    for i in range(3):
+        _x = [x, x+r0, x+r1][i]
+        p = path.circle(_x, y, 0.08)
+        c.fill(p, [white])
+        c.stroke(p)
+        ydelta = -0.25
+        xdelta = 0.00
+        if count==3  and labels[i]=="a_2":
+            ydelta = -0.35
+            xdelta = +0.1
+        if count==3  and labels[i]=="a_1":
+            xdelta = -0.1
+            ydelta = +0.3
+        c.text(_x+xdelta, y+ydelta, r"$\scriptstyle %s$"%labels[i], center)
+
+    x1 = x+(r0+r1)/2.
+    c.text(x1, y-0.2, "...", north)
+
+    c.fill(path.rect(x1-0.4, y-0.1, 0.8, 0.2), [white])
+    c.stroke(path.line(x1-0.4, y, x1+0.4, y), [green, style.linewidth.THick]+st_dotted)
+
+    c.stroke(path.circle(x+r0/2, y, r0), [trafo.scale(x=x+r0/2, y=y, sx=1.0, sy=0.8)])
+
+    c.text(x, y+0.3*h, "$b$", southeast)
+
+
+x, y = 0., 4*h
+
+labels = "a_1 a_2 a_n".split()
+
+manifold(x + w, y, labels, 0)
+
+dx, dy = w, -h
+
+x0, y0 = x + 0.7 + 0.2*dx, y - 0.2 + 0.2*dy
+c.stroke(path.line(x0, y0, x0+0.6*dx, y0+0.6*dy), [deco.earrow()])
+c.stroke(path.line(x0+0.03*dy, y0-0.03*dx, x0-0.03*dy, y0+0.03*dx), st_thick)
+
+c.text(x0-0.2+0.3*dx, y0+0.3*dy, "$R^{a_1a_2}_b$", northeast)
+
+
+x += dx
+y += dy
+
+manifold(x + w, y, labels, 3)
+
+
+c.writePDFfile("pic-theorem.pdf")
+
+
+
 
 
