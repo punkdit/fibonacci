@@ -388,7 +388,7 @@ def manifold(x, y, labels, count):
     if count==0:
         c.text(x+r1+r0, y-0.2, "$f$", northwest)
     else:
-        c.text(x+r1+r0, y-0.2, "$R^{a_1a_2}_bf$", northwest)
+        c.text(x+r1+r0, y-0.2, "$R^{a_1a_2}_{b_1}f$", northwest)
 
     c.text(x+(r0+r1)/2, y+0.7, "$f'$", southwest)
 
@@ -423,7 +423,7 @@ def manifold(x, y, labels, count):
 
     c.stroke(path.circle(x+r0/2, y, r0), [trafo.scale(x=x+r0/2, y=y, sx=1.0, sy=0.8)])
 
-    c.text(x, y+0.3*h, "$b$", southeast)
+    c.text(x, y+0.3*h, "$b_1$", southeast)
 
 
 x, y = 0., 4*h
@@ -438,10 +438,10 @@ x0, y0 = x + 0.7 + 0.2*dx, y - 0.2 + 0.2*dy
 c.stroke(path.line(x0, y0, x0+0.6*dx, y0+0.6*dy), [deco.earrow()])
 c.stroke(path.line(x0+0.03*dy, y0-0.03*dx, x0-0.03*dy, y0+0.03*dx), st_thick)
 
-c.text(x0-0.2+0.3*dx, y0+0.3*dy, "$R^{a_1a_2}_b$", northeast)
+c.text(x0-0.2+0.3*dx, y0+0.3*dy, "$R^{a_1a_2}_{b_1}$", northeast)
 
 
-x += dx
+x += 0.8*dx
 y += dy
 
 manifold(x + w, y, labels, 3)
