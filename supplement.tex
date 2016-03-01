@@ -485,6 +485,9 @@ $$
 $$
 then the observable will be the set of operators 
 $\{P_a g^{-1}\}_{a\in\A}.$
+For each $a\in A$
+we call the image of $P_a$ 
+a \emph{charge sector} for that observable.
 Note that in the glued surface $N$ the seam has no
 preferred orientation (or base point).
 If we choose an orientation 
@@ -625,22 +628,36 @@ This is the \emph{refactoring theorem}.
 \subsub{Dehn twist.}
 Consider a surface $M_{a,\widehat{a}}$
 with two boundary components, $a$ and $\widehat{a}.$
-Let $f_a$ be a map $M_{a,\widehat{a}}\to M_{a,\widehat{a}}$
+Let $f$ be a map $M_{a,\widehat{a}}\to M_{a,\widehat{a}}$
 which performs a clockwise $2\pi$ full-twist or \emph{Dehn twist}.
-Here we show the action of $f_a$ by drawing a line
-between the base points:
+Here we show the action of $f$ by highlighting the
+equator of the annulus:
+%line between the base points:
 \begin{center}
 \includegraphics[]{pic-dehn-twist.pdf}
 \end{center}
 We define the 
-induced map on fusion spaces as $\theta_a := \F(f_a).$
+induced map on fusion spaces as $\theta_a := \F(f).$
 Because $\F(M_{a,\widehat{a}})$ is one-dimensional
 this will be multiplication by a complex number which we also
 write as $\theta_a.$
 
 If we now take $M$ to be an arbitrary surface, and $\gamma$ an
 observable on $M,$ we can consider a neighbourhood of $\gamma$
-which will be an annulus, and perform a Dehn twist there.
+which will be an annulus, and perform a Dehn twist there,
+which we denote as $f_\gamma : M\to M.$
+Writing $M$ as a gluing along $\gamma$ of another
+manifold $N_{a,\widehat{a}},$
+the action of $\F(f_\gamma)$ will decompose as a direct sum over charge 
+sectors:
+$$
+\bigoplus_{a\in\A} \theta_a \F(N_{a,\widehat{a}}).
+$$
+%$$
+%    \F(f_\gamma) : \bigoplus_{a\in\A}
+%        \F(N_{a,\widehat{a}}) \to
+%        \bigoplus_{a\in\A} \theta_a \F(N_{a,\widehat{a}})
+%$$
 
 \newcommand{\StdM}{M^{a_1...a_n}_{b}}
 
@@ -796,7 +813,11 @@ Here we show the action of $R^{ab}_c$ on one particular curve diagram:
 Such an application of $R^{ab}_c$ to a particular
 curve diagram we call an \emph{R-move.}
 
-\simon{Extend $R-$move under gluing.}
+%\simon{Extend $R-$move under gluing.}
+As we extended Dehn twists under gluing,
+we can do this for $R-$moves.
+Given any pair-of-pants in $M$ ... \simon{keep going}
+
 \simon{When do we start confusing the distinction between
 topological operations and the corresponding vector space
 operation via $\F$ ?}
@@ -862,10 +883,20 @@ corresponding to the above two triangles:
 \ \ \ \ \ \ \ \ \ \ \ \ 
 \includegraphics[width=0.4\columnwidth]{pic-hexagon-r.pdf}
 \end{center}
-\simon{where are the base points?}
-%The symmetry of this equation becomes evident when
-%the four holes are arranged at the vertices of a regular
-%tetrahedron.
+Note that we have neglected to indicate the base points here.
+Given a curve diagram, we can agree that base points
+occur ``to the right'' of the image of the equator.
+But in notating diagrams such as these, there is still
+an ambiguity: the position of base points should be the
+same in each surface.
+If we do this post-hoc, we will be correct
+only up to a Dehn twist around each hole.
+We can certainly track these twists if we wanted to,
+but in the interests of simplicity we don't.
+This introduces a global phase ambiguity into the
+calculations.
+%What we have done here is to forget that the holes
+%have width, and shrunk them to points.
 
 \section{Refactoring theorem}
 
