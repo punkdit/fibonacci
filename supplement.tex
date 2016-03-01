@@ -732,8 +732,10 @@ of $\StdM$ sending it to a POP decomposition of $N.$
 Surprisingly, the converse of this statement also holds:
 any POP decomposition of $N$ comes from some curve diagram
 acting on a standard POP decomposition.
-The proof of this is constructive and forms the heart of
-our algorithm below.
+The proof of this is constructive, and we call this
+the refactoring theorem below.
+%The proof of this is constructive and forms the heart of
+%our algorithm below.
 
 \simon{show how to glue two curve diagrams together to get another
 curve diagram}
@@ -759,6 +761,22 @@ to the definition of a planar algebra \cite{Jones1999},
 the main difference being that planar algebras allow for 
 not just two but any even number of curve intersections at each hole.
 
+
+\subsub{Z-move.}
+We let $z$ be a diffeomorphism of standard surfaces 
+$z : M^{a_1...a_n}_{b} \to  M^{a_2...a_n\widehat{b}}_{\widehat{a_1}}$
+that preserves the equator.
+(Considering the standard surface as a sphere with holes
+placed uniformly around a great circle, $z$ is seen to
+be a ``rotation''.)
+This acts by pre-composition to
+send a curve diagram $f\in \Hom(\StdM, N)$ to 
+$fz \in \Hom(M^{a_2...a_n\widehat{b}}_{\widehat{a_1}}, N).$
+
+In this way, any curve diagram can be seen as another
+curve diagram that has a cyclic permutation of the labes of
+the underlying standard surface.
+
 \subsub{R-move.}
 %This is a (collection of) linear operator(s)
 Given anyon labels $a, b$ and $c$, and arbitrary
@@ -778,7 +796,10 @@ Here we show the action of $R^{ab}_c$ on one particular curve diagram:
 Such an application of $R^{ab}_c$ to a particular
 curve diagram we call an \emph{R-move.}
 
-\simon{extend $R-$move under gluing}
+\simon{Extend $R-$move under gluing.}
+\simon{When do we start confusing the distinction between
+topological operations and the corresponding vector space
+operation via $\F$ ?}
 
 \subsub{Skeins.}
 The preivious figure can be seen as a ``top-down'' view of the
@@ -846,7 +867,7 @@ corresponding to the above two triangles:
 %the four holes are arranged at the vertices of a regular
 %tetrahedron.
 
-\section{Refactoring theorem.}
+\section{Refactoring theorem}
 
 In this section we specialize to considering planar 
 surfaces only.
@@ -881,10 +902,12 @@ destroys a previously adjacentized pair of holes?}
 To this end, consider a sequence of holes $a_1,...,a_n$
 appearing sequentially along $f$
 such that $a_1$ and $a_n$ appear sequentially on $f'.$
-We first consider the case such that
+We may need to apply some $Z-$moves to $f$ to ensure
+that $a_1$ appears sequentially before $a_n$.
+Now consider the case such that
 along $f'$ between these two holes there is
 no intersection with $f.$
-We may form a closed path $\xi$ by
+We form a closed path $\xi$ by
 following the $f'$ curve between $a_1$ and $a_n$ and then
 following the $f$ curve in reverse from $a_n$ back to $a_1.$
 (Note that to be completely rigorous here we would need to include segments
@@ -903,11 +926,13 @@ After each of these $R-$moves the closed path
 formed by 
 following the $f'$ curve between $a_1$ and $a_n$ and then
 following the $R-$moved $f$ curve back to $a_1$ will
-traverse one less hole.
+traverse one less hole, and still bound a disc.
 After all of the $R-$moves this path will only
-touch $a_1$ and $a_n.$
+touch $a_1$ and $a_n,$ and bound a disc.
 Therefore, we have acted on the $f$ curve so that
-the resulting curve has $a_1$ and $a_n$ adjacent.
+the resulting curve has $a_1$ and $a_n$ adjacent
+and the bounded disc gives an isotopy for that
+segment of the curve.
 
 When the closed curve $\xi$ has anti-clockwise orientation
 we use the same sequence of $R-$moves but with $R$ replaced by $R^{-1}.$
@@ -917,13 +942,13 @@ when the $f'$ curve between $a_1$ and $a_n$ has (transverse) intersections
 with $f$ we use every such intersection to indicate a switch
 between using $R$ and $R^{-1}.$
 
-\simon{what if the direction of $f$ is reversed??
-eg. $f$ and $f'$ are the same except one has reverse direction?}
+%\simon{what if the direction of $f$ is reversed??
+%eg. $f$ and $f'$ are the same except one has reverse direction?}
 
 This refactoring theorem will be reformulated 
 below as a combinatorial ``paperclip algorithm''.
 
-\simon{use $c$ instead of $f$ for curve diagrams???}
+\simon{Use $c$ instead of $f$ for curve diagrams?}
 
 %
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
