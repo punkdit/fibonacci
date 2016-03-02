@@ -367,7 +367,9 @@ r1 = 1.4*w # last hole
 
 #st_target = st_curve+st_dashed
 #st_target = [red, style.linewidth.THick, deco.earrow(size=0.2)]
-st_target = st_curve+st_dashed
+#st_target = st_curve+st_dashed
+st_target = st_curve+[
+    style.linestyle(style.linecap.butt, style.dash([2], offset=1, rellengths=False))]
 
 def manifold(x, y, labels, count):
 

@@ -66,7 +66,6 @@ st_tau = [style.linewidth.Thick, red, style.linecap.round]
 #st_vac = [style.linewidth.thick, red]+st_dotted
 
 
-
 def anyon(x, y, r=0.07):
     c.fill(path.circle(x, y, r), [white])
     c.stroke(path.circle(x, y, r), [style.linewidth.thick])
@@ -624,6 +623,10 @@ m = 0.1*w
 m0 = m/2
 r = 0.3*w
 
+#st_curve_p = g_curve + st_dashed
+st_curve_p = g_curve + [
+    style.linestyle(style.linecap.butt, style.dash([2], offset=1, rellengths=False))]
+
 
 c.fill(path.rect(x-m0, y-m0, 2*m0+w, 2*m0+h), [shade])
 c.stroke(path.rect(x, y, w, h))
@@ -632,7 +635,7 @@ c.stroke(path.line(x+1.3*w, y+0.6*h, x+w+m, y+0.6*h), g_curve+st_dotted)
 c.stroke(path.line(x+w+m, y+0.6*h, x+0.5*w, y+0.6*h), g_curve) #+[deco.earrow(size=0.2)])
 c.stroke(path.line(x+w+m, y+0.6*h, x+0.6*w, y+0.6*h), g_curve+[deco.earrow(size=0.2)])
 c.stroke(path.line(x+0.5*w, y+0.6*h, x+0.2*w, y+0.6*h), g_curve+st_dotted)
-c.stroke(path.line(x+w-m, y+0.6*h, x+w-m, 0.2*h), st_tau+[deco.earrow(size=0.2)])
+c.stroke(path.line(x+w-m, y+0.6*h, x+w-m, 0.2*h), st_curve_p+[deco.earrow(size=0.2)])
 anyon(x+w-m, y+0.6*h)
 
 c.stroke(path.line(x+1.3*w, y+0.2*h, x+w+m, y+0.2*h), g_curve+st_dotted)
@@ -704,7 +707,8 @@ y = 0.
 #c.fill(path.circle(-w, 0, 0.1))
 
 g = g_curve+[deco.earrow(size=0.2)]
-a = st_tau+[deco.earrow(size=0.2)]
+#a = st_tau+[deco.earrow(size=0.2)]
+a = st_curve_p+[deco.earrow(size=0.2)]
 Turtle(x, y, -pi/2).fwd(w).left(pi, r).fwd(w).stroke(g)
 Turtle(x-0.5, y, pi).fwd(2*r).stroke(a)
 anyon(x-0.5*w, y)
