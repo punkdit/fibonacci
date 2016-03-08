@@ -165,7 +165,7 @@ circle(x+0.5*r, y, r0, white, mark=True)
 
 c.text(x+0.5*r, y+0.14*h, r"$a$", southwest)
 c.text(x-0.5*r, y-0.14*h, r"$b$", northeast)
-c.text(x+r, y-r, r"$\widehat{c}$", southeast)
+c.text(x+r, y-r, r"${c}$", southeast)
 
 x += 1.5*w
 
@@ -186,7 +186,7 @@ circle(x+0.5*r, y, r0, white, mark=True)
 
 c.text(x-0.5*r, y-0.14*h, r"$b$", northeast)
 c.text(x+0.5*r, y+0.14*h, r"$a$", southwest)
-c.text(x+r, y-r, r"$\widehat{c}$", southeast)
+c.text(x+r, y-r, r"${c}$", southeast)
 
 
 c.writePDFfile("pic-rmove-1.pdf")

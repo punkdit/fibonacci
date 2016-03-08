@@ -596,8 +596,8 @@ four labelled boundary components, as well as two separate
 ways of gluing pairs-of-pants to get $M^{abc}_d.$
 We can also write this out in terms of the fusion spaces of pair-of-pants:
 $$
-    F^{abc}_d : \bigoplus_{x\in\A} V^{ab}_x\otimes V^{xc}_d 
-        \to \bigoplus_{y\in\A} V^{ay}_d\otimes V^{bc}_y.
+    F^{abc}_d : \bigoplus_{x\in\A} V^{ab}_{\widehat{x}}\otimes V^{xc}_d 
+        \to \bigoplus_{y\in\A} V^{ay}_d\otimes V^{bc}_{\widehat{y}}.
 $$
 \simon{tensor with identity to extend this map under gluing}
 
@@ -699,7 +699,7 @@ $$
 For each $n=0,1,...$ and every ordered sequence of
 anyon labels $a_1,...,a_n,b$ we choose a \emph{standard surface}.
 This is a surface with
-$n+1$ boundary components labelled $a_1,...,a_n,\widehat{b}$ 
+$n+1$ boundary components labelled $a_1,...,a_n,{b}$ 
 which we denote $\StdM.$ 
 For concreteness, we 
 let this surface be the subset of
@@ -709,7 +709,7 @@ with $n$ discs
 $\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{2i-1}{2n}|< \frac{1}{4n}\bigr\}_{i=1,...n}$
 removed.
 We then label the interior holes $a_1,...,a_n$ in order of
-increasing real coordinate, and the exterior hole is labelled $\widehat{b}.$
+increasing real coordinate, and the exterior hole is labelled ${b}.$
 The base points are placed in the direction of the negative imaginary axis.
 As a notational convenience we highlight the \emph{equator}
 of the surface %$\StdM$ 
@@ -815,18 +815,18 @@ not just two but any even number of curve intersections at each hole.
 
 \subsub{Z-move.}
 We let $z$ be a diffeomorphism of standard surfaces 
-$z : M^{a_1...a_n}_{b} \to  M^{a_2...a_n\widehat{b}}_{\widehat{a_1}}$
+$z : M^{a_1...a_n}_{b} \to  M^{a_2...a_n{b}}_{{a_1}}$
 that preserves the equator.
 (Considering the standard surface as a sphere with holes
 placed uniformly around a great circle, $z$ is seen to
 be a ``rotation''.)
 This acts by pre-composition to
 send a curve diagram $f\in \Hom(\StdM, N)$ to 
-$fz \in \Hom(M^{a_2...a_n\widehat{b}}_{\widehat{a_1}}, N).$
+$fz \in \Hom(M^{a_2...a_n{b}}_{{a_1}}, N).$
 This we call a $Z-$move of $f.$
 
 In this way, any curve diagram can be seen as another
-curve diagram that has a cyclic permutation of the labes of
+curve diagram that has a cyclic permutation of the labels of
 the underlying standard surface.
 
 \subsub{R-move.}
@@ -875,6 +875,9 @@ be seen as a part of the hexagon cut out by
 the green line and boundary components.
 But notice this: the black lines are ``framed'' by the green lines. 
 These are the ribbons used in skein theory!
+Note that all the holes are created equal: there is
+no distinction between ``input'' holes and ``output'' holes
+(as there is with cobordisms or string diagrams.)
 
 %We can get monodromy operators, and theta operators...
 %\begin{center}

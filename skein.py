@@ -133,7 +133,7 @@ def ucirc():
     x2, y2 = x1-0.5*dx*sy*r0, y1-0.5*sy*r0
     c.stroke(path.line(x, y, x2, y2))
     c.fill(path.circle(x2, y2, 0.05))
-    c.text(x2-0.5*r0, y2-0.5*r0, "$\widehat{c}$", southeast)
+    c.text(x2-0.5*r0, y2-0.5*r0, "${c}$", southeast)
 
 
 w, h = 1.5, 2.5
