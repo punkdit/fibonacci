@@ -1344,48 +1344,91 @@ regions of the lattice
 until there are no more charges 
 or a topologically non-trivial operation has occured
 (an operation that spans the entire lattice.)
-
+Here we show this in a process diagram, with time running up
+the page:
 \begin{center}
 \includegraphics[]{pic-process.pdf}
 \end{center}
 
 So far we have discussed the simulation of the (quantum) system
 and now we turn to the decoder algorithm.
+Here is a pseudo-code listing for this,
+and we explain each step via an example below.
 
 \begin{verbatim}
+ 1:  def decode():
+ 2:      syndrome = get_syndrome()
+ 3:      
+ 4:      # build a cluster for each charge
+ 5:      clusters = [Cluster(charge) for charge in syndrome]
+ 6:  
+ 7:      # join any neighbouring clusters
+ 8:      join(clusters, 1)
+ 9:      
+10:      while clusters:
+11:      
+12:          # find total charge on each cluster
+13:          for cluster in clusters:
+14:              fuse_cluster(cluster)
+15:      
+16:          # discard vacuum clusters
+17:          clusters = [cluster for cluster in clusters if non_vacuum(cluster)]
+18:      
+19:          # grow each cluster by 1 unit
+20:          for cluster in clusters:
+21:              grow_cluster(cluster, 1)
+22:      
+23:          # join any intersecting clusters
+24:          join(clusters, 0)
+25:  
+26:      # success !
+27:      return True
+\end{verbatim} % see decode.py
 
-def decode():
-    syndrome = get_syndrome()
-    
-    # build a cluster for each charge
-    clusters = [Cluster(charge) for charge in syndrome]
+First, we show the result of the initial call to {\tt get\_syndrome()}, on line 2.
+The locations of anyon charges are highlighted in red.
+For each of these charges we build a {\tt Cluster}, on line 5.
+Each cluster is shown as a gray shaded area.
+\begin{center}
+\includegraphics[]{pic-decode-0.pdf}
+\end{center}
+The next step is the call to {\tt join(clusters, 1)}, on line 8,
+which joins clusters that are separated by at most one lattice
+spacing. We now have seven clusters:
+\begin{center}
+\includegraphics[]{pic-decode-1.pdf}
+\end{center}
+Each cluster is structured as a rooted tree, as indicated by
+the arrows which point in the direction from the leaves to
+the root of the tree. 
+This tree structure is used in the call to {\tt fuse\_cluster()},
+on line 14.
+This moves anyons in the tree along the arrows to the root, 
+fusing with the charge at the root.
+\begin{center}
+\includegraphics[]{pic-decode-2.pdf}
+\end{center}
+For each cluster, the resulting charge at the root is taken as the charge of
+that cluster. Any cluster with vacuum total charge is then discarded (line 17).
+%In our example, we assume all these charges are non-vacuum.
+In our example, we find two clusters with vacuum charge and we discard these.
+The next step is to grow the remaining clusters by one lattice spacing (line 20-21),
+and join (merge) any overlapping clusters (line 24).
+\begin{center}
+\includegraphics[]{pic-decode-3.pdf}
+\end{center}
+%Now we are down to two clusters.
+Note that we can choose the root of each cluster arbitrarily,
+as we are only interested in the total charge of each cluster.
 
-    # join any neighbouring clusters
-    join(clusters, 1)
-    
-    while clusters:
-    
-        # find total charge on each cluster
-        for cluster in clusters:
-            fuse_cluster(cluster)
-    
-        # discard vacuum clusters
-        clusters = [cluster for cluster in clusters if non_vacuum(cluster)]
-    
-        # grow each cluster by 1 unit
-        for cluster in clusters:
-            grow_cluster(cluster, 1)
-    
-        # join any intersecting clusters
-        join(clusters, 0)
-
-    # success !
-    return True
-\end{verbatim}
-
-If at any point the decode function causes a topologically 
+We repeat these steps of fusing, growing and then joining clusters (lines 10-24.)
+If at any point this causes a topologically 
 non-trivial operation, the simulation aborts and a failure
-to decode is recorded. Otherwise the decoder succeeds.
+to decode is recorded.
+Otherwise we eventually run out
+of non-vacuum clusters, and the decoder succeeds (line 27).
+Note that for simplicity we have neglected the boundary of the lattice in
+this example.
 
 %\section{Computation of homologically non-trivial operators}\label{s:homnontrivial}
 %
