@@ -72,7 +72,7 @@ def harrow(x0, x1, y, extra=[], label=None):
 
 def anyon(x, y, r=0.07):
     c.fill(path.circle(x, y, r), [white])
-    c.stroke(path.circle(x, y, r), [red, style.linewidth.thick])
+    c.stroke(path.circle(x, y, r), [style.linewidth.thick])
 
 
 N = 20
@@ -264,12 +264,19 @@ def draw(dx=0., dy=0., use_arrows=True):
         #    [style.linewidth.THICK, style.linecap.round, grey])
 
     if use_arrows:
+      t = 0.1
+      s = 1.-t
       for (p0, p1) in lines:
         x0, y0 = coord(*p0)
         x1, y1 = coord(*p1)
+        #x0, x1 = s*x0+t*x1, s*x1+t*x0
+        #y0, y1 = s*y0+t*y1, s*y1+t*y0
+        if syndrome[p1]:
+            x1 = s*x1+t*x0
+            y1 = s*y1+t*y0
         syndrome1[p0] = 0
         c.stroke(path.line(x0+dx, y0+dy, x1+dx, y1+dy),
-            [style.linewidth.Thick, deco.earrow(size=0.3)])
+            [style.linewidth.Thick, style.linecap.round, deco.earrow(size=0.2)])
 
     for i, j in sites:
         c.stroke(path.rect(j*w+dx, i*h+dy, w-2*m, h-2*m))
