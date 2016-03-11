@@ -59,7 +59,7 @@
 %------------------------------------------------------------------------------------------------------------%
 \begin{document}
 
-\title{Classical Simulation of a Modular Functor}
+\title{Supplemental material for ``Classical Simulation of Quantum Error Correction in a Fibonacci Anyon Code''}
 
 \author{Simon Burton}
 \affiliation{Centre for Engineered Quantum Systems, School of Physics, 
@@ -269,7 +269,7 @@ this appears as skeins mysteriously growing out of manifolds \cite{Pfeifer2012},
 or as motivated by renormalization group considerations \cite{Levin2005}.
 A further physical motivation is this: if a skein 
 is supposed to correspond to the $(2+1)-$dimensional
-world-lines of particals
+world-lines of particles
 as in the Schrodinger picture,
 modular functors would
 correspond to the algebra of observables, as in
@@ -925,10 +925,10 @@ Note that we have neglected to indicate the base points here.
 Given a curve diagram, we can agree that base points
 occur ``to the right'' of the image of the equator.
 But in notating diagrams such as these, there is still
-an ambiguity: the position of base points should be the
-same in each surface.
-If we correct for this post-hoc, 
-by ``twisting'' the holes,
+an ambiguity: the position of the base points should be the
+same in each surface in the diagram.
+If we try to correct for this post-hoc
+by rotating individual holes,
 we will then be correct
 only up to possible Dehn twist(s) around each hole.
 We can certainly track these twists if we wanted to,
@@ -938,12 +938,29 @@ calculations.
 %What we have done here is to forget that the holes
 %have width, and shrunk them to points.
 
+\subsub{Fusion.}
+We are thinking of the holes as modelling particles
+known as \emph{anyons}.
+We have defined a collection of observables.
+We think of these as measuring the total charge of the
+anyons within a simple closed curve.
+The measurement process associated to these observables
+we call \emph{fusion}.
+When the observable is understood,
+we call this fusion of anyons.
+Such a measurement applies a projector to a state in
+some fusion space $\F(M),$ and furthermore, we modify
+the manifold $M$ by excising the interior of the observable
+to produce another manifold $N.$
+This gives a state in the fusion space $\F(N).$
+
 \section{Refactoring theorem}
 
 In this section we specialize to considering planar 
 surfaces only.
 The theorem we are building towards shows that
 the $R-$moves act transitively on curve diagrams.
+\simon{We don't much care about transitivity. Should specialize this.}
 That is, given two curve diagrams $f$ and $f'$ on $N$ we can find
 a sequence of $R-$moves that transform $f$ to $f'.$
 %We consider surface $N$ with $n$ boundary components
@@ -1251,6 +1268,7 @@ This number will take one of the values $-2, -1, 0, 1, 2:$
 
 Anyons are transported around the lattice
 by moving them along tile edges.
+\simon{Note that transport here is the same as the refactoring from above.}
 In general, such a transport will intersect with a
 curve diagram in many places.
 Each such intersection is transverse,
@@ -1312,6 +1330,62 @@ considering the winding number of the simple closed curve made
 by combining the body of the curve diagram with the path followed by
 the anyon (appropriately reversing direction as needed).
 
+%
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%
+
+\section{Decoding algorithm}
+
+After the noise process is applied to the system,
+the error correction proceeds as a dialogue between the
+decoder and the system. 
+The decoder measures succesively larger and larger
+regions of the lattice
+until there are no more charges 
+or a topologically non-trivial operation has occured
+(an operation that spans the entire lattice.)
+
+\begin{center}
+\includegraphics[]{pic-process.pdf}
+\end{center}
+
+So far we have discussed the simulation of the (quantum) system
+and now we turn to the decoder algorithm.
+
+\begin{verbatim}
+
+def decode():
+    syndrome = get_syndrome()
+    
+    # build a cluster for each charge
+    clusters = [Cluster(charge) for charge in syndrome]
+
+    # join any neighbouring clusters
+    join(clusters, 1)
+    
+    while clusters:
+    
+        # find total charge on each cluster
+        for cluster in clusters:
+            fuse_cluster(cluster)
+    
+        # discard vacuum clusters
+        clusters = [cluster for cluster in clusters if non_vacuum(cluster)]
+    
+        # grow each cluster by 1 unit
+        for cluster in clusters:
+            grow_cluster(cluster, 1)
+    
+        # join any intersecting clusters
+        join(clusters, 0)
+
+    # success !
+    return True
+\end{verbatim}
+
+If at any point the decode function causes a topologically 
+non-trivial operation, the simulation aborts and a failure
+to decode is recorded. Otherwise the decoder succeeds.
 
 %\section{Computation of homologically non-trivial operators}\label{s:homnontrivial}
 %
