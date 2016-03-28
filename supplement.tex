@@ -8,7 +8,7 @@
 % Packages
 %------------------------------------------------------------------------------------------------------------%
 
-\usepackage{color}
+\usepackage{xcolor}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{graphicx}
 \usepackage[caption=false]{subfig}
@@ -47,6 +47,8 @@
 
 \newcommand{\cggb}[1]{\textcolor{blue}{#1}}
 \newcommand{\simon}[1]{\textcolor{red}{#1}}
+\newcommand{\stf}[1]{\textcolor{green}{#1}}
+
 
 \newcommand{\F}{\mathscr{H}} % H or F ?
 \newcommand{\C}{\mathbb{C}}
@@ -232,9 +234,9 @@ The University of Sydney, Sydney, Australia}
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %
 
-We consider the theory of two dimensional topologically ordered systems
+We consider the theory of two-dimensional topologically ordered systems
 with anyonic excitations.
-There are two main approaches to definining these,
+There are two main approaches to defining these,
 one being more algebraic and the other more topological.
 
 The algebraic side is known to mathematicians as the study of braided
@@ -250,8 +252,8 @@ Building from the other direction, one starts with
 a topological space (of low dimension) and attempts
 to extract a combinatorial or algebraic description of how this
 space can be built from joining smaller (simpler) pieces together.
-This is perhaps more difficult to graple with.
-These topologically-rooted constructs are known as modular functors, 
+This is perhaps more difficult to grapple with.
+These topologically rooted constructs are known as modular functors, 
 or the closely related topological quantum field theories (TQFT's).
 %The much older study of Homology also extracts algebraic
 %information out of topological spaces, but 
@@ -268,9 +270,9 @@ In the physics literature,
 this appears as skeins mysteriously growing out of manifolds \cite{Pfeifer2012},
 or as motivated by renormalization group considerations \cite{Levin2005}.
 A further physical motivation is this: if a skein 
-is supposed to correspond to the $(2+1)-$dimensional
+is supposed to correspond to the $(2+1)$-dimensional
 world-lines of particles
-as in the Schrodinger picture,
+as in the Schr\"{o}dinger picture,
 modular functors would
 correspond to the algebra of observables, as in
 a Heisenberg picture.
@@ -283,7 +285,7 @@ This is in fact reasonable because a modular functor can be
 seen as (part of) a TQFT, but is quite confusing to the
 novice who attempts to delve into the mathematical literature.
 
-The definition of a Modular functor appears to
+The definition of a modular functor appears to
 be well motivated physically.
 Unfortunately, there are many such definitions
 in the mathematical literature 
@@ -296,14 +298,14 @@ rigorously establishing the connection between these different axiomatizations.
 Furthermore, the concept of modular tensor category 
 has not been established to correspond exactly
 (bijectively) to any of these modular functor variants. 
-We try not to concern ourselves too much with these quibbles, 
+We try not to concern ourselves too much with these details, 
 but merely note these facts as a warning to the reader
 who may go searching for the ``one true formulation'' of
 topological quantum field theory.
 
 Of the many variants of modular functor found in the literature,
 one important distinction to be made is
-the way anyons are labelled.
+the way anyons are labeled.
 In the mathematical works \cite{Turaev1994, Bakalov2001, Tillmann1998} 
 we see that anyons are allowed to have superpositions
 of charge states. 
@@ -338,7 +340,7 @@ modular functor.
 %of topological objects: diffeomorphisms of surfaces.
 
 \begin{quotation}
-``People these days have a tendancy 
+``People these days have a tendency 
 to actually define a subfactor as being some kind of
 tensor category.
 But these guys [subfactors] are the algebras of observables
@@ -367,7 +369,7 @@ We will not require surfaces to be connected.
 By a \emph{hole} of $M$ we mean a component of its boundary. % $\partial M$.
 Each hole will inherit the manifold orientation,
 contain a distinguished \emph{base point},
-and be labelled with
+and be labeled with
 %an element from a finite set $\mathbb{A}=\{1, a, b, c ...\}.$
 an element from a (fixed) finite set $\A.$
 This is the set of ``anyon labels'', and comes
@@ -418,7 +420,7 @@ Two maps $f:M\to N$ and $f':M\to N$
 will be called \emph{isotopic}
 when one is a continuous deformation of the other.
 In detail,
-we have a continuosly
+we have a continuously
 parametrized family of maps $f_t:M\to N$ for $t\in [0, 1]$
 such that $f_0=f,\ f_1=f'$
 and the restriction of $f_t$ to the 
@@ -428,7 +430,7 @@ $f_t|_{X} = f|_{X}$ for $t\in [0, 1].$
 %$f_t|_{\partial M} = f|_{\partial M}$ for $t\in [0, 1].$
 Such a family $\{f_t\}_{t\in [0,1]}$ is called an \emph{isotopy}
 of $f.$
-This is an equivalence relation on maps $M\to N$, and the equivelance
+This is an equivalence relation on maps $M\to N$, and the equivalence
 class of $f$ under isotopy is called the \emph{isotopy class} of $f.$
 
 A \emph{modular functor} $\F$ associates to every
@@ -451,7 +453,7 @@ $\F(\phi) \cong \C.$ % preserves the identity of tensor
 For $M_a$ a disc with boundary label $a$ we have
 $\F(M_\vac)\cong \C$ and 
 $\F(M_a)\cong 0$ for $a\ne \vac.$
-For annulus $M_{a,b}$ with boundary labels
+For an annulus $M_{a,b}$ with boundary labels
 $a, b$ we have
 $\F(M_{a,\widehat{a}})\cong \C$ and 
 $\F(M_{a,b})\cong 0$ for $a\ne \widehat{b}.$
@@ -470,10 +472,10 @@ each system.
 
 {\bf Gluing axiom.}
 Denote a surface $M$ with (at least) two holes
-labelled $a, b$ as $M_{a,b}$. 
+labeled $a, b$ as $M_{a,b}$. 
 If we constrain $b=\widehat{a}$ 
 then we may \emph{glue} these two holes together
-to form a new surface $N.$
+to form a new surface $N$.
 %Let $N$ be the surface obtained from $M$ by gluing
 %these two holes together.
 %By this we mean there is a homeomorphism from one
@@ -481,13 +483,13 @@ To construct $N$ we choose a diffeomorphism from one
 hole to the other that maps base point to base point 
 and reverses orientation.
 Identifying the two holes along this diffeomorphism
-gives the glued surface $N.$
+gives the glued surface $N$.
 (There is a slight technicality in ensuring that $N$ is
 then differentiable, but we will gloss over this detail.)
 %Gluing must reverse the orientation of the two holes
 %as well as identifying their base points.
-The fusion space of $M_{a,\widehat{a}}$ then embedds unitarily in the fusion
-space of $N.$
+The fusion space of $M_{a,\widehat{a}}$ then embeds unitarily in the fusion
+space of $N$.
 Moreover, there is an isomorphism called
 a \emph{gluing map}:
 $$
@@ -503,7 +505,7 @@ $\F(\overline{M})=\F(M)^*.$
 
 \subsub{Compatibility axioms.}
 %We have left out various compatibility requirements of the axioms.
-Loosely put, we require that the obove operations play nicely together,
+Loosely put, we require that the above operations play nicely together,
 and commute with maps of surfaces.
 For example,
 a sequence of gluing operations 
@@ -573,11 +575,11 @@ boundary on the outside,
 to show more clearly how $N$ fits into $M$.
 In the glued surface we
 indicate the placement of $M$ and $N$ and the seam
-along which gluing occured,
+along which gluing occurred,
 as well as the identification of base points.
 
 We note two other consequences of the axioms.
-A hole of $M$ labelled with $\vac$ can be replaced with a disk (by gluing)
+A hole of $M$ labeled with $\vac$ can be replaced with a disk (by gluing)
 and this does not change the fusion space of $M.$
 That is, a hole that carries no charge can be ``filled-in''.
 And, the dimensionality of the fusion space of a torus is the
@@ -594,7 +596,7 @@ space of the disc with two holes, or \emph{pair-of-pants} as:
 \includegraphics[]{pic-pop.pdf}
 \end{center}
 
-The \emph{$F-$move}
+The \emph{$F$-move}
 is constructed from two applications of a
 gluing map as follows:
 \begin{center}
@@ -603,7 +605,7 @@ gluing map as follows:
 \cggb{Is it easy to show that such an F-move can be guaranteed to exist and be unique for a given modular functor?}
 \simon{An F-move *is* two applications of a gluing map (where one is reversed).. these maps are given in the axioms. There's no trickery involved.}
 Here we have shown a surface $M^{abc}_d$ with 
-four labelled boundary components, as well as two separate
+four labeled boundary components, as well as two separate
 ways of gluing pairs-of-pants to get $M^{abc}_d.$
 We can also write this out in terms of the fusion spaces of pair-of-pants:
 $$
@@ -710,7 +712,7 @@ $$
 For each $n=0,1,...$ and every ordered sequence of
 anyon labels $a_1,...,a_n,b$ we choose a \emph{standard surface}.
 This is a surface with
-$n+1$ boundary components labelled $a_1,...,a_n,{b}$ 
+$n+1$ boundary components labeled $a_1,...,a_n,{b}$ 
 which we denote $\StdM.$ 
 For concreteness, we 
 let this surface be the subset of
@@ -720,7 +722,7 @@ with $n$ discs
 $\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{2i-1}{2n}|< \frac{1}{4n}\bigr\}_{i=1,...n}$
 removed.
 We then label the interior holes $a_1,...,a_n$ in order of
-increasing real coordinate, and the exterior hole is labelled ${b}.$
+increasing real coordinate, and the exterior hole is labeled ${b}$.
 The base points are placed in the direction of the negative imaginary axis.
 As a notational convenience we highlight the \emph{equator}
 of the surface %$\StdM$ 
@@ -738,10 +740,10 @@ equator twice and have counterclockwise orientation.
 Up to isotopy, a given standard surface will have only finitely many of these.
 On a standard surface with three
 interior holes there are two standard POP decompositions,
-and one $F-$move that relates these.
+and one $F$-move that relates these.
 On a standard surface with four interior holes there are five 
-standard POP decompositions and five $F-$moves that relate these.
-In this case the $F-$moves themselves satisfy an equation
+standard POP decompositions and five $F$-moves that relate these.
+In this case the $F$-moves themselves satisfy an equation
 that is enforced by the axioms of the modular functor.
 This is known as the pentagon equation, which we depict as
 the following commutative diagram:
@@ -836,7 +838,7 @@ be a ``rotation''.)
 This acts by pre-composition to
 send a curve diagram $f\in \Hom(\StdM, N)$ to 
 $fz \in \Hom(M^{a_2...a_n{b}}_{{a_1}}, N).$
-This we call a $Z-$move of $f.$
+This we call a $Z$-move of $f.$
 
 In this way, any curve diagram can be seen as another
 curve diagram that has a cyclic permutation of the labels of
@@ -863,9 +865,9 @@ curve diagram we call an \emph{R-move.}
 \cggb{Should the $a$ and $b$ labels be swapped on the second diagram?}
 \simon{No. This is quite tricky and took me months to work out (ouch) so take care...}
 
-%\simon{Extend $R-$move under gluing.}
+%\simon{Extend $R$-move under gluing.}
 As we extended Dehn twists under gluing,
-we can do this for $R-$moves.
+we can do this for $R$-moves.
 Given any pair-of-pants in $M$ ... \simon{keep going}
 
 \simon{When do we start confusing the distinction between
@@ -911,7 +913,7 @@ For a surface with three interior holes there are
 infinitely many POP decompositions (up to isotopy).
 These are all made by choosing an observable 
 that encloses two holes.
-The $F-$moves allow us to switch between 
+The $F$-moves allow us to switch between 
 these POP decompositions,
 and the axioms for the modular
 functor make these consistent.
@@ -925,7 +927,7 @@ Here we show two such triangle consistency requirements
 Given a POP decomposition of a surface $N$
 there are various curve diagrams on $N$ that
 produce this decomposition from 
-a standard POP decomposition, and there are certain $R-$moves
+a standard POP decomposition, and there are certain $R$-moves
 will map between these.
 Once again, these moves must be consistent, and
 here we note the two ``hexagon equations'' 
@@ -976,10 +978,10 @@ This gives a state in the fusion space $\F(N).$
 In this section we specialize to considering planar 
 surfaces only.
 The theorem we are building towards shows that
-the $R-$moves act transitively on curve diagrams.
+the $R$-moves act transitively on curve diagrams.
 \simon{We don't much care about transitivity. Should specialize this.}
 That is, given two curve diagrams $f$ and $f'$ on $N$ we can find
-a sequence of $R-$moves that transform $f$ to $f'.$
+a sequence of $R$-moves that transform $f$ to $f'.$
 %We consider surface $N$ with $n$ boundary components
 %$a_1,...,a_n.$
 The key idea is to consider the (directed) image of the equator under
@@ -1000,14 +1002,14 @@ portion of $f$ between these same two holes so that
 they then become adjacent on the resulting curve.
 Continuing this
 process for each two adjacent holes of $f'$ will then
-show a sequence of $R-$moves that sends $f$ to $f'.$
-\simon{still not obvious: what if some such $R-$move
+show a sequence of $R$-moves that sends $f$ to $f'.$
+\simon{still not obvious: what if some such $R$-move
 destroys a previously adjacentized pair of holes?}
 
 To this end, consider a sequence of holes $a_1,...,a_n$
 appearing sequentially along $f$
 such that $a_1$ and $a_n$ appear sequentially on $f'.$
-We may need to apply some $Z-$moves to $f$ to ensure
+We may need to apply some $Z$-moves to $f$ to ensure
 that $a_1$ appears sequentially before $a_n$.
 Now consider the case such that
 along $f'$ between these two holes there is
@@ -1019,7 +1021,7 @@ following the $f$ curve in reverse from $a_n$ back to $a_1.$
 of path contained within boundary components.)
 The resulting closed path bounds a disc.
 If $\xi$ has clockwise orientation \simon{XX define clockwise XX}
-we apply the following sequence of $R-$moves to $f$:
+we apply the following sequence of $R$-moves to $f$:
 $$
     R^{a_1a_2}_{b_1}, R^{a_1a_3}_{b_2}, ..., R^{a_1a_{n-1}}_{b_{n-1}}.
 $$
@@ -1027,12 +1029,12 @@ Depicted here is the first such move:
 \begin{center}
 \includegraphics[]{pic-theorem.pdf}
 \end{center}
-After each of these $R-$moves the closed path
+After each of these $R$-moves the closed path
 formed by 
 following the $f'$ curve between $a_1$ and $a_n$ and then
-following the $R-$moved $f$ curve back to $a_1$ will
+following the $R$-moved $f$ curve back to $a_1$ will
 traverse one less hole, and still bound a disc.
-After all of the $R-$moves this path will only
+After all of the $R$-moves this path will only
 touch $a_1$ and $a_n,$ and bound a disc.
 Therefore, we have acted on the $f$ curve so that
 the resulting curve has $a_1$ and $a_n$ adjacent
@@ -1040,7 +1042,7 @@ and the bounded disc gives an isotopy for that
 segment of the curve.
 
 When the closed curve $\xi$ has anti-clockwise orientation
-we use the same sequence of $R-$moves but with $R$ replaced by $R^{-1}.$
+we use the same sequence of $R$-moves but with $R$ replaced by $R^{-1}.$
 
 Generalizing further,
 when the $f'$ curve between $a_1$ and $a_n$ has (transverse) intersections
