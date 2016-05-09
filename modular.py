@@ -109,7 +109,7 @@ def pop(*args):
     c1.insert(c, *args)
     c = c1
 
-SINGLE_COLUMN = False
+DOUBLE_COLUMN = False
 
 
 
@@ -160,16 +160,18 @@ class Turtle(object):
 
 
 
-#############################################################################
-#
-#
-
 def mathtext(x, y, text, *extra):
     if text[0]=='$':
         text = text[1:]
     if text[-1]=='$':
         text = text[:-1]
     c.text(x, y, r"$\displaystyle %s$"%text, *extra)
+
+#############################################################################
+#
+#
+
+EXTERIOR_HOLE = False
 
 w = 1.5
 h = 1.5
@@ -187,14 +189,17 @@ x += 0.0*w
 
 p = path.circle(x+r, y+0.5*h, r)
 c.fill(p, [shade])
-c.stroke(p)
-#c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
-c.fill(path.circle(x+r, y+0.5*h-r, 0.06))
+
+if EXTERIOR_HOLE:
+    c.stroke(p)
+    #c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
+    c.fill(path.circle(x+r, y+0.5*h-r, 0.06))
 
 x += 0.3*w
 p = path.circle(x+0.1*w, y+0.5*h, 0.4*r)
 c.fill(p, [white])
 c.stroke(p)
+
 #p = path.circle(x+0.1*w+0.4*r, y+0.5*h, 0.06)
 p = path.circle(x+0.1*w, y+0.5*h-0.4*r, 0.06)
 c.fill(p)
@@ -230,7 +235,7 @@ c.text(x+0.5*w, y+0.9*h, "$\widehat{a}$", southwest)
 x += 1.8*r
 mathtext(x, y+0.5*h, r"$\Bigr)$", east)
 
-if SINGLE_COLUMN:
+if DOUBLE_COLUMN:
     x -= 0*r
     y -= 3*r
 else:
@@ -250,10 +255,57 @@ r = 1.0
 
 p = path.circle(x+r, y+0.5*h, r)
 c.fill(p, [shade])
+if EXTERIOR_HOLE:
+    c.stroke(p)
+    #c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
+    c.fill(path.circle(x+r, y+0.5*h-r, 0.06))
+
+x += 0.3*w
+p = path.circle(x+0.1*w, y+0.5*h, 0.4*r)
 c.stroke(p)
-c.stroke(p)
-#c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
-c.fill(path.circle(x+r, y+0.5*h-r, 0.06))
+
+#p = path.circle(x+0.1*w+0.4*r, y+0.5*h, 0.06)
+p = path.circle(x+0.1*w, y+0.5*h-0.4*r, 0.06)
+c.fill(p)
+
+c.text(x+0.1*w, y+0.5*h, r"$N$", center)
+#c.text(x+0.2*w, y+0.5*h, r"$...$", center)
+
+c.text(x+0.6*w, y+0.5*h, "...")
+
+c.text(x+0.3*w, y+0.1*h, "$M$", west)
+
+x += 1.8*r
+c.text(x+0.1, y+0.5*h, r"$\Bigr)$", east)
+
+
+c.writePDFfile("pic-glue.pdf")
+
+
+#############################################################################
+#
+#
+
+w = 1.5
+h = 1.5
+
+x = 0
+y = 0
+
+c = canvas.canvas()
+c.text(x-0.8, y+0.5*h, r"$\H\Bigl($", west)
+
+print dir(deco)
+
+r = 1.0
+#x += 0.5*w
+
+p = path.circle(x+r, y+0.5*h, r)
+c.fill(p, [shade])
+if EXTERIOR_HOLE:
+    c.stroke(p)
+    #c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
+    c.fill(path.circle(x+r, y+0.5*h-r, 0.06))
 
 x += 0.3*w
 p = path.circle(x+0.1*w, y+0.5*h, 0.4*r)
@@ -270,10 +322,45 @@ c.text(x+0.6*w, y+0.5*h, "...")
 c.text(x+0.3*w, y+0.1*h, "$M$", west)
 
 x += 1.8*r
-c.text(x, y+0.5*h, r"$\Bigr)$", east)
+c.text(x+0.1, y+0.5*h, r"$\Bigr)$", east)
+
+x += 1.6*w
+c.stroke(path.line(x-2.0, y+0.5*h, x-0.9, y+0.5*h), [deco.arrow()])
+
+mathtext(x-0.1, y+0.5*h, r"$\H\Bigl($", east)
+
+r = 1.0
+x += 0.0*w
+
+p = path.circle(x+r, y+0.5*h, r)
+c.fill(p, [shade])
+
+if EXTERIOR_HOLE:
+    c.stroke(p)
+    #c.fill(path.circle(x+2*r, y+0.5*h, 0.06))
+    c.fill(path.circle(x+r, y+0.5*h-r, 0.06))
+
+x += 0.3*w
+p = path.circle(x+0.1*w, y+0.5*h, 0.4*r)
+c.fill(p, [white])
+c.stroke(p)
+
+#p = path.circle(x+0.1*w+0.4*r, y+0.5*h, 0.06)
+p = path.circle(x+0.1*w, y+0.5*h-0.4*r, 0.06)
+c.fill(p)
+
+c.text(x+0.6*w, y+0.5*h, "...")
+
+#c.text(x+0.1*w, y+0.0*h, "$M_a$", west)
+c.text(x+0.3*w, y+0.1*h, "$M$", west)
+
+c.text(x+0.3*w, y+0.7*h, "$a$", southwest)
+
+x += 1.8*r
+mathtext(x+0.1, y+0.5*h, r"$\Bigr)$", east)
 
 
-c.writePDFfile("pic-glue.pdf")
+c.writePDFfile("pic-fuse.pdf")
 
 
 #############################################################################
