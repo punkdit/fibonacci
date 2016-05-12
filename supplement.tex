@@ -655,13 +655,13 @@ space of the disc with two holes, or \emph{pair-of-pants} as:
 
 The \emph{$F$-move}
 is constructed from two applications of a
-gluing map as follows:
+gluing map (one in reverse) as the following commutative diagram shows:
 \begin{center}
 \includegraphics[]{pic-glue-fmove.pdf}
 \end{center}
-\cggb{Is it easy to show that such an F-move can be guaranteed to exist and be unique for a given modular functor?}
-\simon{An F-move *is* two applications of a gluing map (where one is reversed).. these maps are given in the axioms. There's no trickery involved.}
-Here we have shown a surface $M^{abc}_d$ with 
+%\cggb{Is it easy to show that such an F-move can be guaranteed to exist and be unique for a given modular functor?}
+%\simon{An F-move *is* two applications of a gluing map (where one is reversed).. these maps are given in the axioms. There's no trickery involved.}
+Here we have a surface $M^{abc}_d$ with 
 four labeled boundary components, as well as two separate
 ways of gluing pairs-of-pants to get $M^{abc}_d.$
 We can also write this out in terms of the fusion spaces of pair-of-pants:
@@ -670,6 +670,8 @@ $$
         \to \bigoplus_{y\in\A} V^{ay}_d\otimes V^{bc}_{\widehat{y}}.
 $$
 \simon{tensor with identity to extend this map under gluing}
+
+\simon{***at this point we specialize to considering only discs with holes***}
 
 \subsub{POP decomposition.}
 %The reverse process of cutting a surface up
@@ -851,10 +853,11 @@ diffeomorphism, not a surface!
 Any curve diagram will act on a standard POP decomposition
 of $\StdM$ sending it to a POP decomposition of $N.$
 Surprisingly, the converse of this statement also holds:
-any POP decomposition of $N$ comes from some curve diagram
+any POP decomposition of $N$ (a disc with holes)
+comes from some curve diagram
 acting on a standard POP decomposition.
-\cggb{This is true for any $N$ that is homeomorphic to a punctured disc?}
-\simon{Right, I should be more clear about when exactly we specialize to discs.}
+%\cggb{This is true for any $N$ that is homeomorphic to a punctured disc?}
+%\simon{Right, I should be more clear about when exactly we specialize to discs.}
 The proof of this is constructive, and we call this
 the refactoring theorem below.
 %The proof of this is constructive and forms the heart of
@@ -919,8 +922,14 @@ Here we show the action of $R^{ab}_c$ on one particular curve diagram:
 \end{center}
 Such an application of $R^{ab}_c$ to a particular
 curve diagram we call an \emph{R-move.}
-\cggb{Should the $a$ and $b$ labels be swapped on the second diagram?}
-\simon{No. This is quite tricky and took me months to work out (ouch) so take care...}
+As noted above, a curve diagram serves to pick out
+a basis for the fusion space, and the point of this $R$-move is
+to switch between different curve diagrams for the same surface.
+This is highlighted to draw the readers attention to
+the fact that the $R$-move does not swap the labels on the holes:
+the surface itself stays the same.
+%\cggb{Should the $a$ and $b$ labels be swapped on the second diagram?}
+%\simon{No. This is quite tricky and took me months to work out (ouch) so take care...}
 
 %\simon{Extend $R$-move under gluing.}
 As we extended Dehn twists under gluing,
