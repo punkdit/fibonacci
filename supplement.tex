@@ -367,15 +367,41 @@ dimension then we can untangle these braided world lines.
 The question is, how has the wavefunction of the system
 changed from $t_0$ to $t_1$?
 
+Examining the structure of these processes more closely,
+we see that we can compose them by sequentially performing
+two such braids, one after the other:
+\begin{center}
+\includegraphics[]{pic-braid-compose.pdf}
+\end{center}
+And, by ``reversing time'', we can undo the effect of
+any braid:
+\begin{center}
+\includegraphics[]{pic-braid-inverse.pdf}
+\end{center}
+This means we have a group, known as the \emph{braid group.}
+For $n$ particle worldlines we denote this group as $B_n.$
 
-The \emph{braid group} on $n$ strands is denoted $B_n.$
-We can describe this group algebraically. It has
-$n-1$ generators $\sigma_1,..,\sigma_{n-1}$ that satisfy
+%The \emph{braid group} on $n$ strands is denoted $B_n.$
+This group can also be described purely algebraically.
+$B_n$ has $n-1$ generators $\sigma_1,..,\sigma_{n-1}$ that satisfy
 the following two relations:
 \begin{align*}
     \sigma_i \sigma_j &= \sigma_j \sigma_i \ \ \ \mbox{for}\ \ |i-j|>1,\\
     \sigma_i \sigma_{i+1} \sigma_i &= \sigma_{i+1} \sigma_i \sigma_{i+1} \ \ \ \mbox{for}\ \ 1\le i \le n-2.
 \end{align*}
+
+The easiest way to understand these relations is to consider the
+geometric braids corresponing to the $\sigma_i.$
+\begin{center}
+\includegraphics[]{pic-braid-sigma.pdf}
+\end{center}
+Now we see why 
+$\sigma_i \sigma_j = \sigma_j \sigma_i \ \ \ \mbox{for}\ \ |i-j|>1,$
+because the two braids are operating on disjoint strands.
+To understand the second relation we draw:
+\begin{center}
+\includegraphics[]{pic-braid-YB.pdf}
+\end{center}
 
 \section{Modular Functors}
 
