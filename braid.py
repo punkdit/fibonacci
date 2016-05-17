@@ -119,11 +119,23 @@ class Turtle(object):
         self.y = y
         self.theta = theta
         self.ps = [(x, y)]
+        self.pen = True
+
+    def penup(self):
+        self.pen = False
+        self.ps = []
+        return self
+
+    def pendown(self):
+        self.pen = True
+        self.ps = [(self.x, self.y)]
+        return self
 
     def fwd(self, d):
         self.x += d*sin(self.theta)
         self.y += d*cos(self.theta)
-        self.ps.append((self.x, self.y))
+        if self.pen:
+            self.ps.append((self.x, self.y))
         return self
 
     def reverse(self, d):
@@ -134,7 +146,7 @@ class Turtle(object):
         theta = self.theta
         self.theta += dtheta
         if r==0.:
-            return
+            return self
         N = 20
         x, y = self.x, self.y
         x0 = x - r*sin(theta-pi/2)
@@ -143,7 +155,8 @@ class Turtle(object):
             theta += (1./(N))*dtheta
             x = x0 - r*sin(theta+pi/2)
             y = y0 - r*cos(theta+pi/2)
-            self.ps.append((x, y))
+            if self.pen:
+                self.ps.append((x, y))
         self.x = x
         self.y = y
         return self
@@ -214,6 +227,65 @@ def timeslice(x, y, transparency=0., label="", W=3):
     if label:
         c.text(W+0.2, 0., label, west+[trafo.translate(x, y)])
 
+
+
+#############################################################################
+#
+#
+
+
+c = canvas.canvas()
+
+W = 5.
+H = 3.
+
+c.stroke(path.line(0.0, -0.2, 0., H), [deco.earrow()])
+c.stroke(path.line(-0.2, 0., W, 0), [deco.earrow()])
+my = 0.25
+c.stroke(path.line(-0.2, -my*0.2, 0.9*W, my*W), [deco.earrow()])
+
+x0, y0 = 0.3*W, 0.3*H
+x1, y1 = x0+0.3*W, y0+my*0.3*W
+
+
+#t = Turtle(x0, y0, pi/4)
+#t.penup().fwd(0.2).pendown()
+#theta, r = 0.25*pi, 2.0
+#t.right(theta, r).right(0.8*pi, 0.2).right(theta, r)
+#t.fwd(0.1).stroke([deco.earrow()])
+
+tr = trafo.scale(x=0.5*W, y=0.3*H, sx=1.3, sy=1.5)
+
+c.fill(path.circle(x0, y0, 0.06), [tr])
+c.fill(path.circle(x1, y1, 0.06), [tr])
+
+def loop(x0, y0, r1, theta0, theta1, tpy):
+    t = Turtle(x0, y0, theta0)
+    #theta = 0.55*pi
+    theta = theta1
+    r2 = 2*r1*sin(theta - 0.5*pi)
+    t.penup().fwd(0.2*r1).pendown()
+    t.fwd(0.8*r1).right(theta).fwd(r2).right(theta).fwd(0.8*r1) 
+    t.stroke([deco.earrow(), 
+        deformer.smoothed(2.0), style.linewidth.Thick,
+        color.transparency(tpy), tr])
+
+r1 = 2.0
+tpy = 0.2
+theta = 0.37*pi
+theta1 = 0.55*pi
+for i in range(10):
+    tpy = 0.8
+    if i==0 or i==9:
+        tpy = 0.
+    loop(x0, y0, r1, theta, theta1, tpy)
+    #tpy += 0.05
+    theta -= 0.06*pi
+    #r1 = 0.9*r1
+    r1 -= 0.15
+    theta1 += 0.01*pi
+
+c.writePDFfile("pic-monodromy3d.pdf")
 
 
 #############################################################################
