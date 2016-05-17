@@ -282,7 +282,7 @@ for i in range(10):
     #tpy += 0.05
     theta -= 0.06*pi
     #r1 = 0.9*r1
-    r1 -= 0.15
+    r1 -= 0.17
     theta1 += 0.01*pi
 
 c.writePDFfile("pic-monodromy3d.pdf")
