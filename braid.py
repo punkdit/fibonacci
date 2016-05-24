@@ -49,6 +49,7 @@ blue = rgb(0., 0., 0.8)
 pale_blue = rgb(0.7, 0.7, 1.0)
 pink = rgb(1., 0.4, 0.4)
 white = rgb(1., 1., 1.)
+black = rgb(0., 0., 0.)
 grey = rgb(0.8, 0.8, 0.8)
 
 brown = rgbfromhexstring("#AA6C39"),
@@ -74,7 +75,7 @@ def anyon(x, y, r=0.07):
 
 N = 20
 
-def dopath(ps, extra=[], fill=[], closepath=False, smooth=0.0):
+def dopath(ps, extra=[], fill=[], closepath=False, smooth=0.0, stroke=True):
     if not ps:
         print "dopath: empty"
         return
@@ -87,7 +88,8 @@ def dopath(ps, extra=[], fill=[], closepath=False, smooth=0.0):
         extra.append(deformer.smoothed(smooth))
     if fill:
         c.fill(p, extra+fill)
-    c.stroke(p, extra)
+    if stroke:
+        c.stroke(p, extra)
 
 
 def ellipse(x0, y0, rx, ry, extra=[], fill=[]):
@@ -264,10 +266,10 @@ def loop(x0, y0, r1, theta0, theta1, tpy):
     #theta = 0.55*pi
     theta = theta1
     r2 = 2*r1*sin(theta - 0.5*pi)
-    t.penup().fwd(0.2*r1).pendown()
-    t.fwd(0.8*r1).right(theta).fwd(r2).right(theta).fwd(0.8*r1) 
+    t.penup().fwd(0.1*r1).pendown()
+    t.fwd(0.9*r1).right(theta).fwd(r2).right(theta).fwd(0.9*r1) 
     t.stroke([deco.earrow(), 
-        deformer.smoothed(2.0), style.linewidth.Thick,
+        deformer.smoothed(4.0), style.linewidth.Thick,
         color.transparency(tpy), tr])
 
 r1 = 2.0
@@ -286,6 +288,42 @@ for i in range(10):
     theta1 += 0.01*pi
 
 c.writePDFfile("pic-monodromy3d.pdf")
+
+
+#############################################################################
+#
+#
+
+
+c = canvas.canvas()
+
+W = 5.
+H = 3.
+
+tr = trafo.scale(x=0.0*W, y=0.0*H, sx=0.6, sy=0.6)
+c.stroke(path.line(0.0, -0.2, 0., 0.6*H), [deco.earrow()])
+c.stroke(path.line(-0.2, 0., W, 0), [deco.earrow()])
+my = 0.25
+c.stroke(path.line(-0.2, -my*0.2, 0.9*W, my*W), [deco.earrow()])
+
+x0, y0 = 0.3*W, 0.3*H
+x1, y1 = x0+0.3*W, y0+my*0.3*W
+
+
+#tr = trafo.scale(x=0.5*W, y=0.3*H, sx=1.3, sy=1.5)
+tr = trafo.scale(x=0.5*W, y=0.3*H, sx=1.0, sy=1.0)
+
+c.fill(path.circle(x0, y0, 0.06), [tr])
+c.fill(path.circle(x1, y1, 0.06), [tr])
+
+theta = 0.2*pi
+alpha = 0.1
+R = 1.2
+Turtle(x0, y0, theta).penup().right(alpha, R).pendown().right(0.6*pi - theta - alpha, R).stroke([deco.earrow(), style.linewidth.Thick])
+Turtle(x1, y1, pi + theta).penup().right(alpha, R).pendown().right(0.6*pi - theta - alpha, R).stroke([deco.earrow(), style.linewidth.Thick])
+
+c.writePDFfile("pic-swap.pdf")
+
 
 
 #############################################################################
@@ -695,6 +733,178 @@ for frame in range(2):
 
 
 c.writePDFfile("pic-braid-YB.pdf")
+
+
+
+#############################################################################
+#
+#
+
+c = canvas.canvas()
+
+
+def metric(x0, y0, x1, y1):
+    return sqrt((x1-x0)**2. + (y1-y0)**2.)
+
+def get_d(x, y):
+    return metric(x, y, -r, 0.) + metric(x, y, r, 0.)
+
+
+def get_coord(x, y):
+    d = get_d(x, y)
+    delta = 0.5 * d - r
+    Rmaj = r + delta
+    Rmin = sqrt(0.25*d**2 - r**2)
+    alpha = Rmaj / Rmin
+    if abs(x)<1e-6:
+        if y>0.:
+            theta = pi/2
+        else:
+            theta = -pi/2
+    else:
+        theta = atan(alpha * y / x)
+    if x < 0:
+        theta += pi
+    return Rmaj, Rmin, theta
+
+
+def get_xy(Rmaj, Rmin, theta):
+    x = Rmaj * cos(theta)
+    y = Rmin * sin(theta)
+    return x, y
+
+
+def transform(x, y):
+    if abs(y)<1e-6 and abs(x)<=r+1e-6:
+        return -x, y
+
+    Rmaj, Rmin, theta = get_coord(x, y)
+    #alpha = pi * 1.5 ** (-3*Rmin)
+    if Rmaj >= 0.5*W:
+        alpha = 0.
+    elif Rmaj <= r:
+        alpha = pi
+    else:
+        w = (Rmaj - r) / (0.5*W-r)
+        assert 0. <= w <= 1.
+        alpha = (1-w)*pi
+    x, y = get_xy(Rmaj, Rmin, theta + alpha)
+    return x, y
+
+
+r = 0.7 # half distance between focii
+
+W = 4.0
+Rmaj, Rmin, _ = get_coord(0.5*W, 0.)
+H = 2*Rmin
+
+R = 0.5*W
+
+
+
+
+N = 100
+
+
+def getvpath(mx, my):
+    x = mx*r
+    theta = acos(x/R)
+    y = my*Rmin*sin(theta)
+    dy = -y/N
+    
+    ps = []
+    for i in range(N):
+        ps.append(transform(x, y))
+        y += dy
+    return ps
+
+
+theta00 = acos(r/R)
+assert 0<theta00<pi/2.
+theta10 = pi-theta00
+theta11 = pi+theta00
+theta01 = 2*pi-theta00
+
+def getcpath(theta0, theta1):
+    theta = theta0
+    dtheta = (theta1-theta0)/N
+    
+    ps = []
+    for i in range(N):
+        x = Rmaj*cos(theta)
+        y = Rmin*sin(theta)
+        ps.append((x, y))
+        theta += dtheta
+    return ps
+
+
+def gethpath(mx):
+    x = mx*Rmaj
+    dx = -mx*( Rmaj - r ) / N
+    y = 0.
+    ps = []
+    for i in range(N+1):
+        ps.append(transform(x, y))
+        x += dx
+    return ps
+
+
+highlight = white
+#highlight = rgb(1,1,0)
+
+HH = 0.6*H
+X0 = -10
+
+
+for X in [X0, 0.]:
+
+    tr = trafo.translate(X, 0.)
+    
+    for i in range(-3, 2):
+        extra = [highlight] if (i%2) else [shade]
+        c.fill(path.rect(2*i*r+r, 0, 2*r, HH), extra+[tr])
+        extra = [shade] if (i%2) else [highlight]
+        c.fill(path.rect(2*i*r+r, -HH, 2*r, HH), extra+[tr])
+    c.stroke(path.rect(-5*r, -HH, 10*r, 2*HH), [tr])
+    
+    radius = 0.1
+    for x in [-3*r, -r, r, 3*r]:
+        c.fill(path.circle(x, 0., radius), [tr]) # focus
+
+
+c.stroke(path.line(-8*r, 0, -6*r, 0), [deco.earrow()])
+c.stroke(path.line(-8*r, -0.1, -8*r, +0.1))
+c.text(-7*r, +0.2, r"$\sigma_i$", south)
+
+c.text(X0-3*r, -0.4, "$...$", center)
+c.text(X0-r, -0.4, "$i$", center)
+c.text(X0+r, -0.4, "$i+1$", center)
+c.text(X0+3*r, -0.4, "$...$", center)
+
+
+p = path.circle(0., 0., R)
+tr = trafo.scale(1., Rmin/Rmaj)
+c.fill(p, [shade, tr])
+#c.stroke(p, [tr])
+
+ps = getvpath(-1, 1) + [(r, 0.), (-r, 0.)] + list(reversed(getvpath(+1, +1)))\
+    + getcpath(theta00, theta10)
+dopath(ps, fill=[highlight], stroke=False)
+
+ps = gethpath(1) + list(reversed(getvpath(+1, -1))) + getcpath(theta01, 2*pi)
+dopath(ps, fill=[highlight], stroke=False)
+
+ps = getvpath(-1, -1) + list(reversed(gethpath(-1))) \
+    +getcpath(pi, theta11)
+dopath(ps, fill=[highlight], stroke=False)
+
+
+for x in [-3*r, -r, r, 3*r]:
+    c.fill(path.circle(x, 0., radius), [tr]) # focus
+
+
+
+c.writePDFfile("pic-halftwist.pdf")
 
 
 
