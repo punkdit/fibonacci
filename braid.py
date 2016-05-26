@@ -58,8 +58,7 @@ light_shade = rgb(0.85, 0.65, 0.1)
 
 #shade = brown
 #shade = orange
-shade = grey
-
+shade = rgb(0.8, 0.8, 0.8)
 
 
 g_curve = [green, style.linewidth.THick]
@@ -849,7 +848,8 @@ def gethpath(mx):
     return ps
 
 
-highlight = white
+highlight = rgb(0.6, 0.6, 0.6)
+#highlight = white
 #highlight = rgb(1,1,0)
 
 HH = 0.6*H
