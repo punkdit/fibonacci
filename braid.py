@@ -853,10 +853,10 @@ highlight = rgb(0.6, 0.6, 0.6)
 #highlight = rgb(1,1,0)
 
 HH = 0.6*H
-X0 = -10
+X0 = -10.
+X1 = 0.
 
-
-for X in [X0, 0.]:
+for X in [X0, X1]:
 
     tr = trafo.translate(X, 0.)
     
@@ -881,7 +881,6 @@ c.text(X0-r, -0.4, "$i$", center)
 c.text(X0+r, -0.4, "$i+1$", center)
 c.text(X0+3*r, -0.4, "$...$", center)
 
-
 p = path.circle(0., 0., R)
 tr = trafo.scale(1., Rmin/Rmaj)
 c.fill(p, [shade, tr])
@@ -901,6 +900,11 @@ dopath(ps, fill=[highlight], stroke=False)
 
 for x in [-3*r, -r, r, 3*r]:
     c.fill(path.circle(x, 0., radius), [tr]) # focus
+
+c.text(X1-3*r, -0.4, "$...$", center)
+c.text(X1-r, -0.4, "$i+1$", center)
+c.text(X1+r, -0.4, "$i$", center)
+c.text(X1+3*r, -0.4, "$...$", center)
 
 
 

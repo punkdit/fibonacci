@@ -392,9 +392,35 @@ any braid:
 \end{center}
 This means we have a group, known as the \emph{braid group.}
 For $n$ particle worldlines we denote this group as $B_n.$
+What we have given is a topological description of a group.
+More formally, we can describe these braid world lines as
+paths in the \emph{configuration space} of $n$ points.
+\newcommand{\Conf}{\mathcal{C}}
+\newcommand{\UConf}{\mathcal{UC}}
+This space is defined as the product of
+a two dimensional space $M$ for each point, minus the subspace where points collide:
+$$
+    \Conf_n = \bigl( \prod_{1}^{n} M \bigr) - \Delta, \ \ 
+    \Delta = \{(x_1, ..., x_n) | x_i = x_j \ \ \mbox{for some} \ \ i\ne j \}.
+$$
+We also define the \emph{unlabelled configuration space}
+$\UConf_n$ which is the quotient of $\Conf_n$ by the natural action of the
+permutation group $S_n:$
+$$
+    \UConf_n = \Conf_n / S_n.
+$$
+The \emph{geometric braid group} as we have so far informally described it 
+can now be rigorously defined as the fundamental group:
+$$
+    B_n = \pi_1 ( \UConf_n, x )
+$$
+where $x$ is some reference configuration in $\UConf_n.$
+See \cite{Ghrist2014} for further discussion.
 
 %The \emph{braid group} on $n$ strands is denoted $B_n.$
-This group can also be described purely algebraically.
+%This group can also be described purely algebraically.
+This group also has a purely algebraic description via
+generators and relations \cite{Artin1947,Birman1974}.
 $B_n$ has $n-1$ generators $\sigma_1,..,\sigma_{n-1}$ that satisfy
 the following two relations:
 \begin{align*}
@@ -417,9 +443,36 @@ To understand the second relation we draw:
 
 There is another important geometric representation of
 the braid group which is purely two-dimensional.
+We pick an $n$-point finite subset $Q_n \subset M$
+and consider diffeomorphisms $\{ f : M \to M \}$
+that fix each point in $Q_n$.
+The \emph{mapping class group} of $M$ relative to $Q_n$
+is the set of all such diffeomorphisms up to an equivalence relation $\sim_{\mbox{iso}}$:
+$$
+    MCG(M, Q_n) = \{ f : M \to M \ \ \mbox{such that} f(x)=x \ \ \mbox{for}\ x\in Q_n\} / \sim_{\mbox{iso}}
+$$
+The equivalence relation $\sim_{\mbox{iso}}$ is called \emph{isotopy}
+which allows for any continuous deformation of $f:M\to M$ also
+fixing points in $Q_n.$
+Each generator $\sigma_i$ of the braid group is found in $MCG(M, Q_n)$
+as a \emph{half-twist} that swaps two points $i, i+1 \in Q_n$:
 \begin{center}
 \includegraphics[]{pic-halftwist.pdf}
 \end{center}
+
+The definition given above for the geometric braid group
+and the mapping class group make sense for any two dimensional
+manifold $M$ but for concreteness we consider $M$ to be
+a flat disc. The corresponding algebraic definition of the braid group
+will in general be altered depending on the underlying manifold
+$M.$
+
+We have given three different descriptions of the braid group, and
+part of the depth of the subject comes from the fact that there are
+so many alternative perspectives on these groups. We refer
+the reader to \cite{Kassel2010} for an excellent contemporary
+reference that describes the mathematical details.
+
 
 
 \section{Modular Functors}
