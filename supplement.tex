@@ -354,10 +354,20 @@ risk throwing out the baby with the bathwater.''
 - Vaughan Jones~\cite{Jones2015}
 \end{quotation}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+
 \section{Topological Exchange Statistics}
 
+In this section we give a motivation 
+for the formalism of the next section. 
+None of the formalism developed here will be
+used in the sequal, it is just meant as
+a kind of warm-up.
+
 In three spatial dimensions, the process of winding one
-particle around another is topologically trivial.
+particle around another (a \emph{monodromy}) is topologically trivial.
 This is because the path can be deformed back to the
 identity; there is no obstruction:
 \begin{center}
@@ -367,9 +377,31 @@ The square root of this operation is a swap:
 \begin{center}
 \includegraphics[]{pic-swap.pdf}
 \end{center}
+Identical particles!
 
-We consider world-lines of particles in two spatial dimensions.
-Here we show three particles undergoing some exchange and then
+Some more thought leads to consideration of the \emph{symmetric group}
+on $n$ letters $S_n$. 
+This group has $n-1$ generators $s_1,...,s_{n-1}$ with relations
+\begin{align*}
+    s_i^2 &= 1, \\
+    s_i s_j &= s_j s_i \ \ \ \mbox{for}\ \ |i-j|>1,\\
+    s_i s_{i+1} s_i &= s_{i+1} s_i s_{i+1} \ \ \ \mbox{for}\ \ 1\le i \le n-2.
+\end{align*}
+The group is acting on the statespace of $n$ particles $\F_n$
+via unitaries $U(\F_n)$:
+$$
+    \Phi : S_n \to U(\F_n).
+$$
+
+When the above monodromy is constrained to two dimensions
+we can no longer deform this process to the identity:
+\begin{center}
+\includegraphics[]{pic-monodromy2d.pdf}
+\end{center}
+
+To see this more clearly,
+we consider the world-lines of these particles.
+Here we show three particles undergoing an exchange and then
 returning to the original location:
 \begin{center}
 \includegraphics[]{pic-braid-worldlines.pdf}
@@ -392,13 +424,18 @@ any braid:
 \end{center}
 This means we have a group, known as the \emph{braid group.}
 For $n$ particle worldlines we denote this group as $B_n.$
-What we have given is a topological description of a group.
+Now we would expect to see an action on the statespace $\F_n:$
+$$
+    \Phi : B_n \to U(\F_n).
+$$
+
+What we have given is a topological description of the group $B_n$.
 More formally, we can describe these braid world lines as
 paths in the \emph{configuration space} of $n$ points.
 \newcommand{\Conf}{\mathcal{C}}
 \newcommand{\UConf}{\mathcal{UC}}
 This space is defined as the product of
-a two dimensional space $M$ for each point, minus the subspace where points collide:
+a two dimensional space $M$ for each point, minus the subspace where points overlap:
 $$
     \Conf_n = \bigl( \prod_{1}^{n} M \bigr) - \Delta, \ \ 
     \Delta = \{(x_1, ..., x_n) | x_i = x_j \ \ \mbox{for some} \ \ i\ne j \}.
@@ -422,11 +459,14 @@ See \cite{Ghrist2014} for further discussion.
 This group also has a purely algebraic description via
 generators and relations \cite{Artin1947,Birman1974}.
 $B_n$ has $n-1$ generators $\sigma_1,..,\sigma_{n-1}$ that satisfy
-the following two relations:
+the following relations:
 \begin{align*}
     \sigma_i \sigma_j &= \sigma_j \sigma_i \ \ \ \mbox{for}\ \ |i-j|>1,\\
     \sigma_i \sigma_{i+1} \sigma_i &= \sigma_{i+1} \sigma_i \sigma_{i+1} \ \ \ \mbox{for}\ \ 1\le i \le n-2.
 \end{align*}
+
+Notice these relations are the same as for $S_n$ above, except
+we dont have the relation $\sigma_i^2 = 1.$
 
 The easiest way to understand these relations is to consider the
 geometric braids corresponing to the $\sigma_i.$
@@ -445,15 +485,15 @@ There is another important geometric representation of
 the braid group which is purely two-dimensional.
 We pick an $n$-point finite subset $Q_n \subset M$
 and consider diffeomorphisms $f : M \to M$
-that fix each point in $Q_n$.
+that map $Q_n$ to itself.
 The \emph{mapping class group} of $M$ relative to $Q_n$
 is the set of all such diffeomorphisms up to an equivalence relation $\sim_{\mbox{iso}}$:
 $$
-    MCG(M, Q_n) = \{ f : M \to M \ \ \mbox{such that} f(x)=x \ \ \mbox{for}\ x\in Q_n\} / \sim_{\mbox{iso}}
+    MCG(M, Q_n) = \{ f : M \to M \ \ \mbox{such that}\ \ f(Q_n)=Q_n \} / \sim_{\mbox{iso}}
 $$
 The equivalence relation $\sim_{\mbox{iso}}$ is called \emph{isotopy}
-which allows for any continuous deformation of $f:M\to M$ also
-fixing points in $Q_n.$
+which allows for any continuous deformation of $f:M\to M$ that
+fixes each point in $Q_n.$
 Each generator $\sigma_i$ of the braid group is found in $MCG(M, Q_n)$
 as a \emph{half-twist} that swaps two points $i, i+1 \in Q_n$:
 \begin{center}
@@ -469,11 +509,65 @@ $M.$
 
 We have given three different descriptions of the braid group, and
 part of the depth of the subject comes from the fact that there are
-so many alternative perspectives on these groups. We refer
-the reader to \cite{Kassel2010} for an excellent contemporary
-reference that describes the mathematical details.
+so many alternative perspectives on these groups.
+Many mathematical subtleties are being omitted, and
+we refer the reader to \cite{Kassel2010} for an excellent contemporary
+reference that fills in these gaps.
+
+So far we have been studying the exchange statistics
+for $n$ identical particles. Without this restriction, one needs to
+constrain the allowed exchange processes so as to preserve particle type.
+For example, if all particles are different we would use the
+\emph{pure braid group} $PB_n.$ The geometric description of
+this group would be as the fundamental group of the (labelled)
+configuration space
+$$
+    PB_n = \pi_1 ( \Conf_n, x ).
+$$
+Loops in $\Conf_n$ correspond to braids where each strand returns
+to the point it started from.
+In terms of the mapping class group, we can describe $PB_n$
+as the \emph{pure mapping class group}:
+$$
+    PMCG(M, Q_n) = \{ f : M \to M \ \ \mbox{such that}\ \ f(x)=x \ \ \mbox{for}\ x\in Q_n\} / \sim_{\mbox{iso}}.
+$$
+%we can write generators of this group in terms of Dehn twists which
+%we discuss below.
+
+One further complication arises when particles have a rotational
+degree of freedom: ie., they can be rotated by $2\pi$ in-place and
+this effects the state of the system.
+To capture this action, we use the \emph{framed braid group} $FB_n.$
+This group can be presented algebraically using the same generators
+and relations as for the braid group $B_n,$ along with
+``twist'' generators $\theta_i$ for $i=1,..,n.$
+These must satisfy the further relations
+\begin{align*}
+    \theta_i \theta_j &= \theta_j \theta_i \\
+    \theta_i\sigma_j &= \sigma_j\theta_i 
+    \ \mbox{if}\ i<j \ \mbox{or}\ i\ge j+2\\
+    \theta_{i+1}\sigma_i &= \sigma_i\theta_i \\
+    \theta_{i}\sigma_i &= \sigma_i\theta_{i+1}.
+\end{align*}
+
+For the geometric description of the framed braid
+group we could augment the configuration space
+with tangent vectors. For each point $x_i$
+in a configuration $(x_1,...,x_n)\in \prod M$ we
+attach a non-zero tangent vector $v_i\in T_{x_i}M.$
+In terms of a mapping class group, we will
+consider not just a manifold $M$ with
+distinguished points $Q_n,$ but a manifold with $n$ disjoint
+boundary componends, or ``holes''.
+At this point in the narative we are close to our destination.
+All of these considerations, of framed or unframed, labelled or
+not, with possibly different underlying manifolds, is mean to
+be captured by the formalism of a modular functor which we turn to next.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
 
 \section{Modular Functors}
 

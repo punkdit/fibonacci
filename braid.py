@@ -296,6 +296,70 @@ c.writePDFfile("pic-monodromy3d.pdf")
 
 c = canvas.canvas()
 
+
+def mkpath(x, y, radius=1.):
+
+    pts = [
+        ((x+0.05*radius, y+0.04*radius)),
+        ((x+0.5*radius, y+0.20*radius)),
+        ((x+0.5*radius, y-0.20*radius)),
+        ((x+0.07*radius, y-0.05*radius)),
+    ]
+
+    pts = [(xx+0.8*yy, yy) for (xx, yy) in pts]
+
+    pts = [path.moveto(*pts[0])] + [path.lineto(*p) for p in pts[1:]]
+
+    pts = path.path(*pts)
+    return pts
+
+
+
+def dorect(x, y, W=2, H=0.6):
+    dopath([(x-1.1, y-H), (x-0.1, y+H), (x+W+.2, y+H), (x+W-0.8, y-H)],
+        fill=[shade, color.transparency(0.3)],
+        closepath=True)
+
+
+x, y = 0., 0.
+radius = 0.06 
+
+dorect(x, y)
+
+c.fill(path.circle(x, y, radius), [style.linewidth.thick])
+c.fill(path.circle(x+1, y, radius), [style.linewidth.thick])
+c.stroke(mkpath(x, y, 3),
+    [deformer.smoothed(2.0),
+    style.linewidth.Thick, deco.earrow(size=0.2)])
+
+x += 3 
+
+c.text(x-0.1, y-0.1, r"$\ne$")
+
+x += 2 
+
+dorect(x, y)
+
+c.fill(path.circle(x, y, radius), [style.linewidth.thick])
+c.fill(path.circle(x+1, y, radius), [style.linewidth.thick])
+c.stroke(mkpath(x, y, 1.4),
+    [deformer.smoothed(2.0),
+    style.linewidth.Thick, deco.earrow(size=0.2)])
+
+
+c.writePDFfile("pic-monodromy2d.pdf")
+
+if "exit" in sys.argv:
+    sys.exit(0)
+
+
+#############################################################################
+#
+#
+
+
+c = canvas.canvas()
+
 W = 5.
 H = 3.
 
