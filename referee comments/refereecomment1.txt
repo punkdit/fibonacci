@@ -1,0 +1,93 @@
+Re: LG15672
+    Classical simulation of quantum error correction in a Fibonacci anyon
+    code
+    by Simon Burton, Courtney G. Brell, and Steven T. Flammia
+
+Dear Dr. Brell,
+
+The above manuscript has been reviewed by our referees.
+
+The resulting reports include a critique which is sufficiently adverse
+that we cannot accept your paper on the basis of material now at hand.
+We append pertinent comments.
+
+If you feel that you can overcome or refute the criticism, you may
+resubmit to Physical Review Letters.  With any resubmittal, please
+include a summary of changes made and a brief response to all
+recommendations and criticisms.
+
+Yours sincerely,
+
+Sonja Grondalski
+Associate Editor
+Physical Review Letters
+Email: prl@aps.org
+http://journals.aps.org/prl/
+
+IMPORTANT: Editorial "Review Changes"
+http://journals.aps.org/prl/edannounce/PhysRevLett.111.180001
+
+----------------------------------------------------------------------
+Report of Referee A -- LG15672/Burton
+----------------------------------------------------------------------
+
+See Attachment: lg15672_report_1_a.pdf
+
+----------------------------------------------------------------------
+Report of Referee B -- LG15672/Burton
+----------------------------------------------------------------------
+
+In a previous paper the authors (together with other collaborators)
+had studied error correction for non-abelian anyon models that admit
+an efficient classical simulation. The present manuscript provides an
+extension to models that do not admit such an efficient simulation,
+and in particular focuses on Fibonacci anyons. The main contribution
+is the observation that quantum error correction under a percolation
+threshold can be efficiently simulated even if in general it might be
+not, as long as clustering is used for error correction. I do not
+recommend the publication of the paper in PRL due to its incremental
+nature. Moreover, although researchers working in the simulation of
+quantum error correction for anyon models will be interested in the
+result, I believe that the impact will be far from being as high as
+required in PRL. I suggest that the paper is submitted to PRA, and
+that it is extended to include more details. A few more specific
+comments follow:
+
+- In the abstract a value of the threshold is given and compared with
+that for abelian anyon models, but later it is stated that in fact the
+two kinds of thresholds are not comparable, except in a limit. It
+would be good to clarify this issue more explicitly in the text
+(rather than just with a reference), if not also in the abstract. If a
+more direct comparison is possible, it should be explained why the
+difference in the numerical value (if any) arises in going from
+abelian to non-abelian. If a more direct comparison is not possible,
+the abstract should be more explicit about it.
+
+- At the end of the introduction it is stated that these are the first
+results regarding error correction on non-abelian (universal) anyon
+models. Why would it not be possible to apply conventional error
+correction in such systems?
+
+- Regarding the motivation, and in connection with the above, what is
+the intended experimental target of these protocols? Is it clear that
+a quantum computer based on non-abelian anyons would be able to make
+use of these techniques? In the abelian case the target are (usually)
+codes, circuit implementations. The language used in the paper seems
+to point in a different direction, for example when noise is discussed
+as "thermal noise". A more clear motivation would help.
+
+- The section "topological model" is quite well written, but it would
+be even better if the text below eq. 2 gave explicit equations, and
+the final paragraph was expanded to actually explain the origin of the
+degeneracy.
+
+- The error correction algorithm is presented in a single cryptic
+paragraph full of jargon. Much more detail is needed, unless only
+experts in such algorithms should understand what is going on.
+
+- Which are the "random processes that violate this reasoning" in the
+classical simulability argument?
+
+- Which are the "heuristics that minimize braid moves"?
+
+- What is it meant by a "leakage error" in these kind of systems?
