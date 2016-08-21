@@ -455,11 +455,11 @@ c = canvas.canvas()
 
 
 r = 1.0
-w = 5.0
+w = 4.0
 
 #ellipse(w, 0., 1.0*r, 1.8*r)
 
-def tslice(x, y, W=0.9, H=2.2, transparency=0.3):
+def tslice(x, y, W=0.7, H=2.2, transparency=0.3):
     slope = 0.8
     p = path.path(
         path.moveto(x-W, y-H+slope),
@@ -505,14 +505,17 @@ for ps in (ps2[:N/4-1], ps2[N/4+1:]):
 
 #ellipse(0., 0.,    1.0*r, 1.8*r, [white], fill=[white])
 #ellipse(0., 0.,    1.0*r, 1.8*r)
-ellipse(0., 0.5*r, 0.7*r, 1.0*r)
+#ellipse(0., 0.5*r, 0.7*r, 1.0*r)
+
+c.stroke(path.circle(0., 0.5*r, r), 
+    [trafo.scale(0.5, 1., 0., 0.5*r)])
 
 def anyon(x, y):
     c.fill(path.circle(x, y, 0.05))
 
 tslice(w, 0)
 
-tracer.dopath([trafo.scale(-1, 1, x=w, y=0)],
+tracer.dopath([trafo.scale(-0.7, 1, x=w, y=0)],
     closepath=True)
 
 anyon(0., r)
