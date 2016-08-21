@@ -398,3 +398,138 @@ c.writePDFfile("pic-framed.pdf")
 
 
 
+#############################################################################
+#
+#
+
+class Tracer(object):
+    def __init__(self, x0, y0, r, theta):
+        self.x0 = x0
+        self.y0 = y0
+        self.theta = theta
+        self.r = r
+        self.ps = []
+
+    def get(self):
+        theta = self.theta
+        r = self.r
+        x = self.x0 + r*sin(theta)
+        y = self.y0 + r*cos(theta)
+        return x, y
+
+    def reset(self, r):
+        # recalculate x0, y0
+        if r==self.r:
+            return
+        x1, y1 = self.get()
+        theta = self.theta
+        self.x0 = x1 - r*sin(theta)
+        self.y0 = y1 - r*cos(theta)
+        self.r = r
+
+    def trace(self, r=None, dtheta=0.05*pi):
+        theta = self.theta
+        if r is not None:
+            self.reset(r)
+        self.ps.append(self.get())
+        if self.r > 0:
+            self.theta = theta + dtheta
+        else:
+            self.theta = theta - dtheta
+
+    def __call__(self, count=1, r=None):
+        icount = int(count)
+        for i in range(icount):
+            self.trace(r)
+        fcount = count - icount
+        if fcount<1e-6:
+            return
+        self.trace(r, fcount*0.05*pi)
+
+    def dopath(self, *args, **kw):
+        dopath(self.ps, *args, **kw)
+
+
+
+c = canvas.canvas()
+
+
+r = 1.0
+w = 5.0
+
+#ellipse(w, 0., 1.0*r, 1.8*r)
+
+def tslice(x, y, W=0.9, H=2.2, transparency=0.3):
+    slope = 0.8
+    p = path.path(
+        path.moveto(x-W, y-H+slope),
+        path.lineto(x-W, y+H+slope),
+        path.lineto(x+W, y+H-slope),
+        path.lineto(x+W, y-H-slope),
+        path.closepath())
+    c.fill(p, [shade, color.transparency(transparency)])
+    c.stroke(p)
+
+tslice(0, 0)
+
+tracer = Tracer(w, r, 0.4*r, -0.8*pi)
+tracer(21.5, 0.4*r)
+tracer(8, 2.2*r)
+tracer(15.5, 0.6*r)
+tracer(5, 1.7*r)
+tracer(22, 0.3*r)
+#tracer(2., 2*r)
+tracer(5.1, -1*r)
+tracer(17.5, -0.3*r)
+tracer(10.4, -1.28*r)
+
+
+
+c.stroke(path.line(0., r, w, r), [style.linewidth.Thick, ])
+
+N = 60
+ps1, ps2 = [], []
+for i in range(N):
+    t = 1.*i/(N-1)
+    theta = 2*pi*t
+    x = (t**1.0)*w
+    y = 0.5*r*cos(theta)
+    ps1.append((x, y-0.5*r))
+    ps2.append((x, -y-0.5*r))
+
+for ps in (ps1[:3*N/4-1], ps1[3*N/4+1:]):
+    dopath(ps, [style.linewidth.Thick, ], closepath=False)
+
+for ps in (ps2[:N/4-1], ps2[N/4+1:]):
+    dopath(ps, [style.linewidth.Thick, ], closepath=False)
+
+#ellipse(0., 0.,    1.0*r, 1.8*r, [white], fill=[white])
+#ellipse(0., 0.,    1.0*r, 1.8*r)
+ellipse(0., 0.5*r, 0.7*r, 1.0*r)
+
+def anyon(x, y):
+    c.fill(path.circle(x, y, 0.05))
+
+tslice(w, 0)
+
+tracer.dopath([trafo.scale(-1, 1, x=w, y=0)],
+    closepath=True)
+
+anyon(0., r)
+anyon(0., 0.)
+anyon(0., -r)
+
+anyon(w, r)
+anyon(w, 0.)
+anyon(w, -r)
+
+c1 = canvas.canvas()
+
+if 'rot' in sys.argv:
+    c1.insert(c, [trafo.rotate(90)])
+else:
+    c1.insert(c)
+
+c1.writePDFfile("pic-heisenberg.pdf")
+
+
