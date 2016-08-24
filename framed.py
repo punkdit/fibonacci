@@ -222,7 +222,7 @@ def bump(x0, alpha=0.4):
     return x
 
 
-def timeslice(x, y, transparency=0., label="", W=3.5, H=1.):
+def timeslice(x, y, transparency=0., label="", W=3.0, H=1.):
     y0 = -0.5*H
     y1 = +0.5*H
     x0 = -0.5*W
@@ -240,7 +240,7 @@ def timeslice(x, y, transparency=0., label="", W=3.5, H=1.):
 #
 
 
-W = 5.
+W = 4.3
 H = 4.
 
 r = 0.4 # radius of ribbon
@@ -255,7 +255,36 @@ c = canvas.canvas()
 x = 0.
 y = 0. # ---------------
 
+timeslice(x, y)
 
+c.fill(path.circle(x, y, 0.04))
+
+t = Turtle(x, y, 0)
+theta = 2*pi
+
+t.fwd(0.26*H)
+t.right(0.1*theta, 0.4*H)
+t.right(0.1*theta, 0.4*H)
+t.right(0.3*theta, 0.15*H)
+
+t.right(0.3*theta, 0.15*H)
+t.right(0.08*theta, 0.4*H)
+t.stroke(extra=st_Thick)
+t.penup()
+t.right(0.04*theta, 0.4*H)
+t.pendown()
+t.right(0.08*theta, 0.4*H)
+t.fwd(0.26*H)
+
+t.stroke(extra=st_Thick)
+
+
+timeslice(x, y+H, 0.5)
+
+c.fill(path.circle(x, y+H, 0.04))
+
+
+x += W # ---------------
 
 timeslice(x, y)
 
@@ -338,8 +367,11 @@ x += W # ---------------
 
 timeslice(x, y)
 
+cyl = rgb(0.6,0.6,0.6)
+
 sy = 0.4
 t = trafo.scale(1., sy, x, y)
+c.fill(path.circle(x, y, r), [t, cyl])
 c.stroke(path.circle(x, y, r), [t])
 c.fill(path.circle(x, y-sy*r, 0.05))
 
@@ -348,7 +380,7 @@ c.fill(path.path(
     path.lineto(x+r, y),
     path.lineto(x+r, y+H),
     path.lineto(x-r, y+H),
-    path.closepath()), [shade])
+    path.closepath()), [cyl])
 
 #c.stroke(path.circle(x, y, r), [t, rgb(0.5,0.5,0.5)])
 c.stroke(path.path(path.arc(x, y, r, 0, 180)), [t, rgb(0.5,0.5,0.5)])
@@ -375,7 +407,7 @@ for i in range(N):
     x01, y01 = tr(*ps0[i+1])
 
     if i>N/4 and i<3*N/4:
-        st = [rgb(0.5, 0.5, 0.5)]
+        st = [rgb(0.3, 0.3, 0.3)]
     else:
         st = [style.linewidth.Thick, style.linecap.round]
     
@@ -388,7 +420,7 @@ timeslice(x, y+H, 0.5)
 
 t = trafo.scale(1., sy, x, y+H)
 p = path.circle(x, y+H, r)
-c.fill(p, [t, white])
+c.fill(p, [t, rgb(0.8,0.8,0.8)])
 c.stroke(p, [t])
 c.fill(path.circle(x, y-sy*r+H, 0.05))
 
@@ -528,7 +560,7 @@ anyon(w, -r)
 
 c1 = canvas.canvas()
 
-if 'rot' in sys.argv:
+if 'rot' in sys.argv or 1:
     c1.insert(c, [trafo.rotate(90)])
 else:
     c1.insert(c)

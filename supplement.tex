@@ -591,19 +591,26 @@ These must satisfy the further relations
     \theta_{i}\sigma_i &= \sigma_i\theta_{i+1}.
 \end{align*}
 
-Here we show three 
-approaches to representing 
-these twists topologically.
-On the left we show a ``framing'' which is a non-degenerate
-vector field along the braid.
-In the middle we show a ``ribbon'':
-instead of point particles we have short one-dimensional
-curves.
+Here we show four 
+geometric approaches to representing a twist.
+Anyone that has struggled to untangle their headphone cable
+will immediately see what is going on here.
+On the left we have a loop; it is not a braid because it
+travels backwards in time.
+If we pull on this loop to make it straight, we introduce a twist.
+This is shown in the next figure, 
+where we show a \emph{framing} which is a non-degenerate
+vector field along the world-lines of a braid.
+The initial and final vectors in the vector field must be the same.
+In the next figure we show a \emph{ribbon}:
+instead of point particles we have short one-dimensional curves in $M$.
+%This is another way to encode a twist without using the differential
+%structure of $M.$
 On the right the particle is represented as a boundary
 component of $M$ with a distinguished point.
 In this picture the world-line looks like a tube.
 %It is not difficult to see that these 
-These three representations of twists carry
+All these representations of twists carry
 essentially the same information.
 \begin{center}
 \includegraphics[]{pic-framed.pdf}
@@ -612,7 +619,7 @@ In the sequal we will stick
 to thinking of particles as boundary
 components because this fits well
 with the way we are formulating 
-observables as simple closed curves.
+observables as simple closed curves in $M$.
 %More concretely,
 %we augment the configuration space
 %with tangent vectors. For each point $x_i$
@@ -1319,83 +1326,83 @@ surfaces only.
 The theorem we are building towards shows that
 the $R$-moves act transitively on curve diagrams.
 
-%\simon{We don't much care about transitivity. Should specialize this.}
-%That is, given two curve diagrams $f$ and $f'$ on $N$ we can find
-%a sequence of $R$-moves that transform $f$ to $f'.$
-%%We consider surface $N$ with $n$ boundary components
-%%$a_1,...,a_n.$
-%The key idea is to consider the (directed) image of the equator under
-%%the curve diagrams $f$ and $f'$.
-%these curve diagrams.
-%As mentioned previously, this image is sufficient to
-%define the entire diffeomorphism (up to isotopy) and so we are free
-%to work with just this image, or \emph{curve},
-%and we confuse the distinction between 
-%a curve diagram (a diffeomorphism)
-%and its curve.
-%%which we refer to as a \emph{curve.}
-%%Each such image will touch all the holes of $N.$
-%
-%The construction proceeds by considering adjacent
-%pairs of holes along $f'$ and then acting on the
-%portion of $f$ between these same two holes so that
-%they then become adjacent on the resulting curve.
-%Continuing this
-%process for each two adjacent holes of $f'$ will then
-%show a sequence of $R$-moves that sends $f$ to $f'.$
-%\simon{still not obvious: what if some such $R$-move
-%destroys a previously adjacentized pair of holes?}
-%
-%To this end, consider a sequence of holes $a_1,...,a_n$
-%appearing sequentially along $f$
-%such that $a_1$ and $a_n$ appear sequentially on $f'.$
-%We may need to apply some $Z$-moves to $f$ to ensure
-%that $a_1$ appears sequentially before $a_n$.
-%Now consider the case such that
-%along $f'$ between these two holes there is
-%no intersection with $f.$
-%We form a closed path $\xi$ by
-%following the $f'$ curve between $a_1$ and $a_n$ and then
-%following the $f$ curve in reverse from $a_n$ back to $a_1.$
-%(Note that to be completely rigorous here we would need to include segments
-%of path contained within boundary components.)
-%The resulting closed path bounds a disc.
-%If $\xi$ has clockwise orientation \simon{XX define clockwise XX}
-%we apply the following sequence of $R$-moves to $f$:
-%$$
-%    R^{a_1a_2}_{b_1}, R^{a_1a_3}_{b_2}, ..., R^{a_1a_{n-1}}_{b_{n-1}}.
-%$$
-%Depicted here is the first such move:
-%\begin{center}
-%\includegraphics[]{pic-theorem.pdf}
-%\end{center}
-%After each of these $R$-moves the closed path
-%formed by 
-%following the $f'$ curve between $a_1$ and $a_n$ and then
-%following the $R$-moved $f$ curve back to $a_1$ will
-%traverse one less hole, and still bound a disc.
-%After all of the $R$-moves this path will only
-%touch $a_1$ and $a_n,$ and bound a disc.
-%Therefore, we have acted on the $f$ curve so that
-%the resulting curve has $a_1$ and $a_n$ adjacent
-%and the bounded disc gives an isotopy for that
-%segment of the curve.
-%
-%When the closed curve $\xi$ has anti-clockwise orientation
-%we use the same sequence of $R$-moves but with $R$ replaced by $R^{-1}.$
-%
-%Generalizing further,
-%when the $f'$ curve between $a_1$ and $a_n$ has (transverse) intersections
-%with $f$ we use every such intersection to indicate a switch
-%between using $R$ and $R^{-1}.$
-%
-%%\simon{what if the direction of $f$ is reversed??
-%%eg. $f$ and $f'$ are the same except one has reverse direction?}
-%
-%This refactoring theorem will be reformulated 
-%below as a combinatorial ``paperclip algorithm''.
-%
-%\simon{Use $c$ instead of $f$ for curve diagrams?}
+\simon{We don't much care about transitivity. Should specialize this.}
+That is, given two curve diagrams $f$ and $f'$ on $N$ we can find
+a sequence of $R$-moves that transform $f$ to $f'.$
+%We consider surface $N$ with $n$ boundary components
+%$a_1,...,a_n.$
+The key idea is to consider the (directed) image of the equator under
+%the curve diagrams $f$ and $f'$.
+these curve diagrams.
+As mentioned previously, this image is sufficient to
+define the entire diffeomorphism (up to isotopy) and so we are free
+to work with just this image, or \emph{curve},
+and we confuse the distinction between 
+a curve diagram (a diffeomorphism)
+and its curve.
+%which we refer to as a \emph{curve.}
+%Each such image will touch all the holes of $N.$
+
+The construction proceeds by considering adjacent
+pairs of holes along $f'$ and then acting on the
+portion of $f$ between these same two holes so that
+they then become adjacent on the resulting curve.
+Continuing this
+process for each two adjacent holes of $f'$ will then
+show a sequence of $R$-moves that sends $f$ to $f'.$
+\simon{still not obvious: what if some such $R$-move
+destroys a previously adjacentized pair of holes?}
+
+To this end, consider a sequence of holes $a_1,...,a_n$
+appearing sequentially along $f$
+such that $a_1$ and $a_n$ appear sequentially on $f'.$
+We may need to apply some $Z$-moves to $f$ to ensure
+that $a_1$ appears sequentially before $a_n$.
+Now consider the case such that
+along $f'$ between these two holes there is
+no intersection with $f.$
+We form a closed path $\xi$ by
+following the $f'$ curve between $a_1$ and $a_n$ and then
+following the $f$ curve in reverse from $a_n$ back to $a_1.$
+(Note that to be completely rigorous here we would need to include segments
+of path contained within boundary components.)
+The resulting closed path bounds a disc.
+If $\xi$ has clockwise orientation \simon{XX define clockwise XX}
+we apply the following sequence of $R$-moves to $f$:
+$$
+    R^{a_1a_2}_{b_1}, R^{a_1a_3}_{b_2}, ..., R^{a_1a_{n-1}}_{b_{n-1}}.
+$$
+Depicted here is the first such move:
+\begin{center}
+\includegraphics[]{pic-theorem.pdf}
+\end{center}
+After each of these $R$-moves the closed path
+formed by 
+following the $f'$ curve between $a_1$ and $a_n$ and then
+following the $R$-moved $f$ curve back to $a_1$ will
+traverse one less hole, and still bound a disc.
+After all of the $R$-moves this path will only
+touch $a_1$ and $a_n,$ and bound a disc.
+Therefore, we have acted on the $f$ curve so that
+the resulting curve has $a_1$ and $a_n$ adjacent
+and the bounded disc gives an isotopy for that
+segment of the curve.
+
+When the closed curve $\xi$ has anti-clockwise orientation
+we use the same sequence of $R$-moves but with $R$ replaced by $R^{-1}.$
+
+Generalizing further,
+when the $f'$ curve between $a_1$ and $a_n$ has (transverse) intersections
+with $f$ we use every such intersection to indicate a switch
+between using $R$ and $R^{-1}.$
+
+%\simon{what if the direction of $f$ is reversed??
+%eg. $f$ and $f'$ are the same except one has reverse direction?}
+
+This refactoring theorem will be reformulated 
+below as a combinatorial ``paperclip algorithm''.
+
+\simon{Use $c$ instead of $f$ for curve diagrams?}
 
 %
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
