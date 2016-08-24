@@ -723,7 +723,7 @@ A \emph{modular functor} $\F$ associates to every
 surface $M$ a finite dimensional complex
 vector space $\F(M)$, called the \emph{fusion space} of $M$.
 For each map $f:M\to N$
-The modular functor associates a
+the modular functor associates a
 unitary transformation $\F(f) : \F(M)\to\F(N)$
 that only depends on the isotopy class of $f.$
 Functoriality requires that $\F$
@@ -772,6 +772,7 @@ Identifying the two holes along this diffeomorphism
 gives the glued surface $N$.
 (There is a slight technicality in ensuring that $N$ is
 then differentiable, but we will gloss over this detail.)
+The image of these holes in $N$ we call a \emph{seam}.
 %Gluing must reverse the orientation of the two holes
 %as well as identifying their base points.
 The fusion space of $M_{a,\widehat{a}}$ then embeds unitarily in the fusion
@@ -779,15 +780,17 @@ space of $N$.
 Moreover, there is an isomorphism called
 a \emph{gluing map}:
 $$
-    \bigoplus_{a\in\A} \F(M_{a,\widehat{a}}) \xrightarrow{\cong} \F(N).
+    \bigoplus_{a\in\A} \F(M_{a,\widehat{a}}) \xrightarrow{\cong} \F(N)
 $$
-\simon{say something about isotopy of gluing}
+and this isomorphism depends only on the isotopy class of 
+the seam in $N.$
+%\simon{say something about isotopy of gluing}
 
 {\bf Unitarity axiom.}
 Reversing the orientation of the surface $M$
 to form $\overline{M}$ we get the dual of the fusion space:
 $\F(\overline{M})=\F(M)^*.$
-\simon{i don't think we use this for anything}
+%\simon{i don't think we use this for anything}
 
 \subsub{Compatibility axioms.}
 %We have left out various compatibility requirements of the axioms.
@@ -803,8 +806,8 @@ commutes with disjoint union.
 %performing a gluing on $M$ and then forming $M\amalg N$
 %produces the same surface as forming the disjoint union and
 %then gluing the 
-\cggb{I guess we should try to keep a consistent level of precision, and so probably be more explicit here.}
-\simon{I agree it is a bit jarring to suddenly switch to being more informal...}
+%\cggb{I guess we should try to keep a consistent level of precision, and so probably be more explicit here.}
+%\simon{I agree it is a bit jarring to suddenly switch to being more informal...}
 
 \subsub{Observables.}
 The seam along which gluing occurs can be associated
@@ -831,21 +834,15 @@ following the orientation around the seam presents
 the interior to the left.
 %The projectors associated to each cuff commute.
 %Non-overlapping observables commute.
-
-%We intentionally confuse the definition of an observable as
-%a set of operators 
-%%$\{P_a g^{-1}\}_{a\in\A}$
-%and the associated seam along which gluing occurs.
-%%observable as the simple closed curve 
 We intentionally confuse the distinction between an
 observable as a set of operators,
 and the associated seam along which gluing occurs.
-Any simple closed curve within the interior of $M$
-can serve as the seam along which gluing occurs...
-If we now take $M$ to be an arbitrary surface, and $\gamma$ an
-observable on $M,$
-we can write $M$ as the gluing of another surface $N$...
-\simon{XXX}
+%Any simple closed curve within the interior of $M$
+%can serve as the seam along which gluing occurs...
+%If we now take $M$ to be an arbitrary surface, and $\gamma$ an
+%observable on $M,$
+%we can write $M$ as the gluing of another surface $N$...
+%\simon{XXX}
 
 \subsub{Consequences of axioms.}
 A common operation is to glue two separate surfaces.
@@ -928,16 +925,20 @@ $$
     F^{abc}_d : \bigoplus_{x\in\A} V^{ab}_{\widehat{x}}\otimes V^{xc}_d 
         \to \bigoplus_{y\in\A} V^{ay}_d\otimes V^{bc}_{\widehat{y}}.
 $$
-\simon{tensor with identity to extend this map under gluing}
+By using gluing, and summing over charge sectors,
+we can extend this operation %to more complicated manifolds
+to apply where any of the boundary components $a, b, c$ or $d$ are merely 
+seams in a larger manifold.
+%\simon{tensor with identity to extend this map under gluing}
 
-\simon{***at this point we specialize to considering only discs with holes***}
+%\simon{***at this point we specialize to considering only discs with holes***}
 
 \subsub{POP decomposition.}
 %The reverse process of cutting a surface up
 %into pair-of-pants induces a direct sum decomposition
 %of the fusion space.
 Given a manifold $M$ which is
-a disc with at two or more holes, 
+a disc with two or more holes, 
 we show how to present $M$ as the gluing of various
 pair-of-pants. Such an arangement will be termed a \emph{POP decomposition.}
 (We refer to \cite{Ivanov2001} for more details on this construction,
@@ -989,6 +990,7 @@ In this work we use a simpler method,
 which is essentially the same as \emph{skein theory.}
 %Read on to find out how this works!
 This is the \emph{refactoring theorem}.
+\simon{XXX}
 
 \subsub{Dehn twist.}
 Consider a surface $M_{a,\widehat{a}}$
@@ -1062,12 +1064,18 @@ and one $F$-move that relates these.
 On a standard surface with four interior holes there are five 
 standard POP decompositions and five $F$-moves that relate these.
 In this case the $F$-moves themselves satisfy an equation
-that is enforced by the axioms of the modular functor.
+that is a trivial consequence of the way we have defined $F$-moves.
+%enforced by the axioms of the modular functor.
 This is known as the pentagon equation, which we depict as
 the following commutative diagram:
 \begin{center}
 \includegraphics[]{pic-pentagon.pdf}
 \end{center}
+We are now starting to confuse the notation 
+for the topological space $M$ and the fusion space $\F(M).$
+Also, each of these $F$-moves is refering to an isomorphism 
+that is block decomposed according to the charge sectors 
+of the indicated observables.
 
 We define the vector spaces 
 $ V^{a_1...a_n}_{b} := \F(\StdM).$ 
@@ -1083,15 +1091,26 @@ This then gives a \emph{standard basis} of $V^{a_1...a_n}_{b}$
 relative to this standard POP decomposition
 using the corresponding  $\{v^{a'_1a'_2}_{b',\mu}\}_{\mu}$
 for each of the $V^{a'_1a'_2}_{b'}.$ % $V^{a'b'}_{c'}.$
-\simon{...ugh}
+%\simon{...ugh}
 
 Note that for any standard surface $\StdM$ 
 and any choice of $k$ contiguous holes $a_j,...,a_{j+k-1}$
 we can find an observable that encloses exactly these holes
 in at least one of the standard POP decompositions of $\StdM.$ 
 
-Gluing of two standard surfaces is not in general going to
-produce another standard surface. However, we can ... \simon{fix this}
+%We next define the gluing of two standard surfaces
+We next show how to glue the exterior hole of
+a standard surface $M$
+to an interior hole of another standard surface $N.$
+To do this within $\C$ we rescale and translate the two surfaces so
+that the exterior hole of $M$ coincides with the interior hole of $N.$
+At this point the union is not in general going to
+produce another standard surface,
+%However, we can ... \simon{fix this}
+and so we remedy this by applying any isotopy within $\C$
+that fixes the real axis while moving the surface to a standard surface.
+%while moving the holes so as to produce
+%a standard surface.
 
 \subsub{Curve diagram.}
 We next study maps from standard surfaces to arbitrary surfaces.
@@ -1118,12 +1137,16 @@ acting on a standard POP decomposition.
 %\cggb{This is true for any $N$ that is homeomorphic to a punctured disc?}
 %\simon{Right, I should be more clear about when exactly we specialize to discs.}
 The proof of this is constructive, and we call this
-the refactoring theorem below.
+the refactoring theorem below. \emph{XXX}
 %The proof of this is constructive and forms the heart of
 %our algorithm below.
 
-\simon{show how to glue two curve diagrams together to get another
-curve diagram}
+%\simon{show how to glue two curve diagrams together to get another curve diagram}
+The operation of 
+gluing of surfaces can be extended to gluing of curve diagrams as
+long as we are careful with the way we identify along the seam:
+the identification map needs to respect the equator of the curve
+diagram.
 
 %Any curve diagram will send a standard POP decomposition
 %of $\StdM$ to a POP decompositions of $N,$ and therefore
@@ -1192,12 +1215,13 @@ the surface itself stays the same.
 
 %\simon{Extend $R$-move under gluing.}
 As we extended Dehn twists under gluing,
-we can do this for $R$-moves.
-Given any pair-of-pants in $M$ ... \simon{keep going}
+and $F$-moves under gluing,
+we also do this for $R$-moves.
+%Given any pair-of-pants in $M$ ... \simon{keep going}
 
-\simon{When do we start confusing the distinction between
-topological operations and the corresponding vector space
-operation via $\F$ ?}
+%\simon{When do we start confusing the distinction between
+%topological operations and the corresponding vector space
+%operation via $\F$ ?}
 
 \subsub{Skeins.}
 The preivious figure can be seen as a ``top-down'' view of the
@@ -1253,7 +1277,7 @@ Given a POP decomposition of a surface $N$
 there are various curve diagrams on $N$ that
 produce this decomposition from 
 a standard POP decomposition, and there are certain $R$-moves
-will map between these.
+that will map between these.
 Once again, these moves must be consistent, and
 here we note the two ``hexagon equations'' 
 %for curve diagrams corresponding to the above triangles:
@@ -1279,6 +1303,12 @@ This introduces a global phase ambiguity into the
 calculations.
 %What we have done here is to forget that the holes
 %have width, and shrunk them to points.
+
+The reason why we mention the pentagon and hexagon
+equations is that these become important in an
+algebraic description of the theory.
+Because we have defined everything in terms of
+a modular functor we get these equations ``for free''.
 
 \section{Refactoring lemma}
 
