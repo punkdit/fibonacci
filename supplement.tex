@@ -1,4 +1,4 @@
-\documentclass[aps, prl, letterpaper, twocolumn, superscriptaddress, notitlepage, 10pt]{revtex4-1}
+\documentclass[aps, letterpaper, onecolumn, superscriptaddress, notitlepage, 10pt]{revtex4-1}
 \usepackage{times}
 
 % use these settings for a more reader-friendly version
@@ -14,8 +14,10 @@
 \usepackage[caption=false]{subfig}
 \usepackage{enumerate}
 \usepackage{mathrsfs}
+\usepackage{enumitem}
 
-
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing,calc}
 %\usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
 
 \usepackage[pdfpagelabels,pdftex,bookmarks,breaklinks]{hyperref}
@@ -38,6 +40,7 @@ The University of Sydney, Sydney, Australia}
 \author{Courtney G.\ Brell}
 \affiliation{Institut f\"{u}r Theoretische Physik, Leibniz Universit\"{a}t Hannover, 
 Appelstra\ss{}e 2, 30167 Hannover, Germany}
+%\affiliation{Perimeter Institute for Theoretical Physics, Waterloo, Ontario, Canada}
 \author{Steven T.\ Flammia}
 \affiliation{Centre for Engineered Quantum Systems, School of Physics, 
 The University of Sydney, Sydney, Australia}
@@ -82,8 +85,8 @@ The University of Sydney, Sydney, Australia}
 %------------------------------------------------------------------------------------------------------------%
 
 % CUT HERE
-\onecolumngrid
-\appendix
+%\onecolumngrid
+%\appendix
 % CUT HERE
 
 
@@ -109,6 +112,501 @@ The University of Sydney, Sydney, Australia}
 %
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %
+
+\section{Modelling and simulating error and recovery}\label{secAlgo}
+
+
+\newcommand{\ntikzmark}[2]{#2\thinspace\tikz[overlay,remember picture,baseline=(#1.base)]{\node[inner sep=0pt] (#1) {};}}
+
+\newcommand{\makebrace}[3]{%
+    \begin{tikzpicture}[overlay, remember picture]
+        \draw [decoration={brace,amplitude=0.5em},decorate]
+        let \p1=(#1), \p2=(#2) in
+        ({max(\x1,\x2)}, {\y1+0.8em}) -- node[right=0.6em] {#3} ({max(\x1,\x2)}, {\y2});
+    \end{tikzpicture}
+}
+
+
+In order to estimate the error-correction threshold of Fibonacci anyon codes, we perform monte-carlo simulations of noise and recovery operations on systems of various sizes. For a given sample, the simulation can be broken down into several stages:
+\begin{itemize}[noitemsep, topsep=0pt]
+\item \ntikzmark{N}{Noise}
+\item \ntikzmark{S}{Syndrome extraction}
+\item \ntikzmark{D}{Decoding}
+\item \ntikzmark{R}{Recovery}
+\end{itemize}
+\makebrace{S}{R}{Error-correction}
+After application of noise, the subsequent three steps (forming the error-correction routine) are iterated until success or failure, as will be described in more detail below.
+
+It should be noted that while the noise, syndrome extraction, and recovery steps of this procedure are intended to really be a simulation of the physics of an anyon system, the decoding step is better thought of as an implementation of the classical processing that a successful error-correction experiment will require. Furthermore, the simulation of the noise and recovery steps will be rendered straightforward by the way we model our system in the first place. As such, the main novelty of our simulations is in the model itself, and the syndrome extraction step.
+
+The key to simulating these processes effectively is the ability to describe topological operations by \emph{curve diagrams}. This is an alternative representation of topological operations that is particularly suited to these kinds of numerical simulations of sparsely populated 2-dimensional anyon systems. We describe the theoretical framework underpinning this description and show that it is equivalent to more common representations in section \ref{secAbstract}.
+
+In this section, we first describe our physical model of an anyon system and the corresponding noise, before showing how to simulate joint charge measurements (the core of syndrome extraction) within this model. The use of curve-diagrams is presented in an intuitive but ad-hoc way. Finally we describe our decoder and detail holistically how the different parts of the simulation interact.
+
+
+\subsection{Physical model}
+
+We consider anyon systems defined on a torus.
+We endow this with a $L\times L$ square lattice of observables:
+$$
+    \Lambda := \bigl\{ \gamma_{ij} \bigr\}_{i,j=1,...,L}
+$$
+These observables are the physically accessible charge observables that will be measured during syndrome extraction, before being passed to the decoder which will in turn determine physical recovery operations to be performed on the system.
+
+We call each $\gamma_{ij}$ a \emph{tile.}
+In figures we show a small gap between the tiles but this is not meant
+to reflect an actual physical gap.
+
+As noted above, the key to our model is to represent anyons and topological operations with curve diagrams. A curve diagram is a directed path that connects several anyons, which are denoted by preferred points along these paths. A curve diagram specifies a linear ordering of the anyons that allows us to define a basis for the corresponding fusion space, as well as to keep track of topological operations on this ordering (details are provided in section \ref{secAbstract}).
+
+\cggb{Maybe here a picture of a generic curve with some anyons on it and a linear ordering of the anyons in a fusion diagram type picture.}
+
+The main noise processes we consider in our simulations are pair-creation events, though hopping, exchange, etc.~processes can also be implemented straightforwardly.
+Pair-creation processes act to populate the manifold with
+a randomly distributed set of anyon pairs,
+whose separation is much smaller than the size of a tile.
+
+Each such pair will have vacuum total charge and so the observables
+$\gamma_{ij}$ will only be affected by pairs that cross a tile boundary, i.e.~we
+need only consider distributing these pairs along edges of the tiles:
+\begin{center}
+\includegraphics[width=0.3\columnwidth ]{pic-pair-create.pdf}
+\end{center}
+
+In simulating system undergoing noise for time $T$, we place a Poisson-distributed number of pair creation processes on the edges of tiles, with mean $L^2T$.
+
+In order to allow us to later calculate fusion outcomes for sets of anyons, in addition to locations of created anyons we must also give each pair a (directed) piece of curve, denoted in green. Since the total charge of any newly-created particle-antiparticle pair is vacuum, each of their fusion spaces can be treated independently. This results in our being able to consider independent disconnected curves for each such pair. We only need consider the joint state in the fusion space of different sets of anyons if they have interacted, and so it is with curve diagrams. Using this picture, it is easy to track the effects of moving anyons, which essentially are represented by appropriate extensions or deformations of the curve along which the anyon lies. These kinds of straightforward processes are all that are required to describe the noise and recovery steps of our simulation.
+
+
+\subsection{Syndrome extraction}
+
+Syndrome extraction in this model corresponds to simulating measurements of the observables $\gamma_{ij}$, which represent the total charge contained within the corresponding tile.
+
+In order to compute measurement outcomes for the $\gamma_{ij}$
+we first need to concatenate any two curve diagrams that 
+participate in the same $\gamma_{ij}.$
+Because each curve has vacuum total charge this can be
+done in an arbitrary way:
+\begin{center}
+\includegraphics[width=0.3\columnwidth ]{pic-join-pairs.pdf}
+\end{center}
+
+Working in the basis picked out by the resulting curve
+diagrams, we will show how to calculate measurement outcomes for each tile,
+the result of which is recorded on the original curve:
+\begin{center}
+\includegraphics[width=0.3\columnwidth ]{pic-curve-uniq.pdf}
+\end{center}
+%\cggb{It might be helpful to be a bit more explicit either here or later about exactly how we perform this step, moving charges around with the paperclip algorithm until they are all neighbouring and then we are in a standard basis and can use F-moves to calculate fusion outcomes.}
+%\simon{good idea}
+
+
+%The details of how this is implemented computationally,
+%the data structures and algorithm, we have not yet described
+%and this is what we turn to next.
+
+%
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%
+
+The basic data structure involved in the
+simulation we term a \emph{combinatorial curve diagram.}
+% XXX define "piece of curve"
+Firstly, we will require each curve to intersect 
+the edges of tiles transversally,
+and in particular a curve will not touch a tile corner.
+
+For each tile in the lattice,
+we store a combinatorial
+description of the curve(s) intersected with that tile.
+Each component of such an intersection we call a \emph{piece-of-curve.}
+\begin{center}
+\includegraphics[]{pic-cells.pdf}
+\end{center}
+
+We follow essentially the same approach as taken in \cite{Abramsky2007} 
+to describe elements of a Temperley-Leib algebra, but
+with some extra decorations.
+The key idea is to store a \emph{word} for each tile, comprised of
+the letters $\bigl<$ and $\bigr>$.
+%The encoding works as follows.
+Reading in a clockwise direction around the edge of
+the tile from the top-left corner,
+we record our encounters with each piece-of-curve,
+writing~$\bigl<$ for the first encounter, and~$\bigr>$ for the
+second.
+We may also encounter a dangling piece-of-curve
+(the head or the tail), so we use another symbol $*$ for this.
+The words for the above two tiles will then be 
+$\bigl<\bigl<\bigr>\bigr>\bigl<\bigr>$ and $\bigl<\bigr>*\bigl<\bigl<\bigr>\bigr>.$
+When the brackets are balanced,
+each such word will correspond one-to-one with an intersection
+of a curve in a tile, up to a continuous deformation of the interior of the tile.
+Ie. the data structure 
+will be insensitive to any continuous deformation of the interior of the tile,
+but the simulation does not need to track any of these degrees of freedom.
+
+\begin{center}
+\includegraphics[]{pic-cells-0.pdf}
+\end{center}
+
+We will also need to record
+various other attributes of these curves,
+and to do this we make this notation more elaborate
+in the paragraphs {\bf (I)}, {\bf(II)} and {\bf(III)} below.
+Each symbol in the word describes an intersection of
+the curve with the tile boundary,
+and so as we decorate these symbols these decorations will
+apply to such intersection points.
+
+\begin{center}
+\includegraphics[]{pic-cells-1.pdf}
+\end{center}
+
+{\bf (I)} We will record the direction of each piece-of-curve,
+this will be either an {\tt in} or {\tt out} decoration for each symbol.
+Such decorations need to balance according to the brackets.
+The decorated symbols $*_{\mbox{\tt in}}$ and 
+$*_{\mbox{\tt out}}$ 
+will denote respectively either
+%the head, $c(1)$ or the tail $c(0)$ of a curve.
+the head or the tail of a curve.
+The words for the diagrams above now read as
+$ \bigl<_{\mbox{\tt in}}\bigl<_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}
+    \bigr>_{\mbox{\tt out}}\bigl<_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}$
+and
+$ \bigl<_{\mbox{\tt in}}\bigl>_{\mbox{\tt out}}*_{\mbox{\tt in}}
+    \bigr<_{\mbox{\tt out}}
+    \bigr<_{\mbox{\tt in}}\bigl>_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}.
+$
+
+{\bf (II)} We will record,
+for each intersection with the tile edge, 
+a numeral indicating which of the four
+sides of the tile the
+intersection occurs on.
+Numbering these clockwise from the top as $1, 2, 3, 4$ we have for the above curves: 
+$\bigl<_1\bigl<_2\bigr>_2\bigr>_3\bigl<_3\bigr>_4$ 
+and $\bigl<_1\bigr>_1*_2\bigl<_3\bigl<_3\bigr>_4\bigr>_4.$
+
+{\bf (III)} Finally, we will also decorate these symbols with anyons.
+This will be an index to a leaf of a (sum of) fusion tree(s).
+This means that anyons only reside on the curve close
+to the tile boundary,
+and so we cannot have more than two anyons
+for each piece-of-curve. 
+The number of such pieces is arbitrary, and so this
+is no restriction on generality.
+
+\begin{center}
+\includegraphics[]{pic-cells-2.pdf}
+\end{center}
+
+In joining tiles together to make a tiling we will
+require adjacent tiles to agree on their shared boundary.
+This will entail sequentially pairing symbols in the
+words for adjacent tiles
+and requiring that 
+the {\tt in} and {\tt out} decorations are matched.
+Because the word for a tile proceeds conter-clockwise
+around the tile, this pairing will always reverse the
+sequential order of the symbols of adjacent tiles.
+For example, given the above two tiles we sequentially pair the 
+$\bigl<_{\mbox{\tt out},2}\bigr>_{\mbox{\tt in},2}$ 
+and $\bigr>_{\mbox{\tt out},4}\bigr>_{\mbox{\tt in},4}$
+symbols with opposite order so that
+$\bigl<_{\mbox{\tt out},2}\sim\bigr>_{\mbox{\tt in},4}$
+and $\bigr>_{\mbox{\tt in},2} \sim \bigr>_{\mbox{\tt out},4}.$ 
+
+%Two other consistency relations are enforced on such a combinatorial curve diagram:
+%we require adjacent tiles to agree on their boundaries, 
+%and every curve diagram
+%must have two ends.
+%One final consistency
+%relation is enforced by requiring 
+%We require every curve diagram to have two ends, this means
+%that there are no loops.
+
+Note that in general this data structure will store many disjoint curve diagrams
+$c_i:[0,1]\to D_{n_i}$ within a disc $D_m$ where $\sum n_i = m.$
+
+%For a given piece-of-curve, we can subtract the numeral with
+%the {\tt in} label from the numeral with the {\tt out} label
+%to get an integer in $\{ \}$ WRONG
+%We can also just use the numerals of the boundary edges
+%that the piece-of-curve intersects with, subtracting the
+%``exit'' boundary numeral from the ``entry'' boundary numeral. WRONG
+
+For each piece-of-curve, apart from a head or tail, there is an associated 
+number we call the \emph{turn number}. This counts the number
+of ``right-hand turns'' the piece-of-curve makes as it
+traverses the tile, with a ``left-hand turn'' counting as $-1.$
+(To be more rigorous, we would define this number using the
+winding number of the simple closed curve formed by the
+piece-of-curve adjoined to a segment of the boundary of the tile 
+traversed in a clockwise direction.)
+This number will take one of the values $-2, -1, 0, 1, 2:$
+\begin{center}
+\includegraphics[]{pic-cells-3.pdf}
+\end{center}
+
+
+%Two disjoint curves can be joined by...
+%
+%Curves can be simplified along sections without any anyons, ...
+
+% Each piece will have +1, +2, 0, -1, -2 right-hand turns...
+
+% mention Jones' planar algebras ?
+
+%
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%
+
+\subsection{The paperclip algorithm}
+
+%In the description of the refactoring theorem
+%above we thought of $R$-moves as acting on the basis of
+%the system as in the Heisenberg picture.
+%Now we switch to an equivelant perspective and
+%consider $R$-moves as transport of anyon charges
+%as in a Schrodinger picture.
+In calculating the tile observable measurement outcomes, it will be convenient to consider anyons being transported around the lattice
+by moving them along tile edges. This is equivalent to a "refactoring" of the fusion space, as described in section \ref{secAbstract}.
+%\simon{Note that transport here is the same as the refactoring from above.}
+In general, such a transport will intersect with a
+curve diagram in many places.
+Each such intersection is transverse,
+and we use each intersection point to cut
+the entire transport into smaller paths each of
+which touch the curve diagram twice.
+%Each intersection with a curve diagram
+%will then be transverse, and we
+%decompose the entire path into a sequence of
+%paths each of which 
+%join consecutive intersections.
+%Transport of an anyon can be decomposed into
+%moves between adjacent components of a curve
+%diagram.
+The origin and destination of such an anyon path
+now splits the curve diagram $c:[0, 1]\to D_n$ 
+into three disjoint pieces which we term
+\emph{head}, \emph{body} and \emph{tail}, where
+the head contains the point $c(1)$, the tail
+contains $c(0)$ and the body is the third piece.
+These arise with various arrangements, but here
+we focus on one instructive case, the
+other cases are similar:
+%We look at the particular case of moving along
+%one edge of a tile,
+transporting along one edge of a tile \emph{forwards} 
+(from tail to head) along a curve diagram:
+\begin{center}
+\includegraphics[]{pic-move-anyon.pdf}
+\end{center}
+
+This arrangement is equivalent (isotopic) to one of four 
+``paperclips'', which we distinguish between by counting how
+many \emph{right-hand turns} are made along the body of the curve diagram.
+We also show an equivalent (isotopic) picture where the
+curve diagram has been straightened, and the resulting distortion
+in the anyon path:
+\begin{center}
+\includegraphics[]{pic-paperclip.pdf}
+\end{center}
+The sequence of anyons along the head, body and tail, we denote as $H, B$ and $T,$
+respectively.
+These sequences have the same order as the underlying curve diagram, and 
+we use
+$H^r, B^r$ and $T^r$ to denote the same anyons with the reversed order.
+Using the above diagram, we can now read off the $R$-moves for each
+of the four paperclips:
+\begin{align*}
+-2:&\ R[B] \\
+-4:&\ R[H^r]\ R[H]\ R[B] \\
++4:&\ R[B]\ R[T]\ R[T^r] \\
++6:&\ R[H^r]\ R[H]\ R[B]\ R[T]\ R[T^r] \\
+\end{align*}
+where notation such as $R[B]$ is understood as sequentially clockwise braiding around
+each anyon in $B$.
+
+That these four paperclips exhaust all possibilities can be seen by
+considering the winding number of the simple closed curve made
+by combining the body of the curve diagram with the path followed by
+the anyon (appropriately reversing direction as needed).
+
+%
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%
+
+\subsection{Decoding and error-correction}
+
+After the noise process is applied to the system,
+the error correction routine attempts to annihilate all the anyons on the lattice in a way that does not affect the encoded information. It proceeds as a dialogue between the
+decoder and the system. The syndrome extraction procedure provides information to the decoder, which suggests a recovery procedure, the results of which are found by a subsequent syndrome extraction step, and so on. This iterative procedure continues until the extracted syndrome is empty (i.e.~i.e. there are no remaining anyons on the lattice), or the decoder declares failure.
+%
+%The decoder measures successively larger and larger
+%regions of the lattice
+%until there are no more charges 
+%or a topologically non-trivial operation has occurred
+%(an operation that spans the entire lattice.)
+Here we show this in a process diagram, with time running up
+the page:
+\begin{center}
+\includegraphics[]{pic-process.pdf}
+\end{center}
+\cggb{Maybe replace "measure" in this picture with "recovery"?}
+
+So far we have discussed the simulation of the (quantum) system
+and now we turn to the decoder algorithm. This is similar to other clustering-type decoders used in the literature~\cite{??}, in that it attempts to form and fuse together clusters of anyons on larger and larger length scales, declaring failure if anyons remain after fusion at the largest length scale. Our simulation also declares failure if at any point the curve diagrams describing the state of the system form a topologically non-trivial loop (span the lattice), this being a necessary condition for error-correction failure.
+
+Here is a pseudo-code listing for this,
+and we explain each step via an example below.
+
+\begin{verbatim}
+ 1:  def error_correct():
+ 2:      syndrome = get_syndrome()
+ 3:      
+ 4:      # build a cluster for each charge
+ 5:      clusters = [Cluster(charge) for charge in syndrome]
+ 6:  
+ 7:      # join any neighbouring clusters
+ 8:      join(clusters, 1)
+ 9:      
+10:      while clusters:
+11:      
+12:          # find total charge on each cluster
+13:          for cluster in clusters:
+14:              fuse_cluster(cluster)
+15:      
+16:          # discard vacuum clusters
+17:          clusters = [cluster for cluster in clusters if non_vacuum(cluster)]
+18:      
+19:          # grow each cluster by 1 unit
+20:          for cluster in clusters:
+21:              grow_cluster(cluster, 1)
+22:      
+23:          # join any intersecting clusters
+24:          join(clusters, 0)
+25:  
+26:      # success !
+27:      return True
+\end{verbatim} % see decode.py
+
+First, we show the result of the initial call to {\tt get\_syndrome()}, on line 2. This is computed using the syndrome extraction step as described above.
+The locations of anyon charges are highlighted in red.
+For each of these charges we build a {\tt Cluster}, on line 5.
+Each cluster is shown as a gray shaded area.
+\begin{center}
+\includegraphics[]{pic-decode-0.pdf}
+\end{center}
+The next step is the call to {\tt join(clusters, 1)}, on line 8,
+which joins clusters that are separated by at most one lattice
+spacing. We now have seven clusters:
+\begin{center}
+\includegraphics[]{pic-decode-1.pdf}
+\end{center}
+Each cluster is structured as a rooted tree, as indicated by
+the arrows which point in the direction from the leaves to
+the root of the tree. 
+This tree structure is used in the call to {\tt fuse\_cluster()},
+on line 14.
+This moves anyons in the tree along the arrows to the root, 
+fusing with the charge at the root. This movement of anyons is a physical recovery operation that is simulated as described above.
+\begin{center}
+\includegraphics[]{pic-decode-2.pdf}
+\end{center}
+For each cluster, the charge is then measured using the syndrome extraction procedure, and the resulting charge at the root is taken as the charge of
+that cluster. Any cluster with vacuum total charge is then discarded (line 17).
+%In our example, we assume all these charges are non-vacuum.
+In our example, we find two clusters with vacuum charge and we discard these.
+The next step is to grow the remaining clusters by one lattice spacing (line 20-21),
+and join (merge) any overlapping clusters (line 24).
+\begin{center}
+\includegraphics[]{pic-decode-3.pdf}
+\end{center}
+%Now we are down to two clusters.
+Note that we can choose the root of each cluster arbitrarily,
+as we are only interested in the total charge of each cluster.
+
+We repeat these steps of fusing, growing and then joining clusters (lines 10-24.)
+If at any point this causes a topologically 
+non-trivial operation, the simulation aborts and a failure
+to decode is recorded.
+Otherwise we eventually run out
+of non-vacuum clusters, and the decoder succeeds (line 27).
+Note that for simplicity we have neglected the boundary of the lattice in
+this example.
+
+%\cggb{Maybe it is worthwhile to briefly recall the broad structure of our simulation somewhere here to help structure the discussion. I.e.~we have first noise creation, then we iterate \{syndrome measurement, classical decoding algorithm, transport\} until failure or success.}
+%\simon{I agree the structure needs work.}
+
+%\section{Computation of homologically non-trivial operators}\label{s:homnontrivial}
+%
+%Specializing to the Fibonacci case,
+%we write the non-trivial $F$-moves as the following
+%skein relations:
+%\begin{align*}
+%\includegraphics[]{pic-skein1.pdf}
+%\end{align*}
+%
+%The sollid lines represent Fibonacci world-lines.
+%The dotted lines represent vacuum charges,
+%and we are free to include these lines or not.
+%We leave these anyon paths
+%as undirected because Fibonacci anyons are
+%self-inverse.
+%The non-trivial $R$-moves are:
+%\begin{align*}
+%\includegraphics[]{pic-skein2.pdf}
+%\end{align*}
+%
+%Removing bubbles:
+%\begin{align*}
+%\includegraphics[]{pic-bubble.pdf}
+%\end{align*}
+%
+%Here we show a process where a 
+%Fibonacci anyon travels around the torus and
+%anihilates itself. Twice.
+%The vertical lines represent a periodic
+%identification.
+%\begin{align*}
+%\includegraphics[]{pic-logops.pdf}
+%\end{align*}
+%
+%The state is not normalized.
+%Also involves post-selection, as there is
+%another process that involves leakage...
+%The first equation is an $F$-move, 
+%the second equation is a translation in the
+%horizontal direction, and the last equation
+%follows from the rule for collapsing bubbles.
+%
+%Continuing in this way, we compute the $k$-fold
+%logical operator:
+%\begin{align*}
+%\includegraphics[]{pic-kfold.pdf}
+%\end{align*}
+%
+%where $f_k$ is the $k$-th element of the Fibonacci
+%sequence $\{1, 1, 2, 3...\}.$
+
+% CUT HERE
+
+
+
+
+
+%
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%
+
+
+
 
 %\section{A TQFT warmup}
 %
@@ -238,7 +736,11 @@ The University of Sydney, Sydney, Australia}
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %
 
-We consider the theory of two-dimensional topologically ordered systems
+\section{A physicist's primer on the description of (2+1)TQFTs}\label{secAbstract}
+
+%\cggb{I reworded a few comments that I thought were a bit flowery for a technical appendix.}
+
+In this section we will describe abstractly the theory of two-dimensional topologically ordered systems
 with anyonic excitations.
 There are two main approaches to defining these,
 one being more algebraic and the other more topological.
@@ -256,21 +758,22 @@ Coming from the other direction, one starts with
 a topological space (of low dimension) and attempts
 to extract a combinatorial or algebraic description of how this
 space can be built from joining smaller (simpler) pieces together.
-This is perhaps more difficult to grapple with.
+%This is perhaps more difficult to grapple with.
 These topologically rooted constructs are known as modular functors, 
 or the closely related topological quantum field theories (TQFT's).
 %The much older study of Homology also extracts algebraic
 %information out of topological spaces, but 
 
-That these two approaches -- algebraic versus topological -- meet is one of the great
-miracles of modern mathematics and physics.
+It is not obvious a priori that these two approaches -- algebraic and topological -- should meet, hinting at a deep underlying structure.
+%That these two approaches -- algebraic versus topological -- meet is one of the great
+%miracles of modern mathematics and physics.
 
 %There is somewhat of a gap between the algebraic/skein-theoretic
 %approach and the topological approach
 
 Modular functors can be constructed from skein theory.
 In the physics literature, 
-this appears as skeins mysteriously growing out of manifolds \cite{Pfeifer2012},
+this appears as skeins growing out of manifolds \cite{Pfeifer2012},
 or as motivated by renormalization group considerations \cite{Levin2005}.
 A further physical motivation is this: if a skein 
 is supposed to correspond to the $(2+1)$-dimensional
@@ -281,12 +784,12 @@ correspond to the algebra of observables, as in
 a Heisenberg picture.
 
 In the physics literature, modular functors are
-explicitly used in \cite{Freedman2002, Freedman2002simulation}.
-Also, \cite{Beverland2014} and \cite{Kitaev2006topo}
-use the language of modular functors but they call them TQFT's.
-This is in fact reasonable because a modular functor can be
-seen as part of a TQFT, but is quite confusing to the
-novice who attempts to delve into the mathematical literature.
+explicitly used in Refs.~\cite{Freedman2002, Freedman2002simulation, Beverland2014, Kitaev2006topo} (in some of these references modular functors are simply called TQFTs).
+%Also, \cite{Beverland2014} and \cite{Kitaev2006topo}
+%use the language of modular functors but they call them TQFT's.
+%This is in fact reasonable because a modular functor can be
+%seen as part of a TQFT, but is quite confusing to the
+%novice who attempts to delve into the mathematical literature.
 
 The definition of a modular functor appears to
 be well motivated physically.
@@ -317,7 +820,7 @@ definite charge states, as in \cite{Walker1991,Freedman2002simulation,Beverland2
 This seems to be motivated physically as such configurations
 would be more stable. % \simon{citation?}.
 
-One of the goals of this work is to sketch how a 
+In this section we will sketch how a 
 braided tensor category arises from a modular functor.
 In the mathematical literature,
 this is covered in \cite{Turaev1994,Tillmann1998,Bakalov2001}
@@ -357,7 +860,7 @@ modular functor.
 %
 %
 
-\section{Topological Exchange Statistics}
+\subsection{Topological Exchange Statistics}
 
 In this section we try to motivate 
 the formalism of modular functor presented
@@ -377,7 +880,7 @@ The square root of this operation is a swap:
 \begin{center}
 \includegraphics[]{pic-swap.pdf}
 \end{center}
-For identical particles this is a symmetry of the system.
+For identical particles this is a symmetry of the system. \cggb{What does symmetry mean here? Since a swap of non-bosons will pick up a phase.}
 Continuing with this line of thought 
 leads to consideration of the \emph{symmetric group}
 on $n$ letters, $S_n$. 
@@ -449,6 +952,7 @@ Because we are considering identicle particles (so far)
 we use the \emph{unlabelled configuration space}
 $\UConf_n$ which is the quotient of $\Conf_n$ by the natural action of the
 permutation group $S_n:$
+\cggb{I was a bit confused by when we care about unlabelled configuration space and when we care about the labelled configuration space. What if we have some but not all particles identical? Do the two formalisms unify by considering some subgroups of the permutation group that preserve particle label or something?}
 $$
     \UConf_n = \Conf_n / S_n.
 $$
@@ -492,7 +996,7 @@ the braid group which is purely two-dimensional.
 %We denote the two-dimensional space 
 %The two dimensional space within which the particles reside we denote 
 We pick an $n$-point finite subset $Q_n \subset M$
-and consider diffeomorphisms $f : M \to M$
+and consider diffeomorphisms \cggb{why diffeomorphisms and not homeomorphisms?} $f : M \to M$
 that map $Q_n$ to itself.
 The \emph{mapping class group} of $M$ relative to $Q_n$
 is the set of all such diffeomorphisms up to an equivalence relation $\sim_{\mbox{iso}}$:
@@ -599,7 +1103,7 @@ On the left we have a loop; it is not a braid because it
 travels backwards in time.
 If we pull on this loop to make it straight, we introduce a twist.
 This is shown in the next figure, 
-where we show a \emph{framing} which is a non-degenerate
+where we show a \emph{framing} which is a non-degenerate \cggb{What's a non-degenerate vector field? What goes wrong if its degenerate?}
 vector field along the world-lines of a braid.
 The initial and final vectors in the vector field must be the same.
 In the next figure we show a \emph{ribbon}:
@@ -647,7 +1151,7 @@ be captured by the formalism of a modular functor which we turn to next.
 %
 %
 
-\section{Modular Functors}
+\subsection{Modular Functors}
 
 We list the axioms for a 
 \emph{2-dimensional unitary topological modular functor}.
@@ -724,7 +1228,7 @@ $f_t|_{X} = f|_{X}$ for $t\in [0, 1].$
 Such a family $\{f_t\}_{t\in [0,1]}$ is called an \emph{isotopy}
 of $f.$
 This is an equivalence relation on maps $M\to N$, and the equivalence
-class of $f$ under isotopy is called the \emph{isotopy class} of $f.$
+class of $f$ under isotopy is called the \emph{isotopy class} of $f.$ \cggb{I didn't quite see why this more formal definition is the same as equivalent up to continuous deformation. Why can I restrict to maps where the base points are fixed along the whole path?}
 
 A \emph{modular functor} $\F$ associates to every
 surface $M$ a finite dimensional complex
@@ -973,7 +1477,7 @@ Each component of $h^{-1}([a_{i-1}, a_i])$ is then either
 an annulus, a disc, or a pair-of-pants depending on the index of (any)
 critical point it contains.
 We then re-glue any annuli or discs until there are no more of these
-and we have only pair-of-pants. 
+and we have only pair-of-pants. \cggb{Is this always possible? What if I have something like a cylinder? Then I just get a bunch of annuli however I cut.}
 % note: we may still get annuli in a *component* of the pre-image.
 \begin{center}
 \includegraphics[]{pic-pants.pdf}\ \ \ \ \ \ \ \ \includegraphics[]{pic-pants-1.pdf}
@@ -994,7 +1498,7 @@ of how one may deform Morse functions into other Morse functions
 and the kind of transitions involved in their critical point structure.
 This was the approach used in \cite{Freedman2002simulation}.
 In this work we use a simpler method,
-which is essentially the same as {skein theory.}
+which is essentially the same as {skein theory.} \cggb{Is all this curve diagrams and refactoring theorem and and so on original work, or is it collecting known facts? If its original, this should be an independent paper because otherwise nobody from the math phys community will ever find it. Actually maybe in either case it should be an independent arxiv post at least so that more people find and learn from it.}
 %Read on to find out how this works!
 This is the {refactoring theorem} that we describe below.
 
@@ -1046,7 +1550,7 @@ the complex plane defined by
 $\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{1}{2}|\le \frac{1}{2}\bigr\}$
 with $n$ discs
 $\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{2i-1}{2n}|< \frac{1}{4n}\bigr\}_{i=1,...n}$
-removed.
+removed. \cggb{Why is this easier to describe on $\mathbb{C}$ rather than $\mathbb{R}^2$? If its all the same, I think it could be safer to rephrase on $\R^2$.}
 We then label the interior holes $a_1,...,a_n$ in order of
 increasing real coordinate, and the exterior hole is labeled ${b}$.
 The base points are placed in the direction of the negative imaginary axis.
@@ -1114,19 +1618,19 @@ At this point the union is not in general going to
 produce another standard surface,
 %However, we can ... \simon{fix this}
 and so we remedy this by applying any isotopy within $\C$
-that fixes the real axis while moving the surface to a standard surface.
+that fixes the real axis while moving the surface to a standard surface. \cggb{Does "fix the real" axis here mean that it fixes every point on the real axis, or just maps the real axis to itself?}
 %while moving the holes so as to produce
 %a standard surface.
 
 \subsub{Curve diagram.}
-We next study maps from standard surfaces to arbitrary surfaces.
+We next study maps from standard surfaces to arbitrary surfaces. \cggb{I was a bit confused what this means. Maps means between surfaces with the same holes and base points, right? So then don't we only care about maps from standard surfaces to standard surfaces? Is it maybe more like maps from equatorial curve diagrams on standard surfaces to arbitrary curve diagrams on standard surfaces that we want?}
 The set of all maps from $\StdM$ 
 to a surface $N$ will be denoted as $\Hom(\StdM, N).$ 
 We call each such map a \emph{curve diagram},
 or more specifically, a curve diagram on $N$.
 The reason for this terminology is that we can reconstruct (up to isotopy)
 any map $f:\StdM\to N$ from
-the restriction of $f$ to the equator of $\StdM.$ 
+the restriction of $f$ to the equator of $\StdM.$ \cggb{citation? or obvious?}
 In other words, we can uniquely specify any map
 $f:\StdM\to N$ by indicating the action of
 $f$ on the equator. We take full advantage of this
@@ -1143,7 +1647,7 @@ acting on a standard POP decomposition.
 %\cggb{This is true for any $N$ that is homeomorphic to a punctured disc?}
 %\simon{Right, I should be more clear about when exactly we specialize to discs.}
 The proof of this is constructive, and we call this
-the refactoring theorem below. %\simon{XXX}
+the refactoring theorem below. \cggb{citation? or original work?} %\simon{XXX} 
 %The proof of this is constructive and forms the heart of
 %our algorithm below.
 
@@ -1152,7 +1656,7 @@ The operation of
 gluing of surfaces can be extended to gluing of curve diagrams as
 long as we are careful with the way we identify along the seam:
 the identification map needs to respect the equator of the curve
-diagram.
+diagram. \cggb{Is respecting the equator the same as respecting whatever canonical curve diagram we choose?}
 
 %Any curve diagram will send a standard POP decomposition
 %of $\StdM$ to a POP decompositions of $N,$ and therefore
@@ -1173,7 +1677,7 @@ And, we note the similarity of curve diagrams and associated
 modular functor 
 to the definition of a planar algebra \cite{Jones1999},
 the main difference being that planar algebras allow for 
-not just two but any even number of curve intersections at each hole.
+not just two but any even number of curve intersections at each hole. \cggb{What's a planar algebra and is there an easier place for me to learn about it than from the Jones paper?}
 
 
 \subsub{Z-move.}
@@ -1306,7 +1810,7 @@ only up to possible Dehn twist(s) around each hole.
 We can certainly track these twists if we wanted to,
 but in the interests of simplicity we do not.
 This introduces a global phase ambiguity into the
-calculations.
+calculations. \cggb{Do we need to worry about this if we are pasting other surfaces (whose total charge might be ambiguous) into a hole?}
 %What we have done here is to forget that the holes
 %have width, and shrunk them to points.
 
@@ -1321,10 +1825,10 @@ a modular functor we get these equations ``for free''.
 %
 
 %\subsub{Refactoring theorem.}
-\section{Refactoring theorem}
+\subsection{Refactoring theorem}
 In this section we specialize to considering planar surfaces only.
 The theorem we are building towards shows that
-the $R$-moves act transitively on curve diagrams.
+the $R$-moves act transitively \cggb{what do we mean here by transitively} on curve diagrams.
 %\simon{We don't much care about transitivity. Should specialize this.}
 That is, given two curve diagrams $f$ and $f'$ on $N$ we can find
 a sequence of $R$-moves that transform $f$ to $f'.$
@@ -1415,9 +1919,7 @@ head to tail) sequentially applying this procedure.
 %and so we have an element of the mapping class group of $M.$
 %XXX i don't see how to get the anyon labels to match up here XXX
 
-The refactoring theorem will be reformulated 
-below in somewhat more detail as a combinatorial ``paperclip algorithm''.
-There we will write a curve diagram as a function
+The combinatorial ``paperclip algorithm'' presented in section \ref{secAlgo} can be considered to be a constructive reformulation of the refactoring theorem, where a curve diagram is represented as a function
 from the unit interval into a disc with $n$ marked points:
 $$
     c : [0, 1] \to D_n.  
@@ -1426,443 +1928,6 @@ $$
 %
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %
-
-\section{Physical model}
-
-The manifold underlying our system is a torus.
-We endow this with a $L\times L$ square lattice of observables:
-$$
-    \Lambda := \bigl\{ \gamma_{ij} \bigr\}_{i,j=1,...,L}
-$$
-These observables are the physically accessible observables of
-the noise reduction procedure we call the \emph{decoder.}
-We call each such $\gamma_{ij}$ a \emph{tile.}
-We show a small gap between the tiles but this is not meant
-to reflect an actual physical gap.
-
-The noise process acts to populate the manifold with
-a randomly distributed set of pair creation processes,
-whose size is much smaller than the resolution of the lattice.
-We model this as a random distribution of pair-of-pants:
-\begin{center}
-\includegraphics[width=0.3\columnwidth ]{pic-pair-create.pdf}
-\end{center}
-
-Each such pair will have vacuum total charge and so the observables
-$\gamma_{ij}$ will only see pairs that intersect, ie. we
-need only consider distributing these pairs
-transversally along edges of the tiles.
-
-In order to compute measurement outcomes for the $\gamma_{ij}$
-we first need to concatenate any two curve diagrams that 
-participate in the same $\gamma_{ij}.$
-Because each curve has vacuum total charge this can be
-done in an arbitrary way:
-\begin{center}
-\includegraphics[width=0.3\columnwidth ]{pic-join-pairs.pdf}
-\end{center}
-
-Working in the basis picked out by the resulting curve
-diagrams, we can calculate measurement outcomes for each tile,
-the result of which is recorded on the original curve:
-\begin{center}
-\includegraphics[width=0.3\columnwidth ]{pic-curve-uniq.pdf}
-\end{center}
-%\cggb{It might be helpful to be a bit more explicit either here or later about exactly how we perform this step, moving charges around with the paperclip algorithm until they are all neighbouring and then we are in a standard basis and can use F-moves to calculate fusion outcomes.}
-%\simon{good idea}
-
-
-%The details of how this is implemented computationally,
-%the data structures and algorithm, we have not yet described
-%and this is what we turn to next.
-
-%
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%
-\section{Combinatorial curve diagrams}
-
-The basic data structure involved in the
-simulation we term a \emph{combinatorial curve diagram.}
-% XXX define "piece of curve"
-Firstly, we will require each curve to intersect 
-the edges of tiles transversally,
-and in particular a curve will not touch a tile corner.
-
-For each tile in the lattice,
-we store a combinatorial
-description of the curve(s) intersected with that tile.
-Each component of such an intersection we call a \emph{piece-of-curve.}
-\begin{center}
-\includegraphics[]{pic-cells.pdf}
-\end{center}
-
-We follow essentially the same approach as taken in \cite{Abramsky2007} 
-to describe elements of a Temperley-Leib algebra, but
-with some extra decorations.
-The key idea is to store a \emph{word} for each tile, comprised of
-the letters $\bigl<$ and $\bigr>$.
-%The encoding works as follows.
-Reading in a clockwise direction around the edge of
-the tile from the top-left corner,
-we record our encounters with each piece-of-curve,
-writing~$\bigl<$ for the first encounter, and~$\bigr>$ for the
-second.
-We may also encounter a dangling piece-of-curve
-(the head or the tail), so we use another symbol $*$ for this.
-The words for the above two tiles will then be 
-$\bigl<\bigl<\bigr>\bigr>\bigl<\bigr>$ and $\bigl<\bigr>*\bigl<\bigl<\bigr>\bigr>.$
-When the brackets are balanced,
-each such word will correspond one-to-one with an intersection
-of a curve in a tile, up to a continuous deformation of the interior of the tile.
-Ie. the data structure 
-will be insensitive to any continuous deformation of the interior of the tile,
-but the simulation does not need to track any of these degrees of freedom.
-
-\begin{center}
-\includegraphics[]{pic-cells-0.pdf}
-\end{center}
-
-We will also need to record
-various other attributes of these curves,
-and to do this we make this notation more elaborate
-in the paragraphs {\bf (I)}, {\bf(II)} and {\bf(III)} below.
-Each symbol in the word describes an intersection of
-the curve with the tile boundary,
-and so as we decorate these symbols these decorations will
-apply to such intersection points.
-
-\begin{center}
-\includegraphics[]{pic-cells-1.pdf}
-\end{center}
-
-{\bf (I)} We will record the direction of each piece-of-curve,
-this will be either an {\tt in} or {\tt out} decoration for each symbol.
-Such decorations need to balance according to the brackets.
-The decorated symbols $*_{\mbox{\tt in}}$ and 
-$*_{\mbox{\tt out}}$ 
-will denote respectively either
-%the head, $c(1)$ or the tail $c(0)$ of a curve.
-the head or the tail of a curve.
-The words for the diagrams above now read as
-$ \bigl<_{\mbox{\tt in}}\bigl<_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}
-    \bigr>_{\mbox{\tt out}}\bigl<_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}$
-and
-$ \bigl<_{\mbox{\tt in}}\bigl>_{\mbox{\tt out}}*_{\mbox{\tt in}}
-    \bigr<_{\mbox{\tt out}}
-    \bigr<_{\mbox{\tt in}}\bigl>_{\mbox{\tt out}}\bigr>_{\mbox{\tt in}}.
-$
-
-{\bf (II)} We will record,
-for each intersection with the tile edge, 
-a numeral indicating which of the four
-sides of the tile the
-intersection occurs on.
-Numbering these clockwise from the top as $1, 2, 3, 4$ we have for the above curves: 
-$\bigl<_1\bigl<_2\bigr>_2\bigr>_3\bigl<_3\bigr>_4$ 
-and $\bigl<_1\bigr>_1*_2\bigl<_3\bigl<_3\bigr>_4\bigr>_4.$
-
-{\bf (III)} Finally, we will also decorate these symbols with anyons.
-This will be an index to a leaf of a (sum of) fusion tree(s).
-This means that anyons only reside on the curve close
-to the tile boundary,
-and so we cannot have more than two anyons
-for each piece-of-curve. 
-The number of such pieces is arbitrary, and so this
-is no restriction on generality.
-
-\begin{center}
-\includegraphics[]{pic-cells-2.pdf}
-\end{center}
-
-In joining tiles together to make a tiling we will
-require adjacent tiles to agree on their shared boundary.
-This will entail sequentially pairing symbols in the
-words for adjacent tiles
-and requiring that 
-the {\tt in} and {\tt out} decorations are matched.
-Because the word for a tile proceeds conter-clockwise
-around the tile, this pairing will always reverse the
-sequential order of the symbols of adjacent tiles.
-For example, given the above two tiles we sequentially pair the 
-$\bigl<_{\mbox{\tt out},2}\bigr>_{\mbox{\tt in},2}$ 
-and $\bigr>_{\mbox{\tt out},4}\bigr>_{\mbox{\tt in},4}$
-symbols with opposite order so that
-$\bigl<_{\mbox{\tt out},2}\sim\bigr>_{\mbox{\tt in},4}$
-and $\bigr>_{\mbox{\tt in},2} \sim \bigr>_{\mbox{\tt out},4}.$ 
-
-%Two other consistency relations are enforced on such a combinatorial curve diagram:
-%we require adjacent tiles to agree on their boundaries, 
-%and every curve diagram
-%must have two ends.
-%One final consistency
-%relation is enforced by requiring 
-%We require every curve diagram to have two ends, this means
-%that there are no loops.
-
-Note that in general this data structure will store many disjoint curve diagrams
-$c_i:[0,1]\to D_{n_i}$ within a disc $D_m$ where $\sum n_i = m.$
-
-%For a given piece-of-curve, we can subtract the numeral with
-%the {\tt in} label from the numeral with the {\tt out} label
-%to get an integer in $\{ \}$ WRONG
-%We can also just use the numerals of the boundary edges
-%that the piece-of-curve intersects with, subtracting the
-%``exit'' boundary numeral from the ``entry'' boundary numeral. WRONG
-
-For each piece-of-curve, apart from a head or tail, there is an associated 
-number we call the \emph{turn number}. This counts the number
-of ``right-hand turns'' the piece-of-curve makes as it
-traverses the tile, with a ``left-hand turn'' counting as $-1.$
-(To be more rigorous, we would define this number using the
-winding number of the simple closed curve formed by the
-piece-of-curve adjoined to a segment of the boundary of the tile 
-traversed in a clockwise direction.)
-This number will take one of the values $-2, -1, 0, 1, 2:$
-\begin{center}
-\includegraphics[]{pic-cells-3.pdf}
-\end{center}
-
-
-%Two disjoint curves can be joined by...
-%
-%Curves can be simplified along sections without any anyons, ...
-
-% Each piece will have +1, +2, 0, -1, -2 right-hand turns...
-
-% mention Jones' planar algebras ?
-
-%
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%
-
-\section{The paperclip algorithm}
-
-In the description of the refactoring theorem
-above we thought of $R$-moves as acting on the basis of
-the system as in the Heisenberg picture.
-Now we switch to an equivelant perspective and
-consider $R$-moves as transport of anyon charges
-as in a Schrodinger picture.
-The anyons will be transported around the lattice
-by moving them along tile edges.
-%\simon{Note that transport here is the same as the refactoring from above.}
-In general, such a transport will intersect with a
-curve diagram in many places.
-Each such intersection is transverse,
-and we use each intersection point to cut
-the entire transport into smaller paths each of
-which touch the curve diagram twice.
-%Each intersection with a curve diagram
-%will then be transverse, and we
-%decompose the entire path into a sequence of
-%paths each of which 
-%join consecutive intersections.
-%Transport of an anyon can be decomposed into
-%moves between adjacent components of a curve
-%diagram.
-The origin and destination of such an anyon path
-now splits the curve diagram $c:[0, 1]\to D_n$ 
-into three disjoint pieces which we term
-\emph{head}, \emph{body} and \emph{tail}, where
-the head contains the point $c(1)$, the tail
-contains $c(0)$ and the body is the third piece.
-These arise with various arrangements, but here
-we focus on one instructive case, the
-other cases are similar:
-%We look at the particular case of moving along
-%one edge of a tile,
-transporting along one edge of a tile \emph{forwards} 
-(from tail to head) along a curve diagram:
-\begin{center}
-\includegraphics[]{pic-move-anyon.pdf}
-\end{center}
-
-This arrangement is equivalent (isotopic) to one of four 
-``paperclips'', which we distinguish between by counting how
-many \emph{right-hand turns} are made along the body of the curve diagram.
-We also show an equivalent (isotopic) picture where the
-curve diagram has been straightened, and the resulting distortion
-in the anyon path:
-\begin{center}
-\includegraphics[]{pic-paperclip.pdf}
-\end{center}
-The sequence of anyons along the head, body and tail, we denote as $H, B$ and $T,$
-respectively.
-These sequences have the same order as the underlying curve diagram, and 
-we use
-$H^r, B^r$ and $T^r$ to denote the same anyons with the reversed order.
-Using the above diagram, we can now read off the $R$-moves for each
-of the four paperclips:
-\begin{align*}
--2:&\ R[B] \\
--4:&\ R[H^r]\ R[H]\ R[B] \\
-+4:&\ R[B]\ R[T]\ R[T^r] \\
-+6:&\ R[H^r]\ R[H]\ R[B]\ R[T]\ R[T^r] \\
-\end{align*}
-where notation such as $R[B]$ is understood as sequentially clockwise braiding around
-each anyon in $B$.
-
-That these four paperclips exhaust all possibilities can be seen by
-considering the winding number of the simple closed curve made
-by combining the body of the curve diagram with the path followed by
-the anyon (appropriately reversing direction as needed).
-
-%
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%
-
-\section{Decoding algorithm}
-
-After the noise process is applied to the system,
-the error correction proceeds as a dialogue between the
-decoder and the system. 
-The decoder measures succesively larger and larger
-regions of the lattice
-until there are no more charges 
-or a topologically non-trivial operation has occured
-(an operation that spans the entire lattice.)
-Here we show this in a process diagram, with time running up
-the page:
-\begin{center}
-\includegraphics[]{pic-process.pdf}
-\end{center}
-
-So far we have discussed the simulation of the (quantum) system
-and now we turn to the decoder algorithm.
-Here is a pseudo-code listing for this,
-and we explain each step via an example below.
-
-\begin{verbatim}
- 1:  def decode():
- 2:      syndrome = get_syndrome()
- 3:      
- 4:      # build a cluster for each charge
- 5:      clusters = [Cluster(charge) for charge in syndrome]
- 6:  
- 7:      # join any neighbouring clusters
- 8:      join(clusters, 1)
- 9:      
-10:      while clusters:
-11:      
-12:          # find total charge on each cluster
-13:          for cluster in clusters:
-14:              fuse_cluster(cluster)
-15:      
-16:          # discard vacuum clusters
-17:          clusters = [cluster for cluster in clusters if non_vacuum(cluster)]
-18:      
-19:          # grow each cluster by 1 unit
-20:          for cluster in clusters:
-21:              grow_cluster(cluster, 1)
-22:      
-23:          # join any intersecting clusters
-24:          join(clusters, 0)
-25:  
-26:      # success !
-27:      return True
-\end{verbatim} % see decode.py
-
-First, we show the result of the initial call to {\tt get\_syndrome()}, on line 2.
-The locations of anyon charges are highlighted in red.
-For each of these charges we build a {\tt Cluster}, on line 5.
-Each cluster is shown as a gray shaded area.
-\begin{center}
-\includegraphics[]{pic-decode-0.pdf}
-\end{center}
-The next step is the call to {\tt join(clusters, 1)}, on line 8,
-which joins clusters that are separated by at most one lattice
-spacing. We now have seven clusters:
-\begin{center}
-\includegraphics[]{pic-decode-1.pdf}
-\end{center}
-Each cluster is structured as a rooted tree, as indicated by
-the arrows which point in the direction from the leaves to
-the root of the tree. 
-This tree structure is used in the call to {\tt fuse\_cluster()},
-on line 14.
-This moves anyons in the tree along the arrows to the root, 
-fusing with the charge at the root.
-\begin{center}
-\includegraphics[]{pic-decode-2.pdf}
-\end{center}
-For each cluster, the resulting charge at the root is taken as the charge of
-that cluster. Any cluster with vacuum total charge is then discarded (line 17).
-%In our example, we assume all these charges are non-vacuum.
-In our example, we find two clusters with vacuum charge and we discard these.
-The next step is to grow the remaining clusters by one lattice spacing (line 20-21),
-and join (merge) any overlapping clusters (line 24).
-\begin{center}
-\includegraphics[]{pic-decode-3.pdf}
-\end{center}
-%Now we are down to two clusters.
-Note that we can choose the root of each cluster arbitrarily,
-as we are only interested in the total charge of each cluster.
-
-We repeat these steps of fusing, growing and then joining clusters (lines 10-24.)
-If at any point this causes a topologically 
-non-trivial operation, the simulation aborts and a failure
-to decode is recorded.
-Otherwise we eventually run out
-of non-vacuum clusters, and the decoder succeeds (line 27).
-Note that for simplicity we have neglected the boundary of the lattice in
-this example.
-
-%\cggb{Maybe it is worthwhile to briefly recall the broad structure of our simulation somewhere here to help structure the discussion. I.e.~we have first noise creation, then we iterate \{syndrome measurement, classical decoding algorithm, transport\} until failure or success.}
-%\simon{I agree the structure needs work.}
-
-%\section{Computation of homologically non-trivial operators}\label{s:homnontrivial}
-%
-%Specializing to the Fibonacci case,
-%we write the non-trivial $F$-moves as the following
-%skein relations:
-%\begin{align*}
-%\includegraphics[]{pic-skein1.pdf}
-%\end{align*}
-%
-%The sollid lines represent Fibonacci world-lines.
-%The dotted lines represent vacuum charges,
-%and we are free to include these lines or not.
-%We leave these anyon paths
-%as undirected because Fibonacci anyons are
-%self-inverse.
-%The non-trivial $R$-moves are:
-%\begin{align*}
-%\includegraphics[]{pic-skein2.pdf}
-%\end{align*}
-%
-%Removing bubbles:
-%\begin{align*}
-%\includegraphics[]{pic-bubble.pdf}
-%\end{align*}
-%
-%Here we show a process where a 
-%Fibonacci anyon travels around the torus and
-%anihilates itself. Twice.
-%The vertical lines represent a periodic
-%identification.
-%\begin{align*}
-%\includegraphics[]{pic-logops.pdf}
-%\end{align*}
-%
-%The state is not normalized.
-%Also involves post-selection, as there is
-%another process that involves leakage...
-%The first equation is an $F$-move, 
-%the second equation is a translation in the
-%horizontal direction, and the last equation
-%follows from the rule for collapsing bubbles.
-%
-%Continuing in this way, we compute the $k$-fold
-%logical operator:
-%\begin{align*}
-%\includegraphics[]{pic-kfold.pdf}
-%\end{align*}
-%
-%where $f_k$ is the $k$-th element of the Fibonacci
-%sequence $\{1, 1, 2, 3...\}.$
-
-% CUT HERE
-
 %------------------------------------------------------------------------------------------------------------%
 \bibliography{refs2}
 
