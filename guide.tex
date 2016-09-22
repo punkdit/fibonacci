@@ -287,12 +287,12 @@ correspond to the algebra of observables, as in
 a Heisenberg picture.
 
 In the physics literature, modular functors are
-explicitly used in Refs.~\cite{Freedman2002, Freedman2002simulation, Beverland2014, Kitaev2006topo} (in some of these references modular functors are simply called TQFTs).
-%Also, \cite{Beverland2014} and \cite{Kitaev2006topo}
-%use the language of modular functors but they call them TQFT's.
-%This is in fact reasonable because a modular functor can be
-%seen as part of a TQFT, but is quite confusing to the
-%novice who attempts to delve into the mathematical literature.
+explicitly used in Refs.~\cite{Freedman2002, Freedman2002simulation}.
+Also, \cite{Beverland2014} and \cite{Kitaev2006topo}
+use the language of modular functors but they call them TQFT's.
+This is in fact reasonable because a modular functor can be
+seen as part of a TQFT, but is quite confusing to the
+novice who attempts to delve into the mathematical literature.
 
 The definition of a modular functor appears to
 be well motivated physically.
@@ -302,9 +302,8 @@ in the mathematical literature
 According to \cite{Bartlett2015} section 1.2 and 1.3,
 there are several open questions involved in 
 rigorously establishing the connection between these different axiomatizations.
-%In particular, what physicists call anyon theory,
-%and mathematicians call a modular tensor category,
-Furthermore, the concept of modular tensor category 
+In particular, what physicists call anyon theory,
+and mathematicians call a modular tensor category,
 has not been established to correspond exactly
 (bijectively) to any of these modular functor variants. 
 We try not to concern ourselves too much with these details, 
@@ -323,7 +322,7 @@ definite charge states, as in \cite{Walker1991,Freedman2002simulation,Beverland2
 This seems to be motivated physically as such configurations
 would be more stable. % \simon{citation?}.
 
-In this section we will sketch how a 
+The main goal of the present work is to sketch how a
 braided tensor category arises from a modular functor.
 In the mathematical literature,
 this is covered in \cite{Turaev1994,Tillmann1998,Bakalov2001}
@@ -383,7 +382,8 @@ The square root of this operation is a swap:
 \begin{center}
 \includegraphics[]{pic-swap.pdf}
 \end{center}
-For identical particles this is a symmetry of the system. \cggb{What does symmetry mean here? Since a swap of non-bosons will pick up a phase.}
+For identical particles this is a symmetry of the system. 
+%%%%%% \cggb{What does symmetry mean here? Since a swap of non-bosons will pick up a phase.}
 Continuing with this line of thought 
 leads to consideration of the \emph{symmetric group}
 on $n$ letters, $S_n$. 
@@ -455,7 +455,11 @@ Because we are considering identicle particles (so far)
 we use the \emph{unlabelled configuration space}
 $\UConf_n$ which is the quotient of $\Conf_n$ by the natural action of the
 permutation group $S_n:$
-\cggb{I was a bit confused by when we care about unlabelled configuration space and when we care about the labelled configuration space. What if we have some but not all particles identical? Do the two formalisms unify by considering some subgroups of the permutation group that preserve particle label or something?}
+%\cggb{I was a bit confused by when we care about
+%unlabelled configuration space and when we care about the labelled
+%configuration space. What if we have some but not all
+%particles identical? Do the two formalisms unify by considering some
+%subgroups of the permutation group that preserve particle label or something?}
 $$
     \UConf_n = \Conf_n / S_n.
 $$
@@ -496,10 +500,10 @@ The second relation is also easy to see:
 
 There is another important geometric representation of
 the braid group which is purely two-dimensional.
-%We denote the two-dimensional space 
-%The two dimensional space within which the particles reside we denote 
 We pick an $n$-point finite subset $Q_n \subset M$
-and consider diffeomorphisms \cggb{why diffeomorphisms and not homeomorphisms?} $f : M \to M$
+and consider diffeomorphisms 
+%\cggb{why diffeomorphisms and not homeomorphisms?}
+$f : M \to M$
 that map $Q_n$ to itself.
 The \emph{mapping class group} of $M$ relative to $Q_n$
 is the set of all such diffeomorphisms up to an equivalence relation $\sim_{\mbox{iso}}$:
@@ -606,9 +610,11 @@ On the left we have a loop; it is not a braid because it
 travels backwards in time.
 If we pull on this loop to make it straight, we introduce a twist.
 This is shown in the next figure, 
-where we show a \emph{framing} which is a non-degenerate \cggb{What's a non-degenerate vector field? What goes wrong if its degenerate?}
+where we show a \emph{framing} which is a non-degenerate 
 vector field along the world-lines of a braid.
 The initial and final vectors in the vector field must be the same.
+By non-degenerate we mean that the vector field is everywhere
+non-zero and also not tangent to the world-line.
 In the next figure we show a \emph{ribbon}:
 instead of point particles we have short one-dimensional curves in $M$.
 %This is another way to encode a twist without using the differential
@@ -705,9 +711,6 @@ serve as the exterior hole.
 By a \emph{map of surfaces} $f:M\to N$ we mean 
 a diffeomorphism that preserves
 manifold orientation, hole labels, and base points.
-%\cggb{If we require that the map preserves base points and so on, are we restricting to maps between manifolds with the same number of holes?}
-%\simon{Yes, a diffeomorphism is also a homeomorphism, so these manifolds are
-%topologically equivalent.}
 Note that we also deal with maps of various other objects
 (vector spaces, sets, etc.)
 but a map of surfaces will have these specific
@@ -731,7 +734,10 @@ $f_t|_{X} = f|_{X}$ for $t\in [0, 1].$
 Such a family $\{f_t\}_{t\in [0,1]}$ is called an \emph{isotopy}
 of $f.$
 This is an equivalence relation on maps $M\to N$, and the equivalence
-class of $f$ under isotopy is called the \emph{isotopy class} of $f.$ \cggb{I didn't quite see why this more formal definition is the same as equivalent up to continuous deformation. Why can I restrict to maps where the base points are fixed along the whole path?}
+class of $f$ under isotopy is called the \emph{isotopy class} of $f.$
+%\cggb{I didn't quite see why this more formal definition is
+%the same as equivalent up to continuous deformation. Why can
+%I restrict to maps where the base points are fixed along the whole path?}
 
 A \emph{modular functor} $\F$ associates to every
 surface $M$ a finite dimensional complex
@@ -749,7 +755,7 @@ We have the following axioms for $\F.$
 The fusion space of an empty surface is one dimensional, 
 $\F(\phi) \cong \C.$ % preserves the identity of tensor
 %\cggb{Does a modular functor have to be over $\C$?}
-%\simon{No, mathematicians do this over any ring $k.$}
+%\simon{No, mathematicians do this over any field $k.$}
 For $M_a$ a disc with boundary label $a$ we have
 $\F(M_\vac)\cong \C$ and 
 $\F(M_a)\cong 0$ for $a\ne \vac.$
@@ -980,7 +986,9 @@ Each component of $h^{-1}([a_{i-1}, a_i])$ is then either
 an annulus, a disc, or a pair-of-pants depending on the index of (any)
 critical point it contains.
 We then re-glue any annuli or discs until there are no more of these
-and we have only pair-of-pants. \cggb{Is this always possible? What if I have something like a cylinder? Then I just get a bunch of annuli however I cut.}
+and we have only pair-of-pants.
+%\cggb{Is this always possible? What if I have something like
+%a cylinder? Then I just get a bunch of annuli however I cut.}
 % note: we may still get annuli in a *component* of the pre-image.
 \begin{center}
 \includegraphics[]{pic-pants.pdf}\ \ \ \ \ \ \ \ \includegraphics[]{pic-pants-1.pdf}
@@ -1001,7 +1009,13 @@ of how one may deform Morse functions into other Morse functions
 and the kind of transitions involved in their critical point structure.
 This was the approach used in \cite{Freedman2002simulation}.
 In this work we use a simpler method,
-which is essentially the same as {skein theory.} \cggb{Is all this curve diagrams and refactoring theorem and and so on original work, or is it collecting known facts? If its original, this should be an independent paper because otherwise nobody from the math phys community will ever find it. Actually maybe in either case it should be an independent arxiv post at least so that more people find and learn from it.}
+which is essentially the same as {skein theory.}
+%    \cggb{Is all this curve diagrams and refactoring theorem and and
+%    so on original work, or is it collecting known facts?
+%    If its original, this should be an independent paper because
+%    otherwise nobody from the math phys community will ever find
+%    it. Actually maybe in either case it should be an
+%    independent arxiv post at least so that more people find and learn from it.}
 %Read on to find out how this works!
 This is the {refactoring theorem} that we describe below.
 
@@ -1047,20 +1061,41 @@ anyon labels $a_1,...,a_n,b$ we choose a \emph{standard surface}.
 This is a surface with
 $n+1$ boundary components labeled $a_1,...,a_n,{b}$ 
 which we denote $\StdM.$ 
-For concreteness, we 
-let this surface be the subset of
-the complex plane defined by
-$\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{1}{2}|\le \frac{1}{2}\bigr\}$
-with $n$ discs
-$\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{2i-1}{2n}|< \frac{1}{4n}\bigr\}_{i=1,...n}$
-removed. \cggb{Why is this easier to describe on $\mathbb{C}$ rather than $\mathbb{R}^2$? If its all the same, I think it could be safer to rephrase on $\R^2$.}
+
+%For concreteness, we 
+%let this surface be the following subset of
+%the real plane:
+For concreteness
+we define this surface using the following 
+expression for a closed disc less $n$ open discs:
+$$
+\Bigl\{(x,y)\in\R^2 \ \mathrm{st.}\  \Bigl|(x,y)-\Bigl(\frac{1}{2},0\Bigr)\Bigr|\le \frac{1}{2}\Bigr\} -
+\Bigl\{(x,y)\in\R^2 \ \mathrm{st.}\  \Bigl|(x,y)-\Bigl(\frac{2i-1}{2n},0\Bigr)\Bigr| < \frac{1}{4n}\Bigr\}_{i=1,...n}.
+$$
+%For concreteness, we 
+%let this surface be the subset of
+%the complex plane defined by
+%$\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{1}{2}|\le \frac{1}{2}\bigr\}$
+%with $n$ discs
+%$\bigl\{x\in\C \ \mathrm{st.}\  |x-\frac{2i-1}{2n}|< \frac{1}{4n}\bigr\}_{i=1,...n}$
+%removed.
+%\cggb{Why is this easier to describe on $\mathbb{C}$ rather than
+%$\mathbb{R}^2$? If its all the same, I think it could
+%be safer to rephrase on $\R^2$.}
+%We then label the interior holes $a_1,...,a_n$ in order of
+%increasing real coordinate, and the exterior hole is labeled ${b}$.
+%The base points are placed in the direction of the negative imaginary axis.
+%As a notational convenience we highlight the \emph{equator}
+%of the surface %$\StdM$ 
+%which is the intersection of
+%the real axis with the surface:
 We then label the interior holes $a_1,...,a_n$ in order of
-increasing real coordinate, and the exterior hole is labeled ${b}$.
-The base points are placed in the direction of the negative imaginary axis.
+increasing $x$ coordinate, and the exterior hole is labeled $b$.
+The base points are placed in the direction of negative $y$ coordinate.
 As a notational convenience we highlight the \emph{equator}
 of the surface %$\StdM$ 
 which is the intersection of
-the real axis with the surface:
+the $x$ axis with the surface:
 \begin{center}
 \includegraphics[]{pic-disc-standard.pdf}
 \end{center}
@@ -1115,25 +1150,34 @@ in at least one of the standard POP decompositions of $\StdM.$
 We next show how to glue the exterior hole of
 a standard surface $M$
 to an interior hole of another standard surface $N.$
-To do this within $\C$ we rescale and translate the two surfaces so
+To do this within $\R^2$ we rescale and translate the two surfaces so
 that the exterior hole of $M$ coincides with the interior hole of $N.$
 At this point the union is not in general going to
 produce another standard surface,
 %However, we can ... \simon{fix this}
-and so we remedy this by applying any isotopy within $\C$
-that fixes the real axis while moving the surface to a standard surface. \cggb{Does "fix the real" axis here mean that it fixes every point on the real axis, or just maps the real axis to itself?}
-%while moving the holes so as to produce
-%a standard surface.
+and so we remedy this by applying any isotopy within $\R^2$
+that fixes the $x$-axis while moving the surface to a standard surface.
+%\cggb{Does "fix the real" axis here mean that it fixes
+%every point on the real axis, or just maps the
+%real axis to itself?}
 
 \subsub{Curve diagram.}
-We next study maps from standard surfaces to arbitrary surfaces. \cggb{I was a bit confused what this means. Maps means between surfaces with the same holes and base points, right? So then don't we only care about maps from standard surfaces to standard surfaces? Is it maybe more like maps from equatorial curve diagrams on standard surfaces to arbitrary curve diagrams on standard surfaces that we want?}
+We next study maps from standard surfaces to arbitrary surfaces.
+%\cggb{I was a bit confused what this means. Maps means
+%between surfaces with the same holes and base points, right?
+%So then don't we only care about maps from standard
+%surfaces to standard surfaces? Is it maybe more like maps
+%from equatorial curve diagrams on standard surfaces to arbitrary curve
+%diagrams on standard surfaces that we want?}
+The reader should think of this as akin to choosing a basis
+for a vector space.
 The set of all maps from $\StdM$ 
 to a surface $N$ will be denoted as $\Hom(\StdM, N).$ 
 We call each such map a \emph{curve diagram},
 or more specifically, a curve diagram on $N$.
 The reason for this terminology is that we can reconstruct (up to isotopy)
 any map $f:\StdM\to N$ from
-the restriction of $f$ to the equator of $\StdM.$ \cggb{citation? or obvious?}
+the restriction of $f$ to the equator of $\StdM.$ % XXX XXX XXX \cggb{citation? or obvious?}
 In other words, we can uniquely specify any map
 $f:\StdM\to N$ by indicating the action of
 $f$ on the equator. We take full advantage of this
@@ -1150,16 +1194,15 @@ acting on a standard POP decomposition.
 %\cggb{This is true for any $N$ that is homeomorphic to a punctured disc?}
 %\simon{Right, I should be more clear about when exactly we specialize to discs.}
 The proof of this is constructive, and we call this
-the refactoring theorem below. \cggb{citation? or original work?} %\simon{XXX} 
-%The proof of this is constructive and forms the heart of
-%our algorithm below.
+the refactoring theorem below. %\cggb{citation? or original work?}
 
 %\simon{show how to glue two curve diagrams together to get another curve diagram}
 The operation of 
 gluing of surfaces can be extended to gluing of curve diagrams as
 long as we are careful with the way we identify along the seam:
-the identification map needs to respect the equator of the curve
-diagram. \cggb{Is respecting the equator the same as respecting whatever canonical curve diagram we choose?}
+the identification map needs to respect the equator of the curve diagram. 
+(Keep in mind that a curve diagram is really a map of surfaces,
+and so gluing two such maps involves two separate gluing operations.)
 
 %Any curve diagram will send a standard POP decomposition
 %of $\StdM$ to a POP decompositions of $N,$ and therefore
@@ -1180,7 +1223,8 @@ And, we note the similarity of curve diagrams and associated
 modular functor 
 to the definition of a planar algebra \cite{Jones1999},
 the main difference being that planar algebras allow for 
-not just two but any even number of curve intersections at each hole. \cggb{What's a planar algebra and is there an easier place for me to learn about it than from the Jones paper?}
+not just two but any even number of curve intersections at each hole.
+%\cggb{What's a planar algebra and is there an easier place for me to learn about it than from the Jones paper?}
 
 
 \subsub{Z-move.}
@@ -1313,7 +1357,10 @@ only up to possible Dehn twist(s) around each hole.
 We can certainly track these twists if we wanted to,
 but in the interests of simplicity we do not.
 This introduces a global phase ambiguity into the
-calculations. \cggb{Do we need to worry about this if we are pasting other surfaces (whose total charge might be ambiguous) into a hole?}
+calculations.
+%\cggb{Do we need to worry about this if we are
+%pasting other surfaces (whose total charge might be ambiguous) into a hole?}
+
 %What we have done here is to forget that the holes
 %have width, and shrunk them to points.
 
@@ -1331,9 +1378,10 @@ a modular functor we get these equations ``for free''.
 \subsection{Refactoring theorem}
 In this section we specialize to considering planar surfaces only.
 The theorem we are building towards shows that
-the $R$-moves act transitively \cggb{what do we mean here by transitively} on curve diagrams.
-%\simon{We don't much care about transitivity. Should specialize this.}
-That is, given two curve diagrams $f$ and $f'$ on $N$ we can find
+the $R$-moves act transitively
+on curve diagrams.
+By transitive we mean that
+given two curve diagrams $f$ and $f'$ on $N$ we can find
 a sequence of $R$-moves that transform $f$ to $f'.$
 %We consider surface $N$ with $n$ boundary components
 %$a_1,...,a_n.$
@@ -1422,11 +1470,13 @@ head to tail) sequentially applying this procedure.
 %and so we have an element of the mapping class group of $M.$
 %XXX i don't see how to get the anyon labels to match up here XXX
 
-The combinatorial ``paperclip algorithm'' presented in section \ref{secAlgo} can be considered to be a constructive reformulation of the refactoring theorem, where a curve diagram is represented as a function
-from the unit interval into a disc with $n$ marked points:
-$$
-    c : [0, 1] \to D_n.  
-$$
+%The combinatorial ``paperclip algorithm'' presented in section 
+%\ref{secAlgo} can be considered to be a constructive reformulation 
+%of the refactoring theorem, where a curve diagram is represented as a function
+%from the unit interval into a disc with $n$ marked points:
+%$$
+%    c : [0, 1] \to D_n.  
+%$$
 
 %
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
