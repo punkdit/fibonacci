@@ -1,5 +1,12 @@
 
 
+guide: guide.tex refs2.bib
+	pdflatex guide.tex
+	bibtex guide
+	pdflatex guide.tex
+	pdflatex guide.tex
+
+
 supplement: supplement.tex refs2.bib
 	pdflatex supplement.tex
 	bibtex supplement
