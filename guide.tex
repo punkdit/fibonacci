@@ -1,4 +1,4 @@
-\documentclass[aps, letterpaper, onecolumn, superscriptaddress, notitlepage, 10pt]{revtex4-1}
+\documentclass[aps, letterpaper, onecolumn, superscriptaddress, notitlepage, 11pt, groupedaddress]{revtex4-1}
 \usepackage{times}
 
 % use these settings for a more reader-friendly version
@@ -32,20 +32,48 @@
 %------------------------------------------------------------------------------------------------------------%
 \begin{document}
 
-\title{A Short Guide To Modular Functors, Anyons, etc.}
+\title{A Short Guide to Anyons and Modular Functors}
 
 \author{Simon Burton}
 \affiliation{Centre for Engineered Quantum Systems, School of Physics, 
 The University of Sydney, Sydney, Australia}
-%\author{Courtney G.\ Brell}
-%\affiliation{Institut f\"{u}r Theoretische Physik, Leibniz Universit\"{a}t Hannover, 
-%Appelstra\ss{}e 2, 30167 Hannover, Germany}
-%%\affiliation{Perimeter Institute for Theoretical Physics, Waterloo, Ontario, Canada}
-%\author{Steven T.\ Flammia}
-%\affiliation{Centre for Engineered Quantum Systems, School of Physics, 
-%The University of Sydney, Sydney, Australia}
 
 \date{\today}
+
+\begin{abstract}
+To the working physicist, anyon theory is meant to describe
+certain quasi-particle excitations occuring in two dimensional
+topologically ordered systems. 
+A typical calculation using this theory will involve operations
+such as $\otimes$ to combine anyons, 
+$F^{abc}_{d}$ to re-associate such combinations,
+and $R^{ab}_c$ to commute or braid these anyons. 
+Although there is a powerful string-diagram notation that greatly assists these
+manipulations, we still appear to be operating on particles
+arranged on a one-dimensional line, algebraically ordered from left to right.
+The obvious question is, where is the other dimension?
+The topological framework for considering these anyons as truly living in a
+two dimensional space is known as a modular functor, or topological
+quantum field theory. 
+In this work we show how the apparently one-dimensional algebraic anyon theory
+is secretly the theory of anyons living in a fully two-dimensional system.
+The mathematical literature covering this secret is vast, 
+and we try to distil this down into something more manageable.
+%While avoiding much of the
+%category theoretic jargon found in the mathematical literature.
+%To the physicist, anyons are manipulated algebraically, using operations
+%such as $\otimes$ to combine, $F^{abc}_{de}$ to re-associate, and $R^{ab}_c$
+%to commute or braid. 
+%Although there are string-diagram notations that greatly assist these
+%manipulations, such calculations still appear to be operating on particles
+%arranged in a one-dimensional line, algebraically ordered from left to right.
+%The correct notion for considering these anyons as truly living in a
+%two dimensional space is known as a modular functor, or topological
+%quantum field theory. 
+%In this work we show how the apparently one-dimensional algebraic theory
+%is secretly a fully-two dimensional theory, while avoiding much of the
+%category theoretic jargon found in the mathematical literature.
+\end{abstract}
 
 \maketitle
 
@@ -243,21 +271,25 @@ The University of Sydney, Sydney, Australia}
 
 %\cggb{I reworded a few comments that I thought were a bit flowery for a technical appendix.}
 
-In this section we will describe abstractly the theory of two-dimensional topologically ordered systems
-with anyonic excitations.
+In this work we describe the theory of two-dimensional topologically ordered systems
+with anyonic excitations. 
 There are two main approaches to defining these,
 one being more algebraic and the other more topological.
 
 The algebraic side is known to mathematicians as the study of braided
 tensor categories, or more specifically, modular tensor categories.
 This algebraic language appears to be more commonly used 
-in the physics literature~\cite{Kitaev2006}.
+in the physics literature, such as the well cited Appendix E of Kitaev~\cite{Kitaev2006}.
 Such algebraic calculations can be interpreted as
 manipulations of string diagrams~\cite{Baez2010},
-or \emph{skeins}, which begins to hint at
-how knot theory and topology comes into play.
+or \emph{skeins}.
+These strings encode connections in the algebra, for example 
+the Einstein summation convention. But they also faithfully
+encode the twisting that occurs when anyons are re-ordered or
+braided around each other. And these kinds of spatial relationships
+are fruitfully studied using topological methods.
 
-Coming from the other direction, one starts with
+Working from the other direction, one starts with
 a topological space (of low dimension) and attempts
 to extract a combinatorial or algebraic description of how this
 space can be built from joining smaller (simpler) pieces together.
@@ -267,9 +299,9 @@ or the closely related topological quantum field theories (TQFT's).
 %The much older study of Homology also extracts algebraic
 %information out of topological spaces, but 
 
-It is not obvious a priori that these two approaches -- algebraic and topological -- should meet, hinting at a deep underlying structure.
-%That these two approaches -- algebraic versus topological -- meet is one of the great
-%miracles of modern mathematics and physics.
+%It is not obvious a priori that these two approaches -- algebraic and topological -- should meet, hinting at a deep underlying structure.
+That these two approaches -- algebraic versus topological -- meet is one of the great
+surprises of modern mathematics and physics.
 
 %There is somewhat of a gap between the algebraic/skein-theoretic
 %approach and the topological approach
@@ -364,12 +396,12 @@ modular functor.
 
 \subsection{Topological Exchange Statistics}
 
-In this section we try to motivate 
-the formalism of modular functor presented
-below.
-Our focus will be to show some of the close connections between
-the algebraic and topological approaches to
-particle exchange statistics.
+In this section we begin with the familiar question 
+of particle exchange in three dimensions, whose answer is bosons and fermions.
+We then show how in restricting the particles to two dimensions many
+more possibilities arise.
+Our focus will be on the close connection between the algebraic and the topological viewpoints,
+aiming to motivate the definition of a modular functor given in the next section.
 
 In three spatial dimensions, the process of winding one
 particle around another, a \emph{monodromy}, is topologically trivial.
@@ -394,11 +426,20 @@ $s_1,...,s_{n-1}$ that obey the relations
     s_i s_j &= s_j s_i \ \ \ \mbox{for}\ \ |i-j|>1,\\
     s_i s_{i+1} s_i &= s_{i+1} s_i s_{i+1} \ \ \ \mbox{for}\ \ 1\le i \le n-2.
 \end{align*}
-This group acts on the statespace of $n$ particles $\F_n$
-via unitaries $U(\F_n)$:
+%This group acts on the statespace of $n$ particles $\F_n$
+%via unitaries $U(\F_n)$:
+%$$
+%    \Phi : S_n \to U(\F_n).
+%$$
+Writing the Hilbert space of the system as $V$ 
+we would then expect $S_n$ to act on this space via unitary transformations $U(V):$
 $$
-    \Phi : S_n \to U(\F_n).
+    \F : S_n \to U(V).
 $$
+% For bosons this is ... for fermions it is ...
+This is the first example of the kind of functor we will be talking about. 
+In this case it is a group representation; $\F$ is a homomorphism between
+two groups.
 
 When the above monodromy is constrained to two dimensions
 we can no longer deform this process to the identity:
@@ -407,9 +448,9 @@ we can no longer deform this process to the identity:
 \end{center}
 and so in two dimensions we cannot expect a swap to square to the identity.
 To see this more clearly,
-we consider the world-lines of these particles.
-Here we show three particles undergoing an exchange and then
-returning to the original location:
+we must examine the entire (2+1)-dimensional \emph{world-lines} of these particles.
+For an example, here we show the world-lines of three particles undergoing an exchange and then
+returning to their original positions:
 \begin{center}
 \includegraphics[]{pic-braid-worldlines.pdf}
 \end{center}
@@ -437,7 +478,8 @@ For identicle particles this group acts as symmetries of the
 state space:
 %Now we would expect to see an action on the statespace $\F_n:$
 $$
-    \Phi : B_n \to U(\F_n).
+%    \Phi : B_n \to U(\F_n).
+    \F : B_n \to U(V).
 $$
 
 What we have given is a topological description of the group $B_n$.
@@ -492,7 +534,7 @@ relations. Here we show the braids corresponing to the generators $\sigma_i:$
 \end{center}
 So that 
 $\sigma_i \sigma_j = \sigma_j \sigma_i \ \ \ \mbox{for}\ \ |i-j|>1$
-because the two braids are operating on disjoint strands.
+because the two braids are operating on disjoint world-lines.
 The second relation is also easy to see:
 \begin{center}
 \includegraphics[]{pic-braid-YB.pdf}
@@ -548,7 +590,7 @@ a Heisenberg picture.
 This diagram should give the reader some idea as
 to why these two definitions of the braid group are
 equivelant, but the actual proof of this is somewhat involved.
-We refer the reader to \cite{Kassel2010} for an excellent contemporary
+We refer to \cite{Kassel2010} for an excellent contemporary
 reference that fills in these gaps.
 
 %We have given three different descriptions of the braid group, and
@@ -574,7 +616,7 @@ configuration space
 $$
     PB_n = \pi_1 ( \Conf_n, x ).
 $$
-Loops in $\Conf_n$ correspond to braids where each strand returns
+Loops in $\Conf_n$ correspond to braids where each world-line returns
 to the point it started from.
 The algebraic description of this group is somewhat complicated and
 we omit this.
@@ -604,8 +646,11 @@ These must satisfy the further relations
 
 Here we show four 
 geometric approaches to representing a twist.
-Anyone that has struggled to untangle their headphone cable
+Any person that has struggled to untangle their headphone cable
 will immediately see what is going on here.
+\begin{center}
+\includegraphics[]{pic-framed.pdf}
+\end{center}
 On the left we have a loop; it is not a braid because it
 travels backwards in time.
 If we pull on this loop to make it straight, we introduce a twist.
@@ -614,20 +659,18 @@ where we show a \emph{framing} which is a non-degenerate
 vector field along the world-lines of a braid.
 The initial and final vectors in the vector field must be the same.
 By non-degenerate we mean that the vector field is everywhere
-non-zero and also not tangent to the world-line.
+non-zero and non-tangent to the world-line.
 In the next figure we show a \emph{ribbon}:
 instead of point particles we have short one-dimensional curves in $M$.
 %This is another way to encode a twist without using the differential
 %structure of $M.$
 On the right the particle is represented as a boundary
-component of $M$ with a distinguished point.
+component (a hole) of $M$ with a distinguished point.
 In this picture the world-line looks like a tube.
 %It is not difficult to see that these 
+
 All these representations of twists carry
 essentially the same information.
-\begin{center}
-\includegraphics[]{pic-framed.pdf}
-\end{center}
 In the sequal we will stick
 to thinking of particles as boundary
 components because this fits well
