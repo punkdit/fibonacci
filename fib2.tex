@@ -58,6 +58,8 @@ The University of Sydney, Sydney, Australia}
 \author{Courtney G.\ Brell}
 \affiliation{Institut f\"{u}r Theoretische Physik, Leibniz Universit\"{a}t Hannover, 
 Appelstra\ss{}e 2, 30167 Hannover, Germany}
+\affiliation{Perimeter Institute for Theoretical Physics, 
+Waterloo, Canada}
 \author{Steven T.\ Flammia}
 \affiliation{Centre for Engineered Quantum Systems, School of Physics, 
 The University of Sydney, Sydney, Australia}
@@ -82,11 +84,11 @@ approximately $12.5\%$, which is comparable to those previously known for abelia
 
 %------------------------------------------------------------------------------------------------------------%
 
-Topologically ordered quantum systems in two dimensions show tremendous promise for 
+Topologically ordered quantum systems in two dimensions show great promise for 
 long-term storage and processing of quantum information~\cite{Kitaev2003, Dennis2002, Nayak2008}. 
 The topological features of such systems are insensitive to local 
 perturbations~\cite{Bravyi2010, Bravyi2011a, Michalakis2013}, and they have quasiparticle excitations 
-exhibiting anyonic statistics~\cite{Wilczek1990}. These systems can in general be used as 
+exhibiting anyonic statistics~\cite{Wilczek1990}. These systems can be used as 
 quantum memories~\cite{Kitaev2003, Dennis2002} or to perform universal topological 
 quantum computation~\cite{Freedman2002, Nayak2008}.
 
@@ -104,13 +106,13 @@ classical computer, but there is generally no guarantee that the
 noise and recovery processes should be classically simulable.
 Because of this, almost all of the sizable research effort 
 on active quantum error correction for topological systems has focused 
-on the case of abelian anyons~\cite{Dennis2002, Duclos-Cianci2010, Duclos-Cianci2010a, Wang2010, Wang2010a, Duclos-Cianci2013, Bravyi2011, Bombin2012, Wootton2012, Anwar2014, Watson2014, Hutter2014a, Bravyi2014, Wootton2015, Fowler2015, Andrist2015}.
-Systems of abelian anyons are well suited to studying quantum 
-error correction because (at the RG fixed point) noise and 
-recovery processes can be efficiently simulated numerically, allowing lattice simulations 
-of decoding with over 1 million sites~\cite{Duclos-Cianci2010}. 
-Standard algorithms are specifically tailored to exploit the abelian nature 
-of these particles, particularly that abelian anyons cannot be used for quantum computation. 
+on the case of abelian anyons~\cite{Dennis2002, Duclos-Cianci2010, Duclos-Cianci2010a, Wang2010, Wang2010a, Duclos-Cianci2013, Bravyi2011, Bombin2012, Wootton2012, Anwar2014, Watson2014, Hutter2014a, Bravyi2014, Wootton2015, Fowler2015, Andrist2015}, which can be efficiently simulated due to the fact that they cannot be used for quantum computation.
+%Systems of abelian anyons are well suited to studying quantum 
+%error correction because (at the RG fixed point) noise and 
+%recovery processes can be efficiently simulated numerically, allowing lattice simulations 
+%of decoding with over 1 million sites~\cite{Duclos-Cianci2010}. 
+%Standard algorithms are specifically tailored to exploit the abelian nature 
+%of these particles, particularly that abelian anyons cannot be used for quantum computation. 
 
 Recent investigations have begun to explore quantum error correction for nonabelian anyon 
 models~\cite{Brell2013, Wootton2013, Hutter2014, Wootton2015b, Hutter2015continuous}. Nonabelian anyon models are especially interesting 
@@ -129,14 +131,14 @@ in the regimes where we expect successful error correction to
 be possible. This insight allows us to simulate the noise 
 and recovery processes for a quantum code based on a universal anyon model.
 
-Concretely, we consider the simulation of quantum error correction in a two-dimensional lattice 
+Concretely, we consider quantum error correction in a two-dimensional 
 system with Fibonacci anyons, a class of nonabelian anyons that are universal for quantum 
 computation~\cite{Freedman2002, Nayak2008}. Fibonacci anyons are experimentally motivated as the 
 expected excitations of the $\nu=\frac{12}{5}$ fractional quantum Hall 
 states~\cite{Slingerland2001}, and can be realized in several spin 
 models~\cite{Levin2005, Bonesteel2012, Kapit2013, Palumbo2014} and composite 
 heterostructures~\cite{Mong2014}.
-Any of these kinds of physical systems could be used to perform universal topological quantum computation \cggb{citations?}, and can be modelled by our simulations. Natural sources of noise from thermal fluctuations or external perturbations will be suppressed by the energy gap but must still be corrected to allow for scalable computation.
+Any of these physical systems could be used to perform universal topological quantum computation, and can be modelled by our simulations. Natural sources of noise from thermal fluctuations or external perturbations will be suppressed by the energy gap but must still be corrected to allow for scalable computation.
 
 We use a flexible phenomenological model of dynamics and thermal 
 noise to describe a system with Fibonacci anyon excitations. Within 
@@ -153,34 +155,36 @@ The ability to simulate the details of how and when these techniques succeed on 
 
 We consider a 
 2-dimensional system with
-point-like anyonic quasiparticle excitations, which exhibit exotic statistics under exchange.
-The worldlines of these exchanges form \emph{braids}
+point-like anyonic quasiparticle excitations.%, which exhibit exotic statistics under exchange.
+The worldlines of these particles form \emph{braids}
 in (2+1)-dimensions
 which act unitarily on the Hilbert space of degrees of freedom known as the \emph{fusion space}.
-To describe this space we define
+This space is associated with
 the topological observables of the system: these
 are total charge measurements within regions bounded by 
-closed loops (Wilson loops).
+closed loops.% (Wilson loops).
 The possible results of such a charge measurement correspond to different anyon particle types in the model.
 These dynamics and observables obey algebraic rules
-given by a unitary modular tensor category~\cite{Wang2010b}. 
-However, from the perspective of
-\emph{topological quantum field theory}
-anyons are modeled
-as punctures in a surface~\cite{Pfeifer2014}, and it is not
-the anyons themselves that braid,
-but the manifold in which the anyons reside 
-that becomes deformed (twisted) by these braid moves.
-This is the perspective we adopt (see \Fref{f:braidloop}).
+given by a unitary modular tensor category~\cite{Wang2010b}. In contrast to the approach often taken, we consider the topological observables, rather than the anyons themselves, to be affected by braiding processes (see \Fref{f:braidloop}).
+%From the perspective of
+%\emph{topological quantum field theory},
+%anyons are modeled
+%as punctures in a surface~\cite{Pfeifer2014}, 
+%and the observables, rather than the anyons themselves, are considered to be deformed by braiding processes (see \Fref{f:braidloop}).
+%and it is not
+%the anyons themselves that braid,
+%but the manifold in which the anyons reside 
+%that becomes deformed (twisted) by these braid moves.
+%This is the perspective we adopt (see \Fref{f:braidloop}).
 
 \begin{figure}[t!]
 \begin{center}
     \includegraphics[]{pic-braid-loop.pdf}
 \caption{
-The deformation of observables corresponding to the implementation of a braid process on three anyons is shown. The configurations before and after are connected by world lines shown in red, while the observable Wilson loops are shown in black.
-This process relates two different ways of observing (or fusing) the top two charges.
-In general, braiding will twist these loops in different ways following
-the deformation of the manifold itself.
+The deformation of observables corresponding to the implementation of a braid process on three anyons is shown. Configurations before and after are connected by world lines shown in red, while the charge observables are shown in black.
+This process relates two different ways of fusing the top two charges.
+%In general, braiding will twist these loops in different ways following
+%the deformation of the manifold itself.
 \label{f:braidloop}
 }
 \end{center}
@@ -188,10 +192,10 @@ the deformation of the manifold itself.
 \end{figure}
 
 The defining difference between abelian and nonabelian
-anyon theories is that in an abelian theory particle content alone uniquely determines the outcome of total charge measurements.
+anyon theories is that in an abelian theory particle content alone uniquely determines the outcome of joint charge measurements.
 In contrast, outcomes for nonabelian charge measurements depend on the history of the particles as well as their type.
-That is, the fusion space is one-dimensional for abelian anyons, and generally larger for nonabelian anyons.
-In particular, we consider a system supporting (nonabelian) Fibonacci
+%That is, the fusion space is one-dimensional for abelian anyons, and generally larger for nonabelian anyons.
+We consider a system supporting nonabelian Fibonacci
 anyon excitations, denoted by $\tau$.
 Two such anyons can have total charge
 that is either $\tau$ or $\vac$ (vacuum), or any superposition of these, and
@@ -202,9 +206,9 @@ and arbitrary states as linear combinations of these diagrams:
 \begin{align*}
 \includegraphics[]{pic-fibonacci.pdf}
 \end{align*}
-For $n$ anyons of type $\tau$, the 
-dimension of the fusion space grows asymptotically as $\varphi^n$, where $\varphi=\frac{1+\sqrt{5}}{2}$ 
-is the golden ratio.
+%For $n$ anyons of type $\tau$, the 
+%dimension of the fusion space grows asymptotically as $\varphi^n$, where $\varphi=\frac{1+\sqrt{5}}{2}$ 
+%is the golden ratio.
 
 Observables associated to non-intersecting loops commute, and so
 a basis for the space can be built from a maximal
@@ -224,10 +228,11 @@ The righthand side involves a superposition
 over total charge $j$ of the anyons with charge $b$ and $c$. 
 The green line serves to linearly
 order the anyons, and track
-deformations in the underlying space, 
-i.e.\ the history of braiding processes.
-It also denotes the direction along
-which $F$-moves occur. A clockwise braiding process, or \emph{half-twist}, is effected by an $R$-move:
+%deformations in the underlying space, 
+%i.e.\ 
+the history of braiding processes (see Ref.~\cite{CurveDiagrams} for a more comprehensive discussion).
+%It also denotes the direction along which $F$-moves occur. 
+A clockwise braiding process, or \emph{half-twist}, is effected by an $R$-move:
 \begin{align}
 \label{e:rmove}
 \includegraphics[]{pic-rmove.pdf}
@@ -236,8 +241,7 @@ which $F$-moves occur. A clockwise braiding process, or \emph{half-twist}, is ef
 These diagrams can be composed (glued)
 by regarding the outermost observable
 as a charge in another diagram.
-This operation distributes multiplicatively
-over superpositions, and it also respects the $R$ and $F$-moves.
+This operation distributes over superpositions, and it also respects the $R$- and $F$-moves.
 Conversely, \emph{fusion} of anyons corresponds to 
 replacing the interior of a loop by a single charge.
 
@@ -252,7 +256,7 @@ For Fibonacci anyons, the non-trivial $R$ and $F$ moves are
 where the matrix is given in a basis labelled $(\vac,\tau)$. For more details of the Fibonacci anyon theory, see e.g.\ Ref.~\cite{Nayak2008} and references therein. 
 
 In addition to the fusion space there is also a global degeneracy associated with the topology of the 
-manifold on which the anyons reside. We consider systems with the topology of a torus, 
+manifold on which the anyons reside. We consider systems on a torus, 
 which for the Fibonacci anyons gives rise to a 2-fold degeneracy.
 This extra degree of freedom can be thought of being associated with the total anyonic charge (or flux) running through the torus itself. Since there are two different possible charges in the Fibonacci anyon model, the global degeneracy is 2.
 
@@ -273,20 +277,21 @@ conditions, this space contains the two-fold degenerate codespace.
 
 Typical thermal noise processes in this kind of system are 
 pair-creation, hopping, exchange etc.~of anyons. Such a model was analyzed in detail for Ising anyons in Ref.~\cite{Brell2013}.
-For convenience, in the numerical results presented in this study we will restrict to a simplified noise model consisting of pair-creation events only, though all of our simulation techniques could be applied directly to the more general families of noise models considered in Ref.~\cite{Brell2013} as desired. It was seen in Ref.~\cite{Brell2013} that the pair-creation-only setting was sufficient to capture the qualitative features of an error-correction simulation for the Ising anyons and we have no reason to expect that this would change when considering the Fibonacci anyon model. 
+For convenience, in the numerical results presented in this study we will restrict to considering pair-creation events only, though all of our simulation techniques could be applied directly to the more general noise considered in Ref.~\cite{Brell2013} as desired. It was seen in Ref.~\cite{Brell2013} that the pair-creation-only setting was sufficient to capture the qualitative features of an error-correction simulation for the Ising anyons and we have no reason to expect that this would change when considering the Fibonacci anyon model. 
 
 Pair-creation events acting within a single tile do not affect the corresponding observable, and so the only pair-creation events we need explicitly consider act between neighboring pairs of tiles. These are then each associated with an edge of the lattice $\Lambda$, chosen 
 uniformly at random to model high-temperature, short timescale thermalizing dynamics.
 In studies of codes based on abelian anyon models, the error correction threshold or memory lifetime is typically quoted in terms of an iid noise strength per edge. This measure is not appropriate in a nonabelian anyon setting, where noise processes on neighbouring edges do not commute. We thus measure the error correction threshold and memory lifetime in terms of the average number of noise processes per edge. 
-It is easy to see that, in those cases where they are both appropriate, these two methods coincide in the limit of low error rates (see Ref.~\cite{Brell2013} for more details). The thresholds we consider in this paper are on the order of $0.1$ noise processes per edge. In models where both noise strength measures are appropriate, such as the toric code under bit-flip errors, the discrepancy between the two values is around $10\%$ at these strengths.
+It is easy to see that, in those cases where they are both appropriate, these two methods coincide in the limit of low error rates, and for the typical noise strengths we encounter in this paper, the discrepancy is around $10\%$ (see Ref.~\cite{Brell2013} for more details). 
+%The thresholds we consider in this paper are on the order of $0.1$ noise processes per edge. In models where both noise strength measures are appropriate, such as the toric code under bit-flip errors, the discrepancy between the two values is around $10\%$ at these strengths.
 
 We consider this treatment of anyon dynamics to be a phenomenological model in that
 it neglects any microscopic details of the system.
 This is consistent with the principles of topologically 
 ordered systems and anyonic physics, where the key universal features describing the 
 anyon model correspond to large length-scale physics, while the microscopic physics plays 
-a less important (and non-universal) role.
-Additionally, while we model a continuum anyon theory, our analysis can be trivially reinterpreted to apply directly to lattice spin models or other systems where space is fundamentally discrete.
+a less important (and non-universal) role. Note also that our analysis applies equally well to either a continuum setting, or to discrete lattice models supporting anyonic excitations.
+%Additionally, while we model a continuum anyon theory, our analysis can be trivially reinterpreted to apply directly to lattice spin models or other systems where space is fundamentally discrete.
 
 In order to perform a logical error on our code, a noise process must have support on a 
 a homologically nontrivial region of the manifold.
@@ -301,22 +306,24 @@ The merging process iterates at linearly increasing length scales, at each step 
 there is at most a single cluster remaining (see \Fref{f:decode}).
 This decoder is based on a hierarchical clustering algorithm~\cite{Hastie2009, Wootton2015b},
 and follows a similar strategy to the hard-decision renormalization group decoder~\cite{Bravyi2011}. 
+The error-correction protocol and simulation procedure are discussed in more depth in the supplementary material.
 
 Note that unlike the case of abelian anyons, the decoder
 cannot determine the charge of each cluster given only the syndrome information (as in \cite{Bravyi2011}),
 and so must repeatedly physically query the system to measure these charges.
-This is also in contrast to abstract quantum codes, where syndrome extraction can typically be performed in one step.
+%This is also in contrast to abstract quantum codes, where syndrome extraction can typically be performed in one step.
 Our simulation proceeds in this way as a dialogue between decoder
 and system, terminating when either the decoder itself terminates or 
-when it performs a homologically nontrivial operation, thereby altering the 
-codespace (and failing to perform successful information recovery).
-Note that, as was found in Ref.~\cite{Brell2013}, we expect that 
-our qualitative results may be reproduced by most alternative families 
-of decoders, although it may not be clear in all cases how to extend these decoders to the nonabelian setting.
-The advantage of using a clustering decoder is 
-its simplicity and flexibility, and the fact that its clustering 
-scheme is compatible with the structure in the noise 
-processes that allows us to classically simulate them.
+when it performs a homologically nontrivial operation, thereby performing a potential logical error.
+%altering the 
+%codespace (and failing to perform successful recovery).
+%Note that, as was found in Ref.~\cite{Brell2013}, we expect that 
+%our qualitative results may be reproduced by most alternative families 
+%of decoders, although it may not be clear in all cases how to extend these decoders to the nonabelian setting.
+%The advantage of using a clustering decoder is 
+%its simplicity and flexibility, and the fact that its clustering 
+%scheme is compatible with the structure in the noise 
+%processes that allows us to classically simulate them.
 
 \begin{figure}[t!]
 \begin{center}
@@ -351,7 +358,7 @@ and error correction processes as an open problem).
 
 Below the (bond) percolation threshold for (say) a 2D square lattice, we expect random sets of 
 bonds to decompose into separate connected components 
-of average size $O(\log(n))$ and variance $O(1)$~\cite{Bazant2000}.
+of average size $O(\log(L))$ and variance $O(1)$~\cite{Bazant2000}.
 Each noise process in our model is associated with a (randomly distributed) edge, and so 
 disconnected components correspond to sets of anyons that could not have interacted at any 
 point in their history. 
@@ -361,9 +368,9 @@ This allows us to simulate the braiding processes within each component separate
 In other words: the quantum state in the fusion space of all anyons factorizes into 
 a tensor product over components. 
 Since each 
-component has size only $O(\log(n))$, we can typically simulate these dynamics efficiently 
-because the resulting fusion space has dimension $O(\mathrm{poly}(n))$. 
-Of course, this is only a probabilistic statement, and so there may be cases where there exist components with size larger than $O(\log(n))$. However, the likelihood of this is suppressed exponentially in the lattice size $L$~\cite{Grimmett1989}. 
+component has size only $O(\log(L))$, we can typically simulate these dynamics efficiently 
+because the resulting fusion space has dimension $O(\mathrm{poly}(L))$. 
+Of course, this is only a probabilistic statement, and so there may be cases where there exist components with size larger than $O(\log(L))$. However, the likelihood of this is suppressed exponentially in the lattice size $L$~\cite{Grimmett1989}. 
 
 However, random noise processes are not the only dynamics that we need to consider. We 
 must also consider the effect of the error-correction routine itself. This acts iteratively to fuse 
@@ -379,36 +386,38 @@ it is reasonable to expect that the simulation is efficient.
 However, with strong enough noise the state in the fusion space will
 no longer decompose at all and computing dynamics will
 become exponentially difficult in the system size.
-Despite this, we use heuristics 
-that minimize braid moves, which helps to
-track the state beyond the
-sub-percolated regime.
-This enables simulation of error correction in
+%Despite this, we use heuristics 
+%that minimize braid moves, which helps to
+%track the state beyond the
+%sub-percolated regime.
+%This enables simulation of error correction in
+Nevertheless, we are able to simulate error-correction in
 the regime around the error-correction threshold for linear lattice sizes up to $L=128$.
 
 %------------------------------------------------------------------------------------------------------------%	
 \paragraph{Simulation algorithm.}
 
-In order to track the state of the system we maintain 
+In order to track the state of the system we represent the state of the fusion space with 
 a set of disjoint directed curves, 
 one for each connected component with trivial total charge.
 Unlike previous work~\cite{Brell2013}, this creates a dynamically generated basis for the fusion space 
 that allows for tensor factorization of disjoint components.
-The application of a pair-creation noise process corresponds to the 
+A pair-creation noise process corresponds to the 
 addition of an extra curve to the lattice, supporting
 two new anyons.
 Following the noise processes, our simulation must 
 measure the total charge within each tile; the results of 
 these measurements will form the error syndrome. 
-This requires joining (arbitrarily) any curves that intersect that tile, 
+This requires joining the curves that intersect that tile, 
 and then performing $R$- and $F$-moves on the resulting
 curve so that 
 all anyons within the tile have been 
 localized within a contiguous region of the curve. 
 An example of this 
 procedure for a simple noise process is shown in \Fref{f:syndrome}.
-The details of the algorithm and data structures used for 
-this procedure will be discussed elsewhere.
+This procedure is discussed in more detail in the supplementary material, and the theoretical framework underlying it is expanded in Ref.~\cite{CurveDiagrams}.
+%The details of the algorithm and data structures used for 
+%this procedure will be discussed elsewhere.
 Braiding processes that encircle 
 a non-trivial loop of our (toric) manifold can also be 
 treated in an analogous way, following e.g.~\cite{Pfeifer2012}.
@@ -467,11 +476,12 @@ does not percolate the anyons over the lattice,
 but it is possible that percolated events may still result in no error. 
 The connection between the percolation threshold and the error-correction threshold 
 is not well understood in general~\cite{Hastings2014}, though it is clear 
-that our threshold estimate will be a lower bound for 
+that our threshold estimate would be a lower bound for 
 the true threshold that may be found if all events 
-(including those that have percolated) were simulated.
-However, naively computing the effect of the simplest possible homologically nontrivial operations consistently yields either a logical error or a complete failure to return to the codespace (see \Aref{s:homnontrivial}). As such it seems reasonable to suggest that neglecting the full simulation of 
-these events does not significantly affect our observed threshold value.
+(including those that have percolated) were simulated. 
+In any case, we do not expect this possible discrepancy to be significant in our simulations.
+%However, naively computing the effect of the simplest possible homologically nontrivial operations consistently yields either a logical error or a complete failure to return to the codespace (see \Aref{s:homnontrivial}). As such it seems reasonable to suggest that neglecting the full simulation of 
+%these events does not significantly affect our observed threshold value.
 
 
 %------------------------------------------------------------------------------------------------------------%
@@ -482,8 +492,7 @@ Though we have chosen several properties of our model and
 simulation in a convenient way for simplicity,
 Ref.~\cite{Brell2013} presents good evidence that it is
 unlikely these choices will affect our results qualitatively.
-In particular, although we have modeled our logical qubit as 
-encoded in the global topological degrees of freedom of our 
+In particular, although we have considered a logical qubit encoded in the global topological degrees of freedom of our 
 system, we could have encoded it in the fusion space of several preferred anyons. 
 This situation would be appropriate to model error-correction routines for topological quantum computation. 
 Additionally, we expect our results to be stable to changes in details of the noise model and decoding algorithm, again following Ref.~\cite{Brell2013}.
@@ -497,7 +506,7 @@ There are several interesting avenues for further research.
 Although it is not completely obvious how to do so, 
 applying similar methods to more realistic models such as concrete 
 microscopic spin models or models with non-topological features would give 
-direct insight into practical error rates needed for topological quantum memories in nonabelian systems. 
+direct insight into practical error rates needed for nonabelian topological quantum memories.% in nonabelian systems. 
 It would also be interesting to find \emph{classical} spin models 
 whose phase diagram encodes the threshold for error correction in these systems~\cite{Dennis2002}.
 Finally, an important extension of this work would be to the simulation of \emph{fault-tolerant} error-correction protocols for nonabelian anyon codes. 
@@ -507,7 +516,7 @@ Finally, an important extension of this work would be to the simulation of \emph
 \acknowledgments 
 
 We thank A.\ Doherty and R.\ Pfeifer for discussions. 
-This work was supported by the ARC via EQuS project number CE11001013, by the US Army Research Office grant numbers W911NF-14-1-0098 and W911NF-14-1-0103, ERC grant QFTCMPS and by the cluster of excellence EXC 201 Quantum Engineering and Space-Time Research. STF also acknowledges support from an ARC Future Fellowship FT130101744.
+This work was supported by the ARC via EQuS project number CE11001013, by the US Army Research Office grant numbers W911NF-14-1-0098 and W911NF-14-1-0103, ERC grant QFTCMPS and by the cluster of excellence EXC 201 Quantum Engineering and Space-Time Research. STF also acknowledges support from an ARC Future Fellowship FT130101744. This research was supported in part by Perimeter Institute for Theoretical Physics. Research at Perimeter Institute is supported by the Government of Canada through Industry Canada and by the Province of Ontario through the Ministry of Research and Innovation.
 
 \bibliography{refs2}
 
