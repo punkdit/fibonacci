@@ -80,7 +80,7 @@ c.text(x+1.5*W, y+0.1, "noise", south)
 
 y += 0.5*dy
 c.stroke(path.line(x+r, y, x+W-r, y), [deco.earrow()])
-c.text(x+0.5*W, y+0.1, "measure", south)
+c.text(x+0.5*W, y+0.1, "recovery", south)
 
 y += dy
 c.stroke(path.line(x+W-r, y, x+r, y), [deco.earrow()])
@@ -92,7 +92,7 @@ c.stroke(path.line(x+0.5*W, y+0.2, x+0.5*W, y-0.2+dy), st_dotted)
 y += dy
 
 c.stroke(path.line(x+r, y, x+W-r, y), [deco.earrow()])
-c.text(x+0.5*W, y+0.1, "measure", south)
+c.text(x+0.5*W, y+0.1, "recovery", south)
 
 y += dy
 c.stroke(path.line(x+W-r, y, x+r, y), [deco.earrow()])
