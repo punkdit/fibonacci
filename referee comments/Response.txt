@@ -1,0 +1,32 @@
+Referee A:
+
+1) As suggested by the referee, we have included supplementary material that significantly expands the discussion of the simulation algorithm, as well as providing a reference to a new manuscript that explains the theoretical underpinnings of our simulation.
+
+2) We clarify this claim to simply note that we do not see a particular reason why we should expect any fundamental distinctions between the Ising and Fibonacci anyons, and that our methods could equally well be used to investigate alternative noise models if desired.
+
+3) We agree that this statement was vague, and so we soften it to simply note that we do not expect our threshold estimates to be particularly biased by this effect, as well as clarifying the surrounding discussion.
+
+4) We clarify the language to make it clear that we only find evidence for a threshold, rather than prove its existence, and that it is the existence of the threshold which would imply the asymptotically perfect storage of quantum information.
+
+
+
+Referee B:
+
+We believe that the ability to simulate error-correction in universal anyon models is a key development in the study of topological quantum computation. While the previous analogous calculations for non-universal nonabelian anyon codes are superficially similar, the structure of the present simuulations is significantly different and even the possibility of performing such a simulation may have been previously regarded as intractable. We hope that the extended discussion of the simulation algorithm provided in the supplementary material will demonstrate the novel approach we have taken to this problem, as compared to our previous work.
+Since universal nonabelian anyons (and Fibonacci anyons in particular) are being pursued in many experimental architectures for the purpose of topological quantum computation, we believe that the ability to numerically benchmark topological error-correction protocols will have a significant impact on the field.
+
+- We have expanded the discussion of the measure of memory lifetime used, and how it compares to iid noise strength (in particular noting that when comparable, the discrepancy would be of the order of 10% of the value for the kinds of lifetimes we consider). We also clarify the abstract to make it clear that the quoted threshold is given in terms of average errors per edge.
+
+- We agree that in principle, given a sufficiently low physical error rate in a topological system, conventional quantum codes and error-correction techniques could be used to provide error-correction of a topological qubit. However, this would fail to exploit the inherent protection provided by the topological nature of the system. Most protocols for fault-tolerant quantum computation are motivated precisely by the lack of a need to perform standard fault-tolerant quantum circuity constructions since the topological features can be exploited to provide protection. We demonstrate how to simulate this.
+
+- We have noted that our analysis applies to both continuum and lattice systems with anyonic excitations, including several experimental systems such as fractional quantum Hall systems, lattice spin models, and composite heterostructures. Obviously, the experimental details of an implementation of our error-correction protocol would vary significantly from architecture to architecture, but our protocol only makes use of basic topological operations (such as joint charge measurements and charge transport) which are natural in any system where anyonic excitations arise. Since more precide descriptions of how to implement these operations would unecessarily require restricting to a single experimental setup, we intentionally leave this question for future work. Our noise model is similarly vague but flexible, again accounting for sources of noise that are expected from generic topological systems with a mass gap. Again, if an analysis for a specific experimental apparatus were desired, our methods could be tailored to such a setting. We note as an open question tailoring our simulation to "realistic" microscopic lattice models, for example.
+
+- While equations 1 and 2 may seem imprecise due to their graphical presentation, they are actually a precise representation of the corresponding topological processes. Due to space constraints, we have not been able to expand on this notation to the desired degree, but we have attempted to clarify this slightly, and provided a reference to a new manuscript where this presentation of topological operations is discussed in more detail. We have also attempted to explain the origin of the topological degeneracy as a flux through the non-trivial loop of the manifold.
+
+- We hope that the more extensive discussion of the error-correction protocol and simulation algorithm provided in the supplementary material clarifies the terse description in the main text.
+
+- We have clarified this remark.
+
+- ????? We agree that this was poorly phrased, and have removed this remark. Our intention was merely to note that our reasoning for expecting the simulations to be efficient was of course an asymptotic argument, and that in the finite systems we study, we are nevertheless able to simulate in situations which could fall outside these nice cases, up to the lattice sizes shown.
+
+- In response to another comment we have removed this argument. What we had meant was the error-correction protocol failing to return to the codespace.
