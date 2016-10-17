@@ -320,7 +320,7 @@ a Heisenberg picture.
 
 In the physics literature, modular functors are
 explicitly used in Refs.~\cite{Freedman2002, Freedman2002simulation}.
-Also, \cite{Beverland2014} and \cite{Kitaev2006topo}
+Also, Refs.~\cite{Beverland2014} and \cite{Kitaev2006topo}
 use the language of modular functors but they call them TQFT's.
 This is in fact reasonable because a modular functor can be
 seen as part of a TQFT, but is quite confusing to the
@@ -511,7 +511,7 @@ $$
     B_n = \pi_1 ( \UConf_n, x )
 $$
 where $x$ is some reference configuration in $\UConf_n.$
-See \cite{Ghrist2014} for further discussion.
+See Ref.~\cite{Ghrist2014} for further discussion.
 
 %The \emph{braid group} on $n$ strands is denoted $B_n.$
 %This group can also be described purely algebraically.
@@ -559,7 +559,7 @@ fixes each point in $Q_n.$
 Each generator $\sigma_i$ of the braid group is found in $MCG(M, Q_n)$
 as a \emph{half-twist} that swaps two points $i, i+1 \in Q_n$:
 \begin{center}
-\includegraphics[]{pic-halftwist.pdf}
+\includegraphics[width=1.0\columnwidth]{pic-halftwist.pdf}
 \end{center}
 In order to show
 the action of
@@ -575,7 +575,7 @@ not intersect $Q_n.$
 Such a closed curve is called an
 observable because these will be
 associated to measurements
-that measure the charge on the
+of the total anyonic charge on the
 interior of the curve.
 The importance of understanding the
 braid group as identical to the mapping class group
@@ -591,8 +591,8 @@ a Heisenberg picture.
 This diagram should give the reader some idea as
 to why these two definitions of the braid group are
 equivalent, but the actual proof of this is somewhat involved.
-We refer to \cite{Kassel2010} for an excellent contemporary
-reference that fills in these gaps.
+We cite Ref.~\cite{Kassel2010} for an excellent contemporary
+account that fills in these gaps.
 
 %We have given three different descriptions of the braid group, and
 %part of the depth of the subject comes from the fact that there are
@@ -782,6 +782,12 @@ class of $f$ under isotopy is called the \emph{isotopy class} of $f.$
 %\cggb{I didn't quite see why this more formal definition is
 %the same as equivalent up to continuous deformation. Why can
 %I restrict to maps where the base points are fixed along the whole path?}
+The weaker notion of \emph{homotopy} of maps will not be used
+here, but for the maps we use
+it turns out that homotopy is equivalent to isotopy.
+Furthermore, we can weaken the requirement that maps be differentiable,
+because every continuous map $f:M\to N$ is (continuously)
+isotopic to a differentiable map~\cite{Farb2011}.
 
 A \emph{modular functor} $\F$ associates to every
 surface $M$ a finite dimensional complex
@@ -1005,8 +1011,8 @@ Given a manifold $M$ which is
 a disc with two or more holes, 
 we show how to present $M$ as the gluing of various
 pair-of-pants. Such an arrangement will be termed a \emph{POP decomposition.}
-(We refer to \cite{Ivanov2001} for more details on this construction,
-and \cite{Ghrist2014} for a leisurely description of Morse theory.)
+(We refer to Ref.~\cite{Ivanov2001} for more details on this construction,
+and Ref.~\cite{Ghrist2014} for a leisurely description of Morse theory.)
 This will yield a decomposition of $\F(M)$ into a direct
 sum of fusion spaces of pair-of-pants. % $V_{ab}^c$'s.
 %The pair-of-pants can be found using Morse theory.
@@ -1051,7 +1057,7 @@ decomposition:
 One way to achieve this is via Cerf theory, which is the theory
 of how one may deform Morse functions into other Morse functions
 and the kind of transitions involved in their critical point structure.
-This was the approach used in \cite{Freedman2002simulation}.
+This was the approach used in Ref.~\cite{Freedman2002simulation}.
 In this work we use a simpler method,
 which is essentially the same as {skein theory.}
 %    \cggb{Is all this curve diagrams and refactoring theorem and and
@@ -1156,7 +1162,7 @@ and one $F$-move that relates these.
 On a standard surface with four interior holes there are five 
 standard POP decompositions and five $F$-moves that relate these.
 In this case the $F$-moves themselves satisfy an equation
-that is a trivial consequence of the way we have defined $F$-moves.
+that is an immediate consequence of the way we have defined $F$-moves.
 %enforced by the axioms of the modular functor.
 This is known as the pentagon equation, which we depict as
 the following commutative diagram:
@@ -1417,6 +1423,10 @@ algebraic description of the theory.
 Because we have defined everything in terms of
 a modular functor we get these equations ``for free''.
 
+% See also: Lantern relation \cite{Farb2011},
+% involving seven Dehn twists on the sphere with 4 holes.
+
+
 %
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %
@@ -1524,6 +1534,14 @@ head to tail) sequentially applying this procedure.
 %$$
 %    c : [0, 1] \to D_n.  
 %$$
+
+\begin{acknowledgments}
+
+The author wishes to thank 
+Andrew Doherty, Courtney Brell, Steven Flammia and Dominic Williamson
+for helpful discussions and inspiration.
+
+\end{acknowledgments}
 
 %
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
