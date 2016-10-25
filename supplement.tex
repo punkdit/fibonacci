@@ -140,13 +140,13 @@ After application of noise, the subsequent three steps (forming the error-correc
 
 It should be noted that while the noise, syndrome extraction, and recovery steps of this procedure are intended to really be a simulation of the physics of an anyon system, the decoding step is better thought of as an implementation of the classical processing that a successful error-correction experiment will require. Furthermore, the simulation of the noise and recovery steps will be rendered straightforward by the way we model our system in the first place. As such, the main novelty of our simulations is in the model itself, and the syndrome extraction step.
 
-The key to simulating these processes effectively is the ability to describe topological operations by \emph{curve diagrams}. This is an alternative representation of topological operations that is particularly suited to these kinds of numerical simulations of sparsely populated 2-dimensional anyon systems. The theoretical framework underpinning this description and the relation to to other representations of topological operations is discussed in Ref.~\cite{CurveDiagrams}.
+The key to simulating these processes effectively is the ability to describe topological operations by \emph{curve diagrams}. This is an alternative representation of topological operations that is particularly suited to these kinds of numerical simulations of sparsely populated 2-dimensional anyon systems. The theoretical framework underpinning this description and the relation to to other representations of topological operations is discussed in Ref.~\cite{Burton2016}.
 %We describe the theoretical framework underpinning this description and show that it is equivalent to more common representations in section \ref{secAbstract}.
 
 In this supplementary material, we first describe our physical model of an anyon system and the corresponding noise, before showing how to simulate joint charge measurements (the core of syndrome extraction) within this model. The use of curve-diagrams is presented in an intuitive but ad-hoc way. Finally we describe our decoder and detail holistically how the different parts of the simulation interact.
 
 
-\subsection{Physical model}
+\section{Physical model}
 
 We consider anyon systems defined on a torus.
 We endow this with a $L\times L$ square lattice of observables:
@@ -159,7 +159,7 @@ We call each $\gamma_{ij}$ a \emph{tile.}
 In figures we show a small gap between the tiles but this is not meant
 to reflect an actual physical gap.
 
-As noted above, the key to our model is to represent anyons and topological operations with curve diagrams. A curve diagram is a directed path that connects several anyons, which are denoted by preferred points along these paths. A curve diagram specifies a linear ordering of the anyons that allows us to define a basis for the corresponding fusion space, as well as to keep track of topological operations on this ordering. See Ref.~\cite{CurveDiagrams} for a more formal introduction to curve diagrams.
+As noted above, the key to our model is to represent anyons and topological operations with curve diagrams. A curve diagram is a directed path that connects several anyons, which are denoted by preferred points along these paths. A curve diagram specifies a linear ordering of the anyons that allows us to define a basis for the corresponding fusion space, as well as to keep track of topological operations on this ordering. See Ref.~\cite{Burton2016} for a more formal introduction to curve diagrams.
 
 %\cggb{Maybe here a picture of a generic curve with some anyons on it and a linear ordering of the anyons in a fusion diagram type picture.}
 
@@ -180,7 +180,7 @@ In simulating system undergoing noise for time $T$, we place a Poisson-distribut
 In order to allow us to later calculate fusion outcomes for sets of anyons, in addition to locations of created anyons we also assign each pair a (directed) piece of curve, denoted in green. This curve can be thought of as a choice of fusion basis for the anyons along it. Since the total charge of any newly-created particle-antiparticle pair is vacuum, each of their fusion spaces can be treated independently. This results in our being able to consider independent disconnected curves for each such pair. We only need consider the joint state in the fusion space of different sets of anyons if they have interacted, and so it is with curve diagrams. Using this picture, it is easy to track the effects of moving anyons, which essentially are represented by appropriate extensions or deformations of the curve along which the anyon lies. These kinds of straightforward processes are all that are required to describe the noise and recovery steps of our simulation.
 
 
-\subsection{Syndrome extraction}
+\section{Syndrome extraction}
 
 Syndrome extraction in this model corresponds to simulating measurements of the observables $\gamma_{ij}$, which represent the total charge contained within the corresponding tile.
 
@@ -367,9 +367,9 @@ This number will take one of the values $-2, -1, 0, 1, 2:$
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %
 
-\subsection{The paperclip algorithm}
+\section{The paperclip algorithm}
 
-In order to calculate the total charge of each tile, we must transport all anyons within the tile until they are neighbours along their curve. In doing so, it will be convenient to consider transporting these anyons by moving them along tile edges. This is equivalent to a ``refactoring'' of the fusion space, as described in Ref.~\ref{CurveDiagrams}. We can further break down transport along the tile edge into a sequence of transports between neighbouring pieces of curve at that edge.
+In order to calculate the total charge of each tile, we must transport all anyons within the tile until they are neighbours along their curve. In doing so, it will be convenient to consider transporting these anyons by moving them along tile edges. This is equivalent to a ``refactoring'' of the fusion space, as described in Ref.~\cite{Burton2016}. We can further break down transport along the tile edge into a sequence of transports between neighbouring pieces of curve at that edge.
 %In the description of the refactoring theorem
 %above we thought of $R$-moves as acting on the basis of
 %the system as in the Heisenberg picture.
@@ -444,7 +444,7 @@ Once all the anyons within a tile have been brought into a sequential piece of t
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %
 
-\subsection{Decoding and error-correction}
+\section{Decoding and error-correction}
 
 After the noise process is applied to the system,
 the error correction routine attempts to annihilate all the anyons on the lattice in a way that does not affect the encoded information. It proceeds as a dialogue between the
