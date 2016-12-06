@@ -1,0 +1,55 @@
+We believe that, given the comments of the three referees, this manuscript may now be appropriate for publication in PR. We have previously addressed the substantive concerns of Referees A and B, and we believe that our current submission has addressed the main concerns of Referee C. Relevant comments from the referees:
+
+Referee A
+"The article is very well written and solves a substantial open problem"
+"After [revision], the article will be an excellent contribution"
+
+Referee B
+"I suggest that the paper is submitted to PRA"
+
+Referee C
+"The topic is important both for quantum information science and condensed matter physics"
+"I highly suggest the authors to submit the manuscript to PRX"
+
+
+Response to Referee C:
+
+We thank the referee for their thoughtful comments. We hope that our response clarifies the applicability and scope of our work. Our responses to each comment follow:
+
+(1) It is unclear that the estimated logical error probability
+reflects the true logical error probability appropriately. Suppose two
+pair creations occur simultaneously nearby, two anyons are braided
+with each other, and then syndrome is measured after that. If pair
+annihilations are done by the decoder, the original information seems
+to be restored according to the authors analysis. But it does not
+return to the original one because of the braiding of two anyons. From
+what reason, the authors can neglect the braiding process of anyons,
+which occurs with a high probability around the threshold? How can the
+authors fairly validate their simulation neglecting the braiding
+dynamics of the anyons?
+
+Response: In fact, treating the effects that the referee describes was the main challenge of our work. In the model that we used in this paper, the logical state was encoded in the non-trivial topology of the manifold. This meant that only braids that form homologically non-trivial loops will affect the encoded information. In any case, we have simulated completely all the outcomes of braids between anyons (including any effect on the logical state), which was our main technical achievement, and so we have been careful not to neglect any important effects that they may have on the error-correction process.
+
+(2) Do the authors assume that quantum computation is done by anyonic
+excitations? If so, we have to consider the dynamics between the
+anyons which are employed for quantum computation and undesired
+excitations. In the case of the topological codes consisting of qubits
+or qudits, we can enlarge the topological defects (and hence the code
+distance). However this is not the case for the "physical" anyons
+encoding the logical quantum information. If a pair creation occur
+nearby it and the excitation is braided around the anyon encoding the
+logical quantum information, the logical information would be
+destroyed. This seems to worsen the threshold.
+
+Response: Our results apply equally well to a code where the information is stored in the topology of the manifold as to a code where the information is stored in the fusion outcomes of several non-abelian anyons, as would be the case in an anyonic quantum computer. We explicitly treated both cases in our previous work for non-universal non-abelian anyons (Phys. Rev. X 4, 031058). If the information were stored in fusion outcomes of multiple anyons, one might be concerned about braid processes where "noise" anyons braid around the "code" anyons. However, in comparison to topological defects like punctures, such a braid is not a logical error. Since the logical degree of freedom is the joint fusion channel of a pair of anyons, only braid processes that go around the entire pair will contribute to a logical error. A braid that goes around a single code anyon may interact with the charge of that anyon, but it will not interact with the logical state. This is the principal strength of topological fault tolerance for anyonic computation. In our error-correction procedure, we fuse each code anyon with any charges that lie near it, and this reverses any effects of small braids around that code anyons. The fact that one need not enlarge the size of an anyon to increase the distance of the code (as would be the case with punctures) can actually be an advantage in some circumstances by reducing the overhead.
+
+(3) While the introduction of the non-Abelian anyon system is quite
+pedagogical and is well mathematically organized, the main
+contribution of the manuscript, that is, the proposed efficient
+algorithm to sample the non-Abelian anyons on the lattice is described
+unclearly. The authors should write down the procedure more explicitly
+by using equations and mathematics. The lack of the concrete
+description unfortunately make it hard to justify the novelty of the
+proposal.
+
+Response: We have attempted to address this concern by merging the supplementary material, where the main discussion of our algorithm takes place, with the main text.
