@@ -264,7 +264,7 @@ We can use these observables to construct an idealized Hamiltonian for this syst
 with $\proj{\vac}_t$ the projector to charge $\vac$ at tile $t$, i.e.~the ground 
 space of the model has vacuum total charge in each tile.
 Given the toroidal boundary 
-conditions, this space contains the two-fold degenerate codespace.
+conditions, this space is the two-fold degenerate codespace.
 
 Typical thermal noise processes in this kind of system are 
 pair-creation, hopping, exchange etc.~of anyons. Such a model was analyzed in detail for Ising anyons in Ref.~\cite{Brell2013}.
@@ -395,7 +395,7 @@ procedure for a simple noise process is shown in \Fref{f:syndrome}.
 This procedure is discussed in more detail in Section \ref{s:technical}, and the theoretical framework underlying it is expanded in Ref.~\cite{Burton2016}.
 Braiding processes that encircle 
 a non-trivial loop of our (toric) manifold can also be 
-treated in an analogous way, following e.g.~\cite{Pfeifer2012}.
+treated in an analogous way, following e.g.~Ref.~\cite{Pfeifer2012}.
 
 \begin{figure}[t!]
 \begin{center}
@@ -422,7 +422,7 @@ a recovery operation that involves fusion of subsets of anyons.
 These fusions can be simulated and their results calculated in the same way, 
 and the output charge placed at an appropriate point in the lattice. 
 This procedure is iterated until either the decoder terminates successfully, 
-or the simulation itself declares failure.
+or the simulation itself declares failure because the components become too large to analyze (roughly when they span the lattice).
 
 
 %------------------------------------------------------------------------------------------------------------%
@@ -528,7 +528,6 @@ $$
     \Lambda := \bigl\{ \gamma_{ij} \bigr\}_{i,j=1,...,L}
 $$
 These observables are the physically accessible charge observables that will be measured during syndrome extraction, before being passed to the decoder which will in turn determine physical recovery operations to be performed on the system.
-
 We call each $\gamma_{ij}$ a \emph{tile.}
 In figures we show a small gap between the tiles but this is not meant
 to reflect an actual physical gap.
@@ -555,7 +554,6 @@ In order to allow us to later calculate fusion outcomes for sets of anyons, in a
 \subsection{Syndrome extraction}
 
 Syndrome extraction in this model corresponds to simulating measurements of the observables $\gamma_{ij}$, which represent the total charge contained within the corresponding tile.
-
 In order to compute measurement outcomes for the $\gamma_{ij}$
 we first need to concatenate any two curve diagrams that 
 participate in the same $\gamma_{ij}.$
@@ -606,8 +604,8 @@ The words for the above two tiles will then be
 $\bigl<\bigl<\bigr>\bigr>\bigl<\bigr>$ and $\bigl<\bigr>*\bigl<\bigl<\bigr>\bigr>.$
 When the brackets are balanced,
 each such word will correspond one-to-one with an intersection
-of a curve in a tile, up to a continuous deformation of the interior of the tile.
-Ie. the data structure 
+of a curve in a tile, up to a continuous deformation of the interior of the tile,
+i.e.~the data structure 
 will be insensitive to any continuous deformation of the interior of the tile,
 but the simulation does not need to track any of these degrees of freedom.
 
