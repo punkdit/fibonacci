@@ -90,12 +90,16 @@ and we try to distill this down into something more manageable.
 \newcommand{\e}{\mathrm{e}}
 \newcommand{\vac}{\mathbb{I}}
 
+% CUT HERE
 \newcommand{\ket}[1]{|{#1}\rangle}
 \newcommand{\expect}[1]{\langle{#1}\rangle}
 \newcommand{\bra}[1]{\langle{#1}|}
 \newcommand{\ketbra}[2]{\ket{#1}\!\bra{#2}}
 \newcommand{\braket}[2]{\langle{#1}|{#2}\rangle}
 \newcommand{\proj}[1]{\ketbra{#1}{#1}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+% CUT HERE
 
 \newcommand{\cggb}[1]{\textcolor{blue}{#1}}
 \newcommand{\simon}[1]{\textcolor{red}{#1}}
@@ -103,8 +107,6 @@ and we try to distill this down into something more manageable.
 
 
 \newcommand{\F}{\mathscr{H}} % H or F ?
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\R}{\mathbb{R}}
 \newcommand{\A}{\mathcal{A}}
 \newcommand{\Hom}{{\mathrm{Hom}}}
 
@@ -314,13 +316,16 @@ A further physical motivation is this: if a skein
 is supposed to correspond to the $(2+1)$-dimensional
 world-lines of particles
 as in the Schr\"{o}dinger picture,
-modular functors would
-correspond to the algebra of observables, as in
+the axioms for modular functors 
+incorporate the algebra of observables, as in
 a Heisenberg picture.
+%modular functors would
+%correspond to the algebra of observables, as in
+%a Heisenberg picture.
 
 In the physics literature, modular functors are
 explicitly used in Refs.~\cite{Freedman2002, Freedman2002simulation}.
-Also, Refs.~\cite{Beverland2014} and \cite{Kitaev2006topo}
+Also, Refs.~\cite{Beverland2016} and \cite{Kitaev2006topo}
 use the language of modular functors but they call them TQFT's.
 This is in fact reasonable because a modular functor can be
 seen as part of a TQFT, but is quite confusing to the
@@ -350,7 +355,7 @@ In the mathematical works \cite{Turaev1994, Bakalov2001, Tillmann1998}
 we see that anyons are allowed to have superpositions
 of charge states. 
 However, in this work we restrict anyons to have
-definite charge states, as in \cite{Walker1991,Freedman2002simulation,Beverland2014}. 
+definite charge states, as in \cite{Walker1991,Freedman2002simulation,Beverland2016}. 
 This seems to be motivated physically as such configurations
 would be more stable. % \simon{citation?}.
 
@@ -713,7 +718,7 @@ We list the axioms for a
 %%For the details of this construction, see
 %see
 %\cite{Turaev1994}, \cite{Walker1991} or \cite{Bakalov2001}.
-%For a more pedestrian treatment, see \cite{Freedman2002simulation} or \cite{Beverland2014}.
+%For a more pedestrian treatment, see \cite{Freedman2002simulation} or \cite{Beverland2016}.
 
 For our purposes a \emph{surface} will be a compact
 oriented $2$-dimensional differentiable manifold with boundary. % smooth or topological ?
@@ -1535,10 +1540,12 @@ head to tail) sequentially applying this procedure.
 %    c : [0, 1] \to D_n.  
 %$$
 
+% CUT HERE
 \begin{acknowledgments}
 
 The author wishes to thank 
-Andrew Doherty, Courtney Brell, Steven Flammia and Dominic Williamson
+Andrew Doherty, Courtney Brell, Steven Flammia, Dominic Williamson and
+Bruce Bartlett 
 for helpful discussions and inspiration.
 
 \end{acknowledgments}
